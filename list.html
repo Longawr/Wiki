@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danh sách — EBF5 Wiki</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">⚔️ EBF5 Wiki</a>
+    <nav class="main-nav" id="mainNav"></nav>
+  </header>
+
+  <main>
+    <nav class="breadcrumb" id="breadcrumb"></nav>
+    <section class="page-head">
+      <h1 id="listTitle">Danh sách</h1>
+      <p id="listDesc" class="muted"></p>
+    </section>
+
+    <section class="filters">
+      <input id="filterSearch" type="search" placeholder="Tìm theo tên, mô tả, mẹo, hiệu quả, quái trong ô..." />
+      <select id="filterElement">
+        <option value="">Tất cả nguyên tố</option>
+      </select>
+      <select id="filterKind">
+        <option value="">Tất cả loại</option>
+      </select>
+      <button id="filterReset" class="btn">Xóa lọc</button>
+    </section>
+
+    <section id="listResult" class="card-grid"></section>
+    <p id="listEmpty" class="empty hidden">Không tìm thấy mục nào khớp bộ lọc. 🍃</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      EBF5 Wiki (demo) — dự án phi thương lợi, không liên kết với Matt Roszak / Kupo Games.
+    </p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', () => EBF5App.renderList());</script>
+</body>
+</html>

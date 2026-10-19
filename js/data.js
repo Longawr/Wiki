@@ -1,0 +1,1367 @@
+/* ============================================================================
+   EBF5 Wiki — DỮ LIỆU
+   Dữ liệu soạn theo Epic Battle Fantasy Wiki chính thức
+   (epicbattlefantasy.fandom.com). Ảnh render nhân vật tải từ wiki, để ở img/
+   (bản quyền thuộc Matt Roszak / Kupo Games).
+
+   Bạn có thể thêm / sửa / xóa mục trực tiếp trong file này rồi lưu lại:
+   trang web tự cập nhật, không cần build thêm.
+
+   Trường dữ liệu dùng chung:
+   - id        : định danh, dùng trong URL (viết liền, không dấu)
+   - name      : tên hiển thị
+   - kind      : "loại", dùng cho bộ lọc trang danh sách
+   - elements  : mảng id nguyên tố (xem mục elements)
+   - image     : (tuỳ chọn) đường dẫn ảnh minh hoạ
+   - desc      : mô tả ngắn
+   ============================================================================ */
+
+window.EBF5DATA = {
+
+  /* Cấu hình các chủ đề. kinds = giá trị của bộ lọc "loại". */
+  categories: [
+    { key: 'characters', title: 'Nhân vật',   icon: '🧙', desc: '5 anh hùng điều khiển được trong EBF5.',         kinds: [ 'Sát thương vật lý', 'Phép thuật', 'Hỏa lực', 'Hỗn hợp', 'Hỗ trợ' ] },
+    { key: 'enemies',    title: 'Kẻ địch',    icon: '👾', desc: 'Quái thường và boss, điểm yếu và cách đối phó.', kinds: [ 'Quái thường', 'Boss' ] },
+    { key: 'skills',     title: 'Kỹ năng',    icon: '⚔️', desc: 'Kỹ năng và Limit Break đáng chú ý của nhân vật.', kinds: [ 'Tấn công', 'Phòng thủ', 'Hỗ trợ', 'Limit Break' ] },
+    { key: 'items',      title: 'Vật phẩm',   icon: '🧪', desc: 'Đồ tiêu hao dùng trong chiến đấu.',             kinds: [ 'Hồi phục', 'Tiêu hao', 'Steroid' ] },
+    { key: 'equipment',  title: 'Trang bị',   icon: '🗡️', desc: 'Vũ khí, mũ giáp và phụ kiện (Flair).',          kinds: [ 'Vũ khí', 'Mũ giáp', 'Phụ kiện' ] },
+    { key: 'statuses',   title: 'Trạng thái', icon: '🌀', desc: 'Các hiệu ứng bất lợi / hỗ trợ trong chiến đấu.', kinds: [ 'Bất lợi', 'Trung tính', 'Hỗ trợ' ] },
+    { key: 'areas',      title: 'Khu vực',    icon: '🗺️', desc: '12 khu vực chính và 6 khu vực trả phí trên bản đồ EBF5 — kèm quái và Key Items theo từng ô lưới.', kinds: [ 'Khu vực chính', 'Khu vực trả phí' ] },
+    { key: 'summons',    title: 'Triệu hồi',  icon: '💎', desc: '40 summon nổi bật qua hệ thống Capture, theo số SP và nguồn mở khoá.', kinds: [ 'Tấn công', 'Hỗ trợ' ] },
+    { key: 'limits',     title: 'Limit Break', icon: '💥', desc: '20 Limit Break riêng và dùng chung của EBF5.', kinds: [ 'Limit riêng', 'Limit dùng chung' ] }
+  ],
+
+  /* Bảng nguyên tố — EBF5 dùng 10 nguyên tố (có thêm Bom). */
+  elements: [
+    { id: 'physical', name: 'Vật lý', color: '#b6c2ef', icon: '⚔️' },
+    { id: 'fire',     name: 'Lửa',    color: '#ff6b57', icon: '🔥' },
+    { id: 'ice',      name: 'Băng',   color: '#5fc4ff', icon: '❄️' },
+    { id: 'thunder',  name: 'Sấm',    color: '#ffd23f', icon: '⚡' },
+    { id: 'earth',    name: 'Đất',    color: '#c98a4b', icon: '🪨' },
+    { id: 'bomb',     name: 'Bom',    color: '#ff9f43', icon: '💣' },
+    { id: 'bio',      name: 'Độc',    color: '#8ce05f', icon: '☣️' },
+    { id: 'water',    name: 'Nước',   color: '#4f9dff', icon: '💧' },
+    { id: 'wind',     name: 'Gió',    color: '#8ff0d8', icon: '🌪️' },
+    { id: 'holy',     name: 'Thánh',  color: '#ffe9a8', icon: '✨' },
+    { id: 'dark',     name: 'Bóng',   color: '#b47cff', icon: '🌑' }
+  ],
+
+  /* ------------------------------------ Trạng thái -------------------------- */
+  statuses: [
+    { id: 'burn',          name: 'Đốt',           kind: 'Bất lợi',   elements: ['fire'],     image: 'img/status/burn.png',          desc: 'Nhận sát thương Lửa vào cuối lượt (EBF5 dồn được tầng). Gỡ bằng đòn Nước / Bang hoặc khi bị gây Ướt, Lạnh.' },
+    { id: 'wet',           name: 'Ướt',           kind: 'Trung tính', elements: ['water'],    image: 'img/status/wet.png',           desc: 'Tăng 50% sát thương Sấm & Bang nhận vào, giảm 50% Lửa; dễ thành Đóng băng gấp đôi — combo chuẩn trước khi gây Đóng băng.' },
+    { id: 'chill',         name: 'Lạnh',          kind: 'Trung tính', elements: ['ice'],      image: 'img/status/chill.png',         desc: 'Tăng 50% sát thương Bang & Nước nhận vào, giảm 50% Độc; xác suất Đóng băng gấp đôi và Ướt trúng sẽ biến thành Đóng băng.' },
+    { id: 'freeze',        name: 'Đóng băng',     kind: 'Bất lợi',   elements: ['ice'],      image: 'img/status/freeze.png',        desc: 'Không hành động được; đòn trúng kế tiếp (trừ Lửa) làm tan băng kèm tăng sát thương nhận vào.' },
+    { id: 'stun',          name: 'Choáng',        kind: 'Bất lợi',   elements: ['thunder'],  image: 'img/status/stun.png',          desc: 'Bỏ lượt hành động cho đến khi bị đánh thức.' },
+    { id: 'poison',        name: 'Nhiễm độc',     kind: 'Bất lợi',   elements: ['bio'],      image: 'img/status/poison.png',        desc: 'Trừ HP theo lượt, dồn tầng tăng số mất; một số trang bị tự gây độc cho người dùng.' },
+    { id: 'virus',         name: 'Virus',         kind: 'Bất lợi',   elements: ['bio'],      image: 'img/status/virus.png',         desc: 'Độc bản 2.0: mất HP gấp Nhiễm độc mỗi lượt, kèm khả năng lan sang cả đồng đội lẫn kẻ địch; không tự lành và sẽ hồi lan trở lại.' },
+    { id: 'weaken',        name: 'Yếu đi',        kind: 'Bất lợi',   elements: ['holy'],     image: 'img/status/weaken.png',        desc: 'Trừ 10% Attack & Magic Attack mỗi lượt (EBF5: 15%), tăng 50% sát thương Bóng nhận vào; do các phép Thánh gây ra.' },
+    { id: 'curse',         name: 'Nguyền',        kind: 'Bất lợi',   elements: ['dark'],     image: 'img/status/curse.png',         desc: 'Trừ 10–15% phòng thủ mỗi lượt, tăng 50% sát thương Thánh nhận vào (mỗi đòn Thánh tiêu một lượt Nguyền).' },
+    { id: 'bad-luck',      name: 'Vận xui',       kind: 'Bất lợi',   elements: ['dark'],     image: 'img/status/bad-luck.png',      desc: 'Trừ 20% toàn bộ tỉ lệ của mục tiêu (chính xác, chí mạng, gây trạng thái), đối thủ được tăng tương ứng; Doom trúng lúc này sẽ thành Instant Death.' },
+    { id: 'stagger',       name: 'Chững',         kind: 'Bất lợi',   elements: ['physical'], image: 'img/status/stagger.png',       desc: 'Không thể Guard; đòn trúng tiếp theo nhất định thành chí mạng.' },
+    { id: 'tired',         name: 'Mỏi',           kind: 'Bất lợi',   elements: ['earth'],    image: 'img/status/tired.png',         desc: 'Trừ 10% Chính xác & Né mỗi lượt (EBF5: 15%), và chịu Độc mạnh hơn 50%; một số trang bị tự treo trạng thái này lên người dùng.' },
+    { id: 'doom',          name: 'Doom',          kind: 'Bất lợi',   elements: ['dark'],     image: 'img/status/doom.png',          desc: 'Đếm ngược: hết giờ là Instant Death — hoặc là sát thương phi nguyên tố nếu Death bị kháng. Trong lúc đếm vẫn chặn được bằng Bless / Auto-Revive.' },
+    { id: 'scorch',        name: 'Xém',           kind: 'Bất lợi',   elements: ['fire'],     image: 'img/status/scorch.png',        desc: 'Đốt bản nặng: sát thương gấp đôi kèm trừ 10% Max HP mỗi lượt. Chính món Chili Pepper gây trạng thái này cho người dùng.' },
+    { id: 'instant-death', name: 'Instant Death', kind: 'Bất lợi',   elements: ['dark'],     image: 'img/status/instant-death.png', desc: 'Ngã tức thời bất kể còn bao nhiêu HP; nếu mục tiêu có Vận may, nó sẽ giảm cấp thành Chững.' },
+    { id: 'dispel',        name: 'Tẩy buff',      kind: 'Bất lợi',   elements: ['dark'],     image: 'img/status/dispel.png',        desc: 'Xóa hết buff và trạng thái tích cực của mục tiêu; muốn có lại thì đành buff lại từ đầu.' },
+    { id: 'radiation',     name: 'Radiation',     kind: 'Bất lợi',   elements: ['bomb'],     desc: 'Thời tiết phóng xạ do đòn Nuke tạo ra, ảnh hưởng toàn sân không phân biệt phe.' },
+    { id: 'syphon',        name: 'Syphon',        kind: 'Trung tính', elements: [],           image: 'img/status/syphon.png',        desc: 'Chặn mọi kỹ năng trừ Đánh thường (Limit Break và phép tự kích hoạt vẫn chạy). Quái bị Syphon sẽ chuyển sang pattern đánh thường.' },
+    { id: 'berserk',       name: 'Berserk',       kind: 'Trung tính', elements: ['fire'],     image: 'img/status/berserk.png',       desc: 'Mất điều khiển: tự đánh thường ngẫu nhiên; bên nào dính cũng nhận tăng sát thương. Có thể tắt bằng đòn Nước / Bang.' },
+    { id: 'light',         name: 'Nhẹ',           kind: 'Trung tính', elements: ['wind'],     image: 'img/status/light.png',         desc: 'Như không trọng lực: tăng 50% sát thương Gió nhận vào, giảm 50% Đất; do phép Gió và thời tiết Low Gravity gây ra.' },
+    { id: 'bless',         name: 'Ban phước',     kind: 'Hỗ trợ',    elements: ['holy'],     image: 'img/status/bless.png',         desc: 'Chặn trạng thái xấu từ đòn địch: mỗi lớp cản 1 lần; Doom/Instant Death tốn 2 lớp, Dispel tốn 3. Không gỡ được trạng thái đã dính trước đó.' },
+    { id: 'auto-revive',   name: 'Auto-Revive',   kind: 'Hỗ trợ',    elements: ['holy'],     image: 'img/status/auto-revive.png',   desc: 'Khi gục xuống, mục tiêu tự hồi sinh ngay với một phần HP (tên cũ: Autolife từ EBF2).' },
+    { id: 'brave',         name: 'Brave',         kind: 'Hỗ trợ',    elements: ['holy'],     image: 'img/status/brave.png',         desc: 'Tăng lớn cơ hội chí mạng (base% × 2 + 20) và miễn nhiễm trúng chí mạng; Attack / Magic Attack không thể bị trừ trực tiếp (v2).' },
+    { id: 'regen',         name: 'Regen',         kind: 'Hỗ trợ',    elements: ['holy'],     image: 'img/status/regen.png',         desc: 'Hồi một phần HP đều đặn mỗi lượt; số mất của Nhiễm độc có thể triệt tiêu phần hồi này.' },
+    { id: 'good-luck',     name: 'Vận may',       kind: 'Hỗ trợ',    elements: ['holy'],     image: 'img/status/good-luck.png',     desc: 'Tăng 25% mọi tỉ lệ của bản thân (chính xác, chí mạng, gây trạng thái) và giảm 30% chí mạng bị ăn; Instant Death trúng sẽ giảm cấp thành Chững.' }
+  ],
+
+  /* ------------------------------------ Nhân vật ----------------------------
+     Soạn theo trang wiki chính thức của từng nhân vật. */
+  characters: [
+    {
+      id: 'matt', name: 'Matt', icon: '🗡️', image: 'img/matt.png',
+      kind: 'Sát thương vật lý',
+      elements: ['earth', 'holy', 'fire', 'bio', 'ice', 'water'],
+      desc: 'Nhân vật chính của cả series, một đao thủ có cơ bắp hơn đầu óc. Trong EBF5, Matt sống ở Hope Harbor; bố mẹ anh là thủy thủ, để lại anh từ nhỏ nên gần như mọi thứ anh tự học. Anh cũng hay là người đầu tiên "nhận ra người chơi" và đóng vai "giáo viên" vui vẻ dạy cả nhóm cách chơi.',
+      strengths: [
+        'HP, Attack và Defence cao nhất trong 5 nhân vật',
+        'Nhiều kỹ năng vật lý đơn mục tiêu mạnh',
+        'Độc quyền Temper và Steal Item trong EBF5 — buffer vật lý và "trộm cắp" hạng nhất'
+      ],
+      weaknesses: [
+        'Magic Attack / Magic Defence tệ nhất nhóm',
+        'Gần như thiếu hẳn đòn đa mục tiêu: phải nhờ Slicing Cyclone hoặc các kỹ năng dùng chung'
+      ],
+      skills: [
+        { name: 'Temper',          kind: 'Hỗ trợ',      element: 'physical', desc: 'Độc quyền trong EBF5: cộng dồn Attack cho chính mình.' },
+        { name: 'Steal Item',      kind: 'Hỗ trợ',      element: null,       desc: 'Trộm vật phẩm từ kẻ địch; với bộ Hobo Clothes + Fake Mustache + Ultra Pro 9000X, một lần dùng lấy được tới 4 món.' },
+        { name: 'Slicing Cyclone', kind: 'Tấn công',    element: null,       desc: 'Đòn đa mục tiêu theo nguyên tố vũ khí của Matt trong EBF5.' },
+        { name: 'Nettle',          kind: 'Tấn công',    element: 'bio',      desc: 'Đòn gây độc, có bản nâng cấp Bio mạnh hơn.' },
+        { name: 'Cleaver',         kind: 'Limit Break', element: 'physical', desc: 'Chuỗi chém sát thương lớn, tỉ lệ chí mạng cao.' },
+        { name: 'Ragnarok',        kind: 'Limit Break', element: 'physical', desc: 'Gọi mưa vũ khí xuống địch rồi kết thúc bằng bản khổng lồ của thanh gươm Heaven Gate.' }
+      ],
+      tips: [
+        'Trang bị mặc định tiêu biểu của Matt trong EBF5: mũ Captain Hat + áo Hobo Clothes, vũ khí Ultra Pro 9000X hoặc Heaven Gate.',
+        'Dùng Temper vài lượt trước khi tung đòn chính để tối đa sát thương.',
+        'Matt là "vua trộm": gom đủ Hobo Clothes, Fake Mustache và Ultra Pro 9000X để Steal Item lấy 4 món một lượt.',
+        'Điểm yếu nguyên tố của Matt là Sấm, Gió, Bóng — nên nhường các phép này cho đồng đội.'
+      ]
+    },
+    {
+      id: 'natalie', name: 'Natalie', icon: '🔮', image: 'img/natalie.png',
+      kind: 'Phép thuật',
+      elements: ['fire', 'thunder', 'ice', 'holy', 'dark', 'bio'],
+      desc: 'Pháp sư "bộ não" của nhóm, nickname Natz. Ngoài vẻ ngoài dễ thương, Natalie là sinh viên xuất sắc của một trường đại học danh tiếng và rời trường vì một "sự cố fanfiction" dở khóc dở cười. Trong EBF5, cô xuất hiện đầu tiên như một boss ở Hope Harbor trước khi tham gia hội nhóm.',
+      strengths: [
+        'Magic Attack, MP và Magic Defence cao nhất nhóm',
+        'Máu trắng chủ lực: Heal, Heal More, Regen, Revive, Purify và Barrier',
+        'Trong EBF5 có thể phủ gần như mọi nguyên tố nhờ các kỹ năng dùng chung'
+      ],
+      weaknesses: [
+        'HP, Attack và Defence khủng khiếp',
+        'Khả năng gây trạng thái xấu tệ nhất nhóm: Spectrum đơn mục tiêu, Rainbow Blast chỉ nửa tỉ lệ.'
+      ],
+      skills: [
+        { name: 'Lucky Star',           kind: 'Tấn công',    element: null,   desc: 'Sát thương phi nguyên tố dao động; phần nâng cấp có Star Shower phủ diện.' },
+        { name: 'Fire / Thunder / Ice', kind: 'Tấn công',    element: null,   desc: 'Ba nhánh phép chủ đạo của Natalie, mỗi nhánh có bản đơn mục tiêu mạnh và bản phủ diện.' },
+        { name: 'Toxic',                kind: 'Tấn công',    element: 'bio',  desc: 'Phép Độc điển hình kèm gây Nhiễm độc.' },
+        { name: 'Judgement',            kind: 'Tấn công',    element: 'holy', desc: 'Phép Thánh nặng thương một mục tiêu — đòn kết liễu kinh điển.' },
+        { name: 'Heal More',            kind: 'Hỗ trợ',      element: 'holy', desc: 'Hồi phục lớn cho cả đội.' },
+        { name: '7th Heaven',           kind: 'Limit Break', element: 'holy', desc: 'Pose gợi cảm là ảo ảnh ma thuật: hồi máu cả đội kèm loạt buff trạng thái (tên cũ là Kyun).' },
+        { name: 'Genesis',              kind: 'Limit Break', element: 'holy', desc: 'Tia thánh khổng lồ đánh toàn địch và hồi sinh đồng đội gục / gán Auto-Revive.' },
+        { name: 'Black Hole',           kind: 'Limit Break', element: 'dark', desc: 'Limit Break dùng chung nguy hiểm: dập cả sân, có thể "xử lý" cả địch lẫn người dùng.' }
+      ],
+      tips: [
+        'Combo trang bị "chính thức" của Natalie: Red Dress + Red Ribbon + trượng Dark Tooth hoặc Crystal Staff.',
+        'Trong EBF5, Natalie độc quyền có nhánh Syphon, Star Power và Cleanse.',
+        'Magic Attack của Lance vẫn cao hơn, nhưng Natalie đa dạng nguyên tố và hỗ trợ tốt hơn.',
+        'Cô rất sợ côn trùng — đừng dùng Spider Swarm trước mặt cô.'
+      ]
+    },
+    {
+      id: 'lance', name: 'Lance', icon: '🔫', image: 'img/lance.png',
+      kind: 'Hỏa lực',
+      elements: ['fire', 'thunder', 'dark', 'bomb', 'physical'],
+      desc: 'Gunner say mê vũ khí hiện đại. Trong EBF2, Lance là boss cuối / phản diện, từ EBF3 gia nhập hội nhóm. Trong EBF5 anh là thủ lĩnh Iron Fortress: phát hiện sớm Cosmic Monoliths nhưng bị cả thế giới cười chê, nên quyết "tự cứu thế giới" bằng quân đội — đến mức bắt cóc Natalie và một số cô gái khác.',
+      strengths: [
+        'Pháo phép nặng nề nhất nhóm, nhiều đòn diện rộng',
+        'Ba đòn chủ đạo đều hạ stat địch: Plasma Field, Bullet Hell và Antimatter Flux',
+        'Nguồn sát thương Bom hàng đầu của hội nhóm'
+      ],
+      weaknesses: [
+        'Đa số đòn lớn có cooldown dài: M.O.A.B cần tới 10 lượt hồi',
+        'Hồi máu và buff khá yếu: chủ đạo chỉ có Health Strike'
+      ],
+      skills: [
+        { name: 'Plasma Field',    kind: 'Tấn công',    element: null,       desc: 'Đòn chủ đạo kèm hạ một chỉ số ở mục tiêu.' },
+        { name: 'Bullet Hell',     kind: 'Tấn công',    element: null,       desc: 'Đòn chủ đạo kèm hạ stat — ăn khớp để thay đổi nguồn stat trên địch.' },
+        { name: 'Antimatter Flux', kind: 'Tấn công',    element: null,       desc: 'Đòn chủ đạo thứ ba của Lance trong EBF5, kèm hạ stat.' },
+        { name: 'Hyper Beam',      kind: 'Tấn công',    element: null,       desc: 'Đánh toàn địch cực mạnh nhưng cần 1 lượt Charge trước; không có cooldown riêng.' },
+        { name: 'M.O.A.B',         kind: 'Tấn công',    element: 'bomb',     desc: 'Vũ khí bí mật của Lance, cooldown lên tới 10 lượt.' },
+        { name: 'Health Strike',   kind: 'Hỗ trợ',      element: null,       desc: 'Kỹ năng hồi phục và trị trạng thái tự nhiên duy nhất của Lance.' },
+        { name: 'Oblivion',        kind: 'Limit Break', element: 'bomb',     desc: 'Limit Break: lao xuống trên Valkyrie Tank, xả đạn rồi cho nổ cả cỗ xe — mượn ý từ Road Roller của Dio. Sát thương Vật lý + Bom.' },
+        { name: 'Nuke',            kind: 'Limit Break', element: 'fire',     desc: 'Limit Break: thả bom hạt nhân cho toàn địch — sát thương Lửa cực mạnh kèm thời tiết Radiation trong EBF5.' },
+        { name: 'Ion Cannon',      kind: 'Limit Break', element: 'thunder',  desc: 'Laser từ vệ tinh đánh toàn địch — giờ là kỹ năng dùng chung, Lance luôn học được.' }
+      ],
+      tips: [
+        'Trang bị mặc định tiêu biểu trong EBF5: Officer Hat + Officer Coat + súng Shadow Blaster.',
+        'Flair Nano Machines giúp nén cooldown của các đòn lớn xuống mức dễ chịu hơn.',
+        'Trang bị tăng khắc trạng thái trong khi Guard để lấp lượt cooldown bằng buff.',
+        'Bộ Flame Suit + Captain Hat + Spine Snapper cho Lance build Instant Death các tiêu đề "spam" trên quái thường.'
+      ]
+    },
+    {
+      id: 'anna', name: 'Anna', icon: '🏹', image: 'img/anna.png',
+      kind: 'Hỗn hợp',
+      elements: ['bio', 'earth', 'ice', 'thunder', 'wind', 'water'],
+      desc: 'Thợ săn hàng đầu Greenwood Village, chán ngán khi thấy Lance và quân đội anh tàn phá rừng quê nhà. Trong EBF5, Anna tuần tra No Man Land để đánh quân của Lance trước khi tham gia hội nhóm.',
+      strengths: [
+        'Accuracy và Evade tốt: ra tay ổn định và khó trúng đòn',
+        'Chuyên gia gây trạng thái bằng mũi tên, gần như chắc chắn thành công',
+        'Máu trắng phụ: có kỹ năng hồi phục tự nhiên (kèm Bless) và có thể học Revive dùng chung'
+      ],
+      weaknesses: [
+        'Bộ gốc thiếu hẳn đòn Lửa và Bóng',
+        'Đòn phủ diện không chuẩn: mỗi loạt mũi tên rơi ngẫu nhiên, dàn quái kháng hỗn hợp khiến Arrow Rain kém ổn định'
+      ],
+      skills: [
+        { name: 'Arrow Rain',          kind: 'Tấn công',    element: null,    desc: 'Mưa tên phủ toàn khán đài theo hiệu ứng trên mũi tên của cung đang xài; EBF5 thêm cooldown.' },
+        { name: 'Mũi tên trạng thái',  kind: 'Tấn công',    element: null,    desc: 'Bộ kỹ năng của Anna trong EBF5 có thể gán Choáng, Đóng băng, Ướt, Chững, Nhẹ, Yếu đi và Tẩy buff.' },
+        { name: 'Mother Earth',        kind: 'Limit Break', element: 'bio',   desc: 'Phép Độc phủ toàn địch, đồng thời Ban phước cho cả đội.' },
+        { name: 'Mighty Oak',         kind: 'Limit Break', element: 'earth', desc: 'Triệu cây gỗ Mighty Oak đánh đập toàn địch.' },
+        { name: 'Sharpen',             kind: 'Hỗ trợ',      element: null,    desc: 'Từ bản v2 của EBF5: kéo dài các hiệu ứng đang có trên địch hoặc đồng đội.' }
+      ],
+      tips: [
+        'Trang bị mặc định tiêu biểu của Anna: Ranger Skirt + Amber Bobble, vũ khí chủ đạo Fairy Bow.',
+        'Anna mất Cleanse trong EBF5 — thay bằng món Food để gỡ debuff cho đội.',
+        'Chọn cung / Flair theo dạng trạng thái cần dồn: độc cho boss dài, Choáng và Đóng băng cho quái thường.',
+        'Anna là nhân vật duy nhất có hình ảnh "wooden idol" khi gục thay vì hồn ma.'
+      ]
+    },
+    {
+      id: 'nolegs', name: 'NoLegs', icon: '🐱', image: 'img/nolegs.png',
+      kind: 'Hỗ trợ',
+      elements: ['wind', 'water', 'thunder', 'holy', 'dark', 'physical'],
+      desc: 'Mèo xanh không chân, thú cưng kiêm vệ sĩ của hội nhóm. Từ EBF2 tới EBF4 NoLegs chỉ là kỹ năng / summon; ở EBF5 anh chính thức thành nhân vật chơi được — xuất hiện ngay đầu game như trùm nhỏ "trộm rác" của Matt tại bến cảng Hope Harbor.',
+      strengths: [
+        'Evade xuất sắc: né đòn tốt hơn cả nhân vật chính',
+        'Kỹ năng 3 nhát "xích lôi": tự chuyển mục tiêu khi con hiện tại gục — vua của dọn quái rác',
+        'Có cả hồi phục lẫn hồi sinh riêng: Nine Lives và Sushi Cat'
+      ],
+      weaknesses: [
+        'HP và Defence thấp nhất nhóm (kém cả Natalie)',
+        'Đòn phủ diện ít, chủ yếu là Swift Slash'
+      ],
+      skills: [
+        { name: 'Swordplay',     kind: 'Tấn công',    element: null,   desc: 'Đòn vật lý đơn mục tiêu nặng theo nguyên tố của cat toy đang xài.' },
+        { name: 'Swift Slash',   kind: 'Tấn công',    element: null,   desc: 'Đòn phủ diện đảm bảo của NoLegs trong EBF5 (vốn là kỹ năng của Matt trong bản cũ).' },
+        { name: 'Nine Lives',    kind: 'Hỗ trợ',      element: 'holy', desc: 'Hồi và hồi sinh nhiều đồng đội kết hợp trong cùng một lượt, chạy theo Magic Attack.' },
+        { name: 'Star Blast',    kind: 'Hỗ trợ',      element: null,   desc: 'Đánh toàn địch phi nguyên tố, tỉ lệ cao gây Tẩy buff.' },
+        { name: 'Sushi Cat',     kind: 'Hỗ trợ',      element: null,   desc: 'Gây thương tổn cho địch, đồng thời hồi máu lớn cho 2 đồng đội mất máu nhiều nhất. Cooldown dai.' },
+        { name: 'The Creator',   kind: 'Limit Break', element: 'holy', desc: 'Triệu Godcat: sát thương Thánh phép cực lớn và giải thời tiết sân bãi.' },
+        { name: 'The Destroyer', kind: 'Limit Break', element: 'dark', desc: 'Triệu Godcat: sát thương Bóng vật lý cực lớn và Tẩy buff toàn địch.' }
+      ],
+      tips: [
+        'Trang bị mặc định của NoLegs trong EBF5: Steel Buckler + Knight Helmet + Heroic Armor.',
+        'Build trạng thái của NoLegs dùng Flame Suit + Captain Hat kèm cat toy hợp nguyên tố: Human Skull, Book of Spells hoặc Neon Lightbulb.',
+        'NoLegs vào đội dễ nhất là để dọn sói quái rác nhờ kỹ năng xích lôi.',
+        'NoLegs là nhân vật duy nhất học được TẤT CẢ các Limit Break dùng chung.'
+      ]
+    }
+  ],
+
+  /* ------------------------------------ Kẻ địch ------------------------------
+     Các boss được tham chiếu từ wiki chính thức (Temple of Trials, Iron
+     Fortress, No Man Land, vùng quái thường). */
+  enemies: [
+    {
+      id: 'water-slime', name: 'Water Slime', kind: 'Quái thường', image: 'img/enemies/water-slime.png',
+      elements: ['water'],
+      desc: 'Loại slime phổ biến của EBF5: thân là nước trong veo, đòn chủ động gần như chỉ là nhảy lên cắn nhẹ. Cả họ slime luôn là quái yếu nhất nhưng thường xuất hiện theo đàn.',
+      drops: [ 'Liquid Ice (10%)', 'Sea Shell (10%)' ],
+      tips: [ 'Đòn phủ diện quét đàn slime nhanh nhất.', 'Slime cực nhạy với Doom và Instant Death — kết liễu cả đám dễ dàng.' ]
+    },
+    {
+      id: 'lava-slime', name: 'Lava Slime', kind: 'Quái thường', image: 'img/enemies/lava-slime.png',
+      elements: ['fire'],
+      desc: 'Slime nham thạch: biến thể "cháy sáng" của họ slime, một số con biết Fire Rain (mưa lửa). Sợ Nước và Bang.',
+      drops: [ 'Magma Chunk (10%)' ],
+      tips: [ 'Dùng Nước hoặc trạng thái Ướt để hạ dễ.', 'Cẩn thận đốt dồn lên Natalie hoặc NoLegs.' ]
+    },
+    {
+      id: 'slime-mouse', name: 'Slime Mouse', kind: 'Quái thường', image: 'img/enemies/slime-mouse.png',
+      elements: ['thunder'],
+      desc: 'Slime chuột nhỏ có chỏm sét: một vài biến thể của nó trông giống hệt các "Pikaclone" trong Pokémon. Đòn có pha Thunderbolt và có thể gây Choáng.',
+      drops: [ 'Banana (15%)', 'Apple (10%)', 'Blueberries (5%)', 'Dragon Fruit (3%)' ],
+      tips: [ 'Đừng dùng phép Sấm — chính chú mèo mới là chuyên gia sấm đấy.', 'Guard chuẩn trước các đòn sấm choáng.' ]
+    },
+    {
+      id: 'icecream-slime', name: 'Icecream Slime', kind: 'Quái thường', image: 'img/enemies/icecream-slime.png',
+      elements: ['ice', 'water'],
+      desc: 'Slime kem — một trong các "slime món ngọt" của EBF5 (cùng Chocolate Slime). Sở hữu nguyên tố Bang và dễ gây Lạnh / Đóng băng.',
+      drops: [ 'Snowball (100%)' ],
+      tips: [ 'Tránh tuyệt đối phép Bang.', 'Dùng phép Lửa cho hiệu quả tốt nhất.' ]
+    },
+    {
+      id: 'chocolate-slime', name: 'Chocolate Slime', kind: 'Quái thường', image: 'img/enemies/chocolate-slime.png',
+      elements: ['physical'],
+      desc: 'Slime socola nâu: một loại khác của "slime món ngọt" trong EBF5 như Icecream Slime, độ kháng thay đổi theo vật chất cấu thành.',
+      drops: [ 'Earth Ball (30%)', 'Coffee (5%)' ],
+      tips: [ 'Slime luôn yếu về sát thương, nhưng nếu đông thì vẫn đừng xem thường.', 'Một số trang bị khiến slime sợ mà tự bỏ chạy trong lượt của chúng.' ]
+    },
+    {
+      id: 'mud-slime', name: 'Mud Slime', kind: 'Quái thường', image: 'img/enemies/mud-slime.png',
+      elements: ['earth', 'bio'],
+      desc: 'Slime bùn: sống ở vùng đất ẩm, kết hợp cả đất với độc — một chất liệu rất khó chịu.',
+      drops: [ 'Earth Ball (30%)', 'An Herb (20%)', 'Gash Root (10%)', 'Jungle Flower (10%)' ],
+      tips: [ 'Tránh để trạng thái bùn dồn lên quá lâu — giải sớm.', 'Đòn đất phát huy tốt.' ]
+    },
+    {
+      id: 'sand-slime', name: 'Sand Slime', kind: 'Quái thường', image: 'img/enemies/sand-slime.png',
+      elements: ['earth'],
+      desc: 'Slime cát: loại slime tiếp tục hiện diện từ EBF4, sống chủ yếu ở vùng sa mạc, mang kiểu tóc cát trên đầu.',
+      drops: [ 'Dirt Ball (80%)', 'Sea Shell (10%)', 'Seaweed (10%)' ],
+      tips: [ 'Đất và Sấm phát huy tốt với các quái dạng cát.', 'Giữ sát thương vùng rộng để quét đám.' ]
+    },
+    {
+      id: 'slime-bunny', name: 'Slime Bunny', kind: 'Quái thường', image: 'img/enemies/slime-bunny.png',
+      elements: ['bio'],
+      desc: 'Slime thỏ — đáng yêu hơn chút so với họ hàng, nhưng vẫn là quái. Slime Bunny còn xuất hiện vai khác trong series: summon ở EBF2 và mũ (hat) trong EBF5.',
+      drops: [ 'Không drop vật phẩm (trang wiki không ghi — Slime Bunny là đối tượng trị liệu hỗ trợ)' ],
+      tips: [ 'Đừng bị bộ má tội nghiệp lừa — vẫn cứ đập bình thường.', 'Đòn của nó cường độ nhẹ, dễ Guard.' ]
+    },
+    {
+      id: 'nolegs-boss', name: 'NoLegs (boss)', image: 'img/enemies/nolegs-boss.png', kind: 'Boss',
+      elements: ['physical'],
+      desc: 'Boss nhỏ xuất hiện sớm nhất game: chú mèo xanh tấn công Matt ngay ở bến cảng Hope Harbor vì... trộm rác bị bắt quả tang. Thua xong liền theo Matt lên đường.',
+      drops: [ 'Wool (100%)', 'Wool (75%)', 'Wool (50%)' ],
+      tips: [ 'Trận này dạy các gốc cơ bản: Guard đúng thời điểm và giữ HP ổn định.' ]
+    },
+    {
+      id: 'natalie-boss', name: 'Natalie (boss)', image: 'img/enemies/natalie-boss.png', kind: 'Boss',
+      elements: ['fire', 'thunder', 'ice', 'holy'],
+      desc: 'Trận đánh giữa Matt / NoLegs và Natalie ngay đầu game: cô truy lùng vì thấy hai kẻ ăn cắp cây xẻng ngoài chợ Hope Harbor. Thua xong, Natalie mời cả hai về phía mình đi điều tra Monoliths rải khắp thế giới.',
+      drops: [ 'Cupcake (100%)', 'Pretzel (50%)', 'Coffee (25%)' ],
+      tips: [ 'Chú ý phép đa nguyên tố của cô; yếu vật lý thế nên Matt là người đánh chính.' ]
+    },
+    {
+      id: 'lance-boss', name: 'Lance (boss)', image: 'img/enemies/lance-boss.png', kind: 'Boss',
+      elements: ['fire', 'thunder', 'dark', 'bomb'],
+      desc: 'Chuyến đánh Lance ở Iron Fortress: bắt đầu từ giao chiến trực tiếp, rồi trận cuối phía cửa ra vào kèm hovertank Neon Valkyrie. Sau thất bại, Lance gia nhập hội nhóm với tư cách "tù binh" — nhưng vẫn được giúp đỡ chiến đấu.',
+      drops: [ 'Hand Bomb (100%) x 4 slot' ],
+      tips: [ 'Guard để gánh loạt pháo nặng; Neon Valkyrie là boss riêng của trận cuối.' ]
+    },
+    {
+      id: 'neon-valkyrie', name: 'Neon Valkyrie', image: 'img/enemies/neon-valkyrie.png', kind: 'Boss',
+      elements: ['physical', 'fire', 'bomb'],
+      desc: 'Hovertank của Lance. Xuất hiện ngay đầu game khi đâm Matt và cả hội, rồi trở lại "last stand" cùng Lance ở cửa Iron Fortress.',
+      drops: [ 'Nano Fibre (100%) x 2', 'Gunpowder (100%)', 'Dark Rune (100%)', 'Plutonium Core (100%)' ],
+      tips: [ 'Boss phối cùng Lance nên phải tính trận đấu dài và chuẩn bị Guard cho các lượt pháo lớn.' ]
+    },
+    {
+      id: 'matteus', name: 'Matteus', image: 'img/enemies/matteus.png', kind: 'Boss',
+      elements: ['earth', 'holy'],
+      desc: 'Phiên bản bóng ma méo mó của Matt được triệu hồi ở Temple of Trials — phản chiếu cả hình dáng lẫn tính cách của anh đao thủ.',
+      drops: [ 'Earth Ball (100%)', 'Geode (100%)', 'Steel Plate (100%)', 'Belt Buckle (100%)', 'Mythril Shards (100%)' ],
+      tips: [ 'Nhóm tấn công chủ đạo đất / thánh theo bộ đế của Matt.' ]
+    },
+    {
+      id: 'natalia', name: 'Natalia', image: 'img/enemies/natalia.png', kind: 'Boss',
+      elements: ['fire', 'thunder', 'ice', 'holy', 'dark'],
+      desc: 'Phiên bản bóng ma của Natalie ở Temple of Trials — pháp sư méo mó mang lối đánh na ná Natalie ở bản gốc.',
+      drops: [ 'Silk (100%)', 'Satin (100%)', 'Gold Plate (100%)', 'Ruby (100%)', 'Dark Rune (100%)' ],
+      tips: [ 'Boss phép thuật đa nguyên tố: Guard đều và sẵn sàng hồi cho đồng đội.' ]
+    },
+    {
+      id: 'lancelot', name: 'Lancelot', image: 'img/enemies/lancelot.png', kind: 'Boss',
+      elements: ['fire', 'thunder', 'dark', 'bomb'],
+      desc: 'Phiên bản bóng ma của Lance ở Temple of Trials — mang cách đánh của Lance ở dạng méo mó.',
+      drops: [ 'Không drop vật phẩm (trang wiki không ghi drop cho boss phản chiếu này)' ],
+      tips: [ 'Chuẩn bị sẵn sàng cho đòn pháo cũng như số lượng Bomb.' ]
+    },
+    {
+      id: 'annabelle', name: 'Annabelle', image: 'img/enemies/annabelle.png', kind: 'Boss',
+      elements: ['bio', 'earth', 'wind', 'water'],
+      desc: 'Phiên bản bóng ma của Anna ở Temple of Trials — mũi tên và phép rừng của bản gốc được biến tấu theo lối quái vật.',
+      drops: [ 'Razor Claw (100%)', 'Bone Spike (100%)', 'Satin (100%)', 'Dark Rune (100%)', 'Dark Matter (100%)' ],
+      tips: [ 'Đòn của nó treo trạng thái Mỏi và độc — chuẩn bị Garlic và Banana trước.' ]
+    },
+    {
+      id: 'rafflesia', name: 'Rafflesia', image: 'img/enemies/rafflesia.png', kind: 'Boss',
+      elements: ['bio', 'wind'],
+      desc: 'Boss hoa khổng lồ nổi tiếng "mùi thối": trong trận này, Lance buộc phải thú nhận dị ứng phấn hoa — may là mô phỏng không hỗ trợ mùi.',
+      drops: [ 'Jungle Flower (100%)', 'Pink Potion (100%)', 'Gash Nut (100%)', 'Bio Virus (100%)', 'Lanky Root (100%)', 'Cactus (100%)' ],
+      tips: [ 'Độc là vế mạnh chính, chuẩn bị sẵn vật phẩm giải độc cho cả đội.' ]
+    },
+    {
+      id: 'laurelin', name: 'Laurelin', image: 'img/enemies/laurelin.png', kind: 'Boss',
+      elements: ['holy', 'wind'],
+      desc: 'Boss thánh của vùng rừng, bên cạnh có các chú mèo chiến binh (NoLegs sẵn lòng đánh đồng loại vì hội nhóm của mình).',
+      drops: [ 'Soft Wood (100%) x 3', 'Amber (100%)', 'Emerald (100%)' ],
+      tips: [ 'Chú ý các con mèo bên cạnh cùng bộ buff của boss — quyết định hạ con nào trước.' ]
+    },
+    /* Quái thường xếp theo khu vực (theo Bestiary + Map của wiki chính thức) */
+
+    /* --- Hope Harbor / Ice Cave --- */
+    {
+      id: 'blood-bat', name: 'Blood Bat', kind: 'Quái thường', image: 'img/enemies/blood-bat.png',
+      elements: ['dark'],
+      desc: 'Dơi hút máu làm tổ trong Ice Cave gần thị trấn khởi đầu — quái đầu tiên của EBF5.',
+      drops: [ 'Ogle Berries (20%)', 'Red Feather (20%)', 'Amber (10%)', 'Ruby (5%)' ],
+      tips: [ 'Phép Thánh cho hiệu quả tốt nhất.', 'Xuất hiện theo đàn trong hang tối.' ]
+    },
+    {
+      id: 'green-creep', name: 'Green Creep', kind: 'Quái thường', image: 'img/enemies/green-creep.png',
+      elements: ['bio'],
+      desc: 'Sinh vật cỏ dại một mắt quanh Hope Harbor — nhỏ bé nhưng có thể gây độc.',
+      drops: [ 'Sea Shell (25%)', 'Razor Claw (15%)', 'Liquid Ice (25%)' ],
+      tips: [ 'Quái yếu, đòn thường là đủ.', 'Xử lý sớm để tránh bị gây độc dồn dập.' ]
+    },
+
+    /* --- Wild Tropics --- */
+    {
+      id: 'green-bush', name: 'Green Bush', kind: 'Quái thường', image: 'img/enemies/green-bush.png',
+      elements: ['bio'],
+      desc: 'Bụi cây trá hình ở Wild Tropics — trông như cây thường cho tới khi nhúc nhích.',
+      drops: [ 'Herb (10%)', 'Cactus (40%)', 'Lanky Root (10%)', 'Kiwi (40%)', 'Ogle Berries (35%)' ],
+      tips: [ 'Đốt bằng Lửa rất hiệu quả.', 'Ít đe dọa — quét nhanh cùng đợt khác.' ]
+    },
+    {
+      id: 'leafy-chomper', name: 'Leafy Chomper', kind: 'Quái thường', image: 'img/enemies/leafy-chomper.png',
+      elements: ['bio'],
+      desc: 'Cây bẫy há mồm của Wild Tropics — họ hàng với dòng Chomper kinh điển trong series.',
+      drops: [ 'An Herb (100%)', 'Soft Wood (75%)', 'Gash Root (75%)', 'Cactus (50%)', 'Emerald (5%)' ],
+      tips: [ 'Giữ khoảng cách và đánh bằng phép xa.', 'Lửa khắc chế tốt.' ]
+    },
+    {
+      id: 'cutie-worm', name: 'Cutie Worm', kind: 'Quái thường', image: 'img/enemies/cutie-worm.png',
+      elements: ['holy'],
+      desc: 'Sâu dễ thương hồi máu cho đồng đội thay vì tấn công.',
+      drops: [ 'Butterfly Wing (50%)', 'Silk (5%)' ],
+      tips: [ 'Hạ sớm để trận đấu đỡ kéo dài.', 'Summon của nó cũng thuộc hàng hỗ trợ nổi tiếng.' ]
+    },
+
+    /* --- Grand Gallery --- */
+    {
+      id: 'haunted-mirror', name: 'Haunted Mirror', kind: 'Quái thường', image: 'img/enemies/haunted-mirror.png',
+      elements: ['dark'],
+      desc: 'Chiếc gương ma ám trong triển lãm Grand Gallery — phản lại một phần đòn phép của bạn.',
+      drops: [ 'Soft Wood (15%)', 'Glass Shards (45%)', 'Butterfly Wing (15%)' ],
+      tips: [ 'Đánh vật lý thay vì phép.', 'Cẩn thận khi dồn phép dập dồn vào nó.' ]
+    },
+    {
+      id: 'angel-mirror', name: 'Angel Mirror', kind: 'Quái thường', image: 'img/enemies/angel-mirror.png',
+      elements: ['holy'],
+      desc: 'Gương Thánh cùng bộ sưu tập với Haunted Mirror — kháng phép Thánh.',
+      drops: [ 'White Feather (50%)', 'Glass Shards (45%)', 'Gold Plate (10%)' ],
+      tips: [ 'Tránh dùng phép Thánh.', 'Chọn nguyên tố khác trước khi tấn công.' ]
+    },
+
+    /* --- No Man's Land --- */
+    {
+      id: 'sandy-bush', name: 'Sandy Bush', kind: 'Quái thường', image: 'img/enemies/sandy-bush.png',
+      elements: ['earth'],
+      desc: 'Bụi cây phủ cát ở vùng đất hoang — bản sa mạc của Green Bush.',
+      drops: [ 'Gash Root (20%)', 'Cactus (5%)', 'Jungle Flower (10%)' ],
+      tips: [ 'Xử lý như bản gốc nhưng dày da hơn.', 'Quét nhanh cùng đợt quái toàn khu.' ]
+    },
+    {
+      id: 'camel-mammoth', name: 'Camel Mammoth', kind: 'Quái thường', image: 'img/enemies/camel-mammoth.png',
+      elements: ['earth'],
+      desc: 'Lai giữa lạc đà và ma mút — thích nghi tốt với sa mạc khốc liệt.',
+      drops: [ 'Liquid Ice (100%)', 'Fine Fur (100%) x 2', 'Razor Claw (100%)', 'Chocolate Milk (2%)' ],
+      tips: [ 'Vóc dáng lớn, da dày — buff Atk trước.', 'Đứng chung nhóm quái lớn của vùng này.' ]
+    },
+
+    /* --- Iron Fortress --- */
+    {
+      id: 'red-flybot', name: 'Red Flybot', kind: 'Quái thường', image: 'img/enemies/red-flybot.png',
+      elements: ['fire'],
+      desc: 'Flybot màu đỏ của quân đội — phóng đạn lửa và di chuyển rất nhanh.',
+      drops: [ 'Spring (50%)', 'Plastic (50%)', 'Iron Plate (50%)', 'Floppy (50%)', 'Dark Rune (5%)' ],
+      tips: [ 'Đòn phủ diện bắt nó dễ hơn đòn đơn.', 'Chuẩn bị kháng Lửa trước trận.' ]
+    },
+    {
+      id: 'gunkat-800xl', name: 'GunKat-800XL', kind: 'Quái thường', image: 'img/enemies/gunkat-800xl.png',
+      elements: ['thunder'],
+      desc: 'Robot mèo vũ khí hóa của Iron Fortress — bọc thép và bắn dồn dập.',
+      drops: [ 'Steel Plate (75%)', 'Spring (75%)', 'Gunpowder (75%)', 'Hand Bomb (75%)', 'Nano Fibre (15%)' ],
+      tips: [ 'Đòn Đất và Bom công phá máy móc tốt.', 'Buff Defence để đỡ đạn tầm xa.' ]
+    },
+
+    /* --- Greenwood Village --- */
+    {
+      id: 'book-worm', name: 'Book Worm', kind: 'Quái thường', image: 'img/enemies/book-worm.png',
+      elements: ['bio'],
+      desc: 'Sâu thư ăn sách sống trong Greenwood Library.',
+      drops: [ 'Glass Shards (15%)', 'Belt Buckle (5%)', 'Silk (5%)' ],
+      tips: [ 'Hạ nhanh trước khi nó kịp tự hỗ trợ.', 'Chỉ gặp quanh khu thư viện.' ]
+    },
+    {
+      id: 'black-bear', name: 'Black Bear', kind: 'Quái thường', image: 'img/enemies/black-bear.png',
+      elements: ['physical'],
+      desc: 'Gấu đen hoang dã quanh Greenwood — sức mạnh vật lý cao.',
+      drops: [ 'Magma Chunk (50%)', 'Leather (100%)', 'Fine Fur (100%)', 'Razor Claw (20%)', 'Ruby (10%)' ],
+      tips: [ 'Hạ nhanh vì nó đánh dồn dập.', 'Giảm Atk của nó ngay từ lượt đầu.' ]
+    },
+
+    /* --- Mystic Woods --- */
+    {
+      id: 'leaf-wraith', name: 'Leaf Wraith', kind: 'Quái thường', image: 'img/enemies/leaf-wraith.png',
+      elements: ['bio'],
+      desc: 'Vong hồn lá cây trong Mystic Woods.',
+      drops: [ 'An Herb (50%)', 'Gash Root (30%)', 'Jungle Flower (30%)' ],
+      tips: [ 'Lửa là khắc tinh của nó.', 'Quét chung cả nhóm wraith nhỏ một lượt.' ]
+    },
+    {
+      id: 'master-wraith', name: 'Master Wraith', kind: 'Quái thường', image: 'img/enemies/master-wraith.png',
+      elements: ['dark'],
+      desc: 'Đầu sỏ các vong hồn — phép Bóng nặng tay hơn hẳn đàn em.',
+      drops: [ 'Razor Claw (25%)', 'Bone Spike (10%)', 'Silk (10%)', 'Dark Rune (5%)' ],
+      tips: [ 'Phép Thánh hiệu quả cao.', 'Giết trước để cắt nhịp hồi phục của nhóm.' ]
+    },
+
+    /* --- Forgotten Ruins --- */
+    {
+      id: 'stone-idol', name: 'Stone Idol', kind: 'Quái thường', image: 'img/enemies/stone-idol.png',
+      elements: ['earth'],
+      desc: 'Tượng đá cổ Forgotten Ruins — đứng im như cảnh vật cho tới khi có người tới gần.',
+      drops: [ 'Brick (50%)' ],
+      tips: [ 'Hạ nhanh trước khi nó kịp buff.', 'Thân đá nên đòn vật lý nặng tay là đủ.' ]
+    },
+    {
+      id: 'gem-idol', name: 'Gem Idol', kind: 'Quái thường', image: 'img/enemies/gem-idol.png',
+      elements: ['holy'],
+      desc: 'Tượng đá phủ đá quý — sáng lấp lánh nhưng cùng nhóm với Stone Idol.',
+      drops: [ 'Rainbow Gems (25%)', 'Amethyst (10%)', 'Emerald (2%)', 'Ruby (2%)', 'Topaz (2%)' ],
+      tips: [ 'Tránh dùng phép Thánh lên nó.', 'Đất vẫn công phá hiệu quả.' ]
+    },
+
+    /* --- Rainbow River --- */
+    {
+      id: 'gold-fish', name: 'Gold Fish', kind: 'Quái thường', image: 'img/enemies/gold-fish.png',
+      elements: ['holy'],
+      desc: 'Cá vàng bơi ngang Rainbow River — to hơn bạn tưởng.',
+      drops: [ 'Microcontroller (70%)', 'Springy Spring (60%)', 'Steel Plate (20%)', 'Chain Link (40%)', 'Gold Plate (10%)' ],
+      tips: [ 'Sấm đánh quái nước rất tốt.', 'Xử lý nhanh trước khi nó gọi thêm đồng bọn.' ]
+    },
+    {
+      id: 'lime-squid', name: 'Lime Squid', kind: 'Quái thường', image: 'img/enemies/lime-squid.png',
+      elements: ['bio'],
+      desc: 'Mực chanh từ dòng sông phun mực độc về phía cả đội.',
+      drops: [ 'Cactus (75%) x 2', 'Bone Spike (100%)', 'Sapphire (40%)', 'Grapes (2%)' ],
+      tips: [ 'Sẵn Garlic để giải độc.', 'Sấm vẫn là lựa chọn mạnh nhất.' ]
+    },
+
+    /* --- Frozen Valley --- */
+    {
+      id: 'ice-sprite', name: 'Ice Sprite', kind: 'Quái thường', image: 'img/enemies/ice-sprite.png',
+      elements: ['ice'],
+      desc: 'Thiêng thể băng nhỏ bay quanh Frozen Valley — đùa tuyết và gây Bang.',
+      drops: [ 'Snowball (60%)', 'Liquid Ice (20%)', 'Solid Water (20%)', 'Bubble Stone (10%)' ],
+      tips: [ 'Lửa khắc chế nhanh.', 'Tránh để cả đội Ướt rồi nhận Bang.' ]
+    },
+    {
+      id: 'icicle-creep', name: 'Icicle Creep', kind: 'Quái thường', image: 'img/enemies/icicle-creep.png',
+      elements: ['ice'],
+      desc: 'Họ hàng băng của Green Creep sống ở Frozen Valley.',
+      drops: [ 'Solid Water (100%)', 'Liquid Ice (25%)', 'Glass Shards (25%)' ],
+      tips: [ 'Lửa phá băng chuẩn nhất.', 'Giữ kháng Bang cho cả đội.' ]
+    },
+    {
+      id: 'grolar-bear', name: 'Grolar Bear', kind: 'Quái thường', image: 'img/enemies/grolar-bear.png',
+      elements: ['ice'],
+      desc: 'Lai giữa gấu bắc cực và gấu xám — to lớn và dữ dằn quanh Redpine Town.',
+      drops: [ 'Solid Water (50%)', 'Leather (100%)', 'Fine Fur (100%)', 'Razor Claw (20%)', 'Raw Beef (2%)' ],
+      tips: [ 'Lửa ổn định hơn đòn vật lý thường.', 'Buff Defence và hạ Atk của nó song song.' ]
+    },
+
+    /* --- The Rapture --- */
+    {
+      id: 'flame-wraith', name: 'Flame Wraith', kind: 'Quái thường', image: 'img/enemies/flame-wraith.png',
+      elements: ['fire'],
+      desc: 'Vong hồn lửa ở The Rapture — đốt cả đội hình dày đặc.',
+      drops: [ 'Bottled Darkness (10%)', 'Magma Sample (25%)', 'Ruby (5%)', 'Donut (1%)' ],
+      tips: [ 'Nước và Bang khắc tốt.', 'Đề phòng trạng thái Đốt.' ]
+    },
+    {
+      id: 'magma-chomper', name: 'Magma Chomper', kind: 'Quái thường', image: 'img/enemies/magma-chomper.png',
+      elements: ['fire'],
+      desc: 'Cây bẫy dung nham — nhánh Chomper mạnh nhất, sống trên Lava Lake.',
+      drops: [ 'Magma Chunk (100%)', 'Gunpowder (75%)', 'Magma Chunk (75%)', 'Amber (25%)' ],
+      tips: [ 'Ném phép Nước từ xa.', 'Tuyệt đối không trực diện.' ]
+    },
+
+    /* --- Freezeflame Dungeon --- */
+    {
+      id: 'magma-hand', name: 'Magma Hand', kind: 'Quái thường', image: 'img/enemies/magma-hand.png',
+      elements: ['fire'],
+      desc: 'Bàn tay magma tự do, vung nhiều loại vũ khí lửa ở Freezeflame Dungeon.',
+      drops: [ 'Steel Plate (25%)', 'Hand Bomb (33%)', 'Shuriken (33%)', 'Magma Chunk (25%)' ],
+      tips: [ 'Nước hạ gọn nó.', 'Giữ kháng Lửa khi vào phòng nóng.' ]
+    },
+
+    /* --- Mineshaft Maze --- */
+    {
+      id: 'putrid-worm', name: 'Putrid Worm', kind: 'Quái thường', image: 'img/enemies/putrid-worm.png',
+      elements: ['bio'],
+      desc: 'Sâu thối trong Mineshaft Maze — bắn độc từ chính rác thải của mỏ.',
+      drops: [ 'Cactus (10%)', 'Silk (5%)' ],
+      tips: [ 'Giải độc liên tục.', 'Tránh để nó tung độc vào cuối lượt.' ]
+    },
+
+    /* --- Deathly Hollows --- */
+    {
+      id: 'beheaded-fallen', name: 'Beheaded Fallen', kind: 'Quái thường', image: 'img/enemies/beheaded-fallen.png',
+      elements: ['dark'],
+      desc: 'Người đã khu không đầu trong Deathly Hollows — vẫn tiến lên như thường lệ.',
+      drops: [ 'Iron Plate (75%)', 'Hand Bomb (75%)', 'Leather (20%)', 'Belt Buckle (33%)' ],
+      tips: [ 'Phép Thánh mạnh nhất với nó.', 'Dễ hơn boss của khu — đừng ngại hình dáng.' ]
+    },
+
+    /* --- The Great Sea --- */
+    {
+      id: 'sea-dragon', name: 'Sea Dragon', kind: 'Quái thường', image: 'img/enemies/sea-dragon.png',
+      elements: ['water'],
+      desc: 'Rồng biển lăn lộn ở The Great Sea — phun nước mạnh.',
+      drops: [ 'Liquid Ice (100%) x 2', 'Dragon Scales (50%)', 'Moon Pearl (25%)', 'Yoghurt (2%)' ],
+      tips: [ 'Sấm đập trực tiếp tốt nhất.', 'Giữ kháng Nước cho cả đội.' ]
+    },
+    {
+      id: 'seaweed-chomper', name: 'Seaweed Chomper', kind: 'Quái thường', image: 'img/enemies/seaweed-chomper.png',
+      elements: ['water'],
+      desc: 'Chomper biển làm từ rong rêu ở đáy The Great Sea.',
+      drops: [ 'Sea Shell (50%)', 'Gash Root (50%)', 'Liquid Ice (50%)', 'Bone Spike (20%)', 'Moon Pearl (3%)' ],
+      tips: [ 'Sấm là khắc tinh.', 'Hạ cùng đợt quái nước khác.' ]
+    },
+
+    /* --- Temple of Trials --- */
+    {
+      id: 'sky-dragon', name: 'Sky Dragon', kind: 'Quái thường', image: 'img/enemies/sky-dragon.png',
+      elements: ['wind'],
+      desc: 'Rồng trời của Temple of Trials — vung cánh tạo gió lớn.',
+      drops: [ 'White Feather (100%) x 2', 'Bone Spike (75%)', 'Star Fragment (20%)', 'Mint Leaf (2%)' ],
+      tips: [ 'Sấm và Đất đều tấn công tốt.', 'Buff Evade để đỡ đợt gió.' ]
+    },
+
+    /* --- Crystal Caverns --- */
+    {
+      id: 'amethyst-golem', name: 'Amethyst Golem', kind: 'Quái thường', image: 'img/enemies/amethyst-golem.png',
+      elements: ['dark'],
+      desc: 'Golem thạch anh tím ở Crystal Caverns — nén đá để ném xa.',
+      drops: [ 'Steel Plate (100%) x 2', 'Silver Plate (40%) x 2', 'Diamond (5%)' ],
+      tips: [ 'Gián đoạn lúc nó nén đá.', 'Golem kháng nhiều — cứ đánh đều tay bằng Piercing.' ]
+    },
+    {
+      id: 'pearl-golem', name: 'Pearl Golem', kind: 'Quái thường', image: 'img/enemies/pearl-golem.png',
+      elements: ['holy'],
+      desc: 'Golem ngọc trai trắng sạch ở Crystal Caverns.',
+      drops: [ 'Sea Shell (100%) x 2', 'Sacred Rune (25%) x 2', 'Moon Pearl (10%)' ],
+      tips: [ 'Đất công phá hiệu quả.', 'Không dùng phép Thánh.' ]
+    }
+  ],
+
+  /* ------------------------------------ Kỹ năng ------------------------------
+     Tóm lược các kỹ năng và Limit Break theo wiki chính thức. */
+  skills: [
+    { id: 'guard',            name: 'Guard', image: 'img/skills/guard.png',              kind: 'Phòng thủ',   element: 'physical', desc: 'Lệnh mặc định của mọi nhân vật: giảm mạnh thương tổn nhận vào lượt kế (icon dùng bản EBF4 — lệnh Guard giống hệt).' },
+    { id: 'temper',           name: 'Temper', image: 'img/skills/temper.png',             user: 'matt',    kind: 'Hỗ trợ',      element: 'physical', desc: 'Cộng dồn Attack bản thân — độc quyền của Matt trong EBF5.' },
+    { id: 'steal-item',       name: 'Steal Item', image: 'img/skills/steal-item.png',      user: 'matt',    kind: 'Hỗ trợ',      element: null,       desc: 'Trộm vật phẩm từ kẻ địch. Mặc định từ đầu game; với bộ trang bị trộm tối ưu, một lần dùng lấy 4 món.' },
+    { id: 'slicing-cyclone',  name: 'Slicing Cyclone', image: 'img/skills/slicing-cyclone.png',    user: 'matt',    kind: 'Tấn công',    element: null,       desc: 'Đòn đa mục tiêu theo nguyên tố vũ khí của Matt trong EBF5.' },
+    { id: 'nettle',           name: 'Nettle', image: 'img/skills/nettle.png',             user: 'matt',    kind: 'Tấn công',    element: 'bio',      desc: 'Đòn Độc của Matt, có bản nâng cấp mạnh hơn.' },
+    { id: 'power-metal',      name: 'Power Metal', image: 'img/skills/power-metal.png',        user: 'matt',    kind: 'Tấn công',    element: null,       desc: 'Đòn chém vừa đánh vừa hồi máu cho người dùng — gắn chặt với chủ đề rock của Matt.' },
+    { id: 'cleaver',          name: 'Cleaver', image: 'img/skills/cleaver.png',            user: 'matt',    kind: 'Limit Break', element: 'physical', desc: 'Chuỗi chém với tỉ lệ chí mạng cao.' },
+    { id: 'ragnarok',         name: 'Ragnarok', image: 'img/skills/ragnarok.png',           user: 'matt',    kind: 'Limit Break', element: 'physical', desc: 'Mưa vũ khí xuống địch, kết liễu bằng Heaven Gate khổng lồ.' },
+    { id: 'lucky-star',       name: 'Lucky Star', image: 'img/skills/lucky-star.png',         user: 'natalie', kind: 'Tấn công',    element: null,       desc: 'Sát thương phi nguyên tố dao động; phần nâng cấp có Star Shower.' },
+    { id: 'fire-spell',       name: 'Fire', image: 'img/skills/fire.png',               user: 'natalie', kind: 'Tấn công',    element: 'fire',     desc: 'Nhánh phép Lửa: bản đơn mục tiêu mạnh và bản phủ diện nhẹ hơn.' },
+    { id: 'thunder-spell',    name: 'Thunder', image: 'img/skills/thunder.png',            user: 'natalie', kind: 'Tấn công',    element: 'thunder',  desc: 'Nhánh phép Sấm của Natalie.' },
+    { id: 'ice-spell',        name: 'Ice', image: 'img/skills/ice.png',                user: 'natalie', kind: 'Tấn công',    element: 'ice',      desc: 'Nhánh phép Bang của Natalie, có bản đơn và bản đa mục tiêu.' },
+    { id: 'toxic',            name: 'Toxic', image: 'img/skills/toxic.png',              user: 'natalie', kind: 'Tấn công',    element: 'bio',      desc: 'Phép Độc kèm gây Nhiễm độc.' },
+    { id: 'judgement',        name: 'Judgement', image: 'img/skills/judgement.png',          user: 'natalie', kind: 'Tấn công',    element: 'holy',     desc: 'Phép Thánh nặng thương một mục tiêu.' },
+    { id: 'heal-more',        name: 'Heal More', image: 'img/skills/heal-more.png',          user: 'natalie', kind: 'Hỗ trợ',      element: 'holy',     desc: 'Hồi máu lớn cho cả đội.' },
+    { id: 'barrier',          name: 'Barrier', image: 'img/skills/barrier.png',            user: 'natalie', kind: 'Hỗ trợ',      element: 'holy',     desc: 'Buff phòng thủ phép cho cả đội.' },
+    { id: '7th-heaven',       name: '7th Heaven', image: 'img/skills/7th-heaven.png',         user: 'natalie', kind: 'Limit Break', element: 'holy',     desc: 'Hồi máu cả đội kèm loạt buff — tên cũ là Kyun.' },
+    { id: 'genesis-lb',       name: 'Genesis', image: 'img/skills/genesis.png',            user: 'natalie', kind: 'Limit Break', element: 'holy',     desc: 'Tia thánh toàn địch, đồng thời hồi sinh đồng đội gục / gán Auto-Revive.' },
+    { id: 'black-hole',       name: 'Black Hole', image: 'img/skills/black-hole.png',         user: 'natalie', kind: 'Limit Break', element: 'dark',     desc: 'Limit Break dùng chung: dập cả sân, có thể cả địch lẫn đồng đội gục.' },
+    { id: 'plasma-field',     name: 'Plasma Field', image: 'img/skills/plasma-field.png',       user: 'lance',   kind: 'Tấn công',    element: null,       desc: 'Đòn chủ đạo của Lance kèm hạ một stat mục tiêu.' },
+    { id: 'bullet-hell',      name: 'Bullet Hell', image: 'img/skills/bullet-hell.png',        user: 'lance',   kind: 'Tấn công',    element: null,       desc: 'Đòn chủ đạo kèm hạ stat — ăn khớp thay nhau cùng Plasma Field.' },
+    { id: 'antimatter-flux',  name: 'Antimatter Flux', image: 'img/skills/antimatter-flux.png',    user: 'lance',   kind: 'Tấn công',    element: null,       desc: 'Đòn chủ đạo thứ ba của Lance trong EBF5, kèm hạ stat.' },
+    { id: 'hyper-beam',       name: 'Hyper Beam', image: 'img/skills/hyper-beam.png',         user: 'lance',   kind: 'Tấn công',    element: null,       desc: 'Đánh toàn địch cực mạnh, cần lượt Charge trước; không có cooldown riêng.' },
+    { id: 'moab',             name: 'M.O.A.B', image: 'img/skills/moab.png',               user: 'lance',   kind: 'Tấn công',    element: 'bomb',     desc: 'Bom lớn theo chủ đề M.O.A.B: nổ Bom phép mạnh toàn địch kèm Chững, cooldown tới 10 lượt.' },
+    { id: 'health-strike',    name: 'Health Strike', image: 'img/skills/health-strike.png', user: 'lance',   kind: 'Hỗ trợ',      element: null,       desc: 'Hộp cứu thương từ trên trời rơi xuống: hồi máu + gỡ mọi trạng thái xấu cho cả đội, cooldown 3 lượt.' },
+    { id: 'oblivion',         name: 'Oblivion', image: 'img/skills/oblivion.png',           user: 'lance',   kind: 'Limit Break', element: 'bomb',     desc: 'Lao xuống trên Valkyrie Tank, xả đạn rồi nổ cỗ xe — mượn ý Road Roller của Dio.' },
+    { id: 'nuke',             name: 'Nuke', image: 'img/skills/nuke.png',               user: 'lance',   kind: 'Limit Break', element: 'fire',     desc: 'Thả bom hạt nhân: sát thương Lửa cực mạnh toàn địch kèm thời tiết Radiation (EBF5).' },
+    { id: 'ion-cannon-lb',    name: 'Ion Cannon', image: 'img/skills/ion-cannon.png',         user: 'lance',   kind: 'Limit Break', element: 'thunder',  desc: 'Laser vệ tinh đánh toàn địch — hiện là kỹ năng dùng chung, Lance luôn học được.' },
+    { id: 'arrow-rain',       name: 'Arrow Rain', image: 'img/skills/arrow-rain.png',         user: 'anna',    kind: 'Tấn công',    element: null,       desc: 'Mưa tên phủ toàn khán đài theo hiệu ứng trên mũi tên của cung đang xài; EBF5 thêm cooldown.' },
+    { id: 'mother-earth',     name: 'Mother Earth', image: 'img/skills/mother-earth.png',       user: 'anna',    kind: 'Limit Break', element: 'bio',      desc: 'Phép Độc phủ toàn địch + Ban phước cả đội.' },
+    { id: 'mighty-oak',       name: 'Mighty Oak', image: 'img/skills/mighty-oak.png',         user: 'anna',    kind: 'Limit Break', element: 'earth',    desc: 'Triệu cây gỗ Mighty Oak đánh đập toàn địch.' },
+    { id: 'sharpen',          name: 'Sharpen', image: 'img/skills/sharpen.png',            user: 'anna',    kind: 'Hỗ trợ',      element: null,       desc: 'Kéo dài hiệu ứng hiện có trên bất kỳ ai (từ bản v2 của EBF5).' },
+    { id: 'swordplay',        name: 'Swordplay', image: 'img/skills/swordplay.png',         user: 'nolegs',  kind: 'Tấn công',    element: null,       desc: '4 nhát chém vật lý đơn mục tiêu theo nguyên tố cat toy; có cooldown 1 lượt, lên cấp 3 thành Blade Blitz.' },
+    { id: 'swift-slash',      name: 'Swift Slash', image: 'img/skills/swift-slash.png',        user: 'nolegs',  kind: 'Tấn công',    element: null,       desc: 'Đòn phủ diện đảm bảo của NoLegs (trước đây là kỹ năng Matt).' },
+    { id: 'nine-lives',       name: 'Nine Lives', image: 'img/skills/nine-lives.png',         user: 'nolegs',  kind: 'Hỗ trợ',      element: 'holy',     desc: 'Hồi và hồi sinh nhiều đồng đội cùng một lượt (chạy theo Magic Attack).' },
+    { id: 'star-blast',       name: 'Star Blast', image: 'img/skills/star-blast.png',         user: 'nolegs',  kind: 'Hỗ trợ',      element: null,       desc: 'Toàn địch phi nguyên tố + tỉ lệ Tẩy buff cao.' },
+    { id: 'sushi-cat',        name: 'Sushi Cat', image: 'img/skills/sushi-cat.jpg',          user: 'nolegs',  kind: 'Hỗ trợ',      element: null,       desc: 'Địch nhận thương tổn, 2 đồng đội mất máu nhiều nhất được hồi lớn. Cooldown dài.' },
+    { id: 'creator-lb',       name: 'The Creator', image: 'img/skills/creator-lb.png',        user: 'nolegs',  kind: 'Limit Break', element: 'holy',     desc: 'Sát thương Thánh phép cực lớn + giải thời tiết sân bãi của NoLegs.' },
+    { id: 'destroyer-lb',     name: 'The Destroyer', image: 'img/skills/destroyer-lb.png',      user: 'nolegs',  kind: 'Limit Break', element: 'dark',     desc: 'Sát thương Bóng vật lý cực lớn + Tẩy buff toàn địch của NoLegs.' },
+    { id: 'quick-slash', name: 'Quick Slash', image: 'img/skills/quick-slash.png', user: 'matt', kind: 'Tấn công', element: 'physical', desc: 'Chém 1 mục tiêu với độ chính xác cực cao; nguyên tố và hiệu ứng theo trượng đang cầm.' },
+    { id: 'unleash', name: 'Unleash', image: 'img/skills/unleash.png', user: 'matt', kind: 'Tấn công', element: 'physical', desc: 'Kích hoạt tiềm năng ẩn của vũ khí — hiệu ứng đặc biệt của trượng mạnh hơn thường lệ.' },
+    { id: 'revenge', name: 'Revenge', image: 'img/skills/revenge.png', user: 'matt', kind: 'Tấn công', element: 'physical', desc: 'Đòn vật lý 1 mục tiêu; càng mạnh khi Matt còn ít HP hoặc có thành viên đã gục.' },
+    { id: 'legend', name: 'Legend', image: 'img/skills/legend.png', user: 'matt', kind: 'Tấn công', element: 'physical', desc: 'Đòn vật lý rất nặng, đánh 1 mục tiêu nhiều lần theo nguyên tố vũ khí.' },
+    { id: 'light-blade', name: 'Light Blade', image: 'img/skills/light-blade.png', user: 'matt', kind: 'Tấn công', element: 'holy', desc: 'Đòn Thánh nâng cao đánh 1 mục tiêu.' },
+    { id: 'seiken', name: 'Seiken', image: 'img/skills/seiken.png', user: 'matt', kind: 'Tấn công', element: 'holy', desc: 'Đòn Thánh mạnh dồn vào 1 mục tiêu, có thể Tẩy buff địch.' },
+    { id: 'tremor', name: 'Tremor', image: 'img/skills/tremor.png', user: 'matt', kind: 'Tấn công', element: 'earth', desc: 'Đòn Đất cơ bản đánh 1 mục tiêu — chà đất công phu của Matt.' },
+    { id: 'quake', name: 'Quake', image: 'img/skills/quake.png', user: 'matt', kind: 'Tấn công', element: 'earth', desc: 'Đòn Đất nâng cao đánh 1 mục tiêu — bản nâng của Tremor.' },
+    { id: 'cataclysm', name: 'Cataclysm', image: 'img/skills/cataclysm.png', user: 'matt', kind: 'Tấn công', element: 'earth', desc: 'Đòn Đất rất mạnh đánh 1 mục tiêu, chí mạng cao — chốt hạ đất trơn.' },
+    { id: 'geyser', name: 'Geyser', image: 'img/skills/geyser.png', user: 'matt', kind: 'Tấn công', element: 'water', desc: 'Đòn Nước cơ bản đánh 1 mục tiêu, có thể làm Ướt.' },
+    { id: 'torrent', name: 'Torrent', image: 'img/skills/torrent.png', user: 'matt', kind: 'Tấn công', element: 'water', desc: 'Đòn Nước nâng cao đánh 1 mục tiêu, có thể làm Ướt.' },
+    { id: 'typhoon', name: 'Typhoon', image: 'img/skills/typhoon.png', user: 'matt', kind: 'Tấn công', element: 'water', desc: 'Đòn Nước mạnh nhất dồn vào 1 mục tiêu: trị thương lớn, Ướt và chí mạng cao.' },
+    { id: 'magma', name: 'Magma', image: 'img/skills/magma.png', user: 'matt', kind: 'Tấn công', element: 'fire', desc: 'Đòn Lửa dồn dập đánh 1 mục tiêu, có thể làm Khô mục tiêu.' },
+    { id: 'eruption', name: 'Eruption', image: 'img/skills/eruption.png', user: 'matt', kind: 'Tấn công', element: 'fire', desc: 'Đòn Lửa rất mạnh đánh 1 mục tiêu, có thể làm Khô.' },
+    { id: 'tundra', name: 'Tundra', image: 'img/skills/tundra.png', user: 'matt', kind: 'Tấn công', element: 'ice', desc: 'Đòn Băng nâng cao đánh 1 mục tiêu, có thể gây Lạnh.' },
+    { id: 'iceberg', name: 'Iceberg', image: 'img/skills/iceberg.png', user: 'matt', kind: 'Tấn công', element: 'ice', desc: 'Đòn Băng mạnh dồn vào 1 mục tiêu, có thể gây Lạnh.' },
+    { id: 'overgrowth', name: 'Overgrowth', image: 'img/skills/overgrowth.png', user: 'matt', kind: 'Tấn công', element: 'bio', desc: 'Đòn Độc mạnh đánh 1 mục tiêu 2 lần, khả năng gây Nhiễm độc khá cao.' },
+    { id: 'normal-attack-matt', name: 'Normal Attack (Matt)', image: 'img/skills/normal-attack-matt.png', user: 'matt', kind: 'Tấn công', element: 'physical', desc: 'Đòn đao thường của Matt: chém 1 mục tiêu theo nguyên tố vũ khí đang cầm.' },
+    { id: 'star-shower', name: 'Star Shower', image: 'img/skills/star-shower.png', user: 'natalie', kind: 'Tấn công', element: null, desc: 'Phép không nguyên tố mạnh đánh toàn địch, sát thương ngẫu nhiên lớn và chí mạng cao.' },
+    { id: 'star-power', name: 'Star Power', image: 'img/skills/star-power.png', user: 'natalie', kind: 'Hỗ trợ', element: null, desc: 'Buff phép thuật cho đồng đội kèm trạng thái Vận may.' },
+    { id: 'cleanse', name: 'Cleanse', image: 'img/skills/cleanse.png', user: 'natalie', kind: 'Hỗ trợ', element: null, desc: 'Gỡ debuff của đồng đội, trị mọi trạng thái xấu và cấp Ban phước.' },
+    { id: 'fireball', name: 'Fireball', image: 'img/skills/fireball.png', user: 'natalie', kind: 'Tấn công', element: 'fire', desc: 'Phép Lửa nâng cao đánh 1 mục tiêu, có thể gây Đốt.' },
+    { id: 'fire-storm', name: 'Fire Storm', image: 'img/skills/fire-storm.png', user: 'natalie', kind: 'Tấn công', element: 'fire', desc: 'Phép Lửa mạnh đánh toàn địch (tập trung 1 đích thì mạnh hơn), gây Đốt.' },
+    { id: 'iceshard', name: 'Iceshard', image: 'img/skills/iceshard.png', user: 'natalie', kind: 'Tấn công', element: 'ice', desc: 'Phép Băng nâng cao đánh 1 mục tiêu, có thể gây Đóng băng.' },
+    { id: 'ice-storm', name: 'Ice Storm', image: 'img/skills/ice-storm.png', user: 'natalie', kind: 'Tấn công', element: 'ice', desc: 'Phép Băng mạnh đánh toàn địch (tập trung 1 đích thì mạnh hơn), gây Đóng băng.' },
+    { id: 'thunderbolt', name: 'Thunderbolt', image: 'img/skills/thunderbolt.png', user: 'natalie', kind: 'Tấn công', element: 'thunder', desc: 'Phép Sấm nâng cao đánh 1 mục tiêu, có thể Choáng.' },
+    { id: 'thunder-storm', name: 'Thunder Storm', image: 'img/skills/thunder-storm.png', user: 'natalie', kind: 'Tấn công', element: 'thunder', desc: 'Phép Sấm mạnh đánh toàn địch (tập trung 1 đích thì mạnh hơn), Choáng.' },
+    { id: 'dark-pulse', name: 'Dark Pulse', image: 'img/skills/dark-pulse.png', user: 'natalie', kind: 'Tấn công', element: 'dark', desc: 'Phép Bóng tối nâng cao đánh 1 mục tiêu, có thể tăng trọng lượng (Heavy) của địch.' },
+    { id: 'pulsar', name: 'Pulsar', image: 'img/skills/pulsar.png', user: 'natalie', kind: 'Tấn công', element: 'dark', desc: 'Phép Bóng tối rất mạnh đánh toàn địch, có thể tăng trọng lượng mục tiêu.' },
+    { id: 'holy-light', name: 'Holy Light', image: 'img/skills/holy-light.png', user: 'natalie', kind: 'Tấn công', element: 'holy', desc: 'Phép Thánh nâng cao đánh 1 mục tiêu, có thể làm địch Yếu đi.' },
+    { id: 'spectrum', name: 'Spectrum', image: 'img/skills/spectrum.png', user: 'natalie', kind: 'Tấn công', element: 'physical', desc: 'Phép nâng cao đánh 1 mục tiêu theo nguyên tố trượng đang cầm.' },
+    { id: 'rainbow-blast', name: 'Rainbow Blast', image: 'img/skills/rainbow-blast.png', user: 'natalie', kind: 'Tấn công', element: 'physical', desc: 'Phép mạnh đánh toàn địch theo nguyên tố trượng; tập trung 1 đích thì mạnh hơn.' },
+    { id: 'mute', name: 'Mute', image: 'img/skills/mute.png', user: 'natalie', kind: 'Hỗ trợ', element: null, desc: 'Syphon 1 địch — chặn đa phần đòn phép của nó trong vài lượt.' },
+    { id: 'syphon', name: 'Syphon', image: 'img/skills/syphon.png', user: 'natalie', kind: 'Hỗ trợ', element: null, desc: 'Syphon toàn địch (hoặc 1 đích để Syphon mạnh hơn).' },
+    { id: 'normal-attack-natalie', name: 'Normal Attack (Natalie)', image: 'img/skills/normal-attack-natalie.png', user: 'natalie', kind: 'Tấn công', element: 'physical', desc: 'Đòn đánh thường của Natalie: phát huy ma lực nguyên tố của trượng đang cầm.' },
+    { id: 'snipe', name: 'Snipe', image: 'img/skills/snipe.png', user: 'lance', kind: 'Tấn công', element: 'physical', desc: 'Bắn 1 đích với độ chính xác cực cao, chí mạng lớn; nguyên tố theo vũ khí đang cầm.' },
+    { id: 'double-shot', name: 'Double Shot', image: 'img/skills/double-shot.png', user: 'lance', kind: 'Tấn công', element: 'physical', desc: 'Bắn 1 mục tiêu 2 phát; hiệu ứng vũ khí mạnh hơn thường lệ, tiêu diệt đích thì chuyển sang địch kế.' },
+    { id: 'unload', name: 'Unload', image: 'img/skills/unload.png', user: 'lance', kind: 'Tấn công', element: 'physical', desc: 'Bắn 6 phát dồn dập vào mục tiêu theo nguyên tố vũ khí đang cầm.' },
+    { id: 'plasma-shot', name: 'Plasma Shot', image: 'img/skills/plasma-shot.png', user: 'lance', kind: 'Tấn công', element: 'thunder', desc: 'Đạn Sấm cơ bản đánh 1 địch, giảm né của mục tiêu.' },
+    { id: 'flame-shot', name: 'Flame Shot', image: 'img/skills/flame-shot.png', user: 'lance', kind: 'Tấn công', element: 'fire', desc: 'Đạn Lửa cơ bản đánh 1 địch, giảm phòng thủ của mục tiêu.' },
+    { id: 'dark-shot', name: 'Dark Shot', image: 'img/skills/dark-shot.png', user: 'lance', kind: 'Tấn công', element: 'dark', desc: 'Đạn Tối cơ bản đánh 1 địch, giảm kháng phép của mục tiêu.' },
+    { id: 'big-bomb', name: 'Big Bomb', image: 'img/skills/big-bomb.png', user: 'lance', kind: 'Tấn công', element: 'bomb', desc: 'Nổ Bom phép lớn vào 1 địch, có thể gây Chững.' },
+    { id: 'air-strike', name: 'Air Strike', image: 'img/skills/air-strike.png', user: 'lance', kind: 'Tấn công', element: 'bomb', desc: 'Pháo kích Bom lớn đánh toàn địch (tập trung 1 đích thì mạnh hơn), có thể Chững.' },
+    { id: 'armor-crush', name: 'Armor Crush', image: 'img/skills/armor-crush.png', user: 'lance', kind: 'Tấn công', element: 'physical', desc: 'Đòn cận chiến kèm Tẩy buff của mục tiêu; nguyên tố theo vũ khí.' },
+    { id: 'machine-guns', name: 'Machine Guns', image: 'img/skills/machine-guns.png', user: 'lance', kind: 'Tấn công', element: 'bomb', desc: 'Súng máy quét toàn địch bằng chuỗi đòn Bom vật lý.' },
+    { id: 'poison-gas', name: 'Poison Gas', image: 'img/skills/poison-gas.png', user: 'lance', kind: 'Tấn công', element: 'bio', desc: 'Phun khí độc toàn địch: Nhiễm độc mạnh kèm ít sát thương Độc phép.' },
+    { id: 'medipack', name: 'Medipack', image: 'img/skills/medipack.png', user: 'lance', kind: 'Hỗ trợ', element: null, desc: 'Hộp thuốc hồi máu 1 đồng đội và gỡ mọi trạng thái xấu của họ.' },
+    { id: 'normal-attack-lance', name: 'Normal Attack (Lance)', image: 'img/skills/normal-attack-lance.png', user: 'lance', kind: 'Tấn công', element: 'physical', desc: 'Đòn đánh thường của Lance: chém/bắn 2 nhát theo nguyên tố vũ khí.' },
+    { id: 'piercing-shot', name: 'Piercing Shot', image: 'img/skills/piercing-shot.png', user: 'anna', kind: 'Tấn công', element: 'physical', desc: 'Mũi tên xuyên phá: chính xác cao, bỏ qua buff phòng thủ của đích, chí mạng lớn.' },
+    { id: 'combo-shot', name: 'Combo Shot', image: 'img/skills/combo-shot.png', user: 'anna', kind: 'Tấn công', element: 'physical', desc: 'Bắn dồn nhiều mũi tên vào 1 đích, mạnh và chính xác; theo nguyên tố vũ khí.' },
+    { id: 'bow-whack', name: 'Bow Whack', image: 'img/skills/bow-whack.png', user: 'anna', kind: 'Tấn công', element: 'physical', desc: 'Vung cung đập 1 địch, có thể dụ nó Đầu hàng (Surrender) — đòn này không thể giết địch.' },
+    { id: 'leaf-blade', name: 'Leaf Blade', image: 'img/skills/leaf-blade.png', user: 'anna', kind: 'Tấn công', element: 'bio', desc: 'Đòn Độc đơn giản đánh 1 mục tiêu 2 lần, chí mạng cao.' },
+    { id: 'razor-leaf', name: 'Razor Leaf', image: 'img/skills/razor-leaf.png', user: 'anna', kind: 'Tấn công', element: 'bio', desc: 'Lá bén quét toàn địch nhiều lần (tập trung 1 đích thì mạnh hơn), chí mạng cao.' },
+    { id: 'log', name: 'Log', image: 'img/skills/log.png', user: 'anna', kind: 'Tấn công', element: 'earth', desc: 'Đòn Đất cơ bản: quăng khúc gỗ vào 1 mục tiêu, có thể Chững.' },
+    { id: 'lumber', name: 'Lumber', image: 'img/skills/lumber.png', user: 'anna', kind: 'Tấn công', element: 'earth', desc: 'Đòn Đất mạnh đập 1 mục tiêu nhiều lần, có thể Chững.' },
+    { id: 'gust', name: 'Gust', image: 'img/skills/gust.png', user: 'anna', kind: 'Tấn công', element: 'wind', desc: 'Phép Gió cơ bản đánh 1 mục tiêu, có thể làm địch Nhẹ (Light).' },
+    { id: 'whirlwind', name: 'Whirlwind', image: 'img/skills/whirlwind.png', user: 'anna', kind: 'Tấn công', element: 'wind', desc: 'Phép Gió nâng cao đánh 1 mục tiêu, có thể làm Nhẹ + giảm kháng phép.' },
+    { id: 'hurricane', name: 'Hurricane', image: 'img/skills/hurricane.png', user: 'anna', kind: 'Tấn công', element: 'wind', desc: 'Phép Gió mạnh đánh toàn địch (tập trung 1 đích thì mạnh hơn), Nhẹ + giảm kháng phép.' },
+    { id: 'blessed-arrow', name: 'Blessed Arrow', image: 'img/skills/blessed-arrow.png', user: 'anna', kind: 'Tấn công', element: 'holy', desc: 'Mũi tên Thánh nâng cao đánh 1 mục tiêu, có thể làm địch Yếu đi.' },
+    { id: 'blessed-barrage', name: 'Blessed Barrage', image: 'img/skills/blessed-barrage.png', user: 'anna', kind: 'Tấn công', element: 'holy', desc: 'Mỗi địch ăn 1 mũi tên Thánh ngẫu nhiên (tập trung 1 đích thì mạnh hơn), Yếu đi.' },
+    { id: 'spark-arrow', name: 'Spark Arrow', image: 'img/skills/spark-arrow.png', user: 'anna', kind: 'Tấn công', element: 'thunder', desc: 'Mũi tên Sấm nâng cao đánh 1 mục tiêu, có thể Choáng.' },
+    { id: 'spark-shower', name: 'Spark Shower', image: 'img/skills/spark-shower.png', user: 'anna', kind: 'Tấn công', element: 'thunder', desc: 'Trận mưa tên Sấm mỗi địch 1 phát (tập trung 1 đích thì mạnh hơn), Choáng.' },
+    { id: 'aqua-arrow', name: 'Aqua Arrow', image: 'img/skills/aqua-arrow.png', user: 'anna', kind: 'Tấn công', element: 'water', desc: 'Mũi tên Nước nâng cao đánh 1 mục tiêu, có thể làm Ướt.' },
+    { id: 'aqua-volley', name: 'Aqua Volley', image: 'img/skills/aqua-volley.png', user: 'anna', kind: 'Tấn công', element: 'water', desc: 'Vồi tên nước mỗi địch 1 phát (tập trung 1 đích thì mạnh hơn), làm Ướt.' },
+    { id: 'frost-arrow', name: 'Frost Arrow', image: 'img/skills/frost-arrow.png', user: 'anna', kind: 'Tấn công', element: 'ice', desc: 'Mũi tên Băng nâng cao đánh 1 mục tiêu, có thể gây Đóng băng.' },
+    { id: 'frost-flurry', name: 'Frost Flurry', image: 'img/skills/frost-flurry.png', user: 'anna', kind: 'Tấn công', element: 'ice', desc: 'Trận bão tên băng mỗi địch 1 phát (tập trung 1 đích thì mạnh hơn), Đóng băng.' },
+    { id: 'nitro-arrow', name: 'Nitro Arrow', image: 'img/skills/nitro-arrow.png', user: 'anna', kind: 'Tấn công', element: 'bomb', desc: 'Mũi tên nổ nâng cao đánh 1 mục tiêu, có thể Tẩy buff địch.' },
+    { id: 'nitro-blitz', name: 'Nitro Blitz', image: 'img/skills/nitro-blitz.png', user: 'anna', kind: 'Tấn công', element: 'bomb', desc: 'Đợt mưa tên nổ mỗi địch 1 phát (tập trung 1 đích thì mạnh hơn), Tẩy buff.' },
+    { id: 'renew', name: 'Renew', image: 'img/skills/renew.png', user: 'anna', kind: 'Hỗ trợ', element: null, desc: 'Phép hồi máu đơn giản cho 1 đồng đội.' },
+    { id: 'refresh', name: 'Refresh', image: 'img/skills/refresh.png', user: 'anna', kind: 'Hỗ trợ', element: null, desc: 'Phép hồi máu nâng cao cho 1 đồng đội, kèm trạng thái Ban phước.' },
+    { id: 'normal-attack-anna', name: 'Normal Attack (Anna)', image: 'img/skills/normal-attack-anna.png', user: 'anna', kind: 'Tấn công', element: 'physical', desc: 'Đòn cắt thường của Anna: 1 nhát theo nguyên tố vũ khí đang cầm.' },
+    { id: 'jump-attack', name: 'Jump Attack', image: 'img/skills/jump-attack.png', user: 'nolegs', kind: 'Tấn công', element: 'physical', desc: 'Đòn vồ 3 nhát vào 1 mục tiêu, nhảy sang địch kế khi đích gục; mỗi địch chết thêm 1 nhát.' },
+    { id: 'sword-dance', name: 'Sword Dance', image: 'img/skills/sword-dance.png', user: 'nolegs', kind: 'Tấn công', element: 'physical', desc: 'Bản nâng của Jump Attack: 3 nhát nhảy múa trên 1 đích theo nguyên tố vũ khí.' },
+    { id: 'final-cutter', name: 'Final Cutter', image: 'img/skills/final-cutter.png', user: 'nolegs', kind: 'Tấn công', element: 'physical', desc: 'Bản mạnh nhất của họ nhảy chém: 3 nhát 1 đích, nhả thêm nhát theo số địch gục.' },
+    { id: 'blade-blitz', name: 'Blade Blitz', image: 'img/skills/blade-blitz.png', user: 'nolegs', kind: 'Tấn công', element: 'physical', desc: 'Bản nâng của Swordplay: 11 nhát chém cuồng loạn vào 1 mục tiêu theo nguyên tố vũ khí.' },
+    { id: 'wispy-strike', name: 'Wispy Strike', image: 'img/skills/wispy-strike.png', user: 'nolegs', kind: 'Tấn công', element: 'wind', desc: 'Đòn Gió nâng cao 3 nhát 1 đích (địch gục thì nhảy tiếp), làm địch Yếu đi.' },
+    { id: 'tornado-tantrum', name: 'Tornado Tantrum', image: 'img/skills/tornado-tantrum.png', user: 'nolegs', kind: 'Tấn công', element: 'wind', desc: 'Bản mạnh của Wispy Strike: 3 nhát vầy lồng theo Gió, Yếu đi.' },
+    { id: 'bubbly-strike', name: 'Bubbly Strike', image: 'img/skills/bubbly-strike.png', user: 'nolegs', kind: 'Tấn công', element: 'water', desc: 'Đòn Nước nâng cao 3 nhát 1 đích, có thể gây Vận xui cho mục tiêu.' },
+    { id: 'water-whirl', name: 'Water Whirl', image: 'img/skills/water-whirl.png', user: 'nolegs', kind: 'Tấn công', element: 'water', desc: 'Bản mạnh của Bubbly Strike: vun xoáy 3 nhát Nước, gây Vận xui.' },
+    { id: 'lightning-strike', name: 'Lightning Strike', image: 'img/skills/lightning-strike.png', user: 'nolegs', kind: 'Tấn công', element: 'thunder', desc: 'Đòn Sấm nâng cao 3 nhát 1 đích, có thể Choáng mục tiêu.' },
+    { id: 'bolt-boogie', name: 'Bolt Boogie', image: 'img/skills/bolt-boogie.png', user: 'nolegs', kind: 'Tấn công', element: 'thunder', desc: 'Múa sét 3 nhát theo nhịp (bản mạnh Lightning Strike), có thể Choáng.' },
+    { id: 'sacred-strike', name: 'Sacred Strike', image: 'img/skills/sacred-strike.png', user: 'nolegs', kind: 'Tấn công', element: 'holy', desc: 'Đòn Thánh nâng cao 3 nhát 1 đích, có thể Syphon mục tiêu.' },
+    { id: 'divine-divide', name: 'Divine Divide', image: 'img/skills/divine-divide.png', user: 'nolegs', kind: 'Tấn công', element: 'holy', desc: 'Bản mạnh Sacred Strike: chớp Thánh chia đôi mục tiêu, có thể Syphon.' },
+    { id: 'shadow-strike', name: 'Shadow Strike', image: 'img/skills/shadow-strike.png', user: 'nolegs', kind: 'Tấn công', element: 'dark', desc: 'Đòn Tối nâng cao 3 nhát 1 đích, có thể Nguyền mục tiêu.' },
+    { id: 'twilight-tango', name: 'Twilight Tango', image: 'img/skills/twilight-tango.png', user: 'nolegs', kind: 'Tấn công', element: 'dark', desc: 'Vũ điệu hoàng hôn (bản mạnh Shadow Strike): 3 nhát Tối kèm Nguyền.' },
+    { id: 'cherish', name: 'Cherish', image: 'img/skills/cherish.png', user: 'nolegs', kind: 'Hỗ trợ', element: null, desc: 'Biến đồng đội thành Lovable — không thể bị đòn đơn mục tiêu nhắm tới.' },
+    { id: 'loving-aura', name: 'Loving Aura', image: 'img/skills/loving-aura.png', user: 'nolegs', kind: 'Hỗ trợ', element: null, desc: 'Cấp Lovable cho toàn đội (hoặc 1 đích mạnh hơn).' },
+    { id: 'berserk-skill', name: 'Berserk', image: 'img/skills/berserk-skill.png', user: 'nolegs', kind: 'Hỗ trợ', element: null, desc: 'Berserk 1 mục tiêu (kể cả địch): đánh liên tục với sát thương tăng.' },
+    { id: 'raging-force', name: 'Raging Force', image: 'img/skills/raging-force.png', user: 'nolegs', kind: 'Hỗ trợ', element: null, desc: 'Berserk toàn đội (hoặc 1 đích mạnh hơn) — buff sát thương lớn.' },
+    { id: 'sushi-cat-v2', name: 'Sushi Cat!', image: 'img/skills/sushi-cat-v2.png', user: 'nolegs', kind: 'Limit Break', element: null, desc: 'Bản upgrade Sushi Cat: nảy 3 quân ngẫu nhiên + hồi 2 đồng đội yếu nhất + Vận may cho cả đội.' },
+    { id: 'normal-attack-nolegs', name: 'Normal Attack (NoLegs)', image: 'img/skills/normal-attack-nolegs.png', user: 'nolegs', kind: 'Tấn công', element: 'physical', desc: 'Đòn đột kích thường của NoLegs: đâm 1 đích từ sau lưng theo nguyên tố vũ khí.' },
+    { id: 'ivy', name: 'Ivy', image: 'img/skills/ivy.png', user: null, kind: 'Tấn công', element: 'bio', desc: 'Đòn Độc đánh 1 mục tiêu, có thể Nhiễm độc. Học qua trang bị: Matt, Anna, NoLegs.' },
+    { id: 'vines', name: 'Vines', image: 'img/skills/vines.png', user: null, kind: 'Tấn công', element: 'bio', desc: 'Đòn Độc mạnh đánh 1 mục tiêu nhiều lần, Nhiễm độc + giảm né. Học qua trang bị: Matt, Anna, NoLegs.' },
+    { id: 'acid', name: 'Acid', image: 'img/skills/acid.png', user: null, kind: 'Tấn công', element: 'bio', desc: 'Phép Độc nâng cao đánh 1 mục tiêu, giảm kháng phép. Học qua trang bị: Natalie, Lance, Anna.' },
+    { id: 'acid-blast', name: 'Acid Blast', image: 'img/skills/acid-blast.png', user: null, kind: 'Tấn công', element: 'bio', desc: 'Phép Độc mạnh đánh toàn địch (tập trung 1 đích mạnh hơn), giảm kháng phép. Học qua trang bị: Natalie, Lance, Anna.' },
+    { id: 'gale', name: 'Gale', image: 'img/skills/gale.png', user: null, kind: 'Tấn công', element: 'wind', desc: 'Đòn Gió nâng cao đánh 1 mục tiêu, làm địch Nhẹ. Học qua trang bị: Matt, Lance, Anna, NoLegs.' },
+    { id: 'tempest', name: 'Tempest', image: 'img/skills/tempest.png', user: null, kind: 'Tấn công', element: 'wind', desc: 'Đòn Gió mạnh đánh 1 mục tiêu, làm địch Nhẹ. Học qua trang bị: Matt, Lance, Anna, NoLegs.' },
+    { id: 'shock', name: 'Shock', image: 'img/skills/shock.png', user: null, kind: 'Tấn công', element: 'thunder', desc: 'Đòn Sấm nâng cao đánh 1 mục tiêu, có thể Chững. Học qua trang bị: Matt, Lance, NoLegs.' },
+    { id: 'surge', name: 'Surge', image: 'img/skills/surge.png', user: null, kind: 'Tấn công', element: 'thunder', desc: 'Đòn Sấm mạnh đánh 1 mục tiêu, có thể Chững. Học qua trang bị: Matt, Lance, NoLegs.' },
+    { id: 'sand', name: 'Sand', image: 'img/skills/sand.png', user: null, kind: 'Tấn công', element: 'earth', desc: 'Đòn Đất nâng cao đánh 1 mục tiêu, có thể Khô + giảm chính xác. Học qua trang bị: Matt, Lance, Anna, NoLegs.' },
+    { id: 'sand-dune', name: 'Sand Dune', image: 'img/skills/sand-dune.png', user: null, kind: 'Tấn công', element: 'earth', desc: 'Đòn Đất mạnh đánh 1 mục tiêu, Khô + giảm chính xác. Học qua trang bị: Matt, Lance, Anna, NoLegs.' },
+    { id: 'bullet-bob', name: 'Bullet Bob', image: 'img/skills/bullet-bob.png', user: null, kind: 'Tấn công', element: 'bomb', desc: 'Đòn Bom nâng cao đánh 1 mục tiêu, chí mạng cao. Học qua trang bị: Matt, Lance, NoLegs.' },
+    { id: 'big-bullet', name: 'Big Bullet', image: 'img/skills/big-bullet.png', user: null, kind: 'Tấn công', element: 'bomb', desc: 'Đòn Bom mạnh đánh 1 mục tiêu, chí mạng cao. Học qua trang bị: Matt, Lance, NoLegs.' },
+    { id: 'purging-flame', name: 'Purging Flame', image: 'img/skills/purging-flame.png', user: null, kind: 'Tấn công', element: 'holy', desc: 'Phép Thánh chuyên gỡ buff: Tẩy buff 1 mục tiêu + giảm phép tấn công, chính xác cao. Học qua trang bị: Matt, Natalie, Lance, Anna.' },
+    { id: 'giga-drill', name: 'Giga Drill', image: 'img/skills/giga-drill.png', user: null, kind: 'Tấn công', element: 'earth', desc: 'Khoan đất mạnh vào 1 mục tiêu — damage lớn hơn nhiều khi địch đang buff phòng thủ hay đang Guard. Học qua trang bị: Matt, Lance, Anna.' },
+    { id: 'electron-gun', name: 'Electron Gun', image: 'img/skills/electron-gun.png', user: null, kind: 'Tấn công', element: 'thunder', desc: 'Phép Sấm đánh 1 mục tiêu, có thể Choáng. Học qua trang bị: Matt, Lance.' },
+    { id: 'bubble-ring', name: 'Bubble Ring', image: 'img/skills/bubble-ring.png', user: null, kind: 'Tấn công', element: 'water', desc: 'Đòn Nước đánh 1 mục tiêu, có thể Syphon; loại sát thương theo chỉ số cao nhất. Học qua trang bị: cả 5 nhân vật.' },
+    { id: 'gaia-seed', name: 'Gaia Seed', image: 'img/skills/gaia-seed.png', user: null, kind: 'Tấn công', element: 'earth', desc: 'Phép Đất cơ bản đánh 1 mục tiêu, có thể làm Mỏi. Học qua trang bị: Natalie, Anna, NoLegs.' },
+    { id: 'gaia-bloom', name: 'Gaia Bloom', image: 'img/skills/gaia-bloom.png', user: null, kind: 'Tấn công', element: 'earth', desc: 'Phép Đất nâng cao đánh 1 mục tiêu, có thể làm Mỏi. Học qua trang bị: Natalie, Anna, NoLegs.' },
+    { id: 'gaia-blossom', name: 'Gaia Blossom', image: 'img/skills/gaia-blossom.png', user: null, kind: 'Tấn công', element: 'earth', desc: 'Phép Đất mạnh đánh toàn địch (tập trung 1 đích mạnh hơn), làm Mỏi. Học qua trang bị: Natalie, Anna, NoLegs.' },
+    { id: 'bubble', name: 'Bubble', image: 'img/skills/bubble.png', user: null, kind: 'Tấn công', element: 'water', desc: 'Phép Nước cơ bản đánh 1 mục tiêu, có thể làm Ướt. Học qua trang bị: Natalie, Lance, Anna, NoLegs.' },
+    { id: 'whirlpool', name: 'Whirlpool', image: 'img/skills/whirlpool.png', user: null, kind: 'Tấn công', element: 'water', desc: 'Phép Nước nâng cao đánh 1 mục tiêu, làm Ướt + giảm né. Học qua trang bị: Natalie, Lance, Anna, NoLegs.' },
+    { id: 'bubble-blast', name: 'Bubble Blast', image: 'img/skills/bubble-blast.png', user: null, kind: 'Tấn công', element: 'water', desc: 'Phép Nước mạnh đánh toàn địch (tập trung 1 đích mạnh hơn), làm Ướt + giảm né. Học qua trang bị: Natalie, Lance, Anna, NoLegs.' },
+    { id: 'air', name: 'Air', image: 'img/skills/air.png', user: null, kind: 'Tấn công', element: 'wind', desc: 'Phép Gió cơ bản đánh 1 mục tiêu, có thể Chững. Học qua trang bị: Natalie, Lance, NoLegs.' },
+    { id: 'airwave', name: 'Airwave', image: 'img/skills/airwave.png', user: null, kind: 'Tấn công', element: 'wind', desc: 'Phép Gió nâng cao đánh 1 mục tiêu, có thể Chững. Học qua trang bị: Natalie, Lance, NoLegs.' },
+    { id: 'shockwave', name: 'Shockwave', image: 'img/skills/shockwave.png', user: null, kind: 'Tấn công', element: 'wind', desc: 'Phép Gió mạnh đánh toàn địch (tập trung 1 đích mạnh hơn), Chững. Học qua trang bị: Natalie, Lance, NoLegs.' },
+    { id: 'energy', name: 'Energy', image: 'img/skills/energy.png', user: null, kind: 'Tấn công', element: 'bomb', desc: 'Phép Bom cơ bản đánh 1 mục tiêu, chí mạng cao. Học qua trang bị: Natalie, Lance, NoLegs.' },
+    { id: 'energy-bomb', name: 'Energy Bomb', image: 'img/skills/energy-bomb.png', user: null, kind: 'Tấn công', element: 'bomb', desc: 'Phép Bom nâng cao đánh 1 mục tiêu, chí mạng cao. Học qua trang bị: Natalie, Lance, NoLegs.' },
+    { id: 'energy-barrage', name: 'Energy Barrage', image: 'img/skills/energy-barrage.png', user: null, kind: 'Tấn công', element: 'bomb', desc: 'Phép Bom mạnh đánh toàn địch (tập trung 1 đích mạnh hơn), chí mạng cao. Học qua trang bị: Natalie, Lance, NoLegs.' },
+    { id: 'sawblade', name: 'Sawblade', image: 'img/skills/sawblade.png', user: null, kind: 'Tấn công', element: null, desc: 'Đòn không nguyên tố nâng cao đánh 1 mục tiêu, bỏ qua buff phòng thủ, có thể giết tức thì. Học qua trang bị: Matt, Lance, Anna.' },
+    { id: 'shredder', name: 'Shredder', image: 'img/skills/shredder.png', user: null, kind: 'Tấn công', element: null, desc: 'Bản mạnh của Sawblade: quét toàn địch, bỏ qua buff phòng thủ, có thể giết tức thì. Học qua trang bị: Matt, Lance, Anna.' },
+    { id: 'snow-bunnies', name: 'Snow Bunnies', image: 'img/skills/snow-bunnies.png', user: null, kind: 'Tấn công', element: 'ice', desc: 'Phép Băng đánh toàn địch, có thể gây Lạnh. Học qua trang bị: cả 5 nhân vật.' },
+    { id: 'snow-cats', name: 'Snow Cats', image: 'img/skills/snow-cats.png', user: null, kind: 'Tấn công', element: 'ice', desc: 'Phép Băng mạnh đánh toàn địch kèm combo đóng băng, gây Lạnh. Học qua trang bị: cả 5 nhân vật.' },
+    { id: 'fire-spin', name: 'Fire Spin', image: 'img/skills/fire-spin.png', user: null, kind: 'Tấn công', element: 'fire', desc: 'Phép Lửa mạnh đánh toàn địch, gây Đốt + giảm phòng thủ. Học qua trang bị: Natalie, Anna, NoLegs.' },
+    { id: 'fairy-bombs', name: 'Fairy Bombs', image: 'img/skills/fairy-bombs.png', user: null, kind: 'Tấn công', element: 'holy', desc: 'Phép Thánh mạnh đánh toàn địch, chính xác cao. Học qua trang bị: Natalie, Anna, NoLegs.' },
+    { id: 'demon-swords', name: 'Demon Swords', image: 'img/skills/demon-swords.png', user: null, kind: 'Tấn công', element: 'dark', desc: 'Đòn Tối mạnh đánh toàn địch (tập trung 1 đích mạnh hơn). Học qua trang bị: Matt, Anna, NoLegs.' },
+    { id: 'geometry', name: 'Geometry', image: 'img/skills/geometry.png', user: null, kind: 'Tấn công', element: null, desc: 'Đòn không nguyên tố mạnh đánh 1 mục tiêu, loại sát thương theo chỉ số cao nhất, chính xác + chí mạng cao. Học qua trang bị: cả 5 nhân vật.' },
+    { id: 'encore', name: 'Encore', image: 'img/skills/encore.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Cho đồng đội thêm 1 lượt hành động — dùng cho bản thân thì vô nghĩa. Học qua trang bị: cả 5 nhân vật.' },
+    { id: 'screamer', name: 'Screamer', image: 'img/skills/screamer.png', user: null, kind: 'Tấn công', element: 'dark', desc: 'Phép Tối đánh toàn địch + giảm tấn công, có thể dụ địch Đầu hàng kể cả quân mạnh. Học qua trang bị: Matt, Natalie, Anna, NoLegs.' },
+    { id: 'the-reaper', name: 'The Reaper', image: 'img/skills/the-reaper.png', user: null, kind: 'Tấn công', element: 'dark', desc: 'Đòn Tối giết chóc 1 mục tiêu tức thì, chính xác thấp. Học qua trang bị: Matt, Natalie, Anna, NoLegs.' },
+    { id: 'lock-on', name: 'Lock On', image: 'img/skills/lock-on.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Buff chính xác cho đồng đội kèm trạng thái Vận may. Học qua trang bị: cả 5 nhân vật.' },
+    { id: 'heavenly-shield', name: 'Heavenly Shield', image: 'img/skills/heavenly-shield.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Buff phòng thủ vật lý + phép cho đồng đội. Học qua trang bị: Matt, Natalie, NoLegs.' },
+    { id: 'protect', name: 'Protect', image: 'img/skills/protect.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Buff phòng thủ vật lý toàn đội, kể cả backup. Học qua trang bị: Matt, Anna, NoLegs.' },
+    { id: 'reflex', name: 'Reflex', image: 'img/skills/reflex.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Buff né cho toàn đội (kể cả backup) + hoá giải che giấu. Học qua trang bị: Matt, Anna, NoLegs.' },
+    { id: 'debilitate', name: 'Debilitate', image: 'img/skills/debilitate.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Giảm phòng thủ vật lý toàn địch. Học qua trang bị: Matt, Natalie, Lance.' },
+    { id: 'enfeeble', name: 'Enfeeble', image: 'img/skills/enfeeble.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Giảm kháng phép toàn địch. Học qua trang bị: Natalie, Lance, Anna.' },
+    { id: 'dispel', name: 'Dispel', image: 'img/skills/dispel.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Tẩy buff toàn địch, gỡ buff + trạng thái tích cực; có thể dùng cho đội để gỡ debuff. Học qua trang bị: Matt, Natalie, Lance, Anna.' },
+    { id: 'bind', name: 'Bind', image: 'img/skills/bind.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Giảm né toàn địch, chính xác cao. Học qua trang bị: Matt, Lance, Anna.' },
+    { id: 'flare', name: 'Flare', image: 'img/skills/flare.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Giảm chính xác toàn địch, chính xác cao. Học qua trang bị: Natalie, Lance.' },
+    { id: 'heal', name: 'Heal', image: 'img/skills/heal.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Phép hồi máu cơ bản cho 1 đồng đội. Học qua trang bị: Matt, Natalie, Anna, NoLegs.' },
+    { id: 'revive', name: 'Revive', image: 'img/skills/revive.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Sống lại đồng đội đã gục (hoặc cấp Auto-Revive cho người còn sống). Học qua trang bị: Natalie, Anna, NoLegs.' },
+    { id: 'purify', name: 'Purify', image: 'img/skills/purify.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Trị trạng thái phổ thông cho cả đội hoặc toàn địch (không tính Ướt, Lạnh). Học qua trang bị: Matt, Natalie, Anna, NoLegs.' },
+    { id: 'phyrnnas-blessing', name: "Phyrnna's Blessing", image: 'img/skills/phyrnnas-blessing.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Buff phép tấn công toàn đội (kể cả backup) kèm Regen mỗi lượt. Học qua trang bị: Natalie, Anna, NoLegs.' },
+    { id: 'firecrackers', name: 'Firecrackers', image: 'img/skills/firecrackers.png', user: null, kind: 'Hỗ trợ', element: null, desc: 'Ném pháo: cấp Vận xui cho toàn địch + Vận may cho toàn đội (kể cả backup), có thể dụ địch Đầu hàng. Học qua trang bị: cả 5 nhân vật.' },
+  ],
+
+  /* ------------------------------------ Vật phẩm -----------------------------
+     Các vật phẩm tiêu hao điển hình của EBF5. */
+  items: [
+    { id: 'food-general',     name: 'Food',             kind: 'Hồi phục', elements: ['holy'], image: 'img/items/food-general.png',  effect: 'Hồi HP + gỡ debuff',         desc: 'Nhóm vật phẩm hồi phục của EBF5: vừa hồi vừa gỡ debuff cho người ăn, thay vai trò potion cổ điển. Bán ở 5 cửa hàng Food: Hope Harbor, Greenwood Village, Redpine Town, Iron Fortress và The Great Sea.' },
+    { id: 'pumpkin',          name: 'Pumpkin',          kind: 'Hồi phục', elements: ['holy'], image: 'img/items/pumpkin.png',       effect: 'Hồi 300 HP hoặc 20% max HP',  desc: 'Quy tắc hồi phục mọi món Food đơn trong EBF5: lấy con số cao hơn. Giá 30 gold.' },
+    { id: 'pineapple',        name: 'Pineapple',        kind: 'Hồi phục', elements: ['holy'], image: 'img/items/pineapple.png',     effect: 'Hồi 1000 HP hoặc 40% max HP', desc: 'Bậc hai của nhánh hồi đơn. Giá 160 gold.' },
+    { id: 'watermelon',       name: 'Watermelon',       kind: 'Hồi phục', elements: ['holy'], image: 'img/items/watermelon.png',    effect: 'Hồi 3000 HP hoặc 60% max HP', desc: 'Món hồi đơn mạnh, lựa chọn nạp máu trước boss. Giá 700 gold.' },
+    { id: 'dragon-fruit',     name: 'Dragon Fruit',     kind: 'Hồi phục', elements: ['holy'], image: 'img/items/dragon-fruit.png',  effect: 'Hồi 10000 HP hoặc 80% max HP', desc: 'Đỉnh của nhánh hồi đơn. Giá 6000 gold.' },
+    { id: 'raspberries',      name: 'Raspberries',      kind: 'Hồi phục', elements: ['holy'], image: 'img/items/raspberries.png',   effect: 'Hồi cả đội 200 HP / 20%',     desc: 'Món hồi nhóm giá rẻ, dùng khi đang cày cấp. Giá 250 gold.' },
+    { id: 'blueberries',      name: 'Blueberries',      kind: 'Hồi phục', elements: ['holy'], image: 'img/items/blueberries.png',   effect: 'Hồi cả đội 1000 HP / 30%',    desc: 'Bậc hai của nhánh hồi nhóm. Giá 1600 gold.' },
+    { id: 'cloudberries',     name: 'Cloudberries',     kind: 'Hồi phục', elements: ['holy'], image: 'img/items/cloudberries.png',  effect: 'Hồi cả đội 6000 HP / 40%',    desc: 'Đỉnh của nhánh hồi nhóm. Giá 8000 gold.' },
+    { id: 'garlic',           name: 'Garlic',           kind: 'Hồi phục', elements: [],       image: 'img/items/garlic.png',        effect: 'Gỡ trạng thái xấu',           desc: 'Vật phẩm trị trạng thái kinh điển từ EBF3: món tỏi khó ăn nhưng giải được mọi status ailment.' },
+    { id: 'banana',           name: 'Banana',           kind: 'Hồi phục', elements: [],       image: 'img/items/banana.png',        effect: 'Gỡ debuff chỉ số',            desc: 'Mới của EBF5: gỡ debuff chỉ số thay vì trạng thái. Giá 30 gold.' },
+    { id: 'apple',            name: 'Apple',            kind: 'Hồi phục', elements: [],       image: 'img/items/apple.png',         effect: 'Cooldown -1',                 desc: 'Giảm 1 cooldown của người ăn — dùng lại đòn lớn sớm hơn. Giá 100 gold.' },
+    { id: 'cupcake',          name: 'Cupcake',          kind: 'Hồi phục', elements: ['holy'], image: 'img/items/cupcake.png',       effect: 'Cooldown -2',                 desc: 'Trừ 2 cooldown, đổi lại Stuffed 3 lượt. Giá 1000 gold.' },
+    { id: 'beer',             name: 'Beer',             kind: 'Hồi phục', elements: [],       image: 'img/items/beer.png',          effect: 'Buff Attack 60%',             desc: 'Lon đỏ chữ T nhại theo bia Tennent Lager của Scotland. Buff Attack 60%. Giá 400 gold.' },
+    { id: 'cola',             name: 'Cola',             kind: 'Hồi phục', elements: [],       image: 'img/items/cola.png',          effect: 'Buff Magic Attack 60%',       desc: 'Buff Magic Attack 60% — món nước ngọt thay cho Milk những phần trước. Giá 400 gold.' },
+    { id: 'coffee',           name: 'Coffee',           kind: 'Hồi phục', elements: ['holy'], image: 'img/items/coffee.png',        effect: 'Hồi sinh 30% HP',             desc: 'Hồi sinh đồng đội gục với 30% HP — món "phoenix down" của EBF. Giá 500 gold. Có tồn tại từ EBF3.' },
+    { id: 'espresso',         name: 'Espresso',         kind: 'Hồi phục', elements: ['holy'], image: 'img/items/espresso.png',      effect: 'Hồi sinh 100% HP (rất hiếm)', desc: 'Hồi sinh với đầy HP kèm buff Max HP 50%. Chỉ tìm được, không bán.' },
+    { id: 'chili-pepper',     name: 'Chili Pepper',     kind: 'Hồi phục', elements: ['fire'], image: 'img/items/chili-pepper.png',  effect: 'Nạp Limit Bar + gây Xém',     desc: 'Nạp đầy Limit Bar tức thì, nhưng người ăn bị Scorch. Very rare.' },
+    { id: 'orange-juice',     name: 'Orange Juice',     kind: 'Hồi phục', elements: ['holy'], image: 'img/items/orange-juice.png',  effect: 'Buff Max HP 100% (rất hiếm)', desc: 'Nhân đôi Max HP của người ăn trong trận. Very rare.' },
+    { id: 'crisps',           name: 'Crisps',           kind: 'Hồi phục', elements: [],       image: 'img/items/crisps.png',        effect: 'Cooldown cả đội -1',          desc: 'Trừ 1 cooldown cho toàn đội, đổi lại Stuffed 1 lượt. Giá 3000 gold.' },
+    { id: 'chips',            name: 'Chips',            kind: 'Hồi phục', elements: ['holy'], image: 'img/items/chips.png',         effect: 'Hồi cả đội 60% max HP',       desc: 'Kèm Stuffed 2 lượt — món nạp máu đội hình trong một lượt. Giá 10000 gold.' },
+    { id: 'hamburger',        name: 'Hamburger',        kind: 'Hồi phục', elements: ['holy'], image: 'img/items/hamburger.png',     effect: 'Hồi full + cooldown -3',      desc: 'Hồi đầy HP + MP một người, trừ 3 cooldown và Stuffed 3 lượt. Giá 10000 gold. Médal vừa ăn còn có tên Fatty.' },
+    { id: 'pizza',            name: 'Pizza',            kind: 'Hồi phục', elements: ['holy'], image: 'img/items/pizza.png',         effect: 'Hồi full cả đội (rất hiếm)',  desc: 'Hồi đầy HP + MP cả đội sống, trừ 3 cooldown, Stuffed 3 lượt. Very rare.' },
+    { id: 'hand-bomb',        name: 'Hand Bomb',        kind: 'Tiêu hao', elements: ['bomb'], image: 'img/items/hand-bomb.png',     effect: 'Sát thương Bom 1 mục tiêu',   desc: 'Ném cho thêm thương tổn Bom một mục tiêu, thuộc nhóm throwable items (đồ ném) của game.' },
+    { id: 'crispy-bacon',     name: 'Crispy Bacon',     kind: 'Steroid',  elements: [],       image: 'img/items/crispy-bacon.png',  effect: 'Matt: Attack & Defence +2%',  desc: 'Steroid vĩnh viễn của Matt: +2% Attack và Defence. Mỗi nhân vật có bộ steroid riêng trong EBF5.' },
+    { id: 'donut',            name: 'Donut',            kind: 'Steroid',  elements: [],       image: 'img/items/donut.png',         effect: 'Natalie: MAtk & MDef +2%',    desc: 'Steroid vĩnh viễn của Natalie cho Magic Attack & Magic Defence.' },
+    { id: 'red-pill',         name: 'Red Pill',         kind: 'Steroid',  elements: [],       image: 'img/items/red-pill.png',      effect: 'Lance: Evade & Accuracy +1%', desc: 'Steroid của Lance, trò chơi chữ đầy đủ: chọn viên nào trong The Matrix.' },
+    { id: 'mint-leaf',        name: 'Mint Leaf',        kind: 'Steroid',  elements: [],       image: 'img/items/mint-leaf.png',     effect: 'Anna: Evade & Accuracy +1%',  desc: 'Steroid của Anna — cùng Hard Nut là thù lác về series Golden Sun.' },
+    { id: 'chocolate-milk',   name: 'Chocolate Milk',   kind: 'Steroid',  elements: [],       image: 'img/items/chocolate-milk.png', effect: 'NoLegs: Max HP +2%',         desc: 'Steroid Max HP +2% vĩnh viễn cho chú mèo không chân.' }
+  ],
+
+  /* ------------------------------------ Trang bị -----------------------------
+     Tên thật lấy từ wiki chính thức (nhiều bộ được gọi tên trong trang nhân vật). */
+  equipment: [
+    { id: 'ultra-pro-9000x', name: 'Ultra Pro 9000X', image: 'img/equipment/ultra-pro-9000x.png', forChar: 'matt',     kind: 'Vũ khí',     slot: 'Vũ khí',     elements: ['physical'], effect: 'Vũ khí + đầu mối trộm của Matt', desc: 'Cây hockey stick là "vũ khí" chủ đạo EBF5 của Matt — ghép với Hobo Clothes và Fake Mustache để Steal Item lấy 4 món mỗi lượt.' },
+    { id: 'heavens-gate',    name: 'Heaven Gate', image: 'img/equipment/heavens-gate.png', forChar: 'matt',     kind: 'Vũ khí',     slot: 'Vũ khí',     elements: ['holy'],     effect: 'Vũ khí Thánh của Matt', desc: 'Thanh gươm nổ tên tuổi của Matt, còn xuất hiện như đòn kết trong Limit Break Ragnarok.' },
+    { id: 'captains-hat',    name: 'Captain Hat', image: 'img/equipment/hobo-pirate-set.png', forChar: null,       kind: 'Mũ giáp',    slot: 'Mũ',         elements: [],           effect: 'Mũ canon của Matt trong EBF5', desc: 'Mũ đội trưởng xuất hiện trong bộ mặc định EBF5 của Matt; Lance dùng nó cùng Flame Suit + Spine Snapper cho build trạng thái.' },
+    { id: 'hobo-clothes',    name: 'Hobo Clothes', image: 'img/equipment/hobo-pirate-set.png', forChar: 'matt',     kind: 'Mũ giáp',    slot: 'Giáp',       elements: [],           effect: 'Giáp mặc định Matt EBF5, tăng hiệu quả trộm', desc: 'Giáp "vô gia cư" của Matt — một phần trong combo Steal Item 4 món.' },
+    { id: 'crystal-staff',   name: 'Crystal Staff', image: 'img/equipment/crystal-staff.png', forChar: 'natalie',  kind: 'Vũ khí',     slot: 'Vũ khí',     elements: ['holy'],     effect: 'Trượng yêu thích của Natalie (EBF3/4)', desc: 'Trượng kinh điển của Natalie từ EBF1 onwards — không trở lại EBF5, nhưng Alt Dark Tooth trong Equip Remix kế thừa nhiều thuộc tính của nó.' },
+    { id: 'dark-tooth',      name: 'Dark Tooth', image: 'img/equipment/dark-tooth.png', forChar: 'natalie',  kind: 'Vũ khí',     slot: 'Vũ khí',     elements: ['dark'],     effect: 'Trượng Bóng của Natalie', desc: 'Trượng nằm trong combo chính thức Red Dress / Red Ribbon của Natalie.' },
+    { id: 'officers-coat',   name: 'Officer Coat', image: 'img/equipment/officers-coat.png', forChar: 'lance',    kind: 'Mũ giáp',    slot: 'Giáp',       elements: [],           effect: 'Giáp mặc định Lance EBF5', desc: 'Giáp bộ đội mặc định của Lance trong EBF5, cùng Officer Hat.' },
+    { id: 'shadow-blaster',  name: 'Shadow Blaster', image: 'img/equipment/shadow-blaster.png', forChar: 'lance',    kind: 'Vũ khí',     slot: 'Vũ khí',     elements: ['dark'],     effect: 'Súng mặc định Lance EBF5', desc: 'Súng mặc định của Lance trong EBF5 — cái revolver đổi hình / màu theo trang bị hiện có.' },
+    { id: 'fairy-bow',       name: 'Fairy Bow', image: 'img/equipment/fairy-bow.png', forChar: 'anna',     kind: 'Vũ khí',     slot: 'Vũ khí',     elements: ['wind'],     effect: 'Cung yêu thích của Anna', desc: 'Cung lớn bắn mũi tên lớn như thân cây — Anna "rút từ không trung" bắn liên tục.' },
+    { id: 'ranger-skirt',    name: 'Ranger Skirt', image: 'img/equipment/ranger-skirt.png', forChar: 'anna',     kind: 'Mũ giáp',    slot: 'Giáp',       elements: [],           effect: 'Giáp mặc định Anna EBF5', desc: 'Trang phục mặc định của Anna trong EBF4 và EBF5, cùng Amber Bobble.' },
+    { id: 'amber-bobble',    name: 'Amber Bobble', image: 'img/equipment/amber-bobble.png', forChar: 'anna',     kind: 'Mũ giáp',    slot: 'Mũ',         elements: [],           effect: 'Mũ mặc định Anna EBF5, kháng Lửa/Sấm/Thánh', desc: 'Đồ cài tóc của Anna, mặc định từ EBF4 (từng tên Thunder/Yellow Bauble ở các bản trước) — tự triệu hồi Stumpy Gloop ngẫu nhiên trong trận.' },
+    { id: 'steel-buckler',   name: 'Steel Buckler', image: 'img/equipment/steel-buckler.png', forChar: 'nolegs',   kind: 'Vũ khí',     slot: 'Vũ khí',     elements: [],           effect: 'Khiên của NoLegs', desc: 'Bộ khởi đầu của NoLegs gồm khiên thép, Knight Helmet và Heroic Armor trong EBF5 mặc định.' },
+    { id: 'knights-helmet',  name: 'Knight Helmet', image: 'img/equipment/knight-helmet.png', forChar: 'nolegs',   kind: 'Mũ giáp',    slot: 'Mũ',         elements: [],           effect: 'Mũ mặc định NoLegs', desc: 'Mũ hiệp sĩ nhỏ cho NoLegs, được thay đổi cho mèo không chân và đuôi.' },
+    { id: 'nano-machines',   name: 'Nano Machines', image: 'img/equipment/nano-machines.png', forChar: 'lance',    kind: 'Phụ kiện',   slot: 'Flair',      elements: [],           effect: 'Nửa cooldown kỹ năng (v2)', desc: 'Flair v2 của Lance: nửa cooldown mọi kỹ năng (làm tròn lên) — ghép hoàn hảo với đòn cooldown dài như M.O.A.B hay Sharpen. Tìm trong Data Bunker.' },
+    { id: 'flame-suit',      name: 'Flame Suit', image: 'img/equipment/flame-suit.png', forChar: null,       kind: 'Mũ giáp',    slot: 'Giáp',       elements: ['fire'],     effect: 'Dùng trong build trạng thái', desc: 'Giáp góp vào build trạng thái nổi tiếng: Flame Suit + Captain Hat + cat toy hoặc Spine Snapper.' },
+    { id: 'spine-snapper',   name: 'Spine Snapper', image: 'img/equipment/spine-snapper.png', forChar: 'lance',    kind: 'Vũ khí',     slot: 'Vũ khí',     elements: ['dark'],     effect: 'Hiệu ứng innate gây Instant Death', desc: 'Súng có hiệu ứng innate Instant Death — Lance dùng nó để build instant death trên quái thường.' },
+    { id: 'human-skull',     name: 'Human Skull', image: 'img/equipment/human-skull.png', forChar: 'nolegs',   kind: 'Phụ kiện',   slot: 'Flair',      elements: ['dark'],     effect: 'Tăng khả năng gây trạng thái', desc: 'Cat toy / Flair giúp on-hit gắn sâu hơn, cùng kỹ năng The Reaper của NoLegs.' },
+    { id: 'book-of-spells',  name: 'Book of Spells', image: 'img/equipment/book-of-spells.png', forChar: 'nolegs',   kind: 'Phụ kiện',   slot: 'Flair',      elements: ['ice'],      effect: 'Tăng tỉ lệ gây Đóng băng', desc: 'Flair ưa chuộng trong build Freeze của NoLegs.' },
+    { id: 'neon-lightbulb',  name: 'Neon Lightbulb', image: 'img/equipment/neon-lightbulb.png', forChar: 'nolegs',   kind: 'Phụ kiện',   slot: 'Flair',      elements: ['thunder'],  effect: 'Tăng tỉ lệ gây Choáng', desc: 'Flair cho build Choáng của NoLegs.' }
+  ],
+
+  /* ------------------------------------ Khu vực ------------------------------
+     12 khu vực chính + 6 khu vực trả phí theo trang "Epic Battle Fantasy 5 Map"
+     của wiki chính thức. grid: ô lưới của tile đại diện trên bản đồ. */
+  areas: [
+    { id: 'hope-harbor', name: 'Hope Harbor', kind: 'Khu vực chính', image: 'img/areas/hope-harbor.png', grid: 'A2',
+      desc: 'Thị trấn ven biển nơi cuộc phiêu lưu EBF5 bắt đầu: mua trang bị, nạp Food và chuẩn bị trước khi tiến ra thế giới rộng.',
+      features: [ 'Cụm cửa hàng đầu tiên của game: Food, Material, Trang bị', 'Nhà của Matt (B5) cùng Jerry House và Jerry Cellar', 'Ice Cave liền kề — vùng khám phá đầu tiên' ],
+      tips: [ 'Mua đủ Garlic và Banana trước khi rời thị trấn — quái ngoài kia hay gây trạng thái xấu.' ],
+    cells: [
+        { grid: 'A2', foes: ['P 03 — 3 Putrid Worm, 1 Cutie Worm'], keys: ['C 01 — Glasses', 'K 06 — The Shovel', 'L 02 — Copper Key'] },
+        { grid: 'A5', keys: ['P 05 — Earthenware', 'G 04 — Chocolate', 'M 04 — Golden Ticket', 'E 09 — Sunglasses', 'Q 08 — The Fishing Rod'], subs: 'Nhà Jerry, Hầm nhà Jerry' },
+        { grid: 'B2', foes: ['E 04 — 2 Green Bush, 2 Stumpy Gloop', 'H 07 — Natalie', 'K 07 — 2 Putrid Worm, 2 Stumpy Gloop'], keys: ['I 08 — Coral Key'], notes: ['Khu Glitch (Glitch Area) mở cửa sau khi hoàn thành Mystic Woods.'], subs: 'Khu Glitch' },
+        { grid: 'B5', foes: ['L 07 — 3 PUMPKUS / 3 ANGRY CHAIR / 3 BOSH / 3 ROBO / 3 GLOB / 3 SNEK / 3 PHOENIX / 2 TOTOM / 2 TREAGURE / 2 GUOYE / 1 CORALIA / 1 THE MAW'], notes: ['G 04: Máy chơi game công nghệ cao', 'Arcade Boss Rush mở sau khi đánh bại đủ 12 boss Arcade; hoàn thành chuỗi này sẽ xuất hiện rương G07.'], subs: 'Nhà Matt' },
+        { grid: 'C2', foes: ['J 10 — 2 Master Wraith, 1 NoLegs Doll / 3 Bone Bat, 1 Matt Doll, 1 Natalie Doll', 'P 05 — 3 Bone Bat, 2 Haunted Mirror / 3 Master Wraith, 2 Haunted Mirror'], keys: ['E 06 — Earthenware', 'H 04 — Bottled Milk', 'P 04 — Chocolate', 'E 04 — Sapphire of Dreams', 'P 03 — Wooden Key'], subs: 'Bếp, Tầng hầm' },
+        { grid: 'C5', foes: ['E 03 — 2 Stone Idol', 'G 09 — 1 Hermit Creep', 'N 09 — 2 Water Slime / 2 Water Slime', 'R 04 — NoLegs'] },
+        { grid: 'D2', foes: ['C 02 — 3 Sand Slime, 1 Sandstone Boulder', 'H 09 — 3 Sandy Bush, 1 Rescue Dog'], keys: ['L 10 — Earthenware'] },
+        { grid: 'D3', foes: ['P 01 — 2 Water Slime, 1 Sandstone Boulder / 1 Water Slime, 2 Sandstone Boulder', 'R 10 — 3 Wooden Idol / 3 Stumpy Gloop'], keys: ['P 04 — Gold Key'] },
+        { grid: 'D4', foes: ['F 04 — 2 Big Sand Slime', 'J 02 — 2 Sand Slime, 1 Slime Bunny / 2 Sand Slime, 1 Big Sand Slime', 'M 09 — 2 Sand Slime, 2 Sandstone Boulder / 2 Camel Mammoth', 'P 05 — 2 Stone Idol, 2 Dirt Boulder', 'J 09 — 2 Zircon Ore, 2 Hardy Gloop', 'N 03 — 2 Zircon Ore / 4 Snow Bat', 'N 09 — 2 Icicle Creep, 1 Zircon Ore'] },
+        { grid: 'D5', foes: ['C 06 — 2 Water Slime, 1 Coral Boulder / 2 Coral Boulder, 1 Dirt Boulder', 'L 06 — 2 Stone Idol, Jotun', 'N 03 — 2 Hermit Creep, 1 Sandstone Boulder'] },
+        { grid: 'E3', foes: ['F 06 — 2 Zircon Ore, 2 Ice Sprite, 1 Icicle Creep', 'P 03 — 2 Snow Bat, 1 Viking Monolith'] }
+      ] },
+    { id: 'wild-tropics', name: 'Wild Tropics', kind: 'Khu vực chính', image: 'img/areas/wild-tropics.png', grid: 'A3',
+      desc: 'Rừng nhiệt đới hoang sơ, sầm uất côn trùng và thực vật hung dữ — khu vực khám phá đầu tiên của hành trình.',
+      features: [ 'Hang của Indy (C3) — easter egg Indiana Jones có phần thưởng', 'Quái côn trùng và thực vật chiếm phần lớn' ],
+      tips: [ 'Đòn Độc xuất hiện dày — luôn giữ ít nhất một Garlic trong túi.' ],
+    cells: [
+        { grid: 'A3', foes: ['D 07 — 2 Stone Idol, 1 Chunky Gloop', 'O 07 — 1 Green Bush / 2 Green Bush, 2 Blood Bat'] },
+        { grid: 'A4', foes: ['H 03 — 2 Water Slime, 2 Dirt Boulder'] },
+        { grid: 'B3', foes: ['B 09 — 2 Wooden Idol, 1 Thorny Creep', 'D 02 — 2 Wooden Idol, 1 Stumpy Gloop', 'L 10 — 2 Blood Bat', 'O 06 — 2 Wooden Idol, 1 Leafy Chomper', 'R 02 — 3 Putrid Worm, 1 Fuzzy Worm', 'G 03 — 3 PHOENIX', 'J 05 — 3 Flame Sprite, 2 Topaz Ore / 1 Topaz Golem / 3 Thunder Sprite, 2 Ruby Ore'], keys: ['L 07 — Earthenware'], subs: 'Phòng Arcade' },
+        { grid: 'B4', foes: ['E 06 — 1 Stone Idol, 1 Dirt Boulder, 1 Green Bush', 'H 08 — 2 Thorny Creep', 'O 05 — 2 Green Bush, 1 Stone Idol', 'R 06 — 3 Putrid Worm'], keys: ['F 04 — Earthenware'] },
+        { grid: 'C3', foes: ['D 02 — 2 Putrid Worm, 1 Leafy Chomper', 'K 10 — 2 Electric Bat, 1 Thorny Creep', 'Q 09 — 4 Blood Bat', 'G 04 — 4 Gem Idol / 2 Gem Idol, 2 Rock Sprite / 2 Rock Sprite, 2 Angel Mirror', 'H 10 — 5 Skeleton Hand', 'E 07 — 2 Gem Idol,2 Angel Mirror / 1 Gem Idol / 2 Rock Sprite,1 Ancient Monolith', 'Q 05 — 2 Stone Idol,2 Marble Boulder / 2 Gem Idol,2 Sandstone Boulder / 2 Amethyst Ore,1 Amethyst Golem'], keys: ['R 05 — Copper Key', 'L 06 — Holy Water'], subs: 'Hang Indy, Hang Giáp Rồng' }
+      ] },
+    { id: 'grand-gallery', name: 'Grand Gallery', kind: 'Khu vực chính', image: 'img/areas/grand-gallery.png', grid: 'A0',
+      desc: 'Bảo tàng trưng bày đồ sưu tầm của EBF5, nằm cạnh thị trấn khởi đầu.',
+      features: [ 'Cellar chia thành các phòng mở theo mốc huy hiệu (20/30/50/60/80/90/All)', 'Phần thưởng lớn dành cho người săn huy hiệu' ],
+      tips: [ 'Quay lại đây mỗi khi đạt mốc huy hiệu mới để nhận phần thưởng.' ],
+    cells: [
+        { grid: 'A0', foes: ['C 09 — 2 Cat Sniper, 2 Cat Ninja, 1 Cat Bomber', 'D 06 — 1 Matt Doll, 1 Natalie Doll, 1 Lance Doll, 1 Anna Doll, 1 NoLegs Doll', 'R 06 — 1 Zap Dog, 1 Rescue Dog, 1 Mage Dog, 1 Tanuki Dog, 1 Wolf Dog', 'S 09 — 2 Cat Wizard, 2 Cat Warrior, 1 Cat Bomber', 'G 09 — 1 Drowned Fallen, 1 Burned Fallen, 1 Beheaded Fallen, 1 Crucified Fallen, 1 Lost Fallen', 'M 09 — 1 Angel Mirror, 1 Haunted Mirror, 1 Wise Mirror, 1 Demon Mirror', 'Q 02 — 2 TREAGURE'], subs: 'Phòng 20 huy chương, Phòng 30 huy chương, Phòng 90 huy chương' },
+        { grid: 'A1', foes: ['E 05 — 2 Slime Mouse, 2 Lava Slime, 1 Big Lava Slime', 'E 09 — 1 Mud Slime, 1 Big Mud Slime, 1 Water Slime, 1 Big Sand Slime, 1 Sand Slime', 'J 05 — 1 Icecream Slime, 1 Big Icecream Slime, 1 Slime Bunny, 1 Big Chocolate Slime, 1 Chocolate Slime', 'Q 07 — 1 Leafy Chomper, 1 Seaweed Chomper, 1 Mutant Chomper, 1 Magma Chomper'] },
+        { grid: 'B0', foes: ['B 04 — 1 Red Flybot', 'S 04 — 1 Blue Flybot, 1 Defender Mk III, 1 Bubbler MX-01, 1 Yellow Flybot', 'J 09 — 1 War Mammoth, 1 Wooly Mammoth, 1 Camel Mammoth', 'M 07 — 1 Steam Fish, 1 Jet Fish, 1 Gold Fish / 1 Nuclear Bomb, 1 Harpoon Turret, 1 Cannon Turret, 1 Laser Turret', 'S 05 — 1 Ancient Monolith, 1 Cosmic Monolith, 1 Viking Monolith'], notes: ['Quái ở đây cao hơn đội hình 8 cấp.', 'Tương tác với giá sách tại F7 mở thêm nội dung Cheat.'], subs: 'Phòng 60 huy chương, Phòng 70 huy chương, Phòng đủ huy chương' },
+        { grid: 'B1', foes: ['D 05 — 1 Green Bush, 1 Sandy Bush, 1 Dark Bush, 1 Muddy Bush, 1 Red Bush / 1 Roasted Gloop, 1 Chunky Gloop, 1 Stumpy Gloop, 1 Hardy Gloop', 'S 06 — 1 Cutie Worm, 1 Fuzzy Worm, 1 Scaly Worm, 1 Putrid Worm'], keys: ['Q 08 — Golden Ticket'] },
+        { grid: 'C0', foes: ['B 08 — 1 Zircon Ore, 1 Sapphire Ore, 1 Quartz Ore, 1 Peridot Ore / 1 Coral Boulder, 1 Sandstone Boulder, 1 Obsidian Boulder, 1 Dirt Boulder, 1 Marble Boulder', 'I 05 — 1 Grolar Bear, 1 Brown Bear, 1 Panda Bear', 'R 08 — 1 Topaz Ore, 1 Amethyst Ore, 1 Ruby Ore / 1 Pearl Golem, 1 Topaz Golem, 1 Amethyst Golem', 'C 04 — 1 Zombie Hand, 1 Magma Hand, 1 Skeleton Hand', 'E 04 — 1 Blood Bat, 1 Snow Bat, 1 Bone Bat, 1 Electric Bat', 'O 04 — 1 Steel Wraith, 1 Frost Wraith, 1 Master Wraith, 1 Flame Wraith, 1 Leaf Wraith', 'Q 04 — 1 Earth Dragon, 1 Sea Dragon, 1 Sky Dragon', 'D 08 — 1 Origami Dragon, 1 Origami Wraith, 1 Book Worm'], subs: 'Phòng 40 huy chương, Phòng 50 huy chương, Phòng 80 huy chương' },
+        { grid: 'C1', foes: ['B 08 — 1 Stone Idol, 1 Metal Idol, 1 Wooden Idol, 1 Gem Idol / 1 Fire Sprite, 1 Rock Sprite, 1 Thunder Sprite, 1 Wind Sprite, 1 Ice Sprite', 'G 09 — 1 Pink Squid, 1 Lime Squid, 1 Purple Squid', 'O 10 — 1 Green Creep, 1 Red Creep, 1 Blue Creep', 'R 09 — 1 Hermit Creep, 1 Icicle Creep, 1 Thorny Creep'] }
+      ] },
+    { id: 'no-mans-land', name: "No Man's Land", kind: 'Khu vực chính', image: 'img/areas/no-mans-land.png', grid: 'E3',
+      desc: 'Vùng đất hoang giữa thị trấn và pháo đài: đất khô cằn, cỏ cháy và quái xuất hiện dày hơn hẳn.',
+      features: [ 'Lộ trình trung gian nối vùng an toàn với Iron Fortress', 'Quái sa mạc bắt đầu thành chủ đạo' ],
+      tips: [ 'Đừng cày quá xa checkpoint — quái ở đây cắn đau hơn thị trấn nhiều.' ],
+    cells: [
+        { grid: 'E3', foes: ['H 08 — 2 Sapphire Ore, 1 Coral Boulder, 1 Hermit Creep', 'K 04 — 2 Peridot Ore, 1 Sapphire Ore / 2 Peridot Ore, 1 Pearl Golem'], keys: ['B 09 — Golden Ticket', 'D 06 — Stick'] },
+        { grid: 'E4', foes: ['I 10 — 2 Sapphire Ore, 3 Green Creep', 'O 07 — 2 Cat Sniper, 1 Red Flybot / 1 Cat Sniper, 2 Red Flybot', 'Q 03 — 4 Cat Sniper / 2 Cat Bomber'], keys: ['H 06 — Stick'] },
+        { grid: 'E5', foes: ['D 08 — 2 Water Slime, 1 Slime Bunny / 2 Green Creep, 1 Blue Creep', 'O 03 — 2 Cat Bomber, 1 Red Creep / 3 Cat Sniper, 2 Red Creep'], keys: ['O 05 — Stick'] },
+        { grid: 'F5', foes: ['F 06 — 2 Cat Bomber / 3 Cat Bomber', 'P 04 — 3 Metal Idol, 2 Red Flybot'] },
+        { grid: 'G5', foes: ['E 09 — 2 Wooden Idol, Anna', 'J 06 — 1 Cat Bomber / 2 Red Creep, 2 Red Flybot, 1 Cat Sniper', 'K 04 — 2 Metal Idol, 3 Blue Flybot / 2 Blue Creep, 1 Blue Flybot', 'E 08 — 3 Cat Sniper, 2 Gray Pixel / 2 Cat Sniper, 1 Gray Pixel', 'L 08 — 2 Gray Pixel / 2 Gray Pixel / 2 Gray Pixel', 'P 10 — 3 Gold Fish, Glitch'], keys: ['S 06 — Stick'], subs: 'Khu Glitch' },
+        { grid: 'H5', foes: ['F 07 — 3 Yellow Flybot, 2 Blue Flybot', 'O 09 — 2 Blue Flybot / 3 Metal Idol / 2 Blue Flybot, 1 Bubbler MX-01', 'F 02 — 3 ROBO', 'J 06 — 2 Hermit Creep, 1 Red Flybot / 1 Blue Flybot, 1 Pink Squid, 1 Yellow Flybot'], keys: ['I 03 — Left Sock'], notes: ['Cửa vào Phòng Arcade chỉ mở sau khi có Rìu (Axe).'], subs: 'Phòng Arcade' }
+      ] },
+    { id: 'iron-fortress', name: 'Iron Fortress', kind: 'Khu vực chính', image: 'img/areas/iron-fortress.png', grid: 'E3',
+      desc: 'Pháo đài thép của quân đội: robot và máy móc rảo khắp nơi, kèm một đại boss canh chốt lối ra.',
+      features: [ 'Quái máy móc và robot chiếm thành phần chủ đạo', 'Boss Neon Valkyrie chặn khu vực' ],
+      tips: [ 'Bom và Sấm phát huy tốt trước lớp giáp kim loại của bọn robot.' ],
+    cells: [
+        { grid: 'E3', keys: ['E 08 — Magnetic Boots'] },
+        { grid: 'F3', foes: ['G 09 — 3 Red Flybot, 2 Blue Flybot / 3 Blue Flybot, 2 Yellow Flybot / 3 Yellow Flybot, 2 Red Flybot', 'L 04 — 3 Fuzzy Worm, 2 Putrid Worm'], keys: ['J 02 — Copper Key', 'O 02 — Music CD', 'T 08 — Golden Ticket'] },
+        { grid: 'F4', foes: ['B 05 — 2 Putrid Worm, 2 Haunted Mirror, 1 Steel Wraith', 'G 09 — 2 Cannon Turret, 2 Wise Mirror', 'H 06 — 2 Slime Mouse / 4 Steel Wraith'], keys: ['C 01 — Diamond Key', 'D 06 — Music CD', 'I 04 — Cookie'] },
+        { grid: 'G3', foes: ['C 03 — 2 Gold Fish / 2 Cat Bomber, 1 Cat Sniper / 2 Yellow Flybot, 1 Defender Mk III', 'D 07 — 5 Metal Idol', 'P 04 — 2 Red Flybot, Lance', 'P 08 — 3 Jet Fish, 2 Gold Fish / 5 Gold Fish'] },
+        { grid: 'G4', foes: ['E 03 — 3 Fuzzy Worm, 2 Steel Wraith', 'Q 03 — 1 Metal Idol / 2 Metal Idol, 1 War Mammoth', 'Q 09 — 1 Yellow Flybot, 1 Blue Flybot / 1 Defender Mk III, 1 Bubbler MX-01'], keys: ['G 02 — Music CD', 'S 10 — Red Envelope'] },
+        { grid: 'H3', foes: ['D 03 — 1 Matt Doll, 1 NoLegs Doll, 1 Anna Doll'], keys: ['H 02 — The Hammer'] },
+        { grid: 'H4', foes: ['D 08 — 3 Jet Fish, 2 Laser Turret / K 08, J 09 / Neon Valkyrie, 1 Cannon Turret, Lance', 'M 07 — 2 Metal Idol, 1 Harpoon Turret / 3 Metal Idol, 2 Harpoon Turret', 'Q 10 — 2 Red Flybot, 2 Cannon Turret, 1 Lance Doll'] },
+        { grid: 'I3', foes: ['C 07 — 3 Zap Dog, 2 Blue Flybot', 'L 09 — 3 Slime Mouse, 2 Electric Bat / 3 Thunder Sprite, 2 Chocolate Slime', 'R 09 — 2 Thunder Sprite, 2 Yellow Flybot, 1 Blue Flybot'] },
+        { grid: 'I4', foes: ['I 02 — 2 Electric Bat, 2 Zap Dog, 1 Rescue Dog', 'K 02 — 2 Slime Mouse, 1 Yellow Flybot / 2 Slime Mouse, 2 Blue Flybot, 1 Slime Bunny', 'S 06 — 3 Harpoon Turret / 2 Cannon Turret, 2 Yellow Flybot, 1 Laser Turret'], keys: ['P 02 — Topaz Key'] }
+      ] },
+    { id: 'greenwood-village', name: 'Greenwood Village', kind: 'Khu vực chính', image: 'img/areas/greenwood-village.png', grid: 'K2',
+      desc: 'Làng thân cây xanh mát phía đông bản đồ — điểm thương mại lớn với thư viện khổng lồ.',
+      features: [ 'Greenwood Library — kho lưu trữ tri thức của game', 'Cửa hàng Food của Ronja (K2) và nhiều nhiệm vụ' ],
+      tips: [ 'Vào thư viện đọc hết sổ tay: mẹo trận đánh và dữ liệu quái mở miễn phí.' ],
+    cells: [
+        { grid: 'I2', foes: ['D 09 — 3 Stumpy Gloop,2 Origami Wraith / 3 Origami Wraith,2 Wise Mirror', 'Q 03 — 1 Origami Dragon,2 Book Worm / 1 Origami Dragon,2 Origami Wraith', 'Q 09 — 2 Origami Wraith,1 Leaf Wraith / 2 Leaf Wraith,2 Origami Wraith,1 Master Wraith'], subs: 'Thư viện' },
+        { grid: 'J1', foes: ['F 05 — 1 Wooden Idol / 2 Wooden Idol,1 Stumpy Gloop / 1 Putrid Worm / 2 Wooden Idol,2 Wise Mirror,1 Stumpy Gloop'], keys: ['E 01 — Cookie', 'L 02 — Panties'], notes: ['K 03: Bảng điều khiển lạ không rõ mục đích'], subs: 'Nhà Anna' },
+        { grid: 'J2', foes: ['B 03 — 3 Cat Wizard, 2 Origami Wraith / 2 Origami Wraith, 2 Cat Wizard, 1 Master Wraith', 'E 03 — 1 Cat Wizard / 3 Origami Dragon', 'J 03 — 1 GunKat-800XL / 1 Papalotl / 1 Xolotl / 1 Glaurung', 'O 04 — 1 Book Worm'], subs: 'Thư viện' },
+        { grid: 'J3', keys: ['P 04 — Music CD'], subs: 'Thư viện' },
+        { grid: 'J4', keys: ['F 05 — Bottled Milk', 'H 05 — Wooden Key'], subs: 'Chuồng ngựa' },
+        { grid: 'K0', foes: ['B 09 — 2 Cat Ninja, 1 Cat Bomber / 2 Tanuki Dog, 2 Panda Bear', 'D 06 — 3 Panda Bear, 1 Rescue Dog', 'F 03 — 2 Tanuki Dog, 1 Rescue Dog / 2 Cat Ninja, 2 Tanuki Dog, 1 Anna Doll', 'F 02 — 2 TOTOM'], subs: 'Phòng Arcade' },
+        { grid: 'K1', foes: ['K 04 — 1 Pink Squid, 2 Scaly Worm', 'P 07 — 5 Cat Ninja / 3 Cat Ninja, 2 NoLegs Doll', 'Q 03 — 1 Matt Doll, 1 Natalie Doll, 1 Lance Doll'], keys: ['L 06 — Easter Egg'] },
+        { grid: 'K2', foes: ['J 05 — 3 BOSH', 'D 03 — 2 Book Worm,2 Origami Wraith,1 Master Wraith / 2 Origami Wraith,2 Book Worm,1 Origami Dragon', 'D 09 — 2 Book Worm,1 Cat Wizard / 3 Book Worm,2 Cat Wizard'], subs: 'Phòng Arcade, Thư viện' },
+        { grid: 'K3', foes: ['B 01 — 2 Green Bush', 'I 09 — 3 Green Bush, 2 Dark Bush', 'L 05 — 2 Green Bush, 1 Red Bush', 'N 10 — 2 Green Bush, 2 Dark Bush', 'S 09 — 1 Green Bush'], keys: ['E 04 — Bottled Milk', 'E 06 — Music CD', 'N 04 — Panties'], subs: 'Nhà Randy' },
+        { grid: 'K4', foes: ['H 09 — 3 Dark Bush, 2 Steel Wraith / 3 Steel Wraith, 2 Beheaded Fallen', 'L 10 — 3 Mage Dog / 2 Mage Dog, 3 Beheaded Fallen'], keys: ['B 05 — Right Sock', 'B 07 — Music CD', 'H 03 — Chocolate', 'P 03 — Bottled Milk', 'S 03 — Newspaper', 'K 02 — Ruby of Death', 'M 08 — Gold Key'], subs: 'Nhà Jamie, Tầng hầm' }
+      ] },
+    { id: 'mystic-woods', name: 'Mystic Woods', kind: 'Khu vực chính', image: 'img/areas/mystic-woods.png', grid: 'F0',
+      desc: 'Rừng ma thuật mờ sương: cây cổ thụ rêu phủ, ánh sáng lấp lánh và những sinh vật huyền bí trú ngụ.',
+      features: [ 'Không khí huyền bí, quái lẻ tẻ khó đoán', 'Slime Bunny là vị khách quen mặt của khu này' ],
+      tips: [ 'Sương mù che mất nhiều lối đi — soi kỹ bản đồ để không đi vòng.' ],
+    cells: [
+        { grid: 'E2', foes: ['O 04 — 2 Cat Wizard, 1 Cat Warrior, Laurelin', 'Q 02 — 2 Cat Warrior, 2 Cat Wizard', 'S 03 — 2 Cat Bomber, 1 Cat Wizard'], keys: ['F 04 — The Raft'] },
+        { grid: 'F0', foes: ['G 05 — 2 Putrid Worm, 2 Thorny Creep, 1 Cutie Worm', 'K 04 — 2 Mud Slime, 2 Slime Mouse / 2 Mud Slime, 2 Roasted Gloop, 1 Thorny Creep', 'N 08 — 2 Putrid Worm, 2 Flame Wraith, 1 Big Mud Slime'], keys: ['Q 09 — Ocarina', 'S 09 — Wooden Key', 'D 06 — The Stepladder'], subs: 'Trong Gốc Cây' },
+        { grid: 'F1', foes: ['D 05 — 2 Leaf Wraith, 2 Flame Wraith, 1 Master Wraith / 1 Skeleton Hand / 3 Master Wraith, 2 Bone Bat', 'J 08 — 2 Bone Bat, 2 Rock Sprite, 1 Leaf Wraith / 2 Leaf Wraith, 2 Leafy Chomper, 1 Flame Wraith', 'K 10 — 1 Matt Doll, 1 Natalie Doll, 1 NoLegs Doll, 1 Lance Doll, 1 Anna Doll / 1 Putrid Worm', 'E 05 — 3 Rock Sprite,2 Master Wraith / 2 Bone Bat,2 Blood Bat / 2 Brown Bear,2 Master Wraith'], keys: ['I 02 — Evil Essence'], notes: ['Rương P10 xuất hiện khi xếp các cần gạt đúng theo hoa văn trên tường trong một hang ở Hope Harbor.'], subs: 'Trong Gốc Cây' },
+        { grid: 'F2', foes: ['C 08 — 3 Panda Bear, 1 Green Creep', 'E 09 — 2 Crucified Fallen, 2 Mage Dog', 'M 03 — 2 Chocolate Slime, 2 Mud Slime / 1 Cat Wizard, 1 Big Chocolate Slime, 1 Big Mud Slime', 'Q 07 — 3 Muddy Bush / 1 Cat Wizard, 2 Purple Squid', 'S 02 — 3 Wise Mirror, 2 Angel Mirror'] },
+        { grid: 'G0', foes: ['E 05 — 2 Master Wraith, 2 Bone Bat, 1 Beheaded Fallen', 'I 08 — 2 Slime Bunny, 2 Rock Sprite, 1 Big Chocolate Slime', 'N 09 — 2 Blood Bat'], keys: ['L 04 — Meow Magazine', 'M 01 — Golden Ticket'] },
+        { grid: 'G1', foes: ['I 09 — 2 Zombie Hand, 2 Leaf Wraith, 1 Steel Wraith', 'M 07 — 2 Skeleton Hand, 2 Haunted Mirror, 1 Master Wraith', 'N 04 — 2 Leaf Wraith, 2 Thorny Creep, 1 Big Chocolate Slime'], keys: ['P 09 — Evil Essence'] },
+        { grid: 'G2', foes: ['C 09 — 1 Mud Slime, 2 Big Mud Slime', 'K 10 — 2 Steel Wraith, 2 Red Flybot, 1 NoLegs Doll', 'P 02 — 1 Haunted Mirror, 2 Beheaded Fallen, 1 Master Wraith'], keys: ['B 09 — Gold Key', 'D 03 — Evil Essence'] },
+        { grid: 'H0', foes: ['D 09 — 3 Blood Bat, 2 Cat Wizard / 3 Flame Wraith', 'L 06 — 2 Bone Bat, 2 Cat Wizard / 2 Bone Bat, 2 Haunted Mirror', 'R 04 — 3 Haunted Mirror, 2 Demon Mirror'] },
+        { grid: 'H1', foes: ['I 06 — 3 Leaf Wraith, 2 Wise Mirror / 3 Flame Wraith, 2 Demon Mirror', 'L 09 — 4 Chocolate Slime / 2 Big Chocolate Slime'], subs: 'Trong Gốc Cây' },
+        { grid: 'H2', foes: ['D 06 — 2 Blue Creep, 1 Purple Squid', 'I 10 — 2 Red Bush, 3 Red Creep / 3 Beheaded Fallen, 2 Red Bush', 'N 10 — 2 Blue Creep, 1 Natalie Doll / 3 Green Creep, 1 Matt Doll, 1 Lance Doll', 'C 06 — 3 Green Pixel, 2 Muddy Bush / 3 Green Pixel', 'I 07 — 3 Green Pixel, 2 Big Mud Slime', 'N 06 — 5 Green Pixel / 3 Green Pixel'], keys: ['R 04 — Evil Essence'], subs: 'Khu Glitch' },
+        { grid: 'I0', foes: ['D 09 — 3 Muddy Bush, 2 Thorny Creep / 2 Mud Slime, 1 Big Mud Slime', 'F 05 — 3 Mud Slime, 2 Dirt Boulder / 1 Brown Bear, Chibi Knight', 'G 02 — 3 Wooden Idol / 2 Stumpy Gloop, 2 Thorny Creep, 1 Leafy Chomper', 'P 03 — 3 Roasted Gloop, 2 Burned Fallen / 3 Fire Sprite, 2 Burned Fallen'], keys: ['E 06 — Fairy Dust'] },
+        { grid: 'I1', foes: ['B 09 — 2 Stumpy Gloop, 2 Anna Doll, 1 Brown Bear', 'M 09 — 2 Chocolate Slime, 1 Big Chocolate Slime / 3 Slime Bunny', 'P 10 — 2 Wise Mirror, 2 Brown Bear, 1 Dirt Boulder', 'S 04 — 3 Green Bush / 2 Stumpy Gloop, 2 Leafy Chomper, 1 Wise Mirror'], keys: ['Q 03 — Fairy Dust'], subs: 'Trong Gốc Cây' },
+        { grid: 'I2', foes: ['B 03 — 2 Angel Mirror, 1 Mud Slime / 2 Mud Slime, 2 Big Mud Slime, 1 Angel Mirror', 'P 03 — 2 Leafy Chomper, 1 Green Bush', 'R 09 — 2 Tanuki Dog, 1 Brown Bear / 2 Tanuki Dog, 2 Brown Bear'], keys: ['J 10 — Fairy Dust'] },
+        { grid: 'J0', foes: ['F 07 — 2 Cat Warrior, 2 Cutie Worm, 1 Cat Wizard', 'G 03 — 2 Putrid Worm, 2 Wise Mirror, 1 Cat Wizard', 'Q 08 — 2 Cat Wizard, 1 Panda Bear / 2 Wise Mirror, 2 Panda Bear'], keys: ['N 04 — The Axe', 'C 10 — Diamond Key', 'R 05 — Leafy Boots', 'S 08 — Fairy Dust'], subs: 'Nhà Anna' }
+      ] },
+    { id: 'forgotten-ruins', name: 'Forgotten Ruins', kind: 'Khu vực chính', image: 'img/areas/forgotten-ruins.png', grid: 'D0',
+      desc: 'Phế tích cổ bị lãng quên lâu năm: cột đá sập, tượng phủ bụi và cơ chế ẩn chờ ai đó kích hoạt.',
+      features: [ 'Kiến trúc cổ với nhiều cơ chế ẩn', 'Quái đá và tượng sống chiếm đa số' ],
+      tips: [ 'Cẩn thận đòn Đất — chủ yếu đến từ quái đá quanh khu.' ],
+    cells: [
+        { grid: 'D0', foes: ['D 08 — 1 Earth Dragon, 2 Rock Sprite', 'P 09 — 2 Gold Fish, 2 Crucified Fallen, 1 Angel Mirror', 'Q 04 — 3 Ruby Ore, 2 Topaz Ore / 1 Ruby Ore, 1 Topaz Golem, 1 Topaz Ore', 'R 02 — 1 Sky Dragon, 2 Wind Sprite'], keys: ['B 03 — Golden Ticket', 'J 06 — Diamond Key', 'O 01 — Winged Boots'], notes: ['Rương ở J6, K6, J7, K7 và O1 mở bằng mã lấy từ Room 40 huy chương của Grand Gallery (J7), tầng hầm cửa hàng vũ khí Hope Harbor (K6), dưới nước cạnh slime dịch chuyển của Rainbow River (K7), sau cối xay gió ở Redpine Town (J6) và trong Đền Bỏ Quên (O1).'] },
+        { grid: 'D1', foes: ['C 07 — 2 Chunky Gloop,1 Dirt Boulder / 2 Rock Sprite,2 Dirt Boulder', 'E 09 — 3 Gem Idol / 2 Gem Idol,2 Marble Boulder', 'N 06 — 2 Ancient Monolith / 1 Marble Boulder / 2 Leafy Chomper,1 Ancient Monolith', 'O 02 — 3 Wind Sprite,2 Angel Mirror / 2 Thunder Sprite,2 Wind Sprite,1 Rock Sprite'], keys: ['K 01 — Holy Water'] },
+        { grid: 'E0', foes: ['E 03 — 3 Crucified Fallen, 2 Lost Fallen', 'P 05 — 3 Stone Idol / 2 Earth Dragon', 'R 08 — 2 Gem Idol, 2 Leafy Chomper, 1 Marble Boulder'], keys: ['G 01 — Copper Key'] },
+        { grid: 'E1', foes: ['I 02 — 2 Gold Fish, 2 Marble Boulder, 1 Crucified Fallen / 2 Marble Boulder, 2 Gem Idol, 1 Ancient Monolith / 2 Stone Idol / 2 Amethyst Golem', 'L 06 — 2 Stumpy Gloop, 2 Crucified Fallen, 1 Chunky Gloop / 2 Crucified Fallen, 2 Thunder Sprite, 1 Ancient Monolith', 'S 02 — 3 Steam Fish / 2 Sky Dragon', 'S 07 — 2 Chunky Gloop, 1 Stumpy Gloop / 1 Ancient Monolith, 1 Gem Idol, 1 Camel Mammoth'] }
+      ] },
+    { id: 'rainbow-river', name: 'Rainbow River', kind: 'Khu vực chính', image: 'img/areas/rainbow-river.png', grid: 'J5',
+      desc: 'Dòng sông bảy sắc chạy ngang bản đồ, nối rừng nhiệt đới với thung lũng băng.',
+      features: [ 'Dải nước cầu vồng kéo dài qua nhiều ô lưới', 'Điểm chuyển tiếp giữa các khu khí hậu' ],
+      tips: [ 'Ven sông là lối tắt đẹp — đừng đi lạc lên vùng núi đá phía trên.' ],
+    cells: [
+        { grid: 'B6', foes: ['C 04 — 1 Sapphire Ore, 2 Snow Bat, 1 Zircon Ore / 2 Snow Bat, 1 Sapphire Ore, 1 Frost Wraith, 1 Zircon Ore', 'K 08 — 1 Snow Bat, 2 Pink Squid', 'Q 10 — 3 Hardy Gloop, 2 Seaweed Chomper'], keys: ['C 10 — Coral Key', 'K 05 — Stone Head'], notes: ['Đầu Đá phải nằm trên bệ đá để lấy được kho báu tại ô G10.'] },
+        { grid: 'C6', foes: ['L 10 — 3 Green Creep, 2 Red Creep / 3 Blue Creep, 2 Green Creep', 'M 06 — 2 Hermit Creep, 3 Drowned Fallen / 2 Hermit Creep, 2 Pearl Golem', 'R 03 — 2 Drowned Fallen, 1 Seaweed Chomper, 1 Pearl Golem'], notes: ['Rương G4 mở khi xếp các Đầu Đá thành hình tam giác, theo gợi ý của George ở Steroid Shop Redpine Town: "Gặp Cổng Cầu Vồng thêm lần nữa và dâng lên biểu tượng Illuminati".'] },
+        { grid: 'D6', foes: ['C 04 — 1 Electric Bat, 1 Pink Squid, 1 Lime Squid', 'H 04 — 2 Hermit Creep, 2 Big Mud Slime, 1 Rescue Dog'], keys: ['C 03 — Stone Head'], notes: ['Đầu Đá phải nằm trên bệ đá để lấy được kho báu tại ô N09.'] },
+        { grid: 'E6', foes: ['G 04 — 5 Water Slime / 3 Water Slime / 1 Water Slime', 'O 05 — 3 Zombie Hand,2 Green Creep / 2 Brown Bear,2 Zombie Hand,1 Green Creep', 'P 03 — 2 Coral Boulder,1 Pearl Golem'], keys: ['O 03 — Stone Head'], notes: ['Đầu Đá phải nằm trên bệ đá để lấy được kho báu tại ô S11.'] },
+        { grid: 'F6', foes: ['D 02 — 3 Drowned Fallen, 2 Wise Mirror / 3 Lost Fallen, 2 Drowned Fallen', 'O 02 — 2 Slime Bunny, 1 Rescue Dog', 'O 10 — 2 Red Bush, 2 Brown Bear, 1 Viking Monolith'], keys: ['N 11 — Flute'] },
+        { grid: 'G6', foes: ['H 10 — 3 Dark Bush, 2 Drowned Fallen / 2 Dark Bush, 2 Coral Boulder, 1 Drowned Fallen', 'J 02 — 2 Green Creep, 2 Coral Boulder, 1 Blue Creep', 'P 02 — 2 Cat Warrior / 2 Cat Warrior, 2 Hermit Creep, 1 Cat Wizard'], keys: ['H 01 — Stick'] },
+        { grid: 'H6', foes: ['E 03 — 2 Blue Flybot,1 Pearl Golem', 'L 10 — 3 Drowned Fallen, 2 Bone Bat', 'O 06 — 2 Water Slime, 1 Seaweed Chomper / 2 Water Slime, 2 Viking Monolith, 1 Seaweed Chomper'], keys: ['H 02 — Stick', 'O 05 — Stone Head'], notes: ['Đầu Đá phải nằm trên bệ đá để lấy được kho báu tại ô S11.'] },
+        { grid: 'I6', foes: ['B 10 — 1 Blue Flybot, 2 Drowned Fallen, 1 Bubbler MX-01', 'J 05 — 2 Drowned Fallen, 3 Steam Fish / 2 Steam Fish, 2 Brown Bear, 1 Rescue Dog', 'S 08 — 2 Water Slime, 2 Slime Bunny / 2 Sea Dragon, 1 Omega Dragon'], keys: ['C 11 — Diamond Key', 'F 04 — Wooden Key', 'J 04 — Stone Head'], notes: ['Đầu Đá phải nằm trên bệ đá để lấy được kho báu tại ô C11.'] },
+        { grid: 'J5', foes: ['D 05 — 2 Metal Idol / 2 Jet Fish', 'H 06 — 2 Metal Idol, 2 Jet Fish', 'J 01 — 3 Metal Idol, 2 Wooden Idol', 'L 07 — 3 Scaly Worm, 2 Cutie Worm / 2 Fuzzy Worm, 2 Scaly Worm, 1 Cutie Worm', 'Q 05 — 3 Metal Idol, 2 Steam Fish'] },
+        { grid: 'J6', foes: ['B 07 — 2 Sea Dragon', 'E 09 — 2 Master Wraith', 'L 04 — 1 Water Slime / 1 Lime Squid, 3 Water Slime'] },
+        { grid: 'K5', foes: ['E 06 — 2 Sapphire Ore,1 Peridot Ore / 1 Sapphire Ore,2 Lime Squid', 'P 02 — 3 Scaly Worm,2 Slime Bunny', 'R 10 — 2 Obsidian Boulder,1 Topaz Golem / 2 Coral Boulder,1 Pearl Golem / 2 Marble Boulder,1 Amethyst Golem', 'L 03 — 3 PUMPKUS'], subs: 'Phòng Arcade' },
+        { grid: 'K6', foes: ['H 03 — 2 Angel Mirror, 2 Hermit Creep, 1 Ancient Monolith', 'P 02 — 1 Cutie Worm / 2 Pink Squid, 1 Lime Squid'], keys: ['C 03 — Cookie', 'E 03 — Stone Head', 'M 07 — Golden Ticket'], notes: ['Đầu Đá phải nằm trên bệ đá để lấy được kho báu tại ô M07.'] }
+      ] },
+    { id: 'frozen-valley', name: 'Frozen Valley', kind: 'Khu vực chính', image: 'img/areas/frozen-valley.png', grid: 'A6',
+      desc: 'Thung lũng băng giá phủ tuyết, nơi trạng thái Bang và Lạnh trở thành chủ đề chính.',
+      features: [ 'Khí hậu lạnh, quái băng tuyết dày đặc', 'Nhiều hang đá chôn giấu kho báu' ],
+      tips: [ 'Chuẩn bị kháng Bang cho cả đội — Lửa và vật phẩm giải lạnh ở đây hết giá trị.' ],
+    cells: [
+        { grid: 'A6', foes: ['C 07 — 2 Ice Sprite, 2 Wolf Dog, 1 Rescue Dog / 2 Wolf Dog, 2 Mage Dog, 1 Tanuki Dog', 'F 03 — 1 Blue Creep / 2 Cat Wizard, 2 Brown Bear, 1 Pink Squid', 'Q 05 — 2 Lost Fallen, 2 Skeleton Hand, 1 Drowned Fallen'], keys: ['O 03 — Popcorn', 'Q 04 — Gold Key'] },
+        { grid: 'A7', foes: ['B 03 — 1 Wooly Mammoth,2 Tanuki Dog,1 Wolf Dog', 'D 07 — 1 Pearl Golem,Super Chibi Knight,1 Quartz Ore', 'J 02 — 2 Wooly Mammoth', 'J 05 — 3 Cat Wizard,1 Viking Monolith,1 Coral Boulder / 1 Mage Dog / 3 Lost Fallen,2 Viking Monolith', 'P 05 — 5 Cat Warrior / 2 Cat Warrior,3 Lost Fallen / 3 Cat Warrior,2 Grolar Bear', 'R 03 — 2 Snow Bat,3 Wolf Dog / 3 Zap Dog,2 Wolf Dog'], keys: ['S 02 — Popcorn', 'S 09 — Candy Cane'] },
+        { grid: 'A8', foes: ['G 06 — 2 Icicle Creep,2 Skeleton Hand,1 Ice Sprite / 3 Skeleton Hand', 'L 08 — 2 Snow Bat,3 Frost Wraith / 2 Bone Bat,3 Master Wraith / 2 Blood Bat,3 Steel Wraith', 'N 09 — 1 Wooly Mammoth,1 Brown Bear,1 Grolar Bear,1 Wolf Dog', 'R 05 — 2 Zircon Ore,2 Angel Mirror,1 Quartz Ore / 2 Quartz Ore,2 Crucified Fallen,1 Angel Mirror', 'L 03 — 2 GUOYE'], keys: ['H 05 — Popcorn'], subs: 'Phòng Arcade' },
+        { grid: 'A9', foes: ['B 03 — 3 Hardy Gloop / 2 War Mammoth,1 Rescue Dog', 'D 08 — 2 Wolf Dog,1 Viking Monolith,1 Big Icecream Slime,1 Icecream Slime', 'F 09 — 3 Icecream Slime,2 Chocolate Slime / 1 Icecream Slime,1 Wooly Mammoth,1 Big Icecream Slime,1 Brown Bear', 'I 09 — 5 Fire Sprite / 2 Omega Dragon', 'K 04 — 2 Cat Ninja,2 Panda Bear,1 Mage Dog / 2 Cat Ninja,1 Cat Bomber / 2 Mage Dog,2 Grolar Bear,1 Panda Bear'], keys: ['H 09 — Popcorn'] },
+        { grid: 'B7', foes: ['C 03 — 2 Drowned Fallen,2 Grolar Bear,1 NoLegs Doll', 'G 04 — 3 Frost Wraith,2 Steel Wraith / 2 Flame Wraith,2 Frost Wraith,1 Master Wraith', 'P 01 — 3 Grolar Bear,2 Rescue Dog', 'S 07 — 2 Electric Bat,2 Gold Fish,1 Defender Mk III / 3 Fuzzy Worm'], keys: ['G 03 — Popcorn'] },
+        { grid: 'B8', foes: ['C 09 — 3 Icecream Slime,2 Slime Bunny / 2 Icecream Slime,1 Lost Fallen / 2 Big Icecream Slime,1 Viking Monolith', 'K 09 — 5 Icecream Slime / 2 Wolf Dog,2 Icecream Slime,1 Big Icecream Slime'], keys: ['S 09 — Popcorn'] },
+        { grid: 'B9', foes: ['D 10 — 2 Crucified Fallen,2 Lost Fallen,1 Ancient Monolith / 2 Mage Dog,2 Ancient Monolith,1 Lost Fallen', 'G 05 — 3 Gem Idol,2 Blue Flybot / 3 Ice Sprite / 2 Blue Flybot,2 Mage Dog,1 Marble Boulder', 'J 04 — 1 Wolf Dog / 3 Snow Bat / 2 Wolf Dog,2 Viking Monolith,1 Grolar Bear', 'O 05 — 1 Blue Flybot / 3 Blue Flybot,2 Viking Monolith / 2 Bubbler MX-01 / 1 Icecream Slime'], keys: ['L 02 — Popcorn', 'O 03 — Spiked Boots', 'N 04 — Gold Key'], subs: 'Khu Glitch' },
+        { grid: 'C7', foes: ['F 10 — 3 Peridot Ore / 3 Sapphire Ore / 3 Zircon Ore / 1 Slime Bunny', 'H 03 — 2 Scaly Worm,2 Icicle Creep,1 Blue Creep', 'L 05 — 2 Zircon Ore,3 Coral Boulder / 3 Coral Boulder,2 Hardy Gloop', 'Q 08 — 3 Frost Wraith,2 Blue Flybot'], keys: ['J 07 — Popcorn'] },
+        { grid: 'C8', foes: ['H 06 — 3 Ice Sprite,2 Sapphire Ore / 3 Viking Monolith', 'M 04 — 5 Icicle Creep / 3 Icicle Creep,2 Blue Creep', 'O 10 — 2 Scaly Worm / 1 Scaly Worm,1 Putrid Worm / 2 Scaly Worm / 2 Scaly Worm,1 Cutie Worm / 2 Brown Bear,1 Grolar Bear', 'Q 05 — 3 Wolf Dog,2 Brown Bear / 1 Hardy Gloop / 3 Lost Fallen,2 Brown Bear'], keys: ['R 07 — Cookie, Meow Magazine'] },
+        { grid: 'C9', foes: ['C 03 — 2 Zircon Ore,2 Sapphire Ore,1 Peridot Ore', 'F 05 — 2 Peridot Ore,2 Zircon Ore,1 Quartz Ore', 'J 02 — 2 Quartz Ore,2 Sapphire Ore,1 Zircon Ore', 'L 04 — 2 Quartz Ore,2 Zircon Ore,1 Coral Boulder / 2 Coral Boulder,1 Pearl Golem / 2 Peridot Ore,2 Sapphire Ore,1 Coral Boulder', 'O 04 — 1 Sapphire Ore,Poseidon,1 Quartz Ore,1 Zircon Ore'], keys: ['F 01 — Popcorn', 'K 10 — Golden Ticket', 'L 08 — Coral Key'] }
+      ] },
+    { id: 'redpine-town', name: 'Redpine Town', kind: 'Khu vực chính', image: 'img/areas/redpine-town.png', grid: 'D7',
+      desc: 'Thị trấn đỏ giữa rừng thông — trạm dừng cuối trước vùng cuối trò chơi.',
+      features: [ 'Cửa hàng Food của Barman (D7)', 'Trạm nghỉ cuối trước The Rapture' ],
+      tips: [ 'Nạp đầy kho Food ở đây — về sau cửa hàng thưa dần.' ],
+    cells: [
+        { grid: 'D7', foes: ['D 09 — 3 Chocolate Slime, 2 Red Bush / 2 Tanuki Dog, 2 Chocolate Slime, 1 Big Chocolate Slime', 'M 07 — 5 Red Bush / 3 Red Bush, 2 Tanuki Dog', 'K 08 — Glitch, Glitch (boss)'], subs: 'The Void' },
+        { grid: 'D8', foes: ['I 07 — 3 Demon Mirror, 1 Matt Doll, 1 NoLegs Doll'], subs: 'The Void' },
+        { grid: 'D9', keys: ['K 05 — Water Orb'] },
+        { grid: 'E7', foes: ['D 07 — 3 Fire Sprite, 2 Bone Bat / 2 Fire Sprite, 1 Lance Doll, 1 Dirt Boulder, 1 Anna Doll', 'H 05 — 2 Zombie Hand, 3 Thorny Creep / 3 Thorny Creep, 1 Rescue Dog, 1 Tanuki Dog', 'D 06 — 1 Lime Squid', 'E 06 — 2 Drowned Fallen, 2 Mutant Chomper', 'P 06 — 3 Drowned Fallen, 2 Beheaded Fallen / 3 Beheaded Fallen, 2 Demon Mirror', 'L 08 — 1 Sky Dragon,2 Drowned Fallen / 1 Drowned Fallen,1 Beheaded Fallen / 1 Earth Dragon,2 Beheaded Fallen', 'N 03 — 2 Blood Bat,3 Leaf Wraith / 3 Blood Bat / 2 Drowned Fallen,3 Leaf Wraith'], keys: ['F 09 — Holy Water', 'H 08 — Emerald of Life'], subs: 'Lăng mộ, Tầng hầm' },
+        { grid: 'E8', foes: ['F 04 — 3 Obsidian Boulder, 2 Dirt Boulder', 'F 09 — 3 Zombie Hand, 2 Haunted Mirror / 3 Zombie Hand, 2 Mage Dog', 'H 02 — 2 Obsidian Boulder, 2 Roasted Gloop', 'O 05 — 2 Obsidian Boulder, 1 Topaz Golem', 'O 07 — 2 Skeleton Hand, 2 Rock Sprite, 1 Stumpy Gloop / 2 Stumpy Gloop, 2 Skeleton Hand, 1 Dirt Boulder'], keys: ['Q 01 — Topaz Key'] },
+        { grid: 'E9', foes: ['C 03 — 3 Chocolate Slime, 2 Slime Mouse / 3 Cat Bomber / 3 Thorny Creep, 2 Chocolate Slime', 'H 09 — 3 Chocolate Slime, 2 Steam Fish / 3 Cat Sniper / 2 Brown Bear, 2 Steam Fish, 1 Big Chocolate Slime'], keys: ['P 09 — Golden Ticket'], notes: ['\'\'Note: Albrecht\'s quest must be completed to make Roku\'s quest available.\'\''] },
+        { grid: 'F7', foes: ['E 08 — 2 Dark Bush, 1 Topaz Golem', 'K 05 — 3 Dark Bush, 2 Red Bush / 2 Dark Bush, 3 Skeleton Hand'], keys: ['P 03 — Wooden Key', 'D 05 — Bottled Milk', 'E 09 — Heart Chocolate'], subs: 'Chuồng ngựa' },
+        { grid: 'F8', foes: ['L 06 — 3 Cannon Turret, 2 Zombie Hand / 1 Metal Idol / 2 Laser Turret, 2 Zombie Hand, 1 Harpoon Turret', 'Q 08 — 3 Metal Idol, 2 Brown Bear / 3 Jet Fish, 2 Steam Fish'] },
+        { grid: 'F9', foes: ['E 07 — 3 Rock Sprite, 2 Dirt Boulder / 3 Dirt Boulder, 2 Obsidian Boulder', 'S 05 — 3 Blue Flybot, 2 Seaweed Chomper', 'J 03 — 3 SNEK'], subs: 'Phòng Arcade' }
+      ] },
+    { id: 'the-rapture', name: 'The Rapture', kind: 'Khu vực chính', image: 'img/areas/the-rapture.png', grid: 'G7',
+      desc: 'Vùng đất trên cao của Godcat — đích đến của hành trình: hồ dung nham rực đỏ và lối lên The Beyond.',
+      features: [ 'Lava Lake — dải hồ dung nham nóng chảy', 'The Beyond — nội dung cuối game' ],
+      tips: [ 'Checkpoint thường xuyên: vùng lửa có thể trả giá rất đắt nếu sai bước.' ],
+    cells: [
+        { grid: 'G7', foes: ['C 05 — 3 Bone Bat, 2 Obsidian Boulder', 'E 09 — 3 Steel Wraith, 1 War Mammoth', 'Q 06 — 1 Slime Bunny / 3 Omega Dragon'], keys: ['P 09 — The Big Hammer', 'Q 05 — Cookie'] },
+        { grid: 'G8', foes: ['E 10 — 3 Rescue Dog,2 Mutant Chomper', 'G 01 — 2 Cat Sniper,3 Cat Ninja / 2 Cat Ninja,2 Cat Bomber,1 Demon Mirror / 3 Cat Ninja,2 Cat Warrior', 'K 09 — 2 Blood Bat,1 Mutant Chomper / 2 Seaweed Chomper,2 Mutant Chomper', 'P 06 — 1 Cosmic Monolith'] },
+        { grid: 'G9', foes: ['E 08 — 3 Wind Sprite,2 Hermit Creep / 2 Seaweed Chomper,1 Purple Squid', 'K 02 — 2 Quartz Ore,1 Coral Boulder / 2 Viking Monolith,1 Cosmic Monolith', 'O 02 — 2 Coral Boulder,2 Marble Boulder,1 Amethyst Ore / 2 Amethyst Ore / 1 Amethyst Golem,1 Pink Squid,2 Amethyst Ore'], keys: ['I 10 — Coral Key', 'N 08 — Gold Key'], notes: ['Rương N8 mở bằng cần gạt tại Q1.'] },
+        { grid: 'H7', foes: ['D 08 — 3 Blood Bat,2 Red Flybot / 3 Electric Bat,2 Yellow Flybot / 3 Snow Bat,2 Blue Flybot', 'J 08 — 2 Dark Bush,3 Beheaded Fallen / 3 Mage Dog,2 Beheaded Fallen'], keys: ['E 07 — Wind Orb'] },
+        { grid: 'H8', foes: ['E 10 — 3 Ruby Ore, 2 Topaz Ore / 1 Ruby Ore, 2 Obsidian Boulder, 1 Topaz Golem, 1 Topaz Ore', 'K 10 — 2 Obsidian Boulder, 2 Topaz Golem', 'P 03 — 5 Red Flybot / 3 Red Flybot, 2 Obsidian Boulder'], keys: ['I 02 — Halloween Candy'] },
+        { grid: 'H9', foes: ['H 03 — 2 Slime Bunny, 1 Pink Squid, 1 Purple Squid', 'L 01 — 2 Hermit Creep, 2 Red Creep, 1 Pink Squid', 'Q 02 — 1 Cat Wizard / 2 Viking Monolith, 2 Cat Wizard, 1 Lime Squid'], keys: ['N 09 — Golden Ticket'] },
+        { grid: 'I7', foes: ['C 07 — 3 Putrid Worm,2 Master Wraith / 2 Putrid Worm,2 Haunted Mirror,1 Master Wraith', 'K 03 — 3 Rock Sprite,1 Natalie Doll,1 Anna Doll / 1 Matt Doll,2 Rock Sprite,1 NoLegs Doll,1 Lance Doll', 'O 09 — 5 Zombie Hand / 3 Rock Sprite,2 Zombie Hand', 'R 07 — 2 Zombie Hand,1 NoLegs Doll / 2 Leaf Wraith,1 Anna Doll / 2 Cutie Worm,1 Natalie Doll / 2 Skeleton Hand,1 Matt Doll / 2 Jet Fish,1 Lance Doll'], keys: ['D 01 — Golden Ticket'] },
+        { grid: 'I8', foes: ['C 10 — 3 Dark Bush, 2 Cat Sniper / 2 Dark Bush, 2 Cat Sniper, 1 War Mammoth', 'F 02 — 3 Blood Bat, 2 Haunted Mirror / 3 Red Flybot, 2 Haunted Mirror', 'R 02 — 2 Cosmic Monolith', 'F 06 — 3 Cosmic Monolith', 'H 08 — 4 Mutant Chomper', 'S 05 — 1 War Mammoth / Ultra Chibi Knight'] },
+        { grid: 'I9', foes: ['C 02 — 2 Cannon Turret,2 Blue Creep,1 Harpoon Turret / 2 Laser Turret,2 Blue Creep,1 Harpoon Turret', 'H 01 — 3 Wooden Idol,2 Leafy Chomper / 3 Stumpy Gloop / 3 Leafy Chomper', 'Q 09 — 2 Nuclear Bomb,1 Lime Squid / 2 Nuclear Bomb,2 Laser Turret,1 Harpoon Turret'] },
+        { grid: 'J7', foes: ['H 03 — 3 Zombie Hand, 2 Crucified Fallen / 2 Gold Fish, 2 Crucified Fallen, 1 Angel Mirror', 'H 07 — 3 Tanuki Dog, 2 Magma Hand / 2 Tanuki Dog, 2 Magma Hand, 1 Demon Mirror', 'N 02 — 2 Laser Turret, 1 War Mammoth, 1 Harpoon Turret', 'P 09 — 3 Skeleton Hand'], keys: ['Q 02 — The Candle'] },
+        { grid: 'J8', foes: ['B 04 — 2 Ruby Ore, 2 Flame Wraith, 1 Topaz Ore / 2 Bone Bat, 2 Flame Wraith, 1 Topaz Golem', 'F 09 — 2 Big Sand Slime, 1 Ancient Monolith / 2 Ancient Monolith, 1 Camel Mammoth', 'N 01 — 3 Magma Chomper', 'O 10 — 5 Lava Slime / 3 Fire Sprite, 2 Lava Slime / 3 Fire Sprite, 2 Obsidian Boulder', 'I 07 — 2 Harpoon Turret, 2 Cosmic Monolith, 1 Laser Turret', 'P 03 — 2 Beheaded Fallen, 2 Cosmic Monolith, 1 Mage Dog', 'Q 07 — 3 Zombie Hydra'], keys: ['I 04 — Golden Ticket', 'S 03 — Lava Sample'] },
+        { grid: 'J9', foes: ['B 04 — 5 Magma Hand / 3 Magma Hand, 2 Magma Chomper', 'O 07 — 3 Demon Mirror, 2 Magma Hand / 2 Demon Mirror, 2 Magma Chomper, 1 Burned Fallen', 'R 05 — 3 Burned Fallen, 2 Demon Mirror / 3 Burned Fallen, 2 Beheaded Fallen'], keys: ['O 11 — Lava Sample'] },
+        { grid: 'K7', foes: ['D 04 — 3 Roasted Gloop, 2 Fire Sprite / 3 Blaze Hydra', 'F 05 — 2 Beheaded Fallen, 2 Magma Chomper, 1 Red Flybot', 'I 09 — 3 Roasted Gloop, 2 Magma Chomper / 2 Magma Chomper, 2 Mutant Chomper'], keys: ['D 02 — Fire Orb', 'I 01 — Topaz Key', 'S 05 — Thermal Boots', 'T 08 — Lava Sample'] },
+        { grid: 'K8', foes: ['K 08 — 2 Lava Slime, 2 Topaz Ore, 1 Obsidian Boulder / 1 Obsidian Boulder, 1 Topaz Golem, 1 Big Lava Slime, 1 Lava Slime', 'L 03 — 2 Lava Slime, 2 Chocolate Slime, 1 Roasted Gloop / 2 Big Lava Slime, 1 Big Chocolate Slime', 'N 07 — 3 Lava Slime, 2 Big Lava Slime', 'S 06 — 3 Roasted Gloop, 2 Magma Hand / 2 Demon Mirror, 2 Roasted Gloop, 1 Magma Chomper', 'K 05 — Cosmic Gigalith / 1 Slimy Tentacle, 2 Eyeball, The Devourer, 1 Spikey Tentacle'], keys: ['H 09 — Lava Sample'] },
+        { grid: 'K9', foes: ['L 06 — 2 Blaze Hydra / Q 09 / R 09 / 5 Burned Fallen / 5 Crucified Fallen / 5 Beheaded Fallen'] }
+      ] },
+    { id: 'freezeflame-dungeon', name: 'Freezeflame Dungeon', kind: 'Khu vực trả phí', image: 'img/areas/freezeflame-dungeon.png', grid: 'E0',
+      desc: 'Dungeon trả phí hai nửa băng–lửa đan xen: phòng nóng kế phòng lạnh, kiểm tra độ phủ nguyên tố của cả đội.',
+      features: [ 'Băng và lửa xen kẽ từng phòng', 'Phần thưởng xứng công sức cho người chơi DLC' ],
+      tips: [ 'Chuẩn bị kháng cả Lửa lẫn Bang — không bên nào cho bạn nghỉ ngơi.' ],
+    cells: [
+        { grid: 'D1', foes: ['C 04 — 3 Wolf Dog / 2 Lost Fallen,2 Wolf Dog,1 Viking Monolith', 'S 07 — 2 Lost Fallen,1 Viking Monolith / 3 Cat Warrior,2 Cat Wizard / 2 Cat Warrior,2 Hardy Gloop,1 Cat Wizard / 2 Cat Warrior,2 Hardy Gloop,1 Viking Monolith'] },
+        { grid: 'E0', foes: ['R 03 — G 04,M 04 / Sól, Skadi', 'L 02 — Snowflake'], subs: 'Đền Bỏ Quên, Thế giới Bí mật' },
+        { grid: 'E1', subs: 'Thế giới Bí mật' },
+        { grid: 'E2', foes: ['D 06 — 2 Zircon Ore,2 Frost Wraith,1 Ice Sprite', 'F 03 — 2 Zircon Ore,2 Icicle Creep / 2 Snow Bat,2 Frost Wraith / 2 Ice Sprite,2 Icicle Creep / 2 Slime Bunny,2 Big Icecream Slime', 'O 08 — 2 Ruby Ore,2 Obsidian Boulder / 2 Fire Sprite,2 Dirt Boulder / 2 Rock Sprite,2 Flame Wraith / 1 Rock Sprite,2 Magma Chomper', 'R 05 — 2 Ruby Ore,2 Flame Wraith,1 Fire Sprite'] },
+        { grid: 'F1', foes: ['H 05 — 2 Fire Sprite,2 Lava Slime,1 Big Lava Slime / 3 Magma Hand / 3 Blood Bat,2 Flame Wraith / 2 Fire Sprite,2 Big Lava Slime,1 Lava Slime', 'N 07 — 2 Lava Slime,1 Slime Bunny / 2 Magma Chomper,1 Big Lava Slime', 'J 04 — 3 GLOB'], subs: 'Lối đi bí mật, Phòng Arcade' },
+        { grid: 'F2', foes: ['G 09 — 2 Sandstone Boulder, 1 Camel Mammoth'] }
+      ] },
+    { id: 'mineshaft-maze', name: 'Mineshaft Maze', kind: 'Khu vực trả phí', image: 'img/areas/mineshaft-maze.png', grid: 'H6',
+      desc: 'Mỏ ngầm mê cung phần trả phí: hầm nhiều tầng, thang máy và quái côn trùng bóng tối.',
+      features: [ 'Mê cung nhiều tầng với thang máy', 'Quái côn trùng bóng tối là chuyên gia tại đây' ],
+      tips: [ 'Đi kèm bản đồ trong tay — lạc đường ở đây tốn cả chục lượt.' ],
+    cells: [
+        { grid: 'G3', foes: ['L 07 — 3 Bone Bat, 2 Electric Bat / 3 Dirt Boulder, 2 Earthquake Bomb'] },
+        { grid: 'G8', foes: ['J 08 — 2 Rock Sprite, 2 Thunder Sprite, 1 Seaweed Chomper / 2 Acid Bomb, 2 Seaweed Chomper'] },
+        { grid: 'H1', foes: ['I 07 — 3 Beheaded Fallen, 2 Burned Fallen / 3 Burned Fallen, 2 Giga Harpoon'] },
+        { grid: 'I7', foes: ['C 05 — 1 THE MAW', 'L 05 — 2 Blood Bat, 1 Mutant Chomper'], keys: ['D 05 — Earth Orb', 'I 04 — Topaz Key'], subs: 'Hang Zombie Hydra, Phòng Arcade' },
+        { grid: 'I9', foes: ['D 05 — 1 Fuzzy Worm', 'K 05 — 2 Seaweed Chomper,1 Defender Mk III / 3 Electric Bat,2 Blood Bat / 3 Yellow Flybot,2 Seaweed Chomper / 3 Blood Bat,2 Electric Bat / 2 Seaweed Chomper,1 Ancient Monolith / G 05,H 07,N 08,O 06 / Neon Valhalla,2 Shockwave Bomb,1 Giga Harpoon'] },
+        { grid: 'K3', foes: ['I 05 — 3 Zombie Hand,2 Rock Sprite / 2 Burned Fallen,2 Zombie Hand,1 Rock Sprite / 1 Earth Dragon,2 Zombie Hand'] },
+        { grid: 'K4', foes: ['K 08 — 5 Steam Fish / 3 Steam Fish, 2 Shockwave Bomb'] }
+      ] },
+    { id: 'deathly-hollows', name: 'Deathly Hollows', kind: 'Khu vực trả phí', image: 'img/areas/deathly-hollows.png', grid: 'C2',
+      desc: 'Khu vực trả phí nghĩa trang ma quái — một trò chơi chữ kiểu Harry Potter, không gì ở đây vui đẹp cả.',
+      features: [ 'Không khí bóng tối cùng quái hồn và xác sống', 'Boss và phần thưởng cao cấp riêng' ],
+      tips: [ 'Nguyền và Doom xuất hiện dày — giữ Bless kịp lúc.' ],
+    cells: [
+        { grid: 'B3', foes: ['O 05 — 2 Steel Wraith,2 Green Creep,1 Master Wraith / 3 Zombie Hand,2 Steel Wraith / 3 Leaf Wraith,2 Steel Wraith'], keys: ['C 03 — Turd'] },
+        { grid: 'B4', foes: ['L 06 — 1 Cat Bomber,Telperion,1 Cat Sniper,1 Cat Ninja', 'P 07 — 3 Cat Ninja,2 Cat Sniper / 3 Cat Ninja,2 Panda Bear / 3 Mage Dog,2 Panda Bear'] },
+        { grid: 'C2', foes: ['D 09 — 2 Wolf Dog,2 Master Wraith,1 Mage Dog / 2 Frost Wraith,2 Snow Bat,1 Master Wraith / 3 Wolf Dog,2 Panda Bear'], keys: ['H 02 — Turd'] },
+        { grid: 'C3', foes: ['C 05 — 3 Wolf Dog,2 Bone Bat / 2 Bone Bat,2 Brown Bear,1 Wise Mirror', 'F 02 — 2 Peridot Ore,1 Sapphire Ore,1 Lance Doll,1 Matt Doll / 3 Chocolate Slime,2 Slime Bunny / 2 Sapphire Ore,2 Master Wraith,1 Seaweed Chomper', 'O 10 — 2 Dark Bush,2 Green Creep,1 Dirt Boulder / 3 Cat Ninja,2 Dark Bush / 2 Dirt Boulder,2 Green Creep,1 Mutant Chomper', 'R 06 — 3 Thorny Creep,2 Blood Bat / 3 Blood Bat,2 Mutant Chomper'] },
+        { grid: 'C4', keys: ['B 09 — Turd'] },
+        { grid: 'D2', foes: ['E 06 — 3 Peridot Ore,2 Sapphire Ore / 3 Dirt Boulder,2 Peridot Ore / 3 Peridot Ore,2 Haunted Mirror', 'P 06 — 3 Putrid Worm,1 Natalie Doll,1 Anna Doll / 3 Putrid Worm,2 Mutant Chomper', 'S 05 — 3 Zombie Hand,2 Chocolate Slime / 3 Zombie Hand,2 Big Chocolate Slime'] },
+        { grid: 'D3', foes: ['K 03 — 2 Putrid Worm, 2 Leaf Wraith, 1 Brown Bear / 2 Leaf Wraith, 2 Putrid Worm, 1 Lime Squid', 'O 08 — 3 Green Creep, 2 Seaweed Chomper / 3 Red Creep, 2 Mutant Chomper'], keys: ['S 08 — Turd'], notes: ['Rương K6 mở bằng cách gạt cần (M7, J4, I7, L8) — mã gợi ý nằm trong Crystal Caverns.', 'Rương Q6 mở bằng 2 cần gạt (M5, I7) — hai ký hiệu trùng nhau.', 'Rương E3 mở bằng các cần gạt (N2, I5, J4, L4, L8, J8) — ký hiệu nửa tròn là điểm xuất phát và kết thúc; đi theo nét kẻ (gồm cả vệt chữ Y) để tìm cần gạt ẩn.'] }
+      ] },
+    { id: 'the-great-sea', name: 'The Great Sea', kind: 'Khu vực trả phí', image: 'img/areas/the-great-sea.png', grid: 'D10',
+      desc: 'Biển mở rộng của bản v2: một thế giới ngoài lưới chính với những thử thách cuối game.',
+      features: [ 'Battle Arena — đấu trường chuỗi boss', 'Data Bunker — khu vực chốt hạ của v2' ],
+      tips: [ 'Chỉ vào được nếu có bản v2 — nhớ điều này khi cân nhắc mua DLC.' ],
+    cells: [
+        { grid: 'C13', foes: ['F 03 — 3 Furry Slime / 1 King Slime / 2 Haunted Tree,1 Eyeball / 1 Beholder / 1 Glacier Eater,1 Rock Eater / 1 Giga Golem / 2 Red Bee,1 Spikey Moth / 1 Sandworm,1 Sandworm\'s Tail', 'N 03 — 3 Gunslinger,2 Swordslinger / 1 Swordslinger,1 Jack,1 Gunslinger / 1 Red Clay,1 Blue Clay,1 Light Clay,1 Dark Clay / 1 Blue Clay,1 Red Clay,1 Protector,1 Dark Clay / 1 Florn,1 Frose,1 Stunflower,1 Heasy / 1 Florn,1 Frose,1 Rafflesia,1 Stunflower,1 Heasy / 2 Blue Crystal / 2 Red Crystal,1 Praetorian'], keys: ['R 04 — Tomato'] },
+        { grid: 'C14', foes: ['C 07 — 2 Glacier Eater / 2 Rock Eater / 1 Glacier Eater, 1 Rock Eater / 1 Giga Golem', 'D 04 — 3 Furry Slime / 3 Furry Slime / 1 King Slime', 'F 04 — 2 Haunted Tree / 2 Eyeball / 3 Eyeball / 1 Beholder', 'G 07 — 2 Red Bee, 1 Spikey Moth / 2 Spikey Moth, 1 Red Bee / 1 Sandworm, 1 Sandworm\'s Tail', 'O 04 — 2 Swordslinger, 1 Gunslinger / 3 Gunslinger, 2 Swordslinger / 1 Swordslinger, 1 Jack, 1 Gunslinger', 'O 07 — 1 Florn, 1 Frose, 1 Stunflower, 1 Heasy / 1 Florn, 1 Frose, 1 Rafflesia, 1 Stunflower, 1 Heasy', 'R 07 — 1 Blue Crystal, 1 Red Crystal / 1 Red Crystal, 1 Praetorian, 1 Blue Crystal', 'S 04 — 2 Red Clay, 2 Blue Clay / 2 Dark Clay, 2 Light Clay / 1 Blue Clay, 1 Red Clay, 1 Protector, 1 Dark Clay'] },
+        { grid: 'C15', foes: ['B 05 — 3 Dirt Boulder,2 Seaweed Chomper / 2 Seaweed Chomper,2 Leafy Chomper', 'S 02 — 2 Dirt Boulder,2 Lost Fallen,1 Viking Monolith / 2 Hermit Creep,2 Ancient Monolith,1 Lost Fallen'], keys: ['I 03 — World Map'], notes: ['Rương C 01 mở bằng công tắc tại K 10; rương H 08 mở bằng công tắc tại N 07.'] },
+        { grid: 'D14', foes: ['E 05 — CORALIA'], subs: 'Phòng Arcade' },
+        { grid: 'D15', foes: ['O 06 — 2 Hermit Creep, 2 Amethyst Golem / 2 Pink Squid, 1 Amethyst Golem'] },
+        { grid: 'E11', notes: ['Rương I04: đứng yên trên đảo 2 phút rồi rời đi — rương xuất hiện ngay lúc nhân vật rời cầu cảng.'] },
+        { grid: 'E14', foes: ['E 06 — 2 Blood Bat, 1 Earth Dragon', 'F 08 — 1 Red Creep, 1 Green Creep, 1 Blue Creep', 'G 07 — 1 Sandstone Boulder, 1 Coral Boulder, 1 Dirt Boulder', 'I 08 — 3 Zombie Hand, 2 Skeleton Hand', 'J 07 — 2 Gem Idol, 1 Bone Golem', 'K 06 — 1 Pink Squid', 'L 08 — 1 Drowned Fallen, 1 Lost Fallen, 1 Burned Fallen', 'N 07 — 2 Tanuki Dog, 1 Grolar Bear', 'O 06 — 2 Mud Slime, 1 Big Mud Slime', 'P 08 — 2 Master Wraith, 1 Magma Chomper', 'E 06 — 2 Stumpy Gloop, 2 Roasted Gloop, 1 Beheaded Fallen', 'E 08 — 5 Gem Idol', 'H 08 — 2 Leaf Wraith, 2 Steel Wraith', 'I 07 — 2 Fire Sprite, 2 Rock Sprite, 1 Topaz Ore', 'K 07 — 3 Fabulous Gloop', 'L 07 — 2 Haunted Mirror, 2 Angel Mirror, 1 Wise Mirror', 'M 06 — 3 Cat Wizard, 2 Cat Warrior', 'M 08 — 2 Icecream Slime, 1 Big Icecream Slime', 'P 06 — 2 Putrid Worm, 1 Mutant Chomper', 'P 08 — 2 Wolf Dog, 2 Bone Bat, 1 Zap Dog', 'E 08 — 2 Seaweed Chomper, 1 Leafy Chomper', 'G 07 — 1 Tanuki Dog, 1 Fire Sprite, 1 Rescue Dog, 1 Thunder Sprite, 1 Zap Dog', 'H 08 — 1 Blaze Hydra', 'I 07 — 1 Red Flybot, 1 Prototype 9X', 'K 06 — 1 Yellow Flybot, 1 Red Flybot, 1 Blue Flybot', 'M 06 — 2 Cat Sniper, 2 Thorny Creep, 1 Cat Bomber', 'M 08 — 1 War Mammoth, 1 Slime Bunny', 'N 07 — 1 Cannon Turret, 1 Harpoon Turret, 1 Laser Turret, 1 Fuzzy Worm', 'O 08 — 1 Steam Fish, 1 Jet Fish,1 Gold Fish', 'P 06 — 1 Earthquake Bomb, 1 Acid Bomb, 1 Shockwave Bomb, 1 Nuclear Bomb', 'E 06 — 1 Big Chocolate Slime, 1 Big Sand Slime', 'E 08 — 2 Slime Mouse, 2 Icicle Creep, 1 Coral Boulder', 'G 07 — 2 Origami Wraith, 2 Master Wraith', 'I 08 — 2 Snow Bat, 1 Sea Dragon', 'J 07 — 2 Blood Bat, 2 Black Bear', 'K 08 — 2 Red Bush, 2 Sandy Bush, 1 Ancient Monolith', 'M 06 — 2 Steel Wraith, 1 Viking Monolith', 'N 07 — 2 Cat Ninja, 2 Wise Mirror, 1 Demon Mirror', 'O 06 — 2 Burned Fallen, 2 Drowned Fallen, 1 Beheaded Fallen', 'P 08 — 1 Green Bush, 1 Anna Doll, 1 Dark Bush, 1 Natalie Doll, 1 Red Bush', 'E 08 — 2 Lava Slime, 1 Big Lava Slime', 'F 06 — 3 Cat Wizard, 2 Cutie Worm', 'H 08 — 1 Matt Doll, 1 NoLegs Doll, 1 Lance Doll', 'I 07 — 2 Snow Bat, 2 Bone Bat, 1 Electric Bat', 'K 07 — 5 Skeleton Cat', 'L 06 — 2 Dark Bush, 2 Lost Fallen, 1 Crucified Fallen', 'M 08 — 1 Rock Sprite, 1 Dirt Boulder, 1 Dark Bush, 1 Marble Boulder, 1 Wind Sprite', 'O 06 — 1 Origami Hydra, 2 Book Worm', 'O 08 — 2 Wise Mirror, 2 Red Bush, 1 Angel Mirror', 'P 07 — 2 Wooden Idol, 2 Metal Idol, 1 Gem Idol'] }
+      ] },
+    { id: 'temple-of-trials', name: 'Temple of Trials', kind: 'Khu vực trả phí', image: 'img/areas/temple-of-trials.png', grid: 'K5',
+      desc: 'Đền thử thách tối thượng phần trả phí: các boss bóng ma quay lại với phiên bản cực mạnh.',
+      features: [ '4 boss bóng ma: Matteus, Natalia, Lancelot, Annabelle', 'Laurelin canh cửa cuối của đền' ],
+      tips: [ 'Mang đầy vật phẩm hồi sinh — boss ở đây không tha cho sơ hở nào.' ],
+    cells: [
+        { grid: 'K5', foes: ['J 04 — 2 Cat Warrior, God'] },
+        { grid: 'K6', foes: ['D 04 — See below', 'F 05 — 1 Panda Bear,Chibi Knight / 3 Blaze Hydra / 1 Amethyst Golem,Super Chibi Knight,1 Amethyst Ore / 3 Zombie Hydra / 1 Camel Mammoth,Ultra Chibi Knight', 'J 07 — Infinite waves', 'N 05 — 2 Gem Idol,Jotun / Neon Valkyrie,1 Cannon Turret / 2 Cat Wizard,Laurelin,1 Cat Warrior / 1 Sapphire Ore,Poseidon,1 Quartz Ore,1 Zircon Ore', 'P 04 — Sól,Skadi / Neon Valhalla,2 Shockwave Bomb,1 Giga Harpoon / 1 Cat Bomber,Telperion,1 Cat Sniper,1 Cat Ninja / 1 Ruby Ore,Vulcan,1 Topaz Ore,1 Peridot Ore / 3 Crystal Hydra', 'D 04 — 1 Laser Turret, 1 Cosmic Monolith, 1 Harpoon Turret / 1 Blood Bat, 1 Amethyst Ore, 1 Thorny Creep, 1 Snow Bat / 1 Bone Bat,1 Panda Bear, 1 Green Creep, 1 Zap Dog, 1 Earthquake Bomb / 1 Chocolate Slime, 1 Big Chocolate Slime, 1 Angel Mirror, 1 Dirt Boulder, 1 Red Bush / 1 Red Bush, 1 Big Mud Slime, 1 Amethyst Golem, 1 Mud Slime / 1 Hermit Creep, 1 Gold Fish, 1 Marble Boulder, 1 Sandy Bush, 1 Cat Ninja / 1 Topaz Golem, 1 Defender Mk III, 1 Jet Fish / 1 Matt Doll, 1 Wise Mirror, 1 Leafy Chomper, 1 Haunted Mirror, 1 Natalie Doll / 1 Dark Bush / 1 Lance Doll, 1 Burned Fallen, 1 Steel Wraith, 1 Stone Idol, 1 Shockwave Bomb / 1 Chunky Gloop, 1 Viking Monolith, 1 Electric Bat, 1 Fire Sprite, 1 Roasted Gloop / 1 Cat Sniper, 1 Cannon Turret, 1 Gray Pixel, 1 Cat Wizard, 1 Yellow Flybot / 1 Sea Dragon, 1 War Mammoth / 1 Mage Dog, 1 Zombie Hand, 1 Demon Mirror, 1 Magma Hand, 1 Lost Fallen / 1 Quartz Ore, 1 Scaly Worm, 1 Frost Wraith, 1 Cutie Worm, 1 Zircon Ore / 1 Metal Idol, 1 Wooden Idol, 1 Gem Idol / 1 Muddy Bush, 1 Big Sand Slime, 1 Lime Squid, 1 Sand Slime / 1 Green Pixel, 1 Beheaded Fallen, 1 Purple Squid, 1 Giga Harpoon / 1 Rock Sprite, 1 Magma Chomper, 1 Anna Doll, 1 Tanuki Dog, 1 Red Creep / 1 Steam Fish, 1 Wind Sprite, 1 NoLegs Doll, 1 Crucified Fallen, 1 Acid Bomb / 1 Wooly Mammoth, 1 Pearl Golem, 1 Peridot Ore / 1 Water Slime, 1 Pink Squid, 1 Big Lava Slime, 1 Lava Slime / 1 Green Bush, 1 Blue Creep, 1 Red Pixel, 1 Brown Bear, 1 Red Flybot / 1 Hardy Gloop, 1 Camel Mammoth, 1 Rescue Dog, 1 Ice Sprite / 1 Icecream Slime, 1 Big Icecream Slime, 1 Bubbler MX-01, 1 Blue Flybot / 1 Sky Dragon, 1 Nuclear Bomb / 1 Ruby Ore, 1 Putrid Worm, 1 Sandstone Boulder, 1 Fuzzy Worm, 1 Topaz Ore / 1 Earth Dragon, 1 Grolar Bear, 1 Wolf Dog / 1 Sapphire Ore, 1 Coral Boulder, 1 Ancient Monolith, 1 Drowned Fallen, 1 Thunder Sprite / 1 Dead Pixel, 1 Obsidian Boulder, 1 Stumpy Gloop, 1 Cat Bomber, 1 Leaf Wraith / 1 Slime Mouse, 1 Seaweed Chomper, 1 Skeleton Hand, 1 Mutant Chomper, 1 Icicle Creep / 1 Omega Dragon, 1 Flame Wraith, 1 Master Wraith / 1 Slime Bunny'], notes: ['Rương J4 mở khi thắp đủ cả 4 đuốc.'] },
+        { grid: 'K7', foes: ['E 07 — 2 Rock Sprite, Matteus, 1 Dirt Boulder', 'G 06 — 2 Mage Dog, Natalia', 'M 06 — 2 Harpoon Turret, Lancelot', 'O 07 — 1 Zombie Hydra, Annabelle'] }
+      ] },
+    { id: 'crystal-caverns', name: 'Crystal Caverns', kind: 'Khu vực trả phí', image: 'img/areas/crystal-caverns.png', grid: 'E0',
+      desc: 'Hang pha lê lấp lánh phần trả phí: khoáng vật dày đặc cùng quái thuật của vùng tối.',
+      features: [ 'Khoáng vật và đá quý dày đặc', 'Quái pháp thuật vùng tối' ],
+      tips: [ 'Đường tối quanh co — học thuộc lối hoặc ghi chú từng bước.' ] }
+  ],
+
+  /* ------------------------------------ Triệu hồi ----------------------------
+     40 summon nổi bật theo bảng "Summons/Epic Battle Fantasy 5" (bảng hiện hành
+     post-v2 trên wiki). SP là lượng Summon Points tiêu hao mỗi lần triệu hồi
+     (thanh SP tăng theo cấp của Matt). Mọi summon đều mở khoá bằng cách bắt
+     quái tương ứng (Capture). */
+  summons: [
+    { id: 'glitch',             name: 'Glitch',             kind: 'Tấn công', sp: 177, image: 'img/summons/glitch.png',             elements: [],
+      unlock: 'Bắt Glitch — boss ẩn ở Khu Glitch (ô K8, cạnh Redpine Town); khu này mở sau khi hoàn thành Mystic Woods.',
+      desc: 'Cảnh báo: mất bảo hành nếu niêm phong bị gãy! Một cú nổ hỗn loạn mạnh nhất bảng — sát thương phép 666.66 phủ toàn bộ kẻ địch, nguyên tố và hiệu ứng đều 666% ngẫu nhiên.',
+      tips: [ 'Sát thương và trạng thái đều ngẫu nhiên mỗi lần gọi — vừa may mắn vừa thảm hoạ.', 'Hợp với người chơi thích canh bạc; đội hình kháng trạng thái ổn định để tránh thua vì hậu quả ngẫu nhiên.' ] },
+    { id: 'god',                name: 'God',                kind: 'Tấn công', sp: 160, image: 'img/summons/god.png',                elements: [],
+      unlock: 'Bắt God (boss) ở Temple of Trials, ô K5 (phần DLC).',
+      desc: 'Dùng phép mạnh nhất vũ trụ — ném một cú "trời phạt" phi nguyên tố lên toàn bộ kẻ địch.',
+      tips: [ 'Giữ cho những trận chốt hạ — SP rất trội.', 'Không phụ thuộc nguyên tố nên luôn an toàn với mọi kẻ địch.' ] },
+    { id: 'praetorian',         name: 'Praetorian',         kind: 'Hỗ trợ',   sp: 141, image: 'img/summons/praetorian.png',         elements: [],
+      unlock: 'Bắt Praetorian (boss) ở The Great Sea (C13, C14 — bản v2).',
+      desc: 'Cho cả đội đang trực chiến trạng thái Defend — và nếu nó đã gục sẵn là một đòn pierce phi nguyên tố.',
+      tips: [ 'Hỗ trợ đắt nhất bảng — dùng đúng thời điểm để không phí SP.', 'Nút Defend cho cả đội nhưng không mất lượt hành động của ai.' ] },
+    { id: 'natalia',            name: 'Natalia',            kind: 'Tấn công', sp: 139, image: 'img/summons/natalia.png',            elements: ['holy'],
+      unlock: 'Bắt Natalia (boss) ở Temple of Trials, ô K7 (trận trả thù, phần DLC).',
+      desc: 'Bắn từng địch một bằng phép Thánh khủng khiếp (550), tỉ lệ chí mạng vô cùng cao.',
+      tips: [ 'Chỉ số chí mạng cao nên là đáp án với kẻ kháng nhiều.', 'Xuất hiện trong trận đánh boss Natalia (bắt được để mở khoá).' ] },
+    { id: 'viking-monolith',    name: 'Viking Monolith',    kind: 'Hỗ trợ',   sp: 135, image: 'img/summons/viking-monolith.png',    elements: [],
+      unlock: 'Bắt Viking Monolith ở Frozen Valley (A7–C9), Crystal Caverns (I9) và nhiều khu khác.',
+      desc: 'Cho cả đội trạng thái Haste — gần như thêm một lượt hành động tự do mỗi lượt.',
+      tips: [ 'Nhân đôi nhịp hành động của cả đội — mạnh với mọi chiến thuật.', 'Cực giá trị trong các trận cày quái dài.' ] },
+    { id: 'snowflake',          name: 'Snowflake',          kind: 'Tấn công', sp: 135, image: 'img/summons/snowflake.png',          elements: [],
+      unlock: 'Bắt Snowflake (boss) trong Freezeflame Dungeon, ô E0 (phần DLC).',
+      desc: 'Dispel toàn bộ buff của địch trước khi rắc bão tuyết phi nguyên tố tơi tả cả sân.',
+      tips: [ 'Rất phù hợp trước boss buff nhiều lần.', 'SP cao — nghĩ trước khi dùng.' ] },
+    { id: 'annabelle',          name: 'Annabelle',          kind: 'Tấn công', sp: 134, image: 'img/summons/annabelle.png',          elements: ['wind'],
+      unlock: 'Bắt Annabelle (boss) ở Temple of Trials, ô K7 (trận trả thù, phần DLC).',
+      desc: 'Chém xuyên qua từng kẻ địch một bằng đòn Gió vật lý cực mạnh (520).',
+      tips: [ 'Phủ toàn địch nhưng đánh tuần tự — mức "quét sạch" cho cả sân.', 'Hợp khi quái kháng nguyên tố đủ kiểu.' ] },
+    { id: 'lancelot',           name: 'Lancelot',           kind: 'Tấn công', sp: 132, image: 'img/summons/lancelot.png',           elements: ['bomb'],
+      unlock: 'Bắt Lancelot (boss) ở Temple of Trials, ô K7 (trận trả thù, phần DLC).',
+      desc: 'Đặt nổ từng kẻ địch một bằng phép Bom khủng khiếp (510).',
+      tips: [ 'Sát thương phép diện rộng — xử lý nhanh mọi loại kháng khác nhau.', 'Kiểm tra kháng Bom của địch trước khi gọi.' ] },
+    { id: 'matteus',            name: 'Matteus',            kind: 'Tấn công', sp: 131, image: 'img/summons/matteus.png',            elements: ['earth'],
+      unlock: 'Bắt Matteus (boss) ở Temple of Trials, ô K7 (trận trả thù, phần DLC).',
+      desc: 'Đập vỡ từng kẻ địch một bằng dãy đòn Đất vật lý tổng lực (485).',
+      tips: [ 'Sát thương Đất vật lý tuần tự — dễ dự đoán, hiệu quả cao với boss.', 'Hợp khi địch ít kháng Đất.' ] },
+    { id: 'zombie-hydra',       name: 'Zombie Hydra',       kind: 'Tấn công', sp: 124, image: 'img/summons/zombie-hydra.png',       elements: ['dark'],
+      unlock: 'Bắt Zombie Hydra (boss) ở The Rapture, ô J8.',
+      desc: 'Instant Death tất cả kẻ địch trên sân (200% Death); nếu thất bại, đánh nhẹ bằng đòn Bóng.',
+      tips: [ 'Giả định đối thủ "chưa chết" — dùng để quét quái thường quyết liệt.', 'Yếu nếu đối thủ có kháng Death/Bóng.' ] },
+    { id: 'telperion',          name: 'Telperion',          kind: 'Tấn công', sp: 112, image: 'img/summons/telperion.png',          elements: ['dark'],
+      unlock: 'Bắt Telperion ở Deathly Hollows (B4) hoặc Temple of Trials (K6).',
+      desc: 'Phép Bóng lớn trên toàn địch (380), kèm tình trạng Nguyền +9.',
+      tips: [ 'Cặp hoàn hảo với buff sát thương Thánh kế tiếp.', 'SP vừa nhưng mạnh về sát thương Bóng.' ] },
+    { id: 'cosmic-monolith',    name: 'Cosmic Monolith',    kind: 'Tấn công', sp: 111, image: 'img/summons/cosmic-monolith.png',    elements: ['dark'],
+      unlock: 'Bắt Cosmic Monolith ở The Rapture (G8, I8, J8).',
+      desc: 'Phát nổ Bóng tối khổng lồ (300 phép) trên toàn trường.',
+      tips: [ 'Rất ổn với trận địch đông.', 'SP vừa phải so với độ khủng của đòn.' ] },
+    { id: 'vulcan',             name: 'Vulcan',             kind: 'Tấn công', sp: 110, image: 'img/summons/vulcan.png',             elements: ['fire'],
+      unlock: 'Bắt Vulcan ở Crystal Caverns (D1) hoặc Temple of Trials (K6).',
+      desc: 'Tiêu lửa cả sân (350) kèm Burn +5 — ai còn sống chịu Scorch dần mất Max HP.',
+      tips: [ 'Hợp với trận địch đông và yếu Lửa.', 'Mất HP dần sau khi trúng là gánh nặng đáng kể cho đối thủ.' ] },
+    { id: 'laurelin',           name: 'Laurelin',           kind: 'Tấn công', sp: 109, image: 'img/summons/laurelin.png',           elements: ['bio'],
+      unlock: 'Bắt Laurelin ở Mystic Woods (E2) hoặc trận trả thù tại Temple of Trials (K6).',
+      desc: 'Buff Magic Attack cho cả đội (kể cả hậu phương, +60) rồi xoáy dãy chiêu Bio cắt qua toàn bộ kẻ địch (330).',
+      tips: [ 'Một summon hai vai trò: tự buff trước, tự dọn dẹp sau.', 'Sát thương Bio đa mục tiêu — phối hợp tốt với đội dùng trạng thái độc.' ] },
+    { id: 'poseidon',           name: 'Poseidon',           kind: 'Tấn công', sp: 108, image: 'img/summons/poseidon.png',           elements: ['water'],
+      unlock: 'Bắt Poseidon ở Frozen Valley (C9) hoặc Temple of Trials (K6).',
+      desc: 'Đòn Nước mạnh nhất (350) — có thể Ướt các kẻ địch để combo Bang ngay sau đó.',
+      tips: [ 'Combo "Poseidon → Bang/Sấm" là kinh tế cao của game.', 'Tuyệt đối tránh nếu địch hấp thụ Nước.' ] },
+    { id: 'gunkat-800xl',       name: 'GunKat-800XL',       kind: 'Tấn công', sp: 105, image: 'img/summons/gunkat-800xl.png',       elements: ['bomb'],
+      unlock: 'Bắt GunKat-800XL ở Greenwood Village (J2).',
+      desc: 'Đòn Bom nửa vật lý nửa phép (350) trên toàn địch — bỏ qua buff phòng thủ của địch.',
+      tips: [ 'Hiệu quả khi địch buff Def quá cao.', 'SP vừa nên gọn cho vài vòng quét.' ] },
+    { id: 'wooly-mammoth',      name: 'Wooly Mammoth',      kind: 'Tấn công', sp: 103, image: 'img/summons/wooly-mammoth.png',      elements: [],
+      unlock: 'Bắt Wooly Mammoth ở Frozen Valley (A7–A9).',
+      desc: 'Đập một mục tiêu với đòn vật lý phi nguyên tố khổng lồ (530) — địch khác chỉ nhận 1/3, kèm 50% Choáng.',
+      tips: [ 'Dùng sau khi đã debuff Def của mục tiêu.', 'SP vừa nhưng tỉ lệ gây Choáng khá tốt.' ] },
+    { id: 'war-mammoth',        name: 'War Mammoth',        kind: 'Tấn công', sp: 102, image: 'img/summons/war-mammoth.png',        elements: ['bomb'],
+      unlock: 'Bắt War Mammoth ở Frozen Valley (A9), Iron Fortress (G4), The Rapture (G7, I8)…',
+      desc: 'Buff Defence cho cả đội (kể cả hậu phương, +50) rồi phóng loạt nổ Bom phép lên toàn bộ kẻ địch (210).',
+      tips: [ 'Hai vai trò trong một summon — vừa đỡ đòn vừa gây sát thương diện rộng.', '20% Choáng đi kèm giúp cầm chân trận đánh.' ] },
+    { id: 'sol',                name: 'Sól',                kind: 'Tấn công', sp: 102, image: 'img/summons/sol.png',                elements: ['fire'],
+      unlock: 'Bắt Sól (boss) trong Freezeflame Dungeon, ô E0 (phần DLC); hoặc trận trả thù tại Temple of Trials (K6).',
+      desc: 'Nện một mục tiêu liên tục bằng đòn Lửa vật lý cực mạnh (580); kẻ địch khác chỉ nhận 1/3, và tất cả đều có thể Xém.',
+      tips: [ 'Mục tiêu chính ăn trọn — phối hợp debuff Def cho mục tiêu đó trước.', '30% Burn +3 đi kèm; kẻ kháng Lửa sẽ làm đòn yếu đi đáng kể.' ] },
+    { id: 'lime-squid',         name: 'Lime Squid',         kind: 'Tấn công', sp: 101, image: 'img/summons/lime-squid.png',         elements: ['thunder'],
+      unlock: 'Bắt Lime Squid ở Rainbow River (D6, J6), Redpine Town (E7), The Rapture (I9)…',
+      desc: 'Đâm toàn địch bằng Sấm (170) — hầu như luôn Choáng cả sân ở cấp cao.',
+      tips: [ 'Một cách quét Sấm, kết hợp tốt trang bị phá phòng thủ.', 'SP vừa nhưng hiệu quả Choáng rất cao.' ] },
+    { id: 'ultra-chibi-knight', name: 'Ultra Chibi Knight', kind: 'Tấn công', sp: 100, image: 'img/summons/ultra-chibi-knight.png', elements: [],
+      unlock: 'Bắt Ultra Chibi Knight ở The Rapture (I8) hoặc Temple of Trials (K6).',
+      desc: 'Buff Attack cho cả đội (kể cả hậu phương, +50) rồi đập một mục tiêu nhiều nhát vật lý phi nguyên tố (650).',
+      tips: [ 'Buff công cả đội xong ngay lập tức vào chuỗi đòn.', 'Sát thương nhắm 1 mục tiêu — cắt nhanh boss trong một lượt.' ] },
+    { id: 'omega-dragon',       name: 'Omega Dragon',       kind: 'Tấn công', sp: 98,  image: 'img/summons/omega-dragon.png',       elements: ['holy'],
+      unlock: 'Bắt Omega Dragon ở Frozen Valley (A9), Rainbow River (I6), The Rapture (G7).',
+      desc: 'Giảm Magic Attack cả địch (25%) rồi phun Thánh khổng lồ (210) kèm Choáng.',
+      tips: [ 'Debuff trước khi nổ — giữ thời điểm dùng hợp lý.', 'SP vừa nhưng là đòn Thánh mạnh của bảng.' ] },
+    { id: 'skadi',              name: 'Skadi',              kind: 'Tấn công', sp: 95,  image: 'img/summons/skadi.png',              elements: ['ice'],
+      unlock: 'Bắt Skadi (boss) trong Freezeflame Dungeon, ô E0 (phần DLC).',
+      desc: 'Nện dốc đồng một mục tiêu với chuỗi Bang (530); mục tiêu khác chỉ nhận 1/3, và toàn bộ có thể Đóng băng.',
+      tips: [ 'Kết hợp Ướt thì gần như quyết định kẻ địch.', 'SP vừa nhưng khắc chế rất tốt đối thủ yếu Bang.' ] },
+    { id: 'phoenix',            name: 'PHOENIX',            kind: 'Hỗ trợ',   sp: 75,  image: 'img/summons/phoenix.png',            elements: ['holy'],
+      unlock: 'Bắt PHOENIX (boss) ở Wild Tropics, ô B3 (hoặc trận boss trong Nhà Matt).',
+      desc: 'Hồi sinh tất cả đồng đội đang trực chiến — ai còn sống sẽ được Auto-Revive thay thế.',
+      tips: [ 'Sẵn sàng cho boss dài hơi.', 'Không cần cầu lưu gì — triệu hồi chắc chắn.' ] },
+    { id: 'wise-mirror',        name: 'Wise Mirror',        kind: 'Hỗ trợ',   sp: 50,  image: 'img/summons/wise-mirror.png',        elements: ['holy'],
+      unlock: 'Bắt Wise Mirror ở Grand Gallery (A0), Mystic Woods (F2, H1, I1), Iron Fortress (F4)…',
+      desc: 'Cho cả đội (kể cả hậu phương) Bless — chặn mọi trạng thái xấu sắp tới.',
+      tips: [ 'Rẻ mà lại hiệu quả cho hầu hết đội hình.', 'Giúp đỡ trước boss gây Nguyền hoặc Doom.' ] },
+    { id: 'king-slime',         name: 'King Slime',         kind: 'Hỗ trợ',   sp: 45,  image: 'img/summons/king-slime.png',         elements: ['holy'],
+      unlock: 'Bắt King Slime (boss) ở The Great Sea (C13, C14 — bản v2).',
+      desc: 'Phép hồi máu lớn cho cả đội (kể cả hậu phương) kèm gỡ toàn bộ trạng thái xấu.',
+      tips: [ 'SP rất rẻ — nhẹ nhàng cho hầu như đội thời trung cấp.', 'Kết hợp với Garlic để tăng hiệu quả làm sạch.' ] },
+    { id: 'zombie-hand',        name: 'Zombie Hand',        kind: 'Hỗ trợ',   sp: 28,  image: 'img/summons/zombie-hand.png',        elements: ['dark'],
+      unlock: 'Bắt Zombie Hand ở Deathly Hollows (B3, D2), Mystic Woods (G1), The Rapture (I7, J7)…',
+      desc: 'Đặt trạng thái Doom +3 lên toàn bộ kẻ địch — sau 3 lượt chúng tự chết.',
+      tips: [ 'Doom không phải sát thương nên vượt kháng thông thường — chỉ kháng Death mới cứu được.', 'Kết hợp đòn tấn công khác để rút ngắn thời gian sống sót của địch.' ] },
+    { id: 'cat-ninja',          name: 'Cat Ninja',          kind: 'Hỗ trợ',   sp: 27,  image: 'img/summons/cat-ninja.png',          elements: [],
+      unlock: 'Bắt Cat Ninja ở Greenwood Village (K0, K1), Deathly Hollows (C3), Frozen Valley (A9)…',
+      desc: 'Cho một đồng đội thêm lượt hành động ngay lập tức — dùng cho limit hoặc tiếp sức buff cực linh hoạt.',
+      tips: [ 'Lượt thêm có thể dùng cho Limit Bar đầy.', 'SP rất rẻ — dễ dùng nhiều lượt liên tiếp.' ] },
+    { id: 'wooden-idol',        name: 'Wooden Idol',        kind: 'Hỗ trợ',   sp: 21,  image: 'img/summons/wooden-idol.png',        elements: ['holy'],
+      unlock: 'Bắt Wooden Idol ở Hope Harbor (D3), Wild Tropics (B3), No Man\'s Land (G5)…',
+      desc: 'Cho cả đội (kể cả hậu phương) Bless +3 — chặn mọi trạng thái xấu trong những lượt kế.',
+      tips: [ 'Bản rẻ của phép Bless — bảo vệ cả hậu phương với giá thấp.', 'Dùng ngay trước khi boss tung trạng thái xấu diện rộng.' ] },
+    { id: 'snek',               name: 'SNEK',               kind: 'Tấn công', sp: 20,  image: 'img/summons/snek.png',               elements: [],
+      unlock: 'Bắt SNEK ở Redpine Town (F9).',
+      desc: 'Cắn một mục tiêu bằng đòn vật lý phi nguyên tố (60), chuyển tối đa cả Đốt và Nhiễm độc +9 cùng lúc.',
+      tips: [ 'Mức trạng thái tối đa — mở đường cho combo DoT dài hơi.', 'SP rẻ — spam thoải mái trong trận thường.' ] },
+    { id: 'roasted-gloop',      name: 'Roasted Gloop',      kind: 'Hỗ trợ',   sp: 18,  image: 'img/summons/roasted-gloop.png',      elements: [],
+      unlock: 'Bắt Roasted Gloop ở Mystic Woods (F0, I0), The Rapture (K7, K8), Crystal Caverns (D1)…',
+      desc: 'Cho cả đội (kể cả hậu phương) Brave +3 — tăng may mắn ra đòn chí mạng cho cả nhóm.',
+      tips: [ 'Hỗ trợ cho đội dựa vào chí mạng — không tốn SP lớn.', 'Brave mờ dần theo lượt; gọi lại khi cần.' ] },
+    { id: 'sapphire-ore',       name: 'Sapphire Ore',       kind: 'Tấn công', sp: 18,  image: 'img/summons/sapphire-ore.png',       elements: ['water'],
+      unlock: 'Bắt Sapphire Ore ở No Man\'s Land (E3, E4), Deathly Hollows (C3, D2), Frozen Valley (C7, C9)…',
+      desc: 'Rưới nước yếu (20 phép) lên toàn địch và đặt Ướt +3 cho mọi kẻ địch — sẵn sàng cho combo Bang và Sấm.',
+      tips: [ 'Ướt cả sân trong một lượt — giá trị nằm ở trạng thái chứ không ở sát thương.', 'SP rẻ nên không ngại dùng để mở combo.' ] },
+    { id: 'ruby-ore',           name: 'Ruby Ore',           kind: 'Tấn công', sp: 16,  image: 'img/summons/ruby-ore.png',           elements: ['fire'],
+      unlock: 'Bắt Ruby Ore ở Wild Tropics (B3), Forgotten Ruins (D0), Freezeflame Dungeon (E2)…',
+      desc: 'Tấn công một mục tiêu bằng đòn Lửa vật lý (90) kèm 60% Burn +3 và gãy 50% Defence.',
+      tips: [ 'Kết hợp Burn và gãy Def trong cùng một đòn rất rẻ.', 'Dùng mở đầu trước đòn vật lý lớn của đội.' ] },
+    { id: 'amethyst-ore',       name: 'Amethyst Ore',       kind: 'Tấn công', sp: 16,  image: 'img/summons/amethyst-ore.png',       elements: ['wind'],
+      unlock: 'Bắt Amethyst Ore ở Wild Tropics (C3), The Rapture (G9)…',
+      desc: 'Tấn công một mục tiêu bằng đòn Gió vật lý (90) kèm 40% Choáng +1 và gãy 50% Magic Defence.',
+      tips: [ 'Gãy kháng phép là thứ hiếm — quý trước boss buff phòng phép.', 'Xác suất Choáng thấp nhưng SP rẻ nên dùng được nhiều lượt.' ] },
+    { id: 'red-bush',           name: 'Red Bush',           kind: 'Hỗ trợ',   sp: 15,  image: 'img/summons/red-bush.png',           elements: [],
+      unlock: 'Bắt Red Bush ở Redpine Town (D7, F7), Greenwood Village (K3), Mystic Woods (H2)…',
+      desc: 'Gào lên gãy 25% Defence toàn bộ kẻ địch — debuff phòng thủ rẻ nhất bảng.',
+      tips: [ 'Dùng trước các đòn vật lý diện rộng để kéo sát thương.', 'Debuff nhẹ nhưng SP gần như bỏ túi.' ] },
+    { id: 'metal-idol',         name: 'Metal Idol',         kind: 'Hỗ trợ',   sp: 14,  image: 'img/summons/metal-idol.png',         elements: [],
+      unlock: 'Bắt Metal Idol ở No Man\'s Land (F5, G5, H5) và nhiều khu khác.',
+      desc: 'Cho cả đội (kể cả hậu phương) Heavy +5 — trạng thái Nặng giúp cả đội chống trọn đòn Gió trong các lượt kế.',
+      tips: [ 'Chống trọn nguyên tố Gió cho cả hậu phương — ứng phó trận đấu nổ gió trên sân.', 'Không tăng sát thương — giá trị nằm ở việc kháng nguyên tố.' ] },
+    { id: 'cat-sniper',         name: 'Cat Sniper',         kind: 'Tấn công', sp: 14,  image: 'img/summons/cat-sniper.png',         elements: ['bomb'],
+      unlock: 'Bắt Cat Sniper ở No Man\'s Land (E4, E5, G5), Iron Fortress (G3), The Great Sea (E14)…',
+      desc: 'Bắn thẳng mặt một kẻ địch bằng đòn Bom vật lý (50), kèm 30% cơ may giết ngay lập tức.',
+      tips: [ 'Xác suất thấp nhưng giá rẻ — có thể thử vận may mỗi lượt.', 'Ngoài Death, hiệu ứng Bom vật lý một mục tiêu vẫn ổn định.' ] },
+    { id: 'pumpkus',            name: 'PUMPKUS',            kind: 'Tấn công', sp: 12,  image: 'img/summons/pumpkus.png',            elements: [],
+      unlock: 'Bắt PUMPKUS ở Hope Harbor — trong Nhà Matt, chuỗi boss rush (L 07) hoặc Rainbow River (K5).',
+      desc: 'Thường thì nó chẳng làm gì; gọi từ lần thứ hai trở lên trong cùng một lượt sẽ khiến nó nổi giận — tung đòn vật lý cực mạnh (999) vào các kẻ địch ngẫu nhiên.',
+      tips: [ 'Nhiều lần gọi trong một lượt = sát thương lan toả; thử chuỗi 2–3 lần gọi liên tiếp.', 'Chỉ đáng dùng trước quái thường — boss quá dai sẽ lãng phí SP.' ] },
+    { id: 'cutie-worm',         name: 'Cutie Worm',         kind: 'Hỗ trợ',   sp: 8,   image: 'img/summons/cutie-worm.png',         elements: [],
+      unlock: 'Bắt Cutie Worm ở Hope Harbor (A2), Mystic Woods (F0), Rainbow River (J5, K6)…',
+      desc: 'Gỡ các trạng thái Trung tính (Ướt, Lạnh, Khô, Nặng, Nhẹ, Enchanted, Tàng hình) cho cả đội.',
+      tips: [ 'Giữ để xử lý tình huống lạ — không thay thế được kháng trạng thái thật.', 'SP rẻ top đầu bảng — nên luôn có trong đội.' ] },
+    { id: 'cat-wizard',         name: 'Cat Wizard',         kind: 'Hỗ trợ',   sp: 4,   image: 'img/summons/cat-wizard.png',         elements: [],
+      unlock: 'Bắt Cat Wizard ở Mystic Woods (E2, F2, H0, J0), Greenwood Village (J2, K2)…',
+      desc: 'Phép hồi máu đơn giản cho một đồng đội (100 điểm).',
+      tips: [ 'Heal nhỏ nhưng là một trong hai summon rẻ nhất bảng.', 'Chỉ một mục tiêu — dùng cho xử lý trường hợp khẩn.' ] }
+  ],
+
+  /* ------------------------------------ Limit Break --------------------------
+     10 Limit riêng + 10 dùng chung; chars là danh sách nhân vật học được
+     (khoá qua nhiệm vụ theo đúng nguồn wiki). Bar Limit đầy mới dùng được. */
+  limits: [
+    { id: 'cleaver',       name: 'Cleaver',       kind: 'Limit riêng',      chars: ['matt'],        image: 'img/limits/cleaver.png',      elements: [],
+      desc: 'Năm nhát chém Berserker vào một mục tiêu — nếu mục tiêu gục, Matt tự chuyển mục tiêu tiếp theo cho tới khi dùng hết đòn. Chính xác và chí mạng cao.',
+      tips: [ 'Limit mặc định của Matt ngay từ đầu.', 'Nguyên tố theo vũ khí đang mang.' ] },
+    { id: 'ragnarok',      name: 'Ragnarok',      kind: 'Limit riêng',      chars: ['matt'],        image: 'img/limits/ragnarok.png',     elements: [],
+      desc: 'Nhiều thanh kiếm khổng lồ đâm xuống toàn bộ kẻ địch — sát thương vật lý phi nguyên tố ở mức đỉnh của game.',
+      tips: [ 'Giữ cho boss khủng khiếp nhất.', 'Sáng hạn khi địch nhiều nhưng ít kháng vật lý.' ] },
+    { id: 'genesis',       name: 'Genesis',       kind: 'Limit riêng',      chars: ['natalie'],     image: 'img/limits/genesis.png',      elements: ['holy'],
+      desc: 'Phép Thánh dài rộng trừng phạt cả kẻ địch trên sân, kèm hiệu ứng hồi sinh / Auto-Revive cả đội ở cấp cao.',
+      tips: [ 'Mạnh cho boss yếu Thánh.', 'Vừa hồi phục vừa tấn công — rất linh hoạt với Natalie.' ] },
+    { id: '7th-heaven',    name: '7th Heaven',    kind: 'Limit riêng',      chars: ['natalie'],     image: 'img/limits/7th-heaven.png',   elements: [],
+      desc: 'Biểu diễn "Kyun" của Natalie: hồi máu lớn và gỡ trạng thái xấu cho cả đội, kèm buff — tiện dụng và chủ đa năng trong các limit.',
+      tips: [ 'Limit mặc định của Natalie.', 'Thưởng cho bước đi "vừa sức và kiểm soát" của cả đội.' ] },
+    { id: 'nuke',          name: 'Nuke',          kind: 'Limit riêng',      chars: ['lance'],       image: 'img/skills/nuke.png',         elements: ['fire'],
+      icon: '☢️',
+      desc: 'Quả bom nhiệt hạch của Lance: phép Lửa khổng lồ trùm toàn bộ kẻ địch.',
+      tips: [ 'Limit mặc định của Lance.', 'Đi kèm damage lớn cho boss yếu Lửa.' ] },
+    { id: 'oblivion',      name: 'Oblivion',      kind: 'Limit riêng',      chars: ['lance'],       image: 'img/limits/oblivion.png',     elements: [],
+      desc: 'Lance nhảy cùng Neon Valkyrie đè xuống địch, ném 3 phát đạn rồi cho nổ xe tăng — một combo kết thúc mạnh mẽ.',
+      tips: [ 'Limit mặc định của Lance.', 'Đòn vật lý nên ở hiệp buff Atk tối ưu.' ] },
+    { id: 'mighty-oak',    name: 'Mighty Oak',    kind: 'Limit riêng',      chars: ['anna'],        image: 'img/limits/mighty-oak.png',   elements: ['earth'],
+      desc: 'Gốc cây khổng lồ nện tất cả kẻ địch bằng chuỗi đòn Đất vật lý rất mạnh.',
+      tips: [ 'Limit mặc định của Anna.', 'Dùng cho boss khá vật lý — nhiều nhát đều ăn thường.' ] },
+    { id: 'mother-earth',  name: 'Mother Earth',  kind: 'Limit riêng',      chars: ['anna'],        image: 'img/limits/mother-earth.png', elements: ['bio'],
+      desc: 'Tràng phép Độc khổng lồ kèm Nhiễm độc toàn địch, cho cả đội (kể cả hậu phương) Bless và dọn thời tiết 5 lượt.',
+      tips: [ 'Limit mặc định của Anna.', 'Hợp cho trận dài — vừa tấn công vừa bảo vệ cả đội.' ] },
+    { id: 'the-creator',   name: 'The Creator',   kind: 'Limit riêng',      chars: ['nolegs'],      image: 'img/skills/creator-lb.png',   elements: ['holy'],
+      icon: '✨',
+      desc: 'NoLegs triệu hồi The Creator: phép Thánh khổng lồ lên toàn địch, cho cả đội Good Luck và dọn thời tiết 5 lượt.',
+      tips: [ 'Limit mặc định của NoLegs.', 'Good Luck tăng mạnh tỉ lệ thành công gây trạng thái / chí mạng.' ] },
+    { id: 'the-destroyer', name: 'The Destroyer', kind: 'Limit riêng',      chars: ['nolegs'],      image: 'img/skills/destroyer-lb.png', elements: ['dark'],
+      icon: '🌑',
+      desc: 'NoLegs biến thành The Destroyer: đòn Bóng vật lý nhiều nhát + Dispel toàn bộ buff và trạng thái tích cực của địch.',
+      tips: [ 'Limit mặc định của NoLegs.', 'Tip "phá buff rồi đập" rất dễ dùng trước boss tăng buff dài hạn.' ] },
+    { id: 'absolute-zero', name: 'Absolute Zero', kind: 'Limit dùng chung', chars: ['natalie', 'anna', 'nolegs'], image: 'img/limits/absolute-zero.png', elements: ['ice'],
+      icon: '❄️',
+      desc: 'Phép Bang lớn trùm cả địch: hạ Evade mạnh và Đóng băng nhiều mục tiêu, kèm clear hết cooldown cả đội. Lấy từ quest King ở Frozen Valley.',
+      tips: [ 'Chỉ Natalie, Anna và NoLegs học được.', 'Giúp cả đội dùng lại kỹ năng đắt giá ngay sau đó.' ] },
+    { id: 'annihilate',    name: 'Annihilate',    kind: 'Limit dùng chung', chars: ['matt', 'anna', 'nolegs'], image: 'img/limits/annihilate.png', elements: [],
+      desc: 'Cả phát Instant Death cả sân với tỉ lệ cực cao nhưng Chính xác thấp; kèm damage vật lý ý nghĩa ngay cả khi không chết. Lấy từ quest Randy ở Greenwood Village.',
+      tips: [ 'Cực tốt khi quét quái thường đông — chắc chắn boss kháng nhiều hơn.', 'Giá trị ở level cao tăng tần suất chết gấp lần.' ] },
+    { id: 'black-hole',    name: 'Black Hole',    kind: 'Limit dùng chung', chars: ['natalie', 'lance', 'nolegs'], image: 'img/limits/black-hole.png', elements: ['dark'],
+      desc: 'Điểm lõm Bóng tối mạnh nhất game — sát thương phép đỉnh, đặc biệt nếu địch có kháng Bóng tối đa, trả giá Instant Death cho người dùng.',
+      tips: [ 'Kích hoạt nếu địch có kháng Bóng nhất định — nguồn sát thương lớn hiếm thấy.', 'Rủi ro cần cân nhắc khi dùng trong trận dài.' ] },
+    { id: 'death-metal',   name: 'Death Metal',   kind: 'Limit dùng chung', chars: ['matt', 'lance', 'nolegs'], image: 'img/limits/death-metal.png', elements: ['wind'],
+      desc: 'Trận "rock" Gió mạnh trùm cả sân: kèm hồi máu và Morale cho cả đội (kể cả hậu phương). Lấy từ quest Jessica ở Redpine Town.',
+      tips: [ 'Morale cho cả đội tuyệt vời trong boss dài hơi.', 'Mang tính "của hỗ trợ + tấn công" hybrid độc đáo.' ] },
+    { id: 'hidden-power',  name: 'Hidden Power',  kind: 'Limit dùng chung', chars: ['matt', 'natalie', 'lance', 'anna', 'nolegs'], image: 'img/limits/hidden-power.png', elements: [],
+      icon: '🔮',
+      desc: 'Đòn "khớp vũ khí": damage theo chỉ số tấn công cao nhất, nguyên tố theo vũ khí hiện tại (x2 độ mạnh). Lấy từ quest Kirsan ở Rainbow River.',
+      tips: [ 'Theo vũ khí nhân vật đang dùng khi kích hoạt — nên đổi phù hợp trước khi dùng.', 'Duy nhất Limit học được bởi cả 5 nhân vật.' ] },
+    { id: 'ion-cannon',    name: 'Ion Cannon',    kind: 'Limit dùng chung', chars: ['matt', 'natalie', 'lance', 'nolegs'], image: 'img/skills/ion-cannon.png', elements: ['thunder'],
+      icon: '🛰️',
+      desc: 'Bắn Sấm khổng lồ phủ toàn địch kèm Choáng; Lance nhận Charge để bắn Hyper Beam ở lượt tiếp theo.',
+      tips: [ 'Cho Lance thì đỉnh đơn — giúp Hyper Beam ngay sau đó.', 'Cho Matt hay Natalie thì là đòn Sấm đại trà cực mạnh.' ] },
+    { id: 'supernova',     name: 'Supernova',     kind: 'Limit dùng chung', chars: ['natalie', 'lance', 'nolegs'], image: 'img/limits/supernova.png', elements: ['fire'],
+      icon: '🌞',
+      desc: 'Lửa nổ Mặt Trời đỉnh của game, kèm Xém. Lấy từ quest Gina ở Frozen Valley.',
+      tips: [ 'Nghe mạnh hơn Nuke một mức đáng kể với boss yếu Lửa.', 'Nên khi boss còn nhiều HP mà thiếu hệ thống phòng thủ.' ] },
+    { id: 'tsunami',       name: 'Tsunami',       kind: 'Limit dùng chung', chars: ['matt', 'natalie', 'anna', 'nolegs'], image: 'img/limits/tsunami.png', elements: ['water'],
+      desc: 'Sóng thần cuộn cả màn hình với Ướt toàn địch — có thể Instant Death thêm những kẻ yếu. Lấy từ quest Maya ở Rainbow River.',
+      tips: [ 'Sát thương theo chỉ số cao nhất (tính buff) — cực tiện cho cả đội.', 'Kết hợp với Lime Squid cho mọi vai trò phá trận.' ] },
+    { id: 'seven-swords',  name: 'Seven Swords',  kind: 'Limit dùng chung', chars: ['matt', 'lance', 'anna', 'nolegs'], image: 'img/limits/seven-swords.png', elements: ['holy'],
+      icon: '🗡️',
+      desc: 'Mười hai lưỡi kiếm Thánh vật lý xuyên sải toàn địch kèm Syphon (mới của bản v2). Lấy từ quest Roku ở Redpine Town.',
+      tips: [ 'Chỉ có ở v2 — không học được trước update.', 'Syphon giúp chặn phép của boss ở lượt kế tiếp.' ] },
+    { id: 'art-attack',    name: 'Art Attack',    kind: 'Limit dùng chung', chars: ['natalie', 'anna', 'nolegs'], image: 'img/limits/art-attack.png', elements: [],
+      icon: '🎨',
+      desc: 'Cái bút khổng lồ vẽ chân dung và buff HP / Chính xác / Evade toàn đội, kèm hồi máu và gỡ trạng thái xấu (mới của bản v2).',
+      tips: [ 'Chỉ có ở v2 với Natalie, Anna và NoLegs.', 'Kết hợp cùng 7th Heaven để tạo lớp an toàn gần như trọn vẹn.' ] }
+  ],
+
+  /* Liên kết tới wiki chính thức để đối chiếu / tra cứu thêm */
+  externalWiki: 'https://epicbattlefantasy.fandom.com/wiki/'
+};

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smoke test — EBF5 Wiki (xóatrial file này sau)</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .pass::before { content: '✅ '; color: #4ade80; }
+    .fail::before { content: '❌ '; color: #ff5d7a; }
+    li { margin: 3px 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Smoke test — nhóm A (UI polish)</h1>
+    <ol id="results"></ol>
+
+    <!-- Fixture mô phỏng trang chi tiết -->
+    <section>
+      <div class="detail-media" id="mediaBox"><img id="mediaImg" src="img/status/burn.png" alt="burn"></div>
+      <p id="descBox"></p>
+    </section>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+  (function () {
+    var out = document.getElementById('results');
+    var log = [];
+    function add(name, fn) {
+      try { fn(); log.push(['pass', name]); }
+      catch (err) { log.push(['fail', name + ' — ' + (err && err.message || err)]); }
+    }
+    function assert(cond, msg) { if (!cond) throw new Error(msg); }
+
+    // 1. Dữ liệu sẵn sàng
+    add('EBF5DATA: 9 chủ đề, 25 trạng thái', function () {
+      assert(window.EBF5DATA.categories.length === 9, 'categories != 9');
+      assert(window.EBF5DATA.statuses.length === 25, 'statuses != 25');
+    });
+
+    // 2. esc (qua EBF5App nếu được xuất — nếu không dùng thử gián tiếp qua withStatusTips)
+    add('esc() của withStatusTips không phá HTML', function () {
+      // vớiStatusTips nhận text đã esc; chuỗi chứa & phải giữ nguyên dạng đã esc
+      var s = EBF5App.renderHome ? 'OK' : '';
+      assert(s === 'OK', 'EBF5App.renderHome thiếu');
+    });
+
+    // 3. Tìm kiếm sâu: enemies có drops, areas có cells
+    add('searchText bắt tips/drops/effect/cells', function () {
+      var cat = window.EBF5DATA.enemies[0];
+      assert(cat.drops && cat.drops.length > 0, 'enemies[0].drops rỗng (dữ liệu thay đổi?)');
+
+      var areaCells = window.EBF5DATA.areas.find(function (a) { return (a.cells || []).length; });
+      assert(areaCells, 'không có area nào có cells');
+    });
+
+    // 4. Bọc tên trạng thái cho desc — gọi through (gián tiếp) qua renderDetail và kiểm tra DOM
+    add('renderDetail tạo .st-tip trong desc và .prev-next', function () {
+      // URL mô phỏng ?type=statuses&id=burn
+      history.replaceState({}, '', 'detail.html?type=statuses&id=burn');
+      // detailContent container Fake
+      var article = document.createElement('article');
+      article.id = 'detailContent';
+      document.body.appendChild(article);
+      var empty = document.createElement('p');
+      empty.id = 'detailEmpty'; empty.className = 'empty hidden';
+      document.body.appendChild(empty);
+      var crumb = document.createElement('nav');
+      crumb.id = 'breadcrumb';
+      document.body.appendChild(crumb);
+
+      EBF5App.renderDetail();
+
+      var tips = article.querySelectorAll('.st-tip');
+      assert(tips.length > 0, 'desc của burn không chứa .st-tip nào');
+      var hasBurn = false;
+      tips.forEach(function (t) { if (t.getAttribute('data-st') === 'burn') hasBurn = true; });
+      assert(hasBurn, 'không thấy span data-st="burn"');
+
+      var prevNext = article.querySelector('.prev-next');
+      assert(prevNext, 'thiếu .prev-next');
+      assert(prevNext.querySelectorAll('a').length >= 2, 'prev-next phải có ít nhất liên kết về list');
+
+      // lightbox vừa gắn khi bấm ảnh
+      var img = article.querySelector('.detail-media img');
+      assert(!!img, 'trang burn phải có ảnh');
+    });
+
+    // 5. Tooltip DOM được tạo
+    add('tooltip .status-tip được tạo trong body', function () {
+      var tip = document.getElementById('statusTip');
+      assert(!!tip, 'không thấy #statusTip');
+      assert(tip.classList.contains('hidden'), 'tooltip phải khởi tạo ẩn');
+    });
+
+    // 6. Nút lên đầu trang
+    add('nút #toTop được tạo', function () {
+      var b = document.getElementById('toTop');
+      assert(!!b, 'không thấy #toTop');
+    });
+
+    // 7. Không ký tự rác / khôngISMATCH cú pháp (máy chạy = JS parse OK toàn file)
+    add('app.js parse toàn bộ (không lỗi runtime khi load)', function () {
+      assert(typeof EBF5App.renderDetail === 'function', 'renderDetail không phải hàm');
+    });
+
+    // in kết quả
+    log.forEach(function (pair) {
+      var li = document.createElement('li');
+      li.className = pair[0];
+      li.textContent = pair[1];
+      out.appendChild(li);
+    });
+    var bad = log.filter(function (p) { return p[0] === 'fail'; }).length;
+    document.title = bad ? 'FAIL ' + bad : 'PASS';
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EBF5 Wiki — Epic Battle Fantasy 5 (Tiếng Việt)</title>
+  <meta name="description" content="Wiki tiếng Việt về game Epic Battle Fantasy 5: nhân vật, kẻ địch, kỹ năng, vật phẩm, trang bị." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">⚔️ EBF5 Wiki</a>
+    <nav class="main-nav" id="mainNav"></nav>
+    <div class="header-search">
+      <input id="homeSearch" type="search" placeholder="Tìm toàn wiki: tên, mẹo, hiệu quả, quái..." />
+      <button id="homeSearchBtn" class="btn btn-primary">Tìm</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Epic Battle Fantasy 5</h1>
+        <p class="hero-sub">
+          Wiki tiếng Việt không chính thức dành cho game nhập vai của Matt Roszak —
+          5 anh hùng, 10 nguyên tố, 18 khu vực, 50 kẻ địch, 183 kỹ năng cùng 20 Limit Break, 40 triệu hồi — dữ liệu đối chiếu wiki chính thức.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="list.html?type=characters">Danh sách nhân vật</a>
+          <a class="btn" href="list.html?type=enemies">Kẻ địch &amp; Boss</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="notice">
+      📚 <strong>Dữ liệu đã đối chiếu theo</strong>
+      <a href="https://epicbattlefantasy.fandom.com" target="_blank" rel="noopener">Epic Battle Fantasy Wiki chính thức</a>
+      (Nhân vật / Kỹ năng / Trang bị / Vật phẩm / Trạng thái). Mọi mục đa số đều kèm ảnh/chip chính xác từ wiki —
+      bạn có thể đóng góp bằng cách sửa file <code>js/data.js</code>.
+    </section>
+
+    <section class="section">
+      <h2>Chủ đề</h2>
+      <div id="homeCategories" class="card-grid"></div>
+    </section>
+
+    <section class="section">
+      <h2>5 Nhân vật chính</h2>
+      <div id="homeCharacters" class="card-grid"></div>
+    </section>
+
+    <section class="section">
+      <h2>Bảng nguyên tố</h2>
+      <p class="muted">10 nguyên tố trong EBF5 — mỗi kẻ địch/đòn đánh đều có điểm mạnh, điểm yếu riêng.</p>
+      <div id="homeElements" class="chip-grid"></div>
+      <p class="muted small">
+        Xem thêm danh sách các <a href="list.html?type=statuses">trạng thái bất lợi / hỗ trợ</a> trong game.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      EBF5 Wiki (demo) — dự án phi thương lợi, không liên kết với Matt Roszak / Kupo Games.<br />
+      Epic Battle Fantasy 5 © Matt Roszak. Nội dung do cộng đồng viết dựa trên kinh nghiệm chơi và wiki chính thức.
+    </p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', () => EBF5App.renderHome());</script>
+</body>
+</html>

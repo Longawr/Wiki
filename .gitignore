@@ -1,0 +1,11 @@
+# File rác hệ thống
+Thumbs.db
+Desktop.ini
+
+# Trình soạn thảo
+.vscode/
+.idea/
+
+# Tạm thời
+*.tmp
+*.log
