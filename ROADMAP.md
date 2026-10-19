@@ -56,7 +56,7 @@
 - [x] Tìm kiếm toàn cục — nâng lên tìm theo cả tips/effect/kind: gộp tên + desc + kind + effect + unlock + slot + tips/features/strengths/weaknesses/drops + kỹ năng trong trang nhân vật + **quái & Key Items trong từng ô lưới khu vực** + tên nhân vật học kỹ năng; trang danh sách dùng chung nên tìm theo type=all ăn theo.
 
 ### B. Triển khai (để wiki dùng được thật)
-- [ ] `git init` + commit đầu tiên (repo hiện chưa phải git repo).
+- [x] `git init` + commit đầu tiên ✅ (commit `343eeba`, working tree sạch; warning LF→CRLF vô hại).
 - [ ] Đẩy lên GitHub, bật **GitHub Pages** (thuần tĩnh nên chạy ngay, không cần build).
 - [ ] Kiểm tra lại đường dẫn tương đối `img/...` sau deploy (đã dùng tương đối nên an toàn).
 - [ ] (Tuỳ) tên miền riêng + favicon/logo.
@@ -69,7 +69,11 @@
 - [x] Summon (C4): **mở rộng 18 → 40 + cột "Mở khoá"** — nguồn = trang *Summons/Epic Battle Fantasy 5*, dùng bảng hiện hành post-v2 (bảng chính; bảng `Pre-v2 update` chỉ giữ đối chiếu). 22 summon mới: Glitch, Annabelle, Lancelot, Matteus, Laurelin, War Mammoth, Sól, Viking Monolith, Ultra Chibi Knight, Zombie Hand, Wooden Idol, SNEK, Roasted Gloop, Sapphire Ore, Ruby Ore, Amethyst Ore, Red Bush, Metal Idol (14, heavy +5), Cat Sniper, PUMPKUS, Cutie Worm, Cat Wizard; SP của 18 entry cũ chốt lại theo bảng hiện hành (God 160, Natalia 139…). 22 icon mới tải từ `EBF5 Foe Icon` (wiki.gg).
 
 ### D. Chất lượng dài hạn
-- [ ] Script PowerShell `fetch-images.ps1` hoá quy trình tải ảnh (dự phòng cần rebuild repo).
+- [x] **Script PowerShell `fetch-images.ps1` ✅ (lượt 13)** — hoá quy trình tải ảnh (dự phòng rebuild repo), 3 chế độ:
+  1. *Check* (mặc định): quét `image: 'img/...'` trong data.js, đối chiếu đĩa → báo thiếu/file lẻ/đếm theo thư mục (exit 1 khi còn thiếu).
+  2. *`-BuildMap`*: sinh stub `img/...png<TAB>tên-file-wiki` vào `fetch-images.map.txt` cho ảnh thiếu (theo dõi những gì chờ điền tên wiki).
+  3. *`-Download`*: đọc map → giải URL qua fandom API bó 50/lượt (chỉ tải file chưa có; `-Force` tải đè; `-DryRun` xem trước; `-Limit` chốt số file) → lưu đúng `img/<chude>/<id>.png`.
+  - Đúng nguyên tắc bài học: header Referer + UA trình duyệt (tránh 403 CDN), delay 500ms giữa lượt; soạn ASCII không dấu theo mẫu check.ps1; đã kiểm chứng DryRun giải đúng URL thật (`EBF5 Status Doom.png` → static.wikia.nocookie.net).
 - [x] **Kiểm thử tự động: `check.ps1` ✅** — chạy `powershell -ExecutionPolicy Bypass -File check.ps1`, quét 7 nhóm:
   1. cân bằng ngoặc + quotes chẵn (data.js + app.js)
   2. ký tự rác CJK/Cyrillic/Hangul (chỉ ra đúng dòng lỗi)
@@ -101,4 +105,4 @@
 
 ---
 
-*Cập nhật lần cuối: 2026-10-19 — sau lượt 12 (nhóm A UI polish: lightbox, tooltip trạng thái, phím tắt ←/→/Esc, nút lên đầu trang, tìm kiếm sâu theo tips/effect/quái ô lưới; test.html smoke test trên trình duyệt — tổng 388 mục, số liệu giữ nguyên).*
+*Cập nhật lần cuối: 2026-10-20 — sau lượt 13 (nhóm D: script `fetch-images.ps1` hoá quy trình tải ảnh — Check / BuildMap / Download DryRun; tổng 388 mục / 387 tham chiếu ảnh giữ nguyên).*

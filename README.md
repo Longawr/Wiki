@@ -32,6 +32,20 @@ powershell -ExecutionPolicy Bypass -File check.ps1
 
 Script quét: cân bằng ngoặc/quotes, ký tự rác (CJK/Cyrillic/Hangul), phẩy thiếu sau entry khi splice mảng, cú pháp JS (JScript), ảnh tham chiếu vs file thật, số mục theo chủ đề, và HTML router nạp đủ script. Exit code `0` = PASS, `1` = FAIL.
 
+## 🖼️ Tải / khôi phục ảnh (`fetch-images.ps1`)
+
+Dự phòng cần rebuild repo — hoá quy trình tải ảnh từ wiki chính thức:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File fetch-images.ps1            # Check: thiếu / file lẻ / đếm theo thư mục
+powershell -ExecutionPolicy Bypass -File fetch-images.ps1 -BuildMap  # sinh stub ảnh thiếu vào fetch-images.map.txt
+powershell -ExecutionPolicy Bypass -File fetch-images.ps1 -Download -DryRun  # xem trước URL
+powershell -ExecutionPolicy Bypass -File fetch-images.ps1 -Download -Limit 30
+```
+
+- Map file phân cách bằng TAB: `img/<chude>/<id>.png<TAB>tên-file-trên-wiki` — cột 2 trống = bỏ qua.
+- Tải qua fandom API (bó 50/lượt), tự gửi header `Referer` + User-Agent trình duyệt (CDN cần để tránh 403), chỉ tải file chưa có (`-Force` để tải đè), tạo sẵn thư mục con, exit `1` khi còn FAIL/thiếu.
+
 ## 📁 Cấu trúc dự án
 
 ```
