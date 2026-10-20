@@ -1,0 +1,154 @@
+# Map cho fetch-images.ps1: img path <TAB> wiki-file-name (khong .png)
+# Dong # va rong bi bo qua; cot 2 trong = bo qua khi download.
+# --- icon summon moi (luot 14, nguoi trich tu bang Summons fandom hien hanh) ---
+img/summons/furry-slime.png	EBF5 Foe Icon Furry Slime
+img/summons/water-slime.png	EBF5 Foe Icon Water Slime
+img/summons/electric-bat.png	EBF5 Foe Icon Electric Bat
+img/summons/chocolate-slime.png	EBF5 Foe Icon Chocolate Slime
+img/summons/green-pixel.png	EBF5 Foe Icon Green Pixel
+img/summons/dead-pixel.png	EBF5 Foe Icon Dead Pixel
+img/summons/icecream-slime.png	EBF5 Foe Icon Icecream Slime
+img/summons/red-pixel.png	EBF5 Foe Icon Red Pixel
+img/summons/fuzzy-worm.png	EBF5 Foe Icon Fuzzy Worm
+img/summons/gray-pixel.png	EBF5 Foe Icon Gray Pixel
+img/summons/mud-slime.png	EBF5 Foe Icon Mud Slime
+img/summons/slime-mouse.png	EBF5 Foe Icon Slime Mouse
+img/summons/sand-slime.png	EBF5 Foe Icon Sand Slime
+img/summons/lava-slime.png	EBF5 Foe Icon Lava Slime
+img/summons/dark-bush.png	EBF5 Foe Icon Dark Bush
+img/summons/scaly-worm.png	EBF5 Foe Icon Scaly Worm
+img/summons/snow-bat.png	EBF5 Foe Icon Snow Bat
+img/summons/gem-idol.png	EBF5 Foe Icon Gem Idol
+img/summons/stone-idol.png	EBF5 Foe Icon Stone Idol
+img/summons/blood-bat.png	EBF5 Foe Icon Blood Bat
+img/summons/cat-warrior.png	EBF5 Foe Icon Cat Warrior
+img/summons/sandy-bush.png	EBF5 Foe Icon Sandy Bush
+img/summons/muddy-bush.png	EBF5 Foe Icon Muddy Bush
+img/summons/putrid-worm.png	EBF5 Foe Icon Putrid Worm
+img/summons/fabulous-gloop.png	EBF5 Foe Icon Fabulous Gloop
+img/summons/anna-doll.png	EBF5 Foe Icon Anna Doll
+img/summons/green-bush.png	EBF5 Foe Icon Green Bush
+img/summons/peridot-ore.png	EBF5 Foe Icon Peridot Ore
+img/summons/skeleton-cat.png	EBF5 Foe Icon Skeleton Cat
+img/summons/rescue-dog.png	EBF5 Foe Icon Rescue Dog
+img/summons/wind-sprite.png	EBF5 Foe Icon Wind Sprite
+img/summons/blue-flybot.png	EBF5 Foe Icon Blue Flybot
+img/summons/red-flybot.png	EBF5 Foe Icon Red Flybot
+img/summons/haunted-tree.png	EBF5 Foe Icon Haunted Tree
+img/summons/rock-sprite.png	EBF5 Foe Icon Rock Sprite
+img/summons/fire-sprite.png	EBF5 Foe Icon Fire Sprite
+img/summons/mutant-chomper.png	EBF5 Foe Icon Mutant Chomper
+img/summons/skeleton-hand.png	EBF5 Foe Icon Skeleton Hand
+img/summons/stumpy-gloop.png	EBF5 Foe Icon Stumpy Gloop
+img/summons/quartz-ore.png	EBF5 Foe Icon Quartz Ore
+img/summons/magma-hand.png	EBF5 Foe Icon Magma Hand
+img/summons/tanuki-dog.png	EBF5 Foe Icon Tanuki Dog
+img/summons/magma-chomper.png	EBF5 Foe Icon Magma Chomper
+img/summons/thunder-sprite.png	EBF5 Foe Icon Thunder Sprite
+img/summons/cat-bomber.png	EBF5 Foe Icon Cat Bomber
+img/summons/swordslinger.png	EBF5 Foe Icon Swordslinger
+img/summons/icicle-creep.png	EBF5 Foe Icon Icicle Creep
+img/summons/hermit-creep.png	EBF5 Foe Icon Hermit Creep
+img/summons/yellow-flybot.png	EBF5 Foe Icon Yellow Flybot
+img/summons/bone-bat.png	EBF5 Foe Icon Bone Bat
+img/summons/thorny-creep.png	EBF5 Foe Icon Thorny Creep
+img/summons/giga-golem.png	EBF5 Foe Icon Giga Golem
+img/summons/eyeball.png	EBF5 Foe Icon Eyeball
+img/summons/gunslinger.png	EBF5 Foe Icon Gunslinger
+img/summons/ice-sprite.png	EBF5 Foe Icon Ice Sprite
+img/summons/steam-fish.png	EBF5 Foe Icon Steam Fish
+img/summons/wolf-dog.png	EBF5 Foe Icon Wolf Dog
+img/summons/gold-fish.png	EBF5 Foe Icon Gold Fish
+img/summons/book-worm.png	EBF5 Foe Icon Book Worm
+img/summons/nolegs-doll.png	EBF5 Foe Icon NoLegs Doll
+img/summons/big-icecream-slime.png	EBF5 Foe Icon Big Icecream Slime
+img/summons/dirt-boulder.png	EBF5 Foe Icon Dirt Boulder
+img/summons/rock-eater.png	EBF5 Foe Icon Rock Eater
+img/summons/ancient-monolith.png	EBF5 Foe Icon Ancient Monolith
+img/summons/seaweed-chomper.png	EBF5 Foe Icon Seaweed Chomper
+img/summons/big-chocolate-slime.png	EBF5 Foe Icon Big Chocolate Slime
+img/summons/jet-fish.png	EBF5 Foe Icon Jet Fish
+img/summons/matt-doll.png	EBF5 Foe Icon Matt Doll
+img/summons/natalie-doll.png	EBF5 Foe Icon Natalie Doll
+img/summons/zap-dog.png	EBF5 Foe Icon Zap Dog
+img/summons/totom.png	EBF5 Foe Icon TOTOM
+img/summons/brown-bear.png	EBF5 Foe Icon Brown Bear
+img/summons/slime.png	EBF5 Foe Icon Slime Bunny
+img/summons/blue-clay.png	EBF5 Foe Icon Blue Clay
+img/summons/leafy-chomper.png	EBF5 Foe Icon Leafy Chomper
+img/summons/drowned-fallen.png	EBF5 Foe Icon Drowned Fallen
+img/summons/topaz-ore.png	EBF5 Foe Icon Topaz Ore
+img/summons/zircon-ore.png	EBF5 Foe Icon Zircon Ore
+img/summons/spikey-moth.png	EBF5 Foe Icon Spikey Moth
+img/summons/red-bee.png	EBF5 Foe Icon Red Bee
+img/summons/red-clay.png	EBF5 Foe Icon Red Clay
+img/summons/obsidian-boulder.png	EBF5 Foe Icon Obsidian Boulder
+img/summons/big-mud-slime.png	EBF5 Foe Icon Big Mud Slime
+img/summons/black-bear.png	EBF5 Foe Icon Black Bear
+img/summons/light-clay.png	EBF5 Foe Icon Light Clay
+img/summons/coral-boulder.png	EBF5 Foe Icon Coral Boulder
+img/summons/sandstone-boulder.png	EBF5 Foe Icon Sandstone Boulder
+img/summons/purple-squid.png	EBF5 Foe Icon Purple Squid
+img/summons/blue-crystal.png	EBF5 Foe Icon Blue Crystal
+img/summons/leaf-wraith.png	EBF5 Foe Icon Leaf Wraith
+img/summons/beheaded-fallen.png	EBF5 Foe Icon Beheaded Fallen
+img/summons/glob.png	EBF5 Foe Icon GLOB
+img/summons/glacier-eater.png	EBF5 Foe Icon Glacier Eater
+img/summons/demon-mirror.png	EBF5 Foe Icon Demon Mirror
+img/summons/master-wraith.png	EBF5 Foe Icon Master Wraith
+img/summons/big-sand-slime.png	EBF5 Foe Icon Big Sand Slime
+img/summons/haunted-mirror.png	EBF5 Foe Icon Haunted Mirror
+img/summons/angel-mirror.png	EBF5 Foe Icon Angel Mirror
+img/summons/steel-wraith.png	EBF5 Foe Icon Steel Wraith
+img/summons/guoye.png	EBF5 Foe Icon GUOYE
+img/summons/xolotl.png	EBF5 Foe Icon Xolotl
+img/summons/burned-fallen.png	EBF5 Foe Icon Burned Fallen
+img/summons/glaurung.png	EBF5 Foe Icon Glaurung
+img/summons/mage-dog.png	EBF5 Foe Icon Mage Dog
+img/summons/lost-fallen.png	EBF5 Foe Icon Lost Fallen
+img/summons/green-creep.png	EBF5 Foe Icon Green Creep
+img/summons/red-crystal.png	EBF5 Foe Icon Red Crystal
+img/summons/big-lava-slime.png	EBF5 Foe Icon Big Lava Slime
+img/summons/treagure.png	EBF5 Foe Icon TREAGURE
+img/summons/marble-boulder.png	EBF5 Foe Icon Marble Boulder
+img/summons/red-creep.png	EBF5 Foe Icon Red Creep
+img/summons/chunky-gloop.png	EBF5 Foe Icon Chunky Gloop
+img/summons/dark-clay.png	EBF5 Foe Icon Dark Clay
+img/summons/robo.png	EBF5 Foe Icon ROBO
+img/summons/jotun.png	EBF5 Foe Icon Jotun
+img/summons/the-maw.png	EBF5 Foe Icon THE MAW
+img/summons/flame-wraith.png	EBF5 Foe Icon Flame Wraith
+img/summons/blue-creep.png	EBF5 Foe Icon Blue Creep
+img/summons/pearl-golem.png	EBF5 Foe Icon Pearl Golem
+img/summons/frost-wraith.png	EBF5 Foe Icon Frost Wraith
+img/summons/bosh.png	EBF5 Foe Icon BOSH
+img/summons/beholder.png	EBF5 Foe Icon Beholder
+img/summons/hardy-gloop.png	EBF5 Foe Icon Hardy Gloop
+img/summons/coralia.png	EBF5 Foe Icon CORALIA
+img/summons/origami-wraith.png	EBF5 Foe Icon Origami Wraith
+img/summons/crucified-fallen.png	EBF5 Foe Icon Crucified Fallen
+img/summons/grolar-bear.png	EBF5 Foe Icon Grolar Bear
+img/summons/angry-chair.png	EBF5 Foe Icon ANGRY CHAIR
+img/summons/amethyst-golem.png	EBF5 Foe Icon Amethyst Golem
+img/summons/lance-doll.png	EBF5 Foe Icon Lance Doll
+img/summons/camel-mammoth.png	EBF5 Foe Icon Camel Mammoth
+img/summons/origami-dragon.png	EBF5 Foe Icon Origami Dragon
+img/summons/panda-bear.png	EBF5 Foe Icon Panda Bear
+img/summons/defender-mk-iii.png	EBF5 Foe Icon Defender Mk III
+img/summons/papalotl.png	EBF5 Foe Icon Papalotl
+img/summons/jack.png	EBF5 Foe Icon Jack
+img/summons/bubbler-mx-01.png	EBF5 Foe Icon Bubbler MX-01
+img/summons/bone-golem.png	EBF5 Foe Icon Bone Golem
+img/summons/pink-squid.png	EBF5 Foe Icon Pink Squid
+img/summons/blaze-hydra.png	EBF5 Foe Icon Blaze Hydra
+img/summons/topaz-golem.png	EBF5 Foe Icon Topaz Golem
+img/summons/crystal-hydra.png	EBF5 Foe Icon Crystal Hydra
+img/summons/sky-dragon.png	EBF5 Foe Icon Sky Dragon
+img/summons/earth-dragon.png	EBF5 Foe Icon Earth Dragon
+img/summons/sea-dragon.png	EBF5 Foe Icon Sea Dragon
+img/summons/sandworm.png	EBF5 Foe Icon Sandworm
+img/summons/prototype-9x.png	EBF5 Foe Icon Prototype 9X
+img/summons/protector.png	EBF5 Foe Icon Protector
+img/summons/rafflesia.png	EBF5 Foe Icon Rafflesia
+img/summons/cosmic-gigalith.png	EBF5 Foe Icon Cosmic Gigalith
+img/summons/the-devourer.png	EBF5 Foe Icon The Devourer

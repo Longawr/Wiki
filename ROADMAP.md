@@ -27,7 +27,7 @@
 | 5 | Trang bị | `equipment` | 19 | 19/19 | Vũ khí/mũ giáp/Flair tên thật; Crystal Staff có ghi chú "không trở lại EBF5" theo wiki |
 | 6 | Trạng thái | `statuses` | 25 | 24/25 | Đủ Doom, Scorch, Berserk, Syphon, Brave, Regen, Vận may…; "Trói chân" (không tồn tại) đã thay bằng Mỏi (Tired) — icon `EBF5 Status X`; Radiation giữ emoji |
 | 7 | Khu vực | `areas` | 18 | 18/18 | 12 khu chính + 6 khu trả phí theo trang *EBF5 Map*; mỗi khu có ô lưới (grid), Điểm nhấn, Lưu ý — ảnh tile bản đồ; **C3: ~200 ô lưới có bảng Quái (wave) + Key Items + vị trí con + ghi chú cơ chế từ các trang `EBF5 Map/X`** |
-| 8 | Triệu hồi | `summons` | 40 | 40/40 | **C4: mở rộng 18 → 40** theo bảng hiện hành post-v2 (Glitch 177 → Cat Wizard 4); mới có cột `unlock` (nguồn mở khoá = bắt quái ở ô nào); 22 icon mới tải từ `EBF5 Foe Icon`; SP của 18 entry cũ được chốt lại theo bảng hiện hành |
+| 8 | Triệu hồi | `summons` | 191 | 191/191 | **C4: 18 → 40** (lượt 8+11) rồi **14: 40 → 191 — gần như đủ bộ** theo bảng hiện hành post-v2 (192 hàng, trừ demo ẩn Glitch 2; The Devourer 250 → Furry Slime 1); 151 entry mới sinh máy từ cột target/type/power/element/status/debuff; 151 icon tải từ `EBF5 Foe Icon` qua fetch-images.map.txt |
 | 9 | Limit Break | `limits` | 20 | 20/20 (11 trong `img/limits/` + 9 dùng lại icon skills) | 10 riêng + 10 dùng chung; danh sách nhân vật học được trích từ Category tags wiki; 5 icon thiếu cũ (Supernova, Hidden Power, Absolute Zero, Seven Swords, Art Attack) đã tải về; 4 cái còn lại tái sử dụng icon từ mảng skills; Radiation status vẫn emoji (wiki không có file) |
 
 ### Quy trình thu thập dữ liệu (đã kiểm chứng)
@@ -105,4 +105,13 @@
 
 ---
 
-*Cập nhật lần cuối: 2026-10-20 — sau lượt 13 (nhóm D: script `fetch-images.ps1` hoá quy trình tải ảnh — Check / BuildMap / Download DryRun; tổng 388 mục / 387 tham chiếu ảnh giữ nguyên).*
+### Lượt 14 — mở rộng dữ liệu: Summon 40 → 191 (gần như đủ bộ)
+- **Nguồn**: trang *Summons/Epic Battle Fantasy 5* fandom — bảng hiện hành post-v2, 192 hàng; loại hàng demo ẩn *Glitch 2* (`ITEM NOT FOUND`, không bắt được) và Glitch gốc (đã có entry riêng lượt 8) → 151 summon mới.
+- **Quy trình kiểm chứng rút ra**:
+  - Parse bảng bằng script riêng (`parse → gen → splice` ở thư mục temp), **không viết tay 151 desc** — desc mới sinh máy từ các cột `target / type / power / element / status / (de)buff` + từ điển literal nhỏ (tên trạng thái VN, tên thời tiết, vài ghi chú đặc biệt như Swordslinger 50% trúng). Chất lượng đồng đều, không văn tự do.
+  - Bẫy PowerShell 5.1 gặp phải trong lượt này: `.ps1` UTF8 không BOM bị đọc theo ANSI (phải thêm BOM trước chạy); mảng 1 phần tử trả về từ function bị enumerate thành scalar nên `$els[0]` thành ký tự đầu (bọc `@(...)` bên caller); `{{` trong chuỗi concat thường KHÔNG phải escape (chỉ đúng khi dùng `-f`); chuỗi `"all enemies"` không chứa substring `"enemy"` (regex phải là `enem(y|ies)`); entry đầu của mảng không đứng sau ký tự `\n` khi split.
+  - 40 entry cũ giữ nguyên text tự viết (dùng backup `data.js` trước splice; cẩn thận dấu phẩy cuối entry — entry trước cuối phải kết thúc ` },`).
+- **Icon**: 151 dòng mới trong `fetch-images.map.txt` (`img/summons/<slug>.png<TAB>EBF5 Foe Icon <Tên EN>`) → `-Download` tải đủ 151/151, SKIP 0, FAIL 0.
+- **Kiểm tra cuối**: `check.ps1` PASS (539 mục / 538 tham chiếu ảnh, 0 thiếu); tổng mục 388 → **539**.
+
+*Cập nhật lần cuối: 2026-10-20 — sau lượt 14 (mở rộng dữ liệu Summon 40 → 191 theo bảng fandom hiện hành post-v2 + 151 icon mới; tổng 539 mục / 538 tham chiếu ảnh).*
