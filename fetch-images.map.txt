@@ -152,7 +152,6 @@ img/summons/protector.png	EBF5 Foe Icon Protector
 img/summons/rafflesia.png	EBF5 Foe Icon Rafflesia
 img/summons/cosmic-gigalith.png	EBF5 Foe Icon Cosmic Gigalith
 img/summons/the-devourer.png	EBF5 Foe Icon The Devourer
-
 # --- icon trang bi moi (luot 16, trich tu trang Swords/Bows/Guns/Staves fandom) ---
 img/equipment/berzerker.png	5Berzerker
 img/equipment/black-fang.png	5BlackFang
@@ -232,7 +231,6 @@ img/equipment/soul-crusher.png	5SoulCrusher
 img/equipment/the-knife.png	5TheKnife
 img/equipment/wrath-of-zeus.png	5WrathOfZeus
 img/equipment/wrecking-rod.png	5WreckingRod
-
 # --- Mu giap + Flair (luot 17; trich tu trang Male/Female Hats and Armor + Flairs fandom) ---
 img/equipment/army-helmet.png	5ArmyHelmet
 img/equipment/basket-hat.png	5BasketHat
@@ -373,3 +371,4 @@ img/equipment/tetromino.png	EBF5 Flair Tetromino
 img/equipment/the-one-rng.png	EBF5 Flair The One R*ng
 img/equipment/the-trforce.png	EBF5 Flair The Tr*force
 img/equipment/tooth.png	EBF5 Flair Tooth
+img/status/confuse.png	EBF5 Status Confuse

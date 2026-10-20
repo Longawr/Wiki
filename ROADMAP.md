@@ -16,7 +16,7 @@
 - `css/style.css`: theme tối phong cách game, card grid, chip, `.detail-media`, fallback `.img-fail`.
 - Thêm chủ đề mới = **1 hàng trong `categories` + 1 mảng dữ liệu + (tuỳ) 1 nhánh chip/detail trong app.js**.
 
-### Dữ liệu — 9 chủ đề, 748 mục, 747 tham chiếu ảnh ↔ 743 file (0 thiếu, 0 file lẻ)
+### Dữ liệu — 9 chủ đề, 749 mục, 748 tham chiếu ảnh ↔ 744 file (0 thiếu, 0 file lẻ)
 
 | # | Chủ đề | key | Mục | Ảnh | Ghi chú |
 |---|--------|-----|-----|-----|---------|
@@ -25,7 +25,7 @@
 | 3 | Kỹ năng | `skills` | 183 | 183/183 | **Đủ bộ 5 nhân vật + 53 Extra Skills** (kèm chars từng người học được từ trang bị), theo *List of Skills in EBF5*; icon `EBF5 Skill X` |
 | 4 | Vật phẩm | `items` | 28 | 28/28 | 24 món Food thật (Pumpkin→Pizza, Garlic/Banana gỡ status/debuff, Apple/Cupcake trừ cooldown…) + 5 Steroid từng nhân vật — icon `EBF5 Item X` |
 | 5 | Trang bị | `equipment` | 228 | 228/228 | **Lượt 16: 84 vũ khí** (78 sinh máy từ 4 trang `Swords`/`Bows`/`Guns`/`Staves` bảng 1 post-v2 + 8 entry tay: Heaven Gate, Ultra Pro 9000X, Fairy Bow, Dark Tooth, Shadow Blaster, Spine Snapper, Crystal Staff, Steel Buckler); **Lượt 17: +142 mũ giáp & Flair** — 84 mũ/giáp sinh máy (21+21 Mũ/Giáp nam theo `Male Hats and Armor`, 21+21 nữ theo `Female Hats and Armor`) + 58 Flair (55 sinh máy từ trang `Flairs` + 3 tay NoLegs); thay 8 entry tay mỏng bằng bản sinh máy; 24 món nhãn Độc quyền bản Steam qua `PaywallNote` từng trang item |
-| 6 | Trạng thái | `statuses` | 25 | 24/25 | Đủ Doom, Scorch, Berserk, Syphon, Brave, Regen, Vận may…; "Trói chân" (không tồn tại) đã thay bằng Mỏi (Tired) — icon `EBF5 Status X`; Radiation giữ emoji |
+| 6 | Trạng thái | `statuses` | 26 | 25/26 | Đủ Doom, Scorch, Berserk, Syphon, Brave, Regen, Vận may, **Hoang mang (Confuse — chỉ tác động người chơi, tự dùng bản kỹ năng yếu nhất, bỏ qua Syphon & cooldown, ưu tiên cao hơn Berserk)**…; "Trói chân" (không tồn tại) đã thay bằng Mỏi (Tired) — icon `EBF5 Status X`; Radiation giữ emoji |
 | 7 | Khu vực | `areas` | 18 | 18/18 | 12 khu chính + 6 khu trả phí theo trang *EBF5 Map*; mỗi khu có ô lưới (grid), Điểm nhấn, Lưu ý — ảnh tile bản đồ; **C3: ~200 ô lưới có bảng Quái (wave) + Key Items + vị trí con + ghi chú cơ chế từ các trang `EBF5 Map/X`** |
 | 8 | Triệu hồi | `summons` | 191 | 191/191 | **C4: 18 → 40** (lượt 8+11) rồi **14: 40 → 191 — gần như đủ bộ** theo bảng hiện hành post-v2 (192 hàng, trừ demo ẩn Glitch 2; The Devourer 250 → Furry Slime 1); 151 entry mới sinh máy từ cột target/type/power/element/status/debuff; 151 icon tải từ `EBF5 Foe Icon` qua fetch-images.map.txt |
 | 9 | Limit Break | `limits` | 20 | 20/20 (11 trong `img/limits/` + 9 dùng lại icon skills) | 10 riêng + 10 dùng chung; danh sách nhân vật học được trích từ Category tags wiki; 5 icon thiếu cũ (Supernova, Hidden Power, Absolute Zero, Seven Swords, Art Attack) đã tải về; 4 cái còn lại tái sử dụng icon từ mảng skills; Radiation status vẫn emoji (wiki không có file) |
@@ -40,8 +40,8 @@
 ### Kiểm thử pass (trạng thái hiện tại)
 - `data.js`: braces 1001/1001, brackets 1055/1055, quotes chẵn (trừ nháy có escape `\'`), 0 ký tự rác, JScript parse OK (lượt 17 đã thay backtick trong desc bằng `"` để hết cảnh báo ES6 giả).
 - `app.js`: braces 133/133, brackets 52/52 (file có ES6 sẵn nên JScript bỏ qua, trình duyệt chạy tốt).
-- `test.html`: trang smoke test chạy trong trình duyệt (7 case: 9 chủ đề/25 status, `renderDetail` sinh tooltip `.st-tip` + hàng `.prev-next`, lightbox, `#statusTip`, `#toTop`) — mở trực tiếp là chạy, không cần Node; xoá đi khi không cần nữa.
-- 747 tham chiếu `image:` ↔ 743 file thật (limit dùng lại icon skills) — **0 thiếu, 0 file lẻ**.
+- `test.html`: trang smoke test chạy trong trình duyệt (7 case: 9 chủ đề/26 status, `renderDetail` sinh tooltip `.st-tip` + hàng `.prev-next`, lightbox, `#statusTip`, `#toTop`) — mở trực tiếp là chạy, không cần Node; xoá đi khi không cần nữa.
+- 748 tham chiếu `image:` ↔ 744 file thật (limit dùng lại icon skills) — **0 thiếu, 0 file lẻ**.
 - README + hero trang chủ khớp số liệu thật.
 
 ---
@@ -55,10 +55,10 @@
 - [x] Nút "↑ Đầu trang" (hiện khi cuộn > 400px, mọi trang) + header đã sticky sẵn.
 - [x] Tìm kiếm toàn cục — nâng lên tìm theo cả tips/effect/kind: gộp tên + desc + kind + effect + unlock + slot + tips/features/strengths/weaknesses/drops + kỹ năng trong trang nhân vật + **quái & Key Items trong từng ô lưới khu vực** + tên nhân vật học kỹ năng; trang danh sách dùng chung nên tìm theo type=all ăn theo.
 
-### B. Triển khai (để wiki dùng được thật)
+### B. Triển khai (để wiki dùng được thật) ✅ Hoàn tất lượt 19
 - [x] `git init` + commit đầu tiên ✅ (commit `343eeba`, working tree sạch; warning LF→CRLF vô hại).
-- [ ] Đẩy lên GitHub, bật **GitHub Pages** (thuần tĩnh nên chạy ngay, không cần build).
-- [ ] Kiểm tra lại đường dẫn tương đối `img/...` sau deploy (đã dùng tương đối nên an toàn).
+- [x] Đẩy lên GitHub, bật **GitHub Pages** ✅ — remote `origin` = `Longawr/Wiki`, bật qua GitHub REST API (`POST /repos/Longawr/Wiki/pages`, source `master` / root) bằng credential git sẵn có trên máy; **URL trực tuyến: https://longawr.github.io/Wiki/** (thuần tĩnh nên chạy ngay, không cần build).
+- [x] Kiểm tra lại đường dẫn tương đối `img/...` sau deploy (đã dùng tương đối nên an toàn với path `longawr.github.io/Wiki/`).
 - [ ] (Tuỳ) tên miền riêng + favicon/logo.
 
 ### C. Mở rộng dữ liệu (dày hơn nữa)
@@ -69,7 +69,7 @@
 - [x] Summon (C4): **mở rộng 18 → 40 + cột "Mở khoá"** — nguồn = trang *Summons/Epic Battle Fantasy 5*, dùng bảng hiện hành post-v2 (bảng chính; bảng `Pre-v2 update` chỉ giữ đối chiếu). 22 summon mới: Glitch, Annabelle, Lancelot, Matteus, Laurelin, War Mammoth, Sól, Viking Monolith, Ultra Chibi Knight, Zombie Hand, Wooden Idol, SNEK, Roasted Gloop, Sapphire Ore, Ruby Ore, Amethyst Ore, Red Bush, Metal Idol (14, heavy +5), Cat Sniper, PUMPKUS, Cutie Worm, Cat Wizard; SP của 18 entry cũ chốt lại theo bảng hiện hành (God 160, Natalia 139…). 22 icon mới tải từ `EBF5 Foe Icon` (wiki.gg).
 
 - [x] Trang bị (C5): **97 → 228** — lượt 16 đủ 84 vũ khí (4 trang class, bảng hiện hành); lượt 17 đủ 84 mũ giáp (Mũ/Giáp nam + nữ theo `Male Hats and Armor`/`Female Hats and Armor`) + 55 Flair sinh máy từ trang `Flairs` + giữ 3 Flair tay NoLegs; nhãn Độc quyền bản Steam chốt qua `PaywallNote` từng trang item (24 món).
-- [ ] Trạng thái (lượt 18 ghi nhận): thêm "Hoang mang" (Confuse) vào `statuses` + icon `EBF5 Status X` — nhóm "Chững & Hoang mang" và desc summon hiện dùng tên này nhưng chưa tooltip được.
+- [x] Trạng thái (lượt 19): **hoàn tất 26 status** — thêm "Hoang mang" (Confuse) + icon `EBF5 Status Confuse`; nhóm "Chững & Hoang mang" và các desc summon/trang bị dùng tên này giờ đều có tooltip (QA headless xác nhận `data-st="confuse"`).
 
 ### D. Chất lượng dài hạn
 - [x] **Script PowerShell `fetch-images.ps1` ✅ (lượt 13)** — hoá quy trình tải ảnh (dự phòng rebuild repo), 3 chế độ:
@@ -96,8 +96,8 @@
 
 **Tiêu chí "hoàn thiện" theo 3 mức:**
 
-1. **Dùng được** (đã đạt): 9 chủ đề, 748 mục (743 file ảnh, mỗi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
-2. **Dễ dùng** (đã đạt lượt 12): lightbox + tooltip + phím tắt + tìm kiếm sâu (tips/effect/quái theo ô lưới) + nút lên đầu trang; deploy GitHub Pages để chia sẻ link (còn lại phần B).
+1. **Dùng được** (đã đạt): 9 chủ đề, 749 mục (744 file ảnh, mỗi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
+2. **Dễ dùng** (đã đạt): lightbox + tooltip + phím tắt + tìm kiếm sâu (tips/effect/quái theo ô lưới) + nút lên đầu trang; **deploy GitHub Pages ✅ https://longawr.github.io/Wiki/**.
 3. **Sống lâu** (mục tiêu xa): dữ liệu phủ ~100% kỹ năng/quái; quy trình cập nhật từ fandom API thành script có sẵn; mỗi mục truy vết được về trang wiki gốc để tự đối chiếu khi game ra bản vá mới (EBF5 vẫn nhận update v2+).
 
 **Nguyên tắc giữ vững:**
@@ -157,4 +157,12 @@
 - **Render kiểm lại đầu (4 trang: army-helmet, pixel-glasses, dark-gown, Water Slime)**: `Chững` nhận tooltip `data-st="stagger"`, chuỗi "— Chịu được … HP) — Kháng Thánh 30%" đúng dấu cách, chip nguyên tố hiện "Bóng tối — +50% sát thương" cho kẻ địch.
 - **Kiểm tra cuối**: `check.ps1` PASS 0 FAIL (tổng 748 mục / 747 tham chiếu ↔ 743 file — không thay đổi số).
 
-*Cập nhật lần cuối: 2026-10-20 — sau lượt 18 (QA trình duyệt headless + đồng bộ từ vựng element/status giữ nguyên số liệu 748 mục / 743 file ảnh).*
+### Lượt 19 — deploy GitHub Pages + hoàn tất bộ status: thêm "Hoang mang" (Confuse)
+- **Deploy (phần B của roadmap)**: push 2 commit tồn đọng (lượt 16–18) → `origin/master`. `gh` CLI không có trên máy nhưng credential git (Git Credential Manager) còn — trích qua `git credential fill` rồi gọi GitHub REST API: `GET /repos/Longawr/Wiki/pages` trả 404 (chưa cấu hình) → `POST .../pages` với `{"source":{"branch":"master","path":"/"}}` → **Pages bật thành công, live tại https://longawr.github.io/Wiki/**. Chỉ dùng credential cho thao tác này, minh bạch từng bước.
+- **Dữ liệu**: nguồn = trang fandom `Confuse (status)` (trang `Confuse` không tồn tại — search API ra đúng tên). Icon lấy tên file ngay trong wikitext: `EBF5 Status Confuse.png`. Cơ chế chốt từ wiki: **chỉ tác động người chơi**; tự dùng kỹ năng mình học nhưng **luôn bản yếu nhất đã nâng cấp** (mô tả in-game không chính xác hoàn toàn); **bỏ qua Syphon & cooldown**, không bị đặt cooldown; bỏ qua Lovable của địch; **ưu tiên cao hơn Berserk** (Hungry lại cao hơn cả hai); cấm dùng 3 kỹ năng Cherish / Berserk / Medipack (nguyên nhân bug vô hạn); Purify / Dispel / Sharpen khi Hoang mang chỉ trúng đồng đội.
+- **data.js**: +1 entry `confuse` chèn ngay sau `stagger` (đi cùng cặp "Chững & Hoang mang"), `elements: []` (không gắn nguyên tố), `kind: 'Bất lợi'`. Tooltip không cần sửa app.js — `withStatusTips` khớp theo tên status, sort theo độ dài giảm dần nên "Chững" và "Hoang mang" mỗi cái nhận chip riêng trong chuỗi "Miễn Chững & Hoang mang".
+- **Icon**: +1 dòng `fetch-images.map.txt` (`img/status/confuse.png<TAB>EBF5 Status Confuse`) → tải 1/1 OK; (đã lỡ thêm 1 dòng trống vào map — xoá sạch trước khi tải).
+- **QA headless (kế thừa lượt 18)**: dump `detail.html?id=army-helmet&type=equipment` (desc có "Miễn Choáng, Miễn Chững & Hoang mang") → DOM có `data-st="confuse"`, `data-st="stagger"`, `data-st="stun"` đúng mapping. Lưu ý mới: dump qua `cmd /c` redirection làm Edge bóp méo UTF-8 âm khoé (stdout encoding artifact) — chỉ tin các mảnh ASCII như `data-st="..."`; đọc file dump phải `ReadAllBytes` + decode UTF8. Lần đầu redirect bằng pwsh `>` cho ra file 0 byte — dùng `cmd /c` mới capture được.
+- **Kiểm tra cuối**: `check.ps1` PASS 0 FAIL — statuses 26/26; tổng **749 mục / 748 tham chiếu ↔ 744 file**, 0 thiếu / 0 file lẻ.
+
+*Cập nhật lần cuối: 2026-10-20 — sau lượt 19 (deploy GitHub Pages + status Hoang mang; 749 mục / 744 file ảnh).*

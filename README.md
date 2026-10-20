@@ -8,6 +8,8 @@ HTML + CSS + JavaScript thuần — **không cần cài đặt, không cần bui
 > Ảnh render nhân vật tải từ wiki về thư mục `img/` (độc quyền thuộc Matt Roszak /
 > Kupo Games).
 
+🌐 **Trực tuyến:** https://longawr.github.io/Wiki/ (GitHub Pages)
+
 ## 🚀 Chạy trang wiki
 
 Chỉ cần mở file `index.html` bằng trình duyệt (double-click). Không cần server.
@@ -71,7 +73,7 @@ Toàn bộ nội dung nằm trong **`js/data.js`**, chia theo chủ đề:
 | Kỹ năng | `skills` | **183 mục — đủ bộ 5 nhân vật + 53 Extra Skills (kỹ năng học qua trang bị, kèm danh sách nhân vật học được)** theo *List of Skills in Epic Battle Fantasy 5* + Guard; 183/183 icon chuẩn `EBF5 Skill X`; Guard dùng icon EBF4 (lệnh giống hệt) |
 | Vật phẩm | `items` | 28 món Food thật của EBF5 (Pumpkin → Pizza, số liệu theo bảng wiki), Hand Bomb và 5 Steroid riêng từng nhân vật — tất cả đều có icon (`img/items/`) |
 | Trang bị | `equipment` | **228 mục** — 86 vũ khí (78 sinh máy lượt 16 đủ bộ 84 theo wiki + 8 entry tay: Heaven Gate, Ultra Pro 9000X, Fairy Bow, Dark Tooth, Shadow Blaster, Spine Snapper, Crystal Staff, Steel Buckler) + **84 mũ giáp** (21 Mũ nam + 21 Giáp nam + 21 Mũ nữ + 21 Giáp nữ, bảng hiện hành post-v2 của `Male Hats and Armor`/`Female Hats and Armor`) + **58 Flair** (55 sinh máy từ trang `Flairs` + giữ 3 món tay NoLegs: Human Skull, Book of Spells, Neon Lightbulb) - desc sinh máy gồm vị trí, chỉ số, hiệu ứng (Cast triệu hồi ngẫu nhiên / Boost / Trạng thái tự nhận / Defend / Gây trạng thái khi đánh / Kháng) - 24 món nhãn Độc quyền bản Steam (15 lượt 16 + 9 lượt 17: Fur Hat, Ninja Skirt, School Uniform, Maid Outfit, Mecha Suit, Sword Medal, Shield Medal, Gold Star, Platinum Star) - **228/228 có ảnh** (`img/equipment/`) |
-| Trạng thái | `statuses` | 25 hiệu ứng (thêm Doom, Scorch, Berserk, Syphon, Brave, Regen, Vận may; thay "Trói chân" bằng Mỏi theo wiki) — 24/25 có icon chuẩn `EBF5 Status X` (`img/status/`), Radiation giữ emoji — **còn thiếu "Hoang mang" (Confuse)**: nhóm "Chững & Hoang mang" và các desc summon dùng tên này nhưng chưa có entry để tooltip (được ghi nhận lượt 18) |
+| Trạng thái | `statuses` | 26 hiệu ứng (thêm Doom, Scorch, Berserk, Syphon, Brave, Regen, Vận may, Hoang mang; thay "Trói chân" bằng Mỏi theo wiki) — 25/26 có icon chuẩn `EBF5 Status X` (`img/status/`), Radiation giữ emoji |
 | Khu vực | `areas` | 12 khu vực chính + 6 khu vực trả phí (Freezeflame, Mineshaft Maze, Deathly Hollows, The Great Sea, Temple of Trials, Crystal Caverns) theo trang Epic Battle Fantasy 5 Map — 18/18 có ảnh tile bản đồ (`img/areas/`), kèm ô lưới — **với từng ô lưới có bảng Quái (waves) + Key Items + vị trí con + ghi chú cơ chế** (dành cho 18 khu, lấy từ các trang `EBF5 Map/X`) |
 | Triệu hồi | `summons` | 191 summon — gần như đủ bộ theo bảng Summons/Epic Battle Fantasy 5 (bảng hiện hành post-v2, 192 hàng; trừ demo ẩn Glitch 2): The Devourer 250, Glitch 177, God 160 → Furry Slime 1 —.SP rõ; cột **Nguồn mở khoá** (bắt quái Capture); 40 entry đặc tả tay (lượt 8+11) + 151 entry sinh máy từ các cột bảng wiki (lượt 14); lọc theo Tấn công/Hỗ trợ — 191/191 có icon `EBF5 Foe Icon` (`img/summons/`) |
 | Limit Break | `limits` | 20 Limit Break: 10 riêng (Cleaver, Ragnarok, Genesis, 7th Heaven, Nuke, Oblivion...) + 10 dùng chung (Annihilate, Black Hole, Tsunami, Seven Swords...) — 11/20 có ảnh (`img/limits/`), còn lại emoji; thể hiện character char mỗi skill |
@@ -114,8 +116,8 @@ Dự án là trang tĩnh nên có thể đẩy thẳng lên bất kỳ host tĩn
 
 ## 🛣️ Tiếp theo có thể làm
 
-- Tải thêm ảnh kẻ địch / trang bị từ wiki (`img/enemies/...`, thêm trường `image`)
-- Bổ sung summon theo nhu cầu: bảng hiện hành còn ~150 summon chưa đưa vào (wiki.gg *Summons/Epic Battle Fantasy 5*)
+- (Tuỳ) tên miền riêng + favicon/logo
+- Ghi nguồn (URL trang wiki gốc) vào từng mục dữ liệu để truy vết khi wiki cập nhật
 - Bảng khắc chế nguyên tố tương tác (nút bấm xem điểm yếu)
 - So sánh đội hình / máy tính đòn damage
 - Chuyển dữ liệu sang file JSON nếu muốn gắn server/CMS sau này
