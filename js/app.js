@@ -24,6 +24,12 @@
     return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
   }
 
+  // Ghép URL wiki chính thức từ tiêu đề trang (lượt 20 — nguồn truy vết từng mục)
+  function wikiUrl(title) {
+    if (!title) return '';
+    return D.externalWiki + encodeURIComponent(title).replace(/%20/g, '_').replace(/%2F/g, '/');
+  }
+
   function params() { return new URLSearchParams(location.search); }
 
   function elOf(id) { return D.elements.find(function (e) { return e.id === id; }); }
@@ -659,6 +665,20 @@
     }
 
     /* ----- Ghi chú nguồn ----- */
+    var srcDef = D.sources ? (D.sources[key] || null) : null;
+    var srcTitle = srcDef ? (srcDef[item.id] || srcDef._default || null) : null;
+    var cellHtml = '';
+    if (key === 'areas' && D.sources && D.sources.areaCells && D.sources.areaCells[item.id]) {
+      var acell = D.sources.areaCells[item.id];
+      var seenGrid = {};
+      (item.cells || []).forEach(function (c0) {
+        var g = c0.grid;
+        if (seenGrid[g] || !acell[g]) return;
+        seenGrid[g] = 1;
+        cellHtml += (cellHtml ? ' · ' : '') +
+          '<a href="' + esc(wikiUrl(acell[g])) + '" target="_blank" rel="noopener">' + esc(g) + '</a>';
+      });
+    }
     html +=
       '<div class="panel' + (key === 'statuses' ? '"><h3>Về trạng thái này</h3>' : '"><h3>Nguồn dữ liệu</h3>') +
         '<p class="muted" style="margin:0">Nội dung đối chiếu theo Epic Battle Fantasy Wiki chính thức tại' +
@@ -667,6 +687,10 @@
         (key === 'summons' ? ' — xem trang <em>Summons/Epic Battle Fantasy 5</em> để xem toàn bộ hơn 190 summon, giá SP và điều kiện mở khoá.' : '') +
         (key === 'limits' ? ' — xem trang <em>Limit Break</em> để đối chiếu nhiệm vụ mở khoá từng skill (một số chỉ có ở v2).' : '') +
         '. Muốn bổ sung, sửa trực tiếp trong <code>js/data.js</code>.</p>' +
+        (srcTitle ?
+          '<p class="muted" style="margin:8px 0 0">Trang wiki gốc: <a href="' + esc(wikiUrl(srcTitle)) +
+          '" target="_blank" rel="noopener">' + esc(srcTitle) + '</a>' +
+          (cellHtml ? ' — đối chiếu từng ô lưới: ' + cellHtml : '') + '</p>' : '') +
       '</div>';
 
     html += '</section>';

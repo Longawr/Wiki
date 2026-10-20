@@ -103,6 +103,7 @@ và 1 mảng dữ liệu cùng tên `key` vào `window.EBF5DATA` — trang web t
 - Ảnh minh hoạ nhân vật, chip nguyên tố màu, breadcrumb, theme tối kiểu game
 - **Lightbox**: nhấp ảnh trang chi tiết để xem full; đóng bằng ✕ / nền / `Esc`
 - **Tooltip trạng thái**: đưa chuột lên tên trạng thái (Đốt, Ướt, Doom...) để xem icon + mô tả ngắn, nhấp đến trang chi tiết
+- **Nguồn truy vết**: panel "Nguồn dữ liệu" ở trang chi tiết có link **Trang wiki gốc** cho từng mục (areas còn link riêng theo từng ô lưới)
 - **Phím tắt trang chi tiết**: `←/→` mục trước/sau, `Esc` về danh sách
 - Nút **↑ Đầu trang** hiện khi cuộn dài
 - Trang `test.html` — smoke test chạy trực tiếp trong trình duyệt (không cần Node), xoá khi không cần
@@ -117,7 +118,6 @@ Dự án là trang tĩnh nên có thể đẩy thẳng lên bất kỳ host tĩn
 ## 🛣️ Tiếp theo có thể làm
 
 - (Tuỳ) tên miền riêng + favicon/logo
-- Ghi nguồn (URL trang wiki gốc) vào từng mục dữ liệu để truy vết khi wiki cập nhật
 - Bảng khắc chế nguyên tố tương tác (nút bấm xem điểm yếu)
 - So sánh đội hình / máy tính đòn damage
 - Chuyển dữ liệu sang file JSON nếu muốn gắn server/CMS sau này
