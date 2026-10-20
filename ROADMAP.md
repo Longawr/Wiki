@@ -69,6 +69,7 @@
 - [x] Summon (C4): **mở rộng 18 → 40 + cột "Mở khoá"** — nguồn = trang *Summons/Epic Battle Fantasy 5*, dùng bảng hiện hành post-v2 (bảng chính; bảng `Pre-v2 update` chỉ giữ đối chiếu). 22 summon mới: Glitch, Annabelle, Lancelot, Matteus, Laurelin, War Mammoth, Sól, Viking Monolith, Ultra Chibi Knight, Zombie Hand, Wooden Idol, SNEK, Roasted Gloop, Sapphire Ore, Ruby Ore, Amethyst Ore, Red Bush, Metal Idol (14, heavy +5), Cat Sniper, PUMPKUS, Cutie Worm, Cat Wizard; SP của 18 entry cũ chốt lại theo bảng hiện hành (God 160, Natalia 139…). 22 icon mới tải từ `EBF5 Foe Icon` (wiki.gg).
 
 - [x] Trang bị (C5): **97 → 228** — lượt 16 đủ 84 vũ khí (4 trang class, bảng hiện hành); lượt 17 đủ 84 mũ giáp (Mũ/Giáp nam + nữ theo `Male Hats and Armor`/`Female Hats and Armor`) + 55 Flair sinh máy từ trang `Flairs` + giữ 3 Flair tay NoLegs; nhãn Độc quyền bản Steam chốt qua `PaywallNote` từng trang item (24 món).
+- [ ] Trạng thái (lượt 18 ghi nhận): thêm "Hoang mang" (Confuse) vào `statuses` + icon `EBF5 Status X` — nhóm "Chững & Hoang mang" và desc summon hiện dùng tên này nhưng chưa tooltip được.
 
 ### D. Chất lượng dài hạn
 - [x] **Script PowerShell `fetch-images.ps1` ✅ (lượt 13)** — hoá quy trình tải ảnh (dự phòng rebuild repo), 3 chế độ:
@@ -143,4 +144,17 @@
 - **Bẫy PowerShell 5.1 rút thêm**: `@(ConvertFrom-Json $j)` → Count=1 (bọc `@()` không enumerate — dùng `$p = ConvertFrom-Json $raw` rồi `foreach`); data.js sau `git checkout` bị LF→CRLF (split `` `n `` còn `\r` — chuẩn hoá cả file về LF trước xử lý; JoinString giữ LF); backtick trong desc làm `check.ps1` quét nhầm template string ES6 → bỏ qua check JScript (thay toàn bộ backtick bằng `"`); 2 entry dính trên 1 dòng từ lượt 16 (golden-axe + hyper-drill) làm checker báo file-lẻ ảo — tách dòng.
 - **Kiểm tra cuối**: `check.ps1` PASS 0 FAIL — equipment 228/228 ảnh; tổng 748 mục / 747 tham chiếu ↔ 743 file.
 
-*Cập nhật lần cuối: 2026-10-20 — sau lượt 17 (mũ giáp & Flair: +131 ròng, 97 → 228 trang bị; tổng 748 mục / 743 file ảnh).*
+### Lượt 18 — QA dữ liệu lượt 17 bằng trình duyệt headless + sửa từ vựng lệch
+- **Phương pháp**: dùng Edge headless (`--headless --dump-dom` + `--user-data-dir` riêng, file:// URL) nạp thật `index/list/detail.html` với `data.js` + `app.js`, grep DOM sau render — kiểm được cả JS runtime (tooltip `.st-tip` gắn đúng `data-st`) chứ không chỉ parse tĩnh. Lưu ý: id sai (`camtain-s-hat` thay vì `captain-s-hat`) hiển thị đúng trang "Không tìm thấy" — không phải bug. `$env:TEMP` của pwsh khác TEMP của harness — file dump phải ghi đường dẫn tuyệt đối.
+- **QA token bằng script** (`qa17h.ps1` ở temp): tách 139 entry sinh máy (desc mở đầu "Vị trí: "), mỗi segment kháng ("Kháng/Miễn/Yếu/Hấp thụ …") tách theo phẩy rồi "&", đối chiếu từ điển gồm: tên `elements` + tên `statuses` + giá trị `RES_LBL` của `app.js` (cả mảnh nhóm "Đốt & Xém" → "Đốt"). Phát hiện 57 token lệch, gọn thành 5 lớp lỗi:
+  1. `Chóng & Hoang mang` → `Chững & Hoang mang` (lệch 1 dấu với label lượt 15; 15 chỗ)
+  2. `Cháy & Xém` → `Đốt & Xém` (label trong `RES_LBL` là "Đốt" = Burn; 14 chỗ)
+  3. `Sét` → `Sấm` (khớp tên nguyên tố `thunder` trong `data`; 42 chỗ — toàn trong equipment lượt 17)
+  4. nguyên tố `dark` `name: 'Bóng'` → `'Bóng tối'` (đồng bộ văn cũ — skills/limits/areas từ các lượt trước dùng "Bóng tối"; chip ở mọi nơi theo tên mới)
+  5. pixel-glasses desc dính dấu cách quanh `—` ("—Chịu được", "(còn sống với 0 HP)—") gây khử token lệch
+- **Giữ nguyên Phaser artifact hợp lệ**: "Gây Yếu đi 60%" (verb "Gây" trong desc) — QA sau này cần strip `^Gây ` trước so khớp.
+- **Lộ rộng còn lại**: `statuses` chưa có "Hoang mang" (Confuse) — các desc dùng tên này chưa tooltip được (kể cả summon Electric Bat từ lượt 14).
+- **Render kiểm lại đầu (4 trang: army-helmet, pixel-glasses, dark-gown, Water Slime)**: `Chững` nhận tooltip `data-st="stagger"`, chuỗi "— Chịu được … HP) — Kháng Thánh 30%" đúng dấu cách, chip nguyên tố hiện "Bóng tối — +50% sát thương" cho kẻ địch.
+- **Kiểm tra cuối**: `check.ps1` PASS 0 FAIL (tổng 748 mục / 747 tham chiếu ↔ 743 file — không thay đổi số).
+
+*Cập nhật lần cuối: 2026-10-20 — sau lượt 18 (QA trình duyệt headless + đồng bộ từ vựng element/status giữ nguyên số liệu 748 mục / 743 file ảnh).*
