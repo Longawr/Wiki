@@ -16,7 +16,7 @@
 - `css/style.css`: theme tối phong cách game, card grid, chip, `.detail-media`, fallback `.img-fail`.
 - Thêm chủ đề mới = **1 hàng trong `categories` + 1 mảng dữ liệu + (tuỳ) 1 nhánh chip/detail trong app.js**.
 
-### Dữ liệu — 9 chủ đề, 388 mục, 387/382 ảnh (0 thiếu, 0 file lẻ)
+### Dữ liệu — 9 chủ đề, 748 mục, 747 tham chiếu ảnh ↔ 743 file (0 thiếu, 0 file lẻ)
 
 | # | Chủ đề | key | Mục | Ảnh | Ghi chú |
 |---|--------|-----|-----|-----|---------|
@@ -24,7 +24,7 @@
 | 2 | Kẻ địch | `enemies` | 50 | 50/50 | 8 slime thật + 32 quái thường dàn theo 18 khu vực + 10 boss — icon `EBF5 Bestiary X`; **drops thật 50/50** (tên item + % từ bảng `FoeTableEBF5`); **15: khắc chế 50/50** — trường `res` trích cột % `FoeTableEBF5` (10 nguyên tố + nhóm trạng thái), hiển thị Yếu/Kháng/Miễn/Hấp thụ ở trang chi tiết |
 | 3 | Kỹ năng | `skills` | 183 | 183/183 | **Đủ bộ 5 nhân vật + 53 Extra Skills** (kèm chars từng người học được từ trang bị), theo *List of Skills in EBF5*; icon `EBF5 Skill X` |
 | 4 | Vật phẩm | `items` | 28 | 28/28 | 24 món Food thật (Pumpkin→Pizza, Garlic/Banana gỡ status/debuff, Apple/Cupcake trừ cooldown…) + 5 Steroid từng nhân vật — icon `EBF5 Item X` |
-| 5 | Trang bị | `equipment` | 97 | 97/97 | 19 mục tay + **78 vũ khí sinh máy (lượt 16) — đủ bộ 84 vũ khí** (21 Kiếm + 21 Cung + 21 Súng + 21 Trượng, bảng 1 post-v2 của `Swords`/`Bows`/`Guns`/`Staves`); 15 món nhãn Độc quyền bản Steam qua `PaywallNote`; Crystal Staff có ghi chú "không trở lại EBF5" |
+| 5 | Trang bị | `equipment` | 228 | 228/228 | **Lượt 16: 84 vũ khí** (78 sinh máy từ 4 trang `Swords`/`Bows`/`Guns`/`Staves` bảng 1 post-v2 + 8 entry tay: Heaven Gate, Ultra Pro 9000X, Fairy Bow, Dark Tooth, Shadow Blaster, Spine Snapper, Crystal Staff, Steel Buckler); **Lượt 17: +142 mũ giáp & Flair** — 84 mũ/giáp sinh máy (21+21 Mũ/Giáp nam theo `Male Hats and Armor`, 21+21 nữ theo `Female Hats and Armor`) + 58 Flair (55 sinh máy từ trang `Flairs` + 3 tay NoLegs); thay 8 entry tay mỏng bằng bản sinh máy; 24 món nhãn Độc quyền bản Steam qua `PaywallNote` từng trang item |
 | 6 | Trạng thái | `statuses` | 25 | 24/25 | Đủ Doom, Scorch, Berserk, Syphon, Brave, Regen, Vận may…; "Trói chân" (không tồn tại) đã thay bằng Mỏi (Tired) — icon `EBF5 Status X`; Radiation giữ emoji |
 | 7 | Khu vực | `areas` | 18 | 18/18 | 12 khu chính + 6 khu trả phí theo trang *EBF5 Map*; mỗi khu có ô lưới (grid), Điểm nhấn, Lưu ý — ảnh tile bản đồ; **C3: ~200 ô lưới có bảng Quái (wave) + Key Items + vị trí con + ghi chú cơ chế từ các trang `EBF5 Map/X`** |
 | 8 | Triệu hồi | `summons` | 191 | 191/191 | **C4: 18 → 40** (lượt 8+11) rồi **14: 40 → 191 — gần như đủ bộ** theo bảng hiện hành post-v2 (192 hàng, trừ demo ẩn Glitch 2; The Devourer 250 → Furry Slime 1); 151 entry mới sinh máy từ cột target/type/power/element/status/debuff; 151 icon tải từ `EBF5 Foe Icon` qua fetch-images.map.txt |
@@ -38,10 +38,10 @@
 - **Bài học lớn**: soạn văn tiếng Việt dài trong shell/here-string dễ lẫn ký tự rác (CJK/Cyrillic) → soạn file tạm bằng công cụ `write`, rồi splice vào `data.js` bằng PowerShell; luôn quét kiểm `[CJK]=0, [Cyrillic]=0` và đếm ngoặc sau mỗi lần sửa.
 
 ### Kiểm thử pass (trạng thái hiện tại)
-- `data.js`: braces 585/585, brackets 695/695, quotes chẵn (tính cá biệt Apostrophe trong double-quoted string), 0 ký tự rác, JScript parse OK.
-- `app.js`: braces 125/125, brackets 42/42 (file có ES6 sẵn nên JScript bỏ qua, trình duyệt chạy tốt).
+- `data.js`: braces 1001/1001, brackets 1055/1055, quotes chẵn (trừ nháy có escape `\'`), 0 ký tự rác, JScript parse OK (lượt 17 đã thay backtick trong desc bằng `"` để hết cảnh báo ES6 giả).
+- `app.js`: braces 133/133, brackets 52/52 (file có ES6 sẵn nên JScript bỏ qua, trình duyệt chạy tốt).
 - `test.html`: trang smoke test chạy trong trình duyệt (7 case: 9 chủ đề/25 status, `renderDetail` sinh tooltip `.st-tip` + hàng `.prev-next`, lightbox, `#statusTip`, `#toTop`) — mở trực tiếp là chạy, không cần Node; xoá đi khi không cần nữa.
-- 387 tham chiếu `image:` ↔ 382 file thật (limit dùng lại icon skills) — **0 thiếu, 0 file lẻ**.
+- 747 tham chiếu `image:` ↔ 743 file thật (limit dùng lại icon skills) — **0 thiếu, 0 file lẻ**.
 - README + hero trang chủ khớp số liệu thật.
 
 ---
@@ -68,6 +68,8 @@
 - [x] Khu vực (C3): **quái + Key Items theo từng ô lưới cho đủ 18 khu** — parser nguồn các trang `Epic Battle Fantasy 5 Map/X` (điểm xuất phát theo ô lưới, wave quái, Key Items, ô con như Nhà Matt/Phòng Arcade/Khu Glitch), các ghi chú cơ chế dịch tay (rương mở bằng mã, Đầu Đá trên bệ đá, cần gạt, Arcade Boss Rush…), bỏ các ghi chú trivia (mã Morse, tên hex glitch). Hiển thị trong panel areas "Ô lưới — Quái và Key Items".
 - [x] Summon (C4): **mở rộng 18 → 40 + cột "Mở khoá"** — nguồn = trang *Summons/Epic Battle Fantasy 5*, dùng bảng hiện hành post-v2 (bảng chính; bảng `Pre-v2 update` chỉ giữ đối chiếu). 22 summon mới: Glitch, Annabelle, Lancelot, Matteus, Laurelin, War Mammoth, Sól, Viking Monolith, Ultra Chibi Knight, Zombie Hand, Wooden Idol, SNEK, Roasted Gloop, Sapphire Ore, Ruby Ore, Amethyst Ore, Red Bush, Metal Idol (14, heavy +5), Cat Sniper, PUMPKUS, Cutie Worm, Cat Wizard; SP của 18 entry cũ chốt lại theo bảng hiện hành (God 160, Natalia 139…). 22 icon mới tải từ `EBF5 Foe Icon` (wiki.gg).
 
+- [x] Trang bị (C5): **97 → 228** — lượt 16 đủ 84 vũ khí (4 trang class, bảng hiện hành); lượt 17 đủ 84 mũ giáp (Mũ/Giáp nam + nữ theo `Male Hats and Armor`/`Female Hats and Armor`) + 55 Flair sinh máy từ trang `Flairs` + giữ 3 Flair tay NoLegs; nhãn Độc quyền bản Steam chốt qua `PaywallNote` từng trang item (24 món).
+
 ### D. Chất lượng dài hạn
 - [x] **Script PowerShell `fetch-images.ps1` ✅ (lượt 13)** — hoá quy trình tải ảnh (dự phòng rebuild repo), 3 chế độ:
   1. *Check* (mặc định): quét `image: 'img/...'` trong data.js, đối chiếu đĩa → báo thiếu/file lẻ/đếm theo thư mục (exit 1 khi còn thiếu).
@@ -93,7 +95,7 @@
 
 **Tiêu chí "hoàn thiện" theo 3 mức:**
 
-1. **Dùng được** (đã đạt): 9 chủ đề, 388 mục (387 có ảnh thật), chạy offline bằng double-click `index.html`.
+1. **Dùng được** (đã đạt): 9 chủ đề, 748 mục (743 file ảnh, mỗi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
 2. **Dễ dùng** (đã đạt lượt 12): lightbox + tooltip + phím tắt + tìm kiếm sâu (tips/effect/quái theo ô lưới) + nút lên đầu trang; deploy GitHub Pages để chia sẻ link (còn lại phần B).
 3. **Sống lâu** (mục tiêu xa): dữ liệu phủ ~100% kỹ năng/quái; quy trình cập nhật từ fandom API thành script có sẵn; mỗi mục truy vết được về trang wiki gốc để tự đối chiếu khi game ra bản vá mới (EBF5 vẫn nhận update v2+).
 
@@ -132,4 +134,13 @@
 - **check.ps1**: đếm nháy đơn thay đổi — bỏ qua các kỳ nháy **có escape** `\'`: regex `(?<!\\)'` — ngừng false FAIL.
 - **Kiểm tra cuối**: `check.ps1` PASS — 97 mục trang bị / 97 ảnh; tổng 617 mục / 616 ảnh.
 
-*Cập nhật lần cuối: 2026-10-20 — sau lượt 16 (đủ bộ 84 vũ khí EBF5 qua 4 trang class, trích cột từ bảng 1 current; tổng 617 mục / 616 ảnh).*
+### Lượt 17 — mũ giáp & Flair: 97 → 228 trang bị (đủ bộ nam + nữ)
+- **Nguồn**: 3 trang fandom `Male Hats and Armor` (21 Mũ + 21 Giáp nam), `Female Hats and Armor` (21 + 21 nữ), `Flairs` (55) — dùng bảng hiện hành post-v2; **parse từ HTML render** (không split wikitext: anchor id/ô lệch cột thì split sai). Cấu trúc đã kiểm chứng mỗi hàng 16 ô: c0 icon, c1 name+location, c2–c8 = HP/Attack/Defence/Magic Attack/Magic Defence/Accuracy/Evade; **mũ/giáp**: c9 Cast `RS5` (Randomly casts X between turns), c10 Boost `Boost5`, c11 auto-status `GS5` (tự nhận cho bản thân — khác vũ khí), c12 Defend `Defending`, c13–15 Resist `EI5P`/`SI5P`; **flair**: c9 Special, c10 Status (auto), c11 Defend, c12 Attack `SI5X` (gây trạng thái khi đánh: `n%` + `kx`), c13–15 Resist. Anchor id trong HTML dùng `&#95;` thay `_` và `&#39;` thay `'` — thu source phải decode/so khớp theo chuỗi encode đó.
+- **Quyết định thay entry tay mỏng**: thay **8 entry tay** (captains-hat, knights-helmet, officers-coat, hobo-clothes, flame-suit, ranger-skirt, amber-bobble, nano-machines) bằng entry sinh máy đầy đủ từ bảng wiki; giữ nguyên **3 Flair tay NoLegs** (human-skull, book-of-spells, neon-lightbulb) và 11 entry tay lượt trước; không ghi đè text entry đặc tả tay.
+- **id**: recompute theo slug chuẩn (`'s` → `-s`: `captain-s-hat`, `knight-s-helmet`, `officer-s-coat`); 5 id đụng entry có sẵn nhận suffix `-hat`/`-armor`/`-flair` (amber-bobble-hat, flame-suit-armor, hobo-clothes-armor, ranger-skirt-armor, nano-machines-flair); trùng tuyệt đối thì throw. Special chèn tay vì bảng lệch/mất cột: pixel-glasses (chịu được 1 đòn chí mạng), tetromino (sát thương tận cùng số 4 → 4), nano-machines (giảm nửa cooldown kỹ năng v2 — theo trang item).
+- **Paywall**: 9 món qua template `PaywallNote` trên từng trang item (Fur Hat, Ninja Skirt, School Uniform, Maid Outfit, Mecha Suit, Sword Medal, Shield Medal, Gold Star, Platinum Star) — màu hồng bảng wiki không tin; tổng nhãn Steam 15 + 9 = 24.
+- **Icon**: +139 dòng `fetch-images.map.txt` → tải đủ 139/139, 0 SKIP, 0 FAIL; `git rm` 7 file mồ côi sau khi thay entry (amber-bobble, flame-suit, hobo-pirate-set, knight-helmet, nano-machines, officers-coat, ranger-skirt).
+- **Bẫy PowerShell 5.1 rút thêm**: `@(ConvertFrom-Json $j)` → Count=1 (bọc `@()` không enumerate — dùng `$p = ConvertFrom-Json $raw` rồi `foreach`); data.js sau `git checkout` bị LF→CRLF (split `` `n `` còn `\r` — chuẩn hoá cả file về LF trước xử lý; JoinString giữ LF); backtick trong desc làm `check.ps1` quét nhầm template string ES6 → bỏ qua check JScript (thay toàn bộ backtick bằng `"`); 2 entry dính trên 1 dòng từ lượt 16 (golden-axe + hyper-drill) làm checker báo file-lẻ ảo — tách dòng.
+- **Kiểm tra cuối**: `check.ps1` PASS 0 FAIL — equipment 228/228 ảnh; tổng 748 mục / 747 tham chiếu ↔ 743 file.
+
+*Cập nhật lần cuối: 2026-10-20 — sau lượt 17 (mũ giáp & Flair: +131 ròng, 97 → 228 trang bị; tổng 748 mục / 743 file ảnh).*

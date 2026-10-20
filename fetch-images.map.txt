@@ -232,3 +232,144 @@ img/equipment/soul-crusher.png	5SoulCrusher
 img/equipment/the-knife.png	5TheKnife
 img/equipment/wrath-of-zeus.png	5WrathOfZeus
 img/equipment/wrecking-rod.png	5WreckingRod
+
+# --- Mu giap + Flair (luot 17; trich tu trang Male/Female Hats and Armor + Flairs fandom) ---
+img/equipment/army-helmet.png	5ArmyHelmet
+img/equipment/basket-hat.png	5BasketHat
+img/equipment/captain-s-hat.png	5CaptainsHat
+img/equipment/cardboard-box.png	5CardboardBox
+img/equipment/death-mask.png	5DeathMask
+img/equipment/dragon-helm.png	5DragonHelm
+img/equipment/gas-mask.png	5GasMask
+img/equipment/genji-helmet.png	5GenjiHelmet
+img/equipment/headband.png	5Headband
+img/equipment/horned-helmet.png	5HornedHelmet
+img/equipment/knight-s-helmet.png	5KnightsHelmet
+img/equipment/necromancer-s-helmet.png	5NecromancersHelmet
+img/equipment/officer-s-hat.png	5OfficersHat
+img/equipment/pumpkin-head.png	5PumpkinHead
+img/equipment/puppy-hat.png	5PuppyHat
+img/equipment/santa-hat-male.png	5SantaHat
+img/equipment/scottish-cap.png	5ScottishCap
+img/equipment/space-helmet.png	5SpaceHelmet
+img/equipment/spartan-helmet.png	5SpartanHelmet
+img/equipment/spelunking-hat.png	5SpelunkingHat
+img/equipment/wizard-hat.png	5WizardHat
+img/equipment/camo-jacket.png	5CamoJacket
+img/equipment/captain-s-coat.png	5CaptainsCoat
+img/equipment/coat-of-teeth.png	5CoatOfTeeth
+img/equipment/dragon-armor.png	5DragonArmor
+img/equipment/explorer-s-jacket.png	5ExplorersJacket
+img/equipment/flame-suit-armor.png	5FlameSuit
+img/equipment/genji-armor.png	5GenjiArmor
+img/equipment/heroic-armor.png	5HeroicArmor
+img/equipment/hipster-shirt.png	5HipsterShirt
+img/equipment/hobo-clothes-armor.png	5HoboClothes
+img/equipment/ninja-gear.png	5NinjaGear
+img/equipment/officer-s-coat.png	5OfficersCoat
+img/equipment/priest-s-tunic.png	5PriestsTunic
+img/equipment/santa-outfit-male.png	5SantaOutfit
+img/equipment/scottish-kilt.png	5ScottishKilt
+img/equipment/shell-armor.png	5ShellArmor
+img/equipment/space-ace.png	5SpaceAce
+img/equipment/spartan-cuirass.png	5SpartanCuirass
+img/equipment/turtle-gi.png	5TurtleGi
+img/equipment/viking-fur.png	5VikingFur
+img/equipment/wizard-robe.png	5WizardRobe
+img/equipment/amber-bobble-hat.png	5AmberBobble
+img/equipment/blue-elephant.png	5BlueElephant
+img/equipment/bunny-ears.png	5BunnyEars
+img/equipment/cat-ears.png	5CatEars
+img/equipment/curly-horns.png	5CurlyHorns
+img/equipment/dark-bobble.png	5DarkBobble
+img/equipment/drill-bits.png	5DrillBits
+img/equipment/flower-bobble.png	5FlowerBobble
+img/equipment/fur-hat.png	5FurHat
+img/equipment/holly-hairpin.png	5HollyHairpin
+img/equipment/ice-shards.png	5IceShards
+img/equipment/leafy-hairclip.png	5LeafyHairclip
+img/equipment/ninja-chopsticks.png	5NinjaChopsticks
+img/equipment/nurse-hat.png	5NurseHat
+img/equipment/pope-hat.png	5PopeHat
+img/equipment/red-ribbon.png	5RedRibbon
+img/equipment/robot-ears.png	5RobotEars
+img/equipment/royal-crown.png	5RoyalCrown
+img/equipment/rubber-duck.png	5RubberDuck
+img/equipment/slime-bunny-hat.png	5SlimeBunny
+img/equipment/spider-bobble.png	5SpiderBobble
+img/equipment/bubble-dress.png	5BubbleDress
+img/equipment/cactus-dress.png	5CactusDress
+img/equipment/camo-skirt.png	5CamoSkirt
+img/equipment/casual-skirt.png	5CasualSkirt
+img/equipment/cow-costume.png	5CowCostume
+img/equipment/dark-gown.png	5DarkGown
+img/equipment/fur-dress.png	5FurDress
+img/equipment/magical-skirt.png	5MagicalSkirt
+img/equipment/maid-outfit.png	5MaidOutfit
+img/equipment/mecha-suit.png	5MechaSuit
+img/equipment/ninja-skirt.png	5NinjaSkirt
+img/equipment/nurse-uniform.png	5NurseUniform
+img/equipment/obsidian-armor.png	5ObsidianArmor
+img/equipment/pope-dress.png	5PopeDress
+img/equipment/ranger-skirt-armor.png	5RangerSkirt
+img/equipment/red-dress.png	5RedDress
+img/equipment/sami-dress.png	5SamiDress
+img/equipment/santa-skirt.png	5SantaSkirt
+img/equipment/school-uniform.png	5SchoolUniform
+img/equipment/spider-gown.png	5SpiderGown
+img/equipment/summer-kimono.png	5SummerKimono
+img/equipment/agnry-faic.png	EBF5 Flair Agnry Faic
+img/equipment/amethyst-earrings.png	EBF5 Flair Amethyst Earrings
+img/equipment/angel-pin.png	EBF5 Flair Angel Pin
+img/equipment/baby-penguin.png	EBF5 Flair Baby Penguin
+img/equipment/balance-badge.png	EBF5 Flair Balance Badge
+img/equipment/bandage.png	EBF5 Flair Bandage
+img/equipment/battle-paint.png	EBF5 Flair Battle Paint
+img/equipment/big-eyebrows.png	EBF5 Flair Big Eyebrows
+img/equipment/bitey-badge.png	EBF5 Flair Bitey Badge
+img/equipment/captain-viridian.png	EBF5 Flair Captain Viridian
+img/equipment/cat-tail.png	EBF5 Flair Cat Tail
+img/equipment/chrome-earrings.png	EBF5 Flair Chrome Earrings
+img/equipment/coin-charm.png	EBF5 Flair Coin Charm
+img/equipment/companion-cbe.png	EBF5 Flair Companion C*be
+img/equipment/crossbone-pin.png	EBF5 Flair Crossbone Pin
+img/equipment/dinosaur-egg.png	EBF5 Flair Dinosaur Egg
+img/equipment/dog-tags.png	EBF5 Flair Dog Tags
+img/equipment/emerald-earrings.png	EBF5 Flair Emerald Earrings
+img/equipment/fairy.png	EBF5 Flair Fairy
+img/equipment/fake-mustache.png	EBF5 Flair Fake Mustache
+img/equipment/fat-fly.png	EBF5 Flair Fat Fly
+img/equipment/flame-badge.png	EBF5 Flair Flame Badge
+img/equipment/frost-badge.png	EBF5 Flair Frost Badge
+img/equipment/gold-star.png	EBF5 Flair Gold Star
+img/equipment/golden-pendant.png	EBF5 Flair Golden Pendant
+img/equipment/green-cross.png	EBF5 Flair Green Cross
+img/equipment/heart-pendant.png	EBF5 Flair Heart Pendant
+img/equipment/hoop-earrings.png	EBF5 Flair Hoop Earrings
+img/equipment/iron-cross.png	EBF5 Flair Iron Cross
+img/equipment/juicy-beast.png	EBF5 Flair Juicy Beast
+img/equipment/lightning-badge.png	EBF5 Flair Lightning Badge
+img/equipment/lucky-clover.png	EBF5 Flair Lucky Clover
+img/equipment/lucky-fish.png	EBF5 Flair Lucky Fish
+img/equipment/meow-meow-badge.png	EBF5 Flair Meow Meow Badge
+img/equipment/mini-drone.png	EBF5 Flair Mini Drone
+img/equipment/nano-machines-flair.png	EBF5 Flair Nano Machines
+img/equipment/narutomaki.png	EBF5 Flair Narutomaki
+img/equipment/peace-badge.png	EBF5 Flair Peace Badge
+img/equipment/pearl-necklace.png	EBF5 Flair Pearl Necklace
+img/equipment/pet-rock.png	EBF5 Flair Pet Rock
+img/equipment/pixel-glasses.png	EBF5 Flair Pixel Glasses
+img/equipment/platinum-star.png	EBF5 Flair Platinum Star
+img/equipment/pocket-watch.png	EBF5 Flair Pocket Watch
+img/equipment/ram-chip-flair.png	EBF5 Flair RAM Chip
+img/equipment/shield-medal.png	EBF5 Flair Shield Medal
+img/equipment/silver-cross.png	EBF5 Flair Silver Cross
+img/equipment/small-cloud.png	EBF5 Flair Small Cloud
+img/equipment/surgical-mask.png	EBF5 Flair Surgical Mask
+img/equipment/sword-medal.png	EBF5 Flair Sword Medal
+img/equipment/target-badge.png	EBF5 Flair Target Badge
+img/equipment/tentacle-flair.png	EBF5 Flair Tentacle
+img/equipment/tetromino.png	EBF5 Flair Tetromino
+img/equipment/the-one-rng.png	EBF5 Flair The One R*ng
+img/equipment/the-trforce.png	EBF5 Flair The Tr*force
+img/equipment/tooth.png	EBF5 Flair Tooth
