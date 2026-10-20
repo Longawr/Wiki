@@ -669,6 +669,1309 @@ window.EBF5DATA = {
       desc: 'Golem ngọc trai trắng sạch ở Crystal Caverns.',
       drops: [ 'Sea Shell (100%) x 2', 'Sacred Rune (25%) x 2', 'Moon Pearl (10%)' ],
       tips: [ 'Đất công phá hiệu quả.', 'Không dùng phép Thánh.' ]
+    },
+    /* Lượt 21 — kẻ địch còn lại sinh máy từ FoeTableEBF5 từng trang foe (dựng từ List of Foes = 216 unique; Lancelot trùng entry tay đã loại) */
+    {
+      id: 'acid-bomb', name: 'Acid Bomb', kind: 'Quái thường', image: 'img/enemies/acid-bomb.png',
+      elements: ['bio'],
+      res: { fire: 100, thunder: -50, ice: -50, earth: -80, bio: 100, bomb: -80, water: -50, wind: 100, 'burn&scorch': 100, 'poison&virus': 100, 'syphon&disable': 70, 'stagger&confuse': 100, 'death&doom': 70, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 50, evadown: 50 },
+      desc: 'Thành viên nhóm Bombs · HP 355 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 52 XP, 4 AP, 4 SP, 44 vàng · Không bắt Capture được.',
+      drops: [ 'Steel Plate (100%)', 'Copper Pipe (30%)', 'Gunpowder (30%)', 'Glass Shards (50%)', 'Bio Virus (50%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Các đòn thường dùng nguyên tố: Độc.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'amethyst-ore', name: 'Amethyst Ore', kind: 'Quái thường', image: 'img/enemies/amethyst-ore.png',
+      elements: ['wind', 'bomb'],
+      res: { fire: 50, thunder: 50, ice: 50, earth: 100, bio: 50, bomb: 50, water: 50, wind: 100, holy: 200, dark: -80, 'poison&virus': 100 },
+      desc: 'Thành viên nhóm Ores · HP 101 · Atk 4 · Def 4 · Mag 5 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 1.2 AP, 1.2 SP, 5 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Satin (10%)', 'Rainbow Ore (5%)' ],
+      tips: [ 'Yếu nhất hệ Bóng tối (−80%).', 'Hấp thụ Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Gió, Bom.' ]
+    },
+    {
+      id: 'ancient-monolith', name: 'Ancient Monolith', kind: 'Quái thường', image: 'img/enemies/ancient-monolith.png',
+      elements: ['thunder', 'earth'],
+      res: { fire: 100, thunder: 200, ice: -50, earth: 100, bio: 100, bomb: -80, wind: 100, holy: 200, dark: -50, 'burn&scorch': 100, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 50, 'stagger&confuse': 100, 'weaken&tired': 100, 'death&doom': 100, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40 },
+      desc: 'Thành viên nhóm Monoliths · HP 490 · Atk 4 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 200 XP, 19 AP, 19 SP, 150 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Brick (100%)', 'Brick (100%)', 'Brick (100%)', 'Gold Plate (15%)', 'Fried Egg (2%)' ],
+      tips: [ 'Yếu nhất hệ Bom (−80%).', 'Hấp thụ Sấm, Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Sấm, Đất.' ]
+    },
+    {
+      id: 'angry-chair', name: 'ANGRY CHAIR', kind: 'Quái thường', image: 'img/enemies/angry-chair.png',
+      elements: ['bomb'],
+      res: { fire: -50, wind: -50, holy: -50, 'chill&freeze': 80, 'weaken&tired': 100, 'death&doom': 100, atkdown: 60, magdown: 60, defdown: 20, mdedown: 20, accdown: 20, evadown: 20 },
+      desc: 'Thành viên nhóm Arcade · HP 965* · Atk 2 · Def 4 · Mag 2 · Mdf 4 · Acc 4.2 · Eva 4.4 · Thưởng: 111 XP, 15 AP, 15 SP, 130 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Soft Wood (75%)', 'Razor Claw (75%)', 'Soft Wood (75%)', 'Razor Claw (75%)', 'Satin (25%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−50%).', 'Các đòn thường dùng nguyên tố: Bom.' ]
+    },
+    {
+      id: 'anna-boss', name: 'Anna (boss)', kind: 'Boss', image: 'img/enemies/anna-boss.png',
+      elements: ['bio', 'wind', 'earth', 'thunder', 'water'],
+      res: { fire: -50, earth: 50, bio: 50, water: 50, wind: -50, 'burn&scorch': -100, 'chill&freeze': 100, 'death&doom': 100, 'weaken&tired': 50, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 20, evadown: 20 },
+      desc: 'HP 1102 · Atk 4 · Def 4 · Mag 7 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 125 XP, 20 AP, 20 SP, 200 vàng · Không bắt Capture được.',
+      drops: [ 'An Herb (100%)', 'An Herb (100%)', 'An Herb (100%)', 'Gash Root (100%)', 'Soft Wood (100%)' ],
+      tips: [ 'Yếu nhất hệ Đốt & Xém (−100%).', 'Các đòn thường dùng nguyên tố: Độc, Gió, Đất, Sấm, Nước.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'anna-doll', name: 'Anna Doll', kind: 'Quái thường', image: 'img/enemies/anna-doll.png',
+      elements: ['holy', 'bomb', 'water', 'ice', 'thunder'],
+      res: { fire: -50, holy: -80, dark: 200 },
+      desc: 'Thành viên nhóm Dolls · HP 220 · Atk 3 · Def 4.1 · Mag 4 · Mdf 3.9 · Acc 4 · Eva 4.1 · Thưởng: 55 XP, 5.1 AP, 5.1 SP, 37 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (100%)', 'An Herb (75%)', 'Butterfly Wing (30%)', 'Soft Wood (50%)', 'Super Tape (30%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Thánh, Bom, Nước, Băng, Sấm.' ]
+    },
+    {
+      id: 'beholder', name: 'Beholder', kind: 'Boss', image: 'img/enemies/beholder.png',
+      elements: ['bio', 'earth'],
+      res: { ice: -100, 'burn&scorch': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 100, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40, evadown: 40 },
+      desc: 'HP 2169 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 400 · Eva 0 · Thưởng: 250 XP, 25 AP, 25 SP, 150 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Bio Virus (100%)', 'Bio Virus (100%)', 'Bio Virus (100%)', 'Bio Virus (100%)', 'Dragon Scales (100%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−100%).', 'Các đòn thường dùng nguyên tố: Độc, Đất.' ]
+    },
+    {
+      id: 'big-chocolate-slime', name: 'Big Chocolate Slime', kind: 'Quái thường', image: 'img/enemies/big-chocolate-slime.png',
+      elements: ['earth'],
+      res: { earth: 200, bomb: -50, water: -80, wind: 100, dark: -50, 'death&doom': -100 },
+      desc: 'Thành viên nhóm Big Slimes · HP 470 · Atk 4.3 · Def 4 · Mag 4.3 · Mdf 4 · Acc 4 · Eva 2.5 · Thưởng: 55 XP, 8.5 AP, 9 SP, 52 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Earth Ball (100%)', 'Earth Ball (100%)', 'Earth Ball (100%)', 'Coffee (100%)', 'Cake (2%)' ],
+      tips: [ 'Yếu nhất hệ Chết ngay & Doom (−100%).', 'Hấp thụ Đất (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Đất.' ]
+    },
+    {
+      id: 'big-icecream-slime', name: 'Big Icecream Slime', kind: 'Quái thường', image: 'img/enemies/big-icecream-slime.png',
+      elements: ['ice', 'earth'],
+      res: { fire: -80, ice: 200, bomb: -50, wind: 50, dark: -50, 'death&doom': -100 },
+      desc: 'Thành viên nhóm Big Slimes · HP 470 · Atk 5 · Def 4 · Mag 5 · Mdf 4 · Acc 4 · Eva 2.5 · Thưởng: 55 XP, 8.5 AP, 9 SP, 52 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Snowball (100%)', 'Snowball (100%)', 'Snowball (100%)', 'Snowball (100%)', 'Snowball (100%)' ],
+      tips: [ 'Yếu nhất hệ Chết ngay & Doom (−100%).', 'Hấp thụ Băng (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Băng, Đất.' ]
+    },
+    {
+      id: 'big-lava-slime', name: 'Big Lava Slime', kind: 'Quái thường', image: 'img/enemies/big-lava-slime.png',
+      elements: ['fire', 'earth', 'dark'],
+      res: { fire: 200, ice: 50, earth: 50, water: -80, dark: -50, 'chill&freeze': 100, 'death&doom': -100 },
+      desc: 'Thành viên nhóm Big Slimes · HP 470 · Atk 5 · Def 4 · Mag 5 · Mdf 4 · Acc 4 · Eva 2.5 · Thưởng: 55 XP, 8.5 AP, 9 SP, 52 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Magma Chunk (40%)', 'Magma Chunk (40%)', 'Magma Chunk (40%)', 'Amber (20%)' ],
+      tips: [ 'Yếu nhất hệ Chết ngay & Doom (−100%).', 'Hấp thụ Lửa (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa, Đất, Bóng tối.' ]
+    },
+    {
+      id: 'big-mud-slime', name: 'Big Mud Slime', kind: 'Quái thường', image: 'img/enemies/big-mud-slime.png',
+      elements: ['bio', 'earth', 'water'],
+      res: { fire: -50, ice: -80, bio: 150, bomb: -50, water: 150, dark: -50, 'death&doom': -100 },
+      desc: 'Thành viên nhóm Big Slimes · HP 470 · Atk 5 · Def 4 · Mag 5 · Mdf 4 · Acc 4 · Eva 2.5 · Thưởng: 55 XP, 8.5 AP, 9 SP, 52 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Earth Ball (100%)', 'Jungle Flower (100%)', 'Jungle Flower (50%)', 'An Herb (100%)', 'Mushroom (2%)' ],
+      tips: [ 'Yếu nhất hệ Chết ngay & Doom (−100%).', 'Các đòn thường dùng nguyên tố: Độc, Đất, Nước.' ]
+    },
+    {
+      id: 'big-sand-slime', name: 'Big Sand Slime', kind: 'Quái thường', image: 'img/enemies/big-sand-slime.png',
+      elements: ['earth', 'water', 'bio'],
+      res: { ice: -50, earth: 100, bomb: -50, wind: -80, dark: -50, 'death&doom': -100 },
+      desc: 'Thành viên nhóm Big Slimes · HP 470 · Atk 4.3 · Def 4 · Mag 4.3 · Mdf 4 · Acc 4 · Eva 2.5 · Thưởng: 55 XP, 8.5 AP, 9 SP, 52 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Cactus (75%)', 'Cactus (75%)', 'Cactus (75%)', 'Bone Spike (50%)', 'Lollipop (2%)' ],
+      tips: [ 'Yếu nhất hệ Chết ngay & Doom (−100%).', 'Các đòn thường dùng nguyên tố: Đất, Nước, Độc.' ]
+    },
+    {
+      id: 'black-clay', name: 'Black Clay', kind: 'Quái thường', image: 'img/enemies/black-clay.png',
+      elements: ['dark', 'earth'],
+      res: { thunder: 100, earth: 200, bio: 100, water: -50, bomb: -50, holy: -100, dark: 200, 'burn&scorch': 100, 'poison&virus': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Clays · HP 297 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 29 XP, 3.5 AP, 3.8 SP, 15 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Brick (75%)', 'Belt Buckle (35%)', 'Leather (25%)', 'Opal (20%)', 'Dark Matter (2%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−100%).', 'Hấp thụ Đất, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Đất.' ]
+    },
+    {
+      id: 'black-wasp', name: 'Black Wasp', kind: 'Quái thường', image: 'img/enemies/black-wasp.png',
+      elements: ['wind'],
+      res: { fire: -50, thunder: -30, ice: -30, earth: 50, bio: 50, wind: -80, holy: -50, 'burn&scorch': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Giant Insects · HP 160 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.5 · Thưởng: 14 XP, 3 AP, 3 SP, 20 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Razor Claw (30%)', 'Cactus (25%)', 'Butterfly Wing (20%)', 'Amber (15%)', 'Bone Spike (10%)' ],
+      tips: [ 'Yếu nhất hệ Gió (−80%).', 'Các đòn thường dùng nguyên tố: Gió.' ]
+    },
+    {
+      id: 'blaze-hydra', name: 'Blaze Hydra', kind: 'Boss', image: 'img/enemies/blaze-hydra.png',
+      elements: ['fire', 'dark', 'water', 'bomb'],
+      res: { fire: 200, ice: 100, earth: -80, bomb: 200, water: -50, 'chill&freeze': 100, 'syphon&disable': 70, 'death&doom': 100, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 30, evadown: 30, dark: 200 },
+      desc: 'Thành viên nhóm Hydras · HP 1888 · Atk 4 · Def 4 · Mag 8 · Mdf 4 · Acc 150% · Eva 4 · Thưởng: 400 XP, 24 AP, 87 SP, 222 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Magma Chunk (50%)', 'Iron Plate (75%)', 'Amber (50%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Hấp thụ Lửa, Bom, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa, Bóng tối, Nước, Bom.' ]
+    },
+    {
+      id: 'blue-clay', name: 'Blue Clay', kind: 'Quái thường', image: 'img/enemies/blue-clay.png',
+      elements: ['wind'],
+      res: { fire: -100, thunder: 100, earth: 200, bio: 100, water: 100, bomb: -50, wind: 200, 'burn&scorch': 100, 'poison&virus': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Clays · HP 225 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 25 XP, 3 AP, 3.5 SP, 12 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Brick (75%)', 'Belt Buckle (35%)', 'Leather (25%)', 'White Feather (15%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−100%).', 'Hấp thụ Đất, Gió (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Gió.' ]
+    },
+    {
+      id: 'blue-creep', name: 'Blue Creep', kind: 'Quái thường', image: 'img/enemies/blue-creep.png',
+      elements: ['bomb'],
+      res: { thunder: -50, earth: -80, water: 100, wind: 50, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Creeps · HP 230 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.6 · Thưởng: 38 XP, 3.7 AP, 3.7 SP, 22 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Sea Shell (25%)', 'Razor Claw (15%)', 'Bone Spike (25%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Các đòn thường dùng nguyên tố: Bom.' ]
+    },
+    {
+      id: 'blue-crystal', name: 'Blue Crystal', kind: 'Quái thường', image: 'img/enemies/blue-crystal.png',
+      elements: ['ice', 'water'],
+      res: { fire: -100, ice: 200, water: 200, holy: 100, dark: -100, 'poison&virus': 100, 'chill&freeze': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Crystals · HP 340 · Atk 4 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 70 XP, 3 AP, 3 SP, 100 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Solid Water (50%)', 'Solid Water (50%)', 'Glass Shards (40%)', 'Rainbow Ore (20%)', 'Sapphire (5%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−100%).', 'Hấp thụ Băng, Nước (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Băng, Nước.' ]
+    },
+    {
+      id: 'blue-flybot', name: 'Blue Flybot', kind: 'Quái thường', image: 'img/enemies/blue-flybot.png',
+      elements: ['water', 'wind', 'ice'],
+      res: { thunder: -80, earth: 100, bio: 50, bomb: -50, water: 200, 'poison&virus': 100, 'syphon&disable': 50, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Flybots · HP 201 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 37 XP, 2.8 AP, 2.8 SP, 16 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Metal Gear (50%)', 'Plastic (50%)', 'Liquid Ice (50%)', 'Floppy (50%)', 'P2 Processor (5%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Hấp thụ Nước (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Nước, Gió, Băng.' ]
+    },
+    {
+      id: 'bone-bat', name: 'Bone Bat', kind: 'Quái thường', image: 'img/enemies/bone-bat.png',
+      elements: ['dark', 'wind'],
+      res: { earth: 100, wind: -80, holy: -80, dark: 200, 'weaken&tired': -100 },
+      desc: 'Thành viên nhóm Bats · HP 90 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.6 · Thưởng: 11 XP, 1.2 AP, 1.2 SP, 9 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Leather (15%)', 'Coffee (5%)', 'Razor Claw (5%)', 'Bone Spike (5%)' ],
+      tips: [ 'Yếu nhất hệ Yếu đi & Mỏi (−100%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Gió.' ]
+    },
+    {
+      id: 'bone-golem', name: 'Bone Golem', kind: 'Quái thường', image: 'img/enemies/bone-golem.png',
+      elements: ['earth', 'wind'],
+      res: { fire: 50, thunder: 50, ice: -80, earth: 200, bio: 50, bomb: -50, water: -50, wind: 100, holy: -50, dark: 50, 'chill&freeze': 100, 'poison&virus': 100, 'death&doom': 100, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 20, evadown: 20 },
+      desc: 'Thành viên nhóm Golems · HP 535 · Atk 4 · Def 4 · Mag 4 · Mdf 5 · Acc 4 · Eva 3.2 · Thưởng: 100 XP, 12 AP, 12 SP, 75 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Razor Claw (60%)', 'Belt Buckle (50%)', 'Silk (40%)', 'Bone Spike (30%)', 'Emerald (20%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−80%).', 'Hấp thụ Đất (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Đất, Gió.' ]
+    },
+    {
+      id: 'bosh', name: 'BOSH', kind: 'Boss', image: 'img/enemies/bosh.png',
+      elements: ['bio', 'water'],
+      res: { fire: -50, earth: 150, bio: 150, water: 150, wind: -50, dark: -50, 'chill&freeze': 80, 'syphon&disable': 50, 'weaken&tired': 50, 'death&doom': 100, atkdown: 20, magdown: 60, defdown: 20, mdedown: 60, accdown: 20, evadown: 20 },
+      desc: 'Thành viên nhóm Arcade · HP 1187* · Atk 2 · Def 4 · Mag 2 · Mdf 4 · Acc 4.5 · Eva 4.1 · Thưởng: 235 XP, 16 AP, 16 SP, 7 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'An Herb (75%)', 'Garlic (75%)', 'Gash Root (75%)', 'Jungle Flower (75%)', 'Cloudberries (25%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−50%).', 'Các đòn thường dùng nguyên tố: Độc, Nước.' ]
+    },
+    {
+      id: 'brown-bear', name: 'Brown Bear', kind: 'Quái thường', image: 'img/enemies/brown-bear.png',
+      elements: ['earth'],
+      res: { fire: -50, ice: 50, bio: -80, water: 50, wind: 50, 'chill&freeze': 70, 'stagger&confuse': -100, 'death&doom': 100, atkdown: 30, defdown: 30, earth: 50, dark: 50, holy: 50, magdown: 30, mdedown: 30 },
+      desc: 'Thành viên nhóm Bears · HP 422 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 55 XP, 8 AP, 8 SP, 40 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Earth Ball (50%)', 'Leather (100%)', 'Fine Fur (100%)', 'Razor Claw (10%)' ],
+      tips: [ 'Yếu nhất hệ Chững & Hoang mang (−100%).', 'Các đòn thường dùng nguyên tố: Đất.' ]
+    },
+    {
+      id: 'bubbler-mx-01', name: 'Bubbler MX-01', kind: 'Quái thường', image: 'img/enemies/bubbler-mx-01.png',
+      elements: ['bomb', 'ice', 'wind', 'water'],
+      res: { thunder: -80, earth: 50, bio: 50, bomb: -50, water: 200, wind: 50, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 100, 'death&doom': 100, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 20, evadown: 20 },
+      desc: 'Thành viên nhóm Defenders · HP 900 · Atk 4 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 210 XP, 23 AP, 23 SP, 220 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Spring (100%)', 'P2 Processor (50%)', 'Nano Fibre (50%)', 'Game Child (10%)', 'Riceball (2%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Hấp thụ Nước (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bom, Băng, Gió, Nước.' ]
+    },
+    {
+      id: 'burned-fallen', name: 'Burned Fallen', kind: 'Quái thường', image: 'img/enemies/burned-fallen.png',
+      elements: ['fire', 'bomb'],
+      res: { fire: 200, thunder: 100, ice: 100, bomb: 150, water: -80, holy: 100, dark: 200, 'weaken&tired': 100, 'death&doom': 100, bio: 100, atkdown: 30, defdown: 30, accdown: 30 },
+      desc: 'Thành viên nhóm Fallen · HP 249 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 35 XP, 3.8 AP, 3.8 SP, 28 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Copper Pipe (75%)', 'Metal Gear (50%)', 'Belt Buckle (33%)', 'Silk (20%)' ],
+      tips: [ 'Yếu nhất hệ Nước (−80%).', 'Hấp thụ Lửa, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa, Bom.' ]
+    },
+    {
+      id: 'cannon-turret', name: 'Cannon Turret', kind: 'Quái thường', image: 'img/enemies/cannon-turret.png',
+      elements: ['bomb', 'thunder'],
+      res: { thunder: -80, earth: -80, bio: 100, bomb: -50, water: -50, wind: 100, 'poison&virus': 100, 'stagger&confuse': 100 },
+      desc: 'Thành viên nhóm Turrets · HP 322 · Atk 4 · Def 4 · Mag 2* · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 32 XP, 3.8 AP, 3.8 SP, 30 vàng · Không bắt Capture được.',
+      drops: [ 'Steel Plate (50%)', 'Hand Bomb (100%)', 'Gunpowder (50%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Các đòn thường dùng nguyên tố: Bom, Sấm.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'cat-bomber', name: 'Cat Bomber', kind: 'Quái thường', image: 'img/enemies/cat-bomber.png',
+      elements: ['bomb'],
+      res: { fire: -50, thunder: -50, bio: -80, water: -50 },
+      desc: 'Thành viên nhóm Kitten Army · HP 60 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.4 · Thưởng: 10 XP, 1.2 AP, 1.2 SP, 9 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (50%)', 'Banana (15%)', 'Apple (10%)', 'Coffee (5%)' ],
+      tips: [ 'Yếu nhất hệ Độc (−80%).', 'Các đòn thường dùng nguyên tố: Bom.' ]
+    },
+    {
+      id: 'cat-ninja', name: 'Cat Ninja', kind: 'Quái thường', image: 'img/enemies/cat-ninja.png',
+      elements: ['bio', 'earth'],
+      res: { fire: -50, thunder: -50, bio: -80, water: -50 },
+      desc: 'Thành viên nhóm Kitten Army · HP 60 · Atk 3.6 · Def 4 · Mag 3.6 · Mdf 4 · Acc 4 · Eva 5.5 · Thưởng: 10 XP, 1.2 AP, 1.2 SP, 9 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (50%)', 'Shuriken (50%)', 'Energy Drink (33%)', 'Bio Virus (5%)' ],
+      tips: [ 'Yếu nhất hệ Độc (−80%).', 'Các đòn thường dùng nguyên tố: Độc, Đất.' ]
+    },
+    {
+      id: 'cat-sniper', name: 'Cat Sniper', kind: 'Quái thường', image: 'img/enemies/cat-sniper.png',
+      elements: ['bomb'],
+      res: { fire: -50, bio: -80, water: -50 },
+      desc: 'Thành viên nhóm Kitten Army · HP 60 · Atk 4 · Def 8* · Mag 4 · Mdf 8* · Acc 4 · Eva 4.1 · Thưởng: 10 XP, 1.2 AP, 1.2 SP, 9 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (25%)', 'Gunpowder (10%)', 'Iron Brew (33%)', 'Plastic (15%)', 'Coffee (5%)' ],
+      tips: [ 'Yếu nhất hệ Độc (−80%).', 'Các đòn thường dùng nguyên tố: Bom.' ]
+    },
+    {
+      id: 'cat-warrior', name: 'Cat Warrior', kind: 'Quái thường', image: 'img/enemies/cat-warrior.png',
+      res: { fire: -50, thunder: -50, bio: -80, water: -50 },
+      desc: 'Thành viên nhóm Kitten Army · HP 60 · Atk 4 · Def 8* · Mag 4 · Mdf 8* · Acc 4 · Eva 4.1 · Thưởng: 10 XP, 1.2 AP, 1.2 SP, 9 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (50%)', 'Iron Plate (15%)', 'Beer (33%)', 'Steel Plate (15%)' ],
+      tips: [ 'Yếu nhất hệ Độc (−80%).' ]
+    },
+    {
+      id: 'cat-wizard', name: 'Cat Wizard', kind: 'Quái thường', image: 'img/enemies/cat-wizard.png',
+      elements: ['bio', 'wind', 'ice', 'fire', 'thunder'],
+      res: { fire: -80, bio: -80, water: -50 },
+      desc: 'Thành viên nhóm Kitten Army · HP 60 · Atk 4 · Def 8* · Mag 4 · Mdf 8* · Acc 4 · Eva 4.1 · Thưởng: 10 XP, 1.2 AP, 1.2 SP, 9 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (50%)', 'Soft Wood (15%)', 'Cola (33%)', 'Sacred Rune (5%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Các đòn thường dùng nguyên tố: Độc, Gió, Băng, Lửa, Sấm.' ]
+    },
+    {
+      id: 'chibi-knight', name: 'Chibi Knight', kind: 'Boss', image: 'img/enemies/chibi-knight.png',
+      res: { fire: -50, thunder: -50, ice: -50, hpdown: 30, atkdown: 50, magdown: 50, defdown: 20, mdedown: 20, accdown: 50, evadown: 50 },
+      desc: 'HP 1200 · Atk 4.8 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.2 · Thưởng: 600 XP, 60 AP, 60 SP, 500 vàng · Không bắt Capture được.',
+      drops: [ 'Pumpkin (100%)', 'Crisps (100%)', 'Hamburger (100%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−50%).', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'chunky-gloop', name: 'Chunky Gloop', kind: 'Quái thường', image: 'img/enemies/chunky-gloop.png',
+      elements: ['earth', 'dark'],
+      res: { fire: 50, thunder: 50, ice: -80, earth: 50, bomb: -50, holy: -50, dark: 200, 'chill&freeze': -100, 'wet&dry': -100 },
+      desc: 'Thành viên nhóm Gloops · HP 158 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 23 XP, 2.2 AP, 2.2 SP, 16 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Brick (50%)', 'Leather (25%)', 'Geode (15%)' ],
+      tips: [ 'Yếu nhất hệ Lạnh & Đóng băng (−100%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Đất, Bóng tối.' ]
+    },
+    {
+      id: 'coral-boulder', name: 'Coral Boulder', kind: 'Quái thường', image: 'img/enemies/coral-boulder.png',
+      elements: ['water', 'earth'],
+      res: { fire: 50, thunder: 50, ice: -80, earth: 50, bio: 50, bomb: -50, water: 50, wind: 50, 'poison&virus': 100, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Boulders · HP 266 · Atk 4 · Def 5 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.6 · Thưởng: 48 XP, 6.6 AP, 6.6 SP, 44 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Rainbow Ore (75%)', 'Sea Shell (30%)', 'Sacred Rune (15%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−80%).', 'Các đòn thường dùng nguyên tố: Nước, Đất.' ]
+    },
+    {
+      id: 'coralia', name: 'CORALIA', kind: 'Boss', image: 'img/enemies/coralia.png',
+      elements: ['ice', 'bio', 'wind', 'water'],
+      res: { thunder: -50, ice: 200, bio: -50, water: 200, wind: 50, holy: 200, dark: -50, 'burn&scorch': 70, 'chill&freeze': 100, 'poison&virus': 70, 'syphon&disable': 100, 'weaken&tired': 50, 'death&doom': 100, hpdown: 50, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40, evadown: 40 },
+      desc: 'Thành viên nhóm Arcade · HP 2878* · Atk 3.6 · Def 4 · Mag 3.6 · Mdf 4 · Acc 5.5 · Eva 4.5 · Thưởng: 888 XP, 55 AP, 55 SP, 555 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Liquid Ice (100%)', 'Liquid Ice (100%)', 'Liquid Ice (100%)', 'Gold Plate (100%)', 'The Holy Grail (100%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−50%).', 'Hấp thụ Băng, Nước, Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Băng, Độc, Gió, Nước.' ]
+    },
+    {
+      id: 'cosmic-gigalith', name: 'Cosmic Gigalith', kind: 'Boss', image: 'img/enemies/cosmic-gigalith.png',
+      elements: ['ice', 'wind', 'bio', 'thunder', 'fire'],
+      res: { 'burn&scorch': 100, 'chill&freeze': 100, 'poison&virus': 100, 'death&doom': 100, hpdown: 30, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 50 },
+      desc: 'Thành viên nhóm Monoliths · HP 6267* · Atk 4.5* · Def 4 · Mag 4.5* · Mdf 4 · Acc 100% · Eva 5.5 · Thưởng: 800 XP, 80 AP, 150 SP, 1000 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Dark Rune (100%)', 'Dark Rune (100%)', 'Dark Rune (100%)', 'Dark Matter (50%)', 'Chili Pepper (30%)' ],
+      tips: [ 'Các đòn thường dùng nguyên tố: Băng, Gió, Độc, Sấm, Lửa.' ]
+    },
+    {
+      id: 'cosmic-monolith', name: 'Cosmic Monolith', kind: 'Quái thường', image: 'img/enemies/cosmic-monolith.png',
+      elements: ['dark', 'bomb', 'wind'],
+      res: { fire: 100, thunder: -80, ice: 100, earth: 100, bio: 100, bomb: 100, water: -80, wind: 100, holy: 100, dark: 200, 'burn&scorch': 100, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 50, 'stagger&confuse': 100, 'weaken&tired': 100, 'death&doom': 100, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40 },
+      desc: 'Thành viên nhóm Monoliths · HP 500 · Atk 4 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 8 · Thưởng: 500 XP, 25 AP, 25 SP, 200 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Dark Rune (80%)', 'Dark Rune (80%)', 'Lecko Brick (30%)', 'Dark Matter (15%)', 'Red Pill (2%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Bom, Gió.' ]
+    },
+    {
+      id: 'crucified-fallen', name: 'Crucified Fallen', kind: 'Quái thường', image: 'img/enemies/crucified-fallen.png',
+      elements: ['holy'],
+      res: { thunder: -80, earth: 150, bomb: 50, water: 50, holy: 200, dark: 100, 'weaken&tired': 100, 'death&doom': 100, fire: 50, ice: 50, bio: 100, atkdown: 30, defdown: 30, accdown: 30 },
+      desc: 'Thành viên nhóm Fallen · HP 249 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 35 XP, 3.8 AP, 3.8 SP, 28 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Steel Plate (50%)', 'Leather (30%)', 'Belt Buckle (33%)', 'Silk (15%)', 'Gold Plate (6%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Hấp thụ Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Thánh.' ]
+    },
+    {
+      id: 'crystal-hydra', name: 'Crystal Hydra', kind: 'Boss', image: 'img/enemies/crystal-hydra.png',
+      elements: ['ice', 'wind', 'holy', 'water'],
+      res: { fire: -30, thunder: -50, ice: 200, earth: -80, bomb: -50, wind: 200, 'burn&scorch': 100, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 70, 'death&doom': 100, hpdown: 30, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 30, evadown: 30, bio: 100, dark: 50 },
+      desc: 'Thành viên nhóm Hydras · HP 3542 · Atk 4 · Def 4 · Mag 8 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 555 XP, 24 AP, 24 SP, 222 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Solid Water (100%)', 'Glass Shards (75%)', 'Sapphire (20%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Hấp thụ Băng, Gió (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Băng, Gió, Thánh, Nước.' ]
+    },
+    {
+      id: 'dark-bush', name: 'Dark Bush', kind: 'Quái thường', image: 'img/enemies/dark-bush.png',
+      elements: ['wind'],
+      res: { fire: 50, ice: 50, earth: -50, bio: -50, holy: -80, dark: 50, 'stagger&confuse': -100 },
+      desc: 'Thành viên nhóm Bushes · HP 65 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 6.5 XP, 1 AP, 1 SP, 4.5 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Razor Claw (15%)', 'Bone Spike (2%)' ],
+      tips: [ 'Yếu nhất hệ Chững & Hoang mang (−100%).', 'Các đòn thường dùng nguyên tố: Gió.' ]
+    },
+    {
+      id: 'dead-pixel', name: 'Dead Pixel', kind: 'Quái thường', image: 'img/enemies/dead-pixel.png',
+      elements: ['dark', 'wind'],
+      res: { earth: 100, wind: 200, holy: -80, dark: 200, 'weaken&tired': -100, 'death&doom': 100, bio: 200, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 50, evadown: 50 },
+      desc: 'Thành viên nhóm Pixels · HP 264 · Atk 8 · Def 4 · Mag 8 · Mdf 4 · Acc 100% · Eva 5 · Thưởng: 21 XP, 2.1 AP, 7 SP, 14 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Leather (15%)', 'Floppy (10%)', 'Coffee (5%)', 'Razor Claw (5%)', 'Bone Spike (5%)' ],
+      tips: [ 'Yếu nhất hệ Yếu đi & Mỏi (−100%).', 'Hấp thụ Gió, Bóng tối, Độc (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Gió.' ]
+    },
+    {
+      id: 'defender-mk-iii', name: 'Defender Mk III', kind: 'Quái thường', image: 'img/enemies/defender-mk-iii.png',
+      elements: ['thunder', 'bomb'],
+      res: { thunder: 200, earth: 50, bio: 50, bomb: -50, water: -80, wind: 50, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 100, 'death&doom': 100, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 20, evadown: 20 },
+      desc: 'Thành viên nhóm Defenders · HP 900 · Atk 4 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 210 XP, 23 AP, 23 SP, 220 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Copper Pipe (100%)', 'P2 Processor (50%)', 'Nano Fibre (50%)', 'Game Child (10%)', 'Hard Nut (2%)' ],
+      tips: [ 'Yếu nhất hệ Nước (−80%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Sấm, Bom.' ]
+    },
+    {
+      id: 'demon-mirror', name: 'Demon Mirror', kind: 'Quái thường', image: 'img/enemies/demon-mirror.png',
+      elements: ['dark', 'fire'],
+      res: { fire: 200, thunder: -80, earth: 50, water: -50, holy: -50, dark: 200, 'heavy&light': -50 },
+      desc: 'Thành viên nhóm Mirrors · HP 221 · Atk 4 · Def 3.8 · Mag 4 · Mdf 4.2 · Acc 4 · Eva 4 · Thưởng: 39 XP, 4.1 AP, 4.1 SP, 32 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Iron Plate (25%)', 'Glass Shards (45%)', 'Silver Plate (15%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Hấp thụ Lửa, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Lửa.' ]
+    },
+    {
+      id: 'dirt-boulder', name: 'Dirt Boulder', kind: 'Quái thường', image: 'img/enemies/dirt-boulder.png',
+      elements: ['earth'],
+      res: { thunder: 50, earth: 50, bio: 50, bomb: -50, water: -80, wind: 50, 'poison&virus': 100, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Boulders · HP 266 · Atk 4 · Def 3.7 · Mag 4 · Mdf 3.7 · Acc 4 · Eva 4.2 · Thưởng: 48 XP, 6.6 AP, 6.6 SP, 44 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Earth Ball (75%)', 'Brick (50%)', 'Geode (20%)', 'Gash Root (10%)', 'Opal (5%)' ],
+      tips: [ 'Yếu nhất hệ Nước (−80%).', 'Các đòn thường dùng nguyên tố: Đất.' ]
+    },
+    {
+      id: 'drowned-fallen', name: 'Drowned Fallen', kind: 'Quái thường', image: 'img/enemies/drowned-fallen.png',
+      elements: ['wind', 'water'],
+      res: { thunder: 100, ice: 150, bomb: 50, water: 150, wind: 200, holy: 100, dark: 200, 'weaken&tired': 100, 'death&doom': 100, fire: 100, bio: 100, atkdown: 30, defdown: 30, accdown: 30 },
+      desc: 'Thành viên nhóm Fallen · HP 249 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 35 XP, 3.8 AP, 3.8 SP, 28 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Steel Plate (25%)', 'Geode (30%)', 'Belt Buckle (33%)', 'Silver Plate (10%)', 'Satin (10%)' ],
+      tips: [ 'Hấp thụ Gió, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Gió, Nước.' ]
+    },
+    {
+      id: 'earth-dragon', name: 'Earth Dragon', kind: 'Quái thường', image: 'img/enemies/earth-dragon.png',
+      elements: ['earth', 'fire', 'bio'],
+      res: { fire: 100, thunder: 100, ice: -80, earth: 200, bio: 50, bomb: 50, water: -50, wind: 100, 'chill&freeze': 70, 'syphon&disable': 70, 'death&doom': 100, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40, evadown: 40, dark: 200, 'weaken&tired': 70 },
+      desc: 'Thành viên nhóm Dragons · HP 899 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 277 XP, 22 AP, 22 SP, 260 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Brick (100%)', 'Earth Ball (100%)', 'Dragon Scales (60%)', 'Opal (35%)', 'Potato (2%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−80%).', 'Hấp thụ Đất, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Đất, Lửa, Độc.' ]
+    },
+    {
+      id: 'earthquake-bomb', name: 'Earthquake Bomb', kind: 'Quái thường', image: 'img/enemies/earthquake-bomb.png',
+      elements: ['earth'],
+      res: { fire: 100, thunder: -50, ice: -50, earth: -80, bio: 100, bomb: -80, water: -50, wind: 100, 'burn&scorch': 100, 'chill&freeze': 70, 'poison&virus': 100, 'syphon&disable': 70, 'stagger&confuse': 100, 'death&doom': 70, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 50, evadown: 50 },
+      desc: 'Thành viên nhóm Bombs · HP 555 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 55 XP, 4 AP, 4 SP, 48 vàng · Không bắt Capture được.',
+      drops: [ 'Steel Plate (100%)', 'Copper Pipe (30%)', 'Gunpowder (30%)', 'Iron Plate (75%)', 'Titanium (2%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Các đòn thường dùng nguyên tố: Đất.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'electric-bat', name: 'Electric Bat', kind: 'Quái thường', image: 'img/enemies/electric-bat.png',
+      elements: ['thunder'],
+      res: { thunder: 200, earth: 100, bio: -50, wind: -80, dark: 50, 'weaken&tired': -100 },
+      desc: 'Thành viên nhóm Bats · HP 90 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.6 · Thưởng: 11 XP, 1.2 AP, 1.2 SP, 9 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Butterfly Wing (20%)', 'Banana (10%)', 'Pumpkin (5%)', 'Pineapple (5%)' ],
+      tips: [ 'Yếu nhất hệ Yếu đi & Mỏi (−100%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Sấm.' ]
+    },
+    {
+      id: 'evil-eye', name: 'Evil Eye', kind: 'Quái thường', image: 'img/enemies/evil-eye.png',
+      elements: ['wind'],
+      res: { bio: 150, water: 150, holy: -80, dark: -80, 'death&doom': 70, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 50, earth: 100, bomb: 150, 'weaken&tired': 50 },
+      desc: 'HP 512 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4.4 · Eva 4.2 · Thưởng: 60 XP, 12 AP, 12 SP, 10 vàng · Không bắt Capture được.',
+      drops: [ 'Razor Claw (25%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−80%).', 'Các đòn thường dùng nguyên tố: Gió.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'eyeball', name: 'Eyeball', kind: 'Quái thường', image: 'img/enemies/eyeball.png',
+      res: { ice: -100, 'burn&scorch': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Unique · HP 197 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 400 · Eva 0 · Thưởng: 14 XP, 5 AP, 5 SP, 44 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Earth Ball (40%)', 'Earth Ball (40%)', 'Bio Virus (10%)', 'Cloudberries (5%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−100%).' ]
+    },
+    {
+      id: 'fabulous-gloop', name: 'Fabulous Gloop', kind: 'Quái thường', image: 'img/enemies/fabulous-gloop.png',
+      elements: ['dark', 'wind', 'bio', 'holy', 'thunder'],
+      res: { fire: -50, thunder: -50, ice: -50, earth: 50, bio: 50, holy: -80, dark: 200, 'burn&scorch': -100, 'chill&freeze': -100, 'syphon&disable': 50 },
+      desc: 'Thành viên nhóm Gloops · HP 227 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 23 XP, 2.2 AP, 2.2 SP, 16 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Jungle Flower (50%)', 'Raspberries (50%)', 'Soft Wood (50%)', 'Gash Root (25%)', 'Cloudberries (5%)' ],
+      tips: [ 'Yếu nhất hệ Đốt & Xém (−100%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Gió, Độc, Thánh, Sấm.' ]
+    },
+    {
+      id: 'fire-sprite', name: 'Fire Sprite', kind: 'Quái thường', image: 'img/enemies/fire-sprite.png',
+      elements: ['fire'],
+      res: { fire: 200, earth: -80, bio: -50, bomb: 150, water: -80, dark: -50, 'poison&virus': -50 },
+      desc: 'Thành viên nhóm Sprites · HP 166 · Atk 5 · Def 4 · Mag 5 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 21 XP, 3 AP, 2.2 SP, 20 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Raspberries (25%)', 'Watermelon (10%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Hấp thụ Lửa (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa.' ]
+    },
+    {
+      id: 'florn', name: 'Florn', kind: 'Quái thường', image: 'img/enemies/florn.png',
+      elements: ['bio'],
+      res: { fire: -50, thunder: 200, ice: -50, bio: 150, wind: -50, water: 150, 'poison&virus': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Flowers · HP 159 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 2.5 AP, 2.5 SP, 2 vàng · Không bắt Capture được.',
+      drops: [ 'Gash Root (75%)', 'Cactus (75%)', 'An Herb (30%)', 'Raspberries (25%)', 'Bone Spike (10%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−50%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Độc.' ]
+    },
+    {
+      id: 'frose', name: 'Frose', kind: 'Quái thường', image: 'img/enemies/frose.png',
+      elements: ['water', 'ice'],
+      res: { thunder: -80, ice: 200, bio: -50, water: 200, wind: -50, 'poison&virus': 100, 'chill&freeze': 100, 'syphon&disable': 50, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Flowers · HP 167 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 2.5 AP, 2.5 SP, 2 vàng · Không bắt Capture được.',
+      drops: [ 'Jungle Flower (75%)', 'Liquid Ice (50%)', 'An Herb (30%)', 'Blueberries (15%)', 'Sapphire (5%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Hấp thụ Băng, Nước (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Nước, Băng.' ]
+    },
+    {
+      id: 'frost-wraith', name: 'Frost Wraith', kind: 'Quái thường', image: 'img/enemies/frost-wraith.png',
+      elements: ['ice', 'dark'],
+      res: { fire: -80, ice: 200, wind: -80, holy: 200, dark: -80, 'chill&freeze': 100, 'weaken&tired': 100, 'death&doom': 100 },
+      desc: 'Thành viên nhóm Wraiths · HP 185 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 31 XP, 3.5 AP, 3.5 SP, 25 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Solid Water (50%)', 'Silk (10%)', 'Satin (5%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Hấp thụ Băng, Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Băng, Bóng tối.' ]
+    },
+    {
+      id: 'furry-slime', name: 'Furry Slime', kind: 'Quái thường', image: 'img/enemies/furry-slime.png',
+      res: { 'burn&scorch': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 40, defdown: 40, magdown: 40, mdedown: 40, accdown: 40, evadown: 40 },
+      desc: 'Thành viên nhóm Slimes · HP 103 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 400 · Eva 0 · Thưởng: 5 XP, 1.5 AP, 1.5 SP, 8 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Fine Fur (15%)', 'Fine Fur (15%)', 'Fine Fur (15%)' ],
+      tips: [ 'Đối chiếu số liệu từ bảng Statistics trên trang wiki gốc.' ]
+    },
+    {
+      id: 'fuzzy-worm', name: 'Fuzzy Worm', kind: 'Quái thường', image: 'img/enemies/fuzzy-worm.png',
+      res: { thunder: 200, earth: -50, bio: -80, dark: -50, 'poison&virus': -100 },
+      desc: 'Thành viên nhóm Worms · HP 72 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 6 XP, 1 AP, 1 SP, 6 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (15%)', 'Silk (5%)' ],
+      tips: [ 'Yếu nhất hệ Nhiễm độc & Virus (−100%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.' ]
+    },
+    {
+      id: 'giga-golem', name: 'Giga Golem', kind: 'Boss', image: 'img/enemies/giga-golem.png',
+      elements: ['fire', 'ice'],
+      res: { fire: -100, thunder: 50, ice: 50, earth: -50, bio: 50, bomb: -30, water: 50, wind: 50, 'burn&scorch': 100, 'poison&virus': 100, 'syphon&disable': 50, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 100, atkdown: 40, defdown: 40, magdown: 40, mdedown: 40, accdown: 40, evadown: 40 },
+      desc: 'Thành viên nhóm Golems · HP 1476 · Atk 4 · Def 4* · Mag 4 · Mdf 5* · Acc 4.4 · Eva 3.7 · Thưởng: 220 XP, 22 AP, 22 SP, 550 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Rainbow Ore (100%)', 'Rainbow Ore (100%)', 'Rainbow Ore (100%)', 'Ruby (100%)', 'Sapphire (100%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−100%).', 'Các đòn thường dùng nguyên tố: Lửa, Băng.' ]
+    },
+    {
+      id: 'giga-harpoon', name: 'Giga Harpoon', kind: 'Quái thường', image: 'img/enemies/giga-harpoon.png',
+      elements: ['thunder'],
+      res: { fire: 100, thunder: -50, ice: -50, earth: -80, bio: 100, bomb: -80, water: -50, wind: 100, 'burn&scorch': 100, 'chill&freeze': 50, 'poison&virus': 100, 'syphon&disable': 50, 'stagger&confuse': 100, 'death&doom': 50, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 50, evadown: 50 },
+      desc: 'Thành viên nhóm Turrets · HP 444 · Atk 2* · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 32 XP, 3.8 AP, 3.8 SP, 30 vàng · Không bắt Capture được.',
+      drops: [ 'Steel Plate (100%)', 'Metal Gear (100%)', 'Spring (100%)', 'Nano Fibre (20%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Các đòn thường dùng nguyên tố: Sấm.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'glacier-turtle', name: 'Glacier Turtle', kind: 'Quái thường', image: 'img/enemies/glacier-turtle.png',
+      elements: ['ice', 'earth'],
+      res: { fire: -50, thunder: 50, ice: 50, earth: -50, bomb: -50, water: 50, wind: 50, 'burn&scorch': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 50, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Turtles · HP 316 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.5 · Thưởng: 55 XP, 9 AP, 7 SP, 60 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Solid Water (100%)', 'Solid Water (50%)', 'Solid Water (25%)', 'Sapphire (5%)', 'Moon Pearl (5%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−50%).', 'Các đòn thường dùng nguyên tố: Băng, Đất.' ]
+    },
+    {
+      id: 'glaurung', name: 'Glaurung', kind: 'Boss', image: 'img/enemies/glaurung.png',
+      elements: ['earth', 'wind'],
+      res: { fire: 50, thunder: 100, ice: -80, earth: 100, water: -50, bomb: -30, bio: 50, wind: 100, 'chill&freeze': 100, 'syphon&disable': 100, 'weaken&tired': 50, 'death&doom': 100, hpdown: 30, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 30 },
+      desc: 'HP 2976 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4.5 · Eva 3 · Thưởng: 489 XP, 20 AP, 44 SP, 252 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Earth Ball (50%)', 'Earth Ball (50%)', 'Bone Spike (75%)', 'Bone Spike (75%)', 'Dragon Scales (100%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−80%).', 'Các đòn thường dùng nguyên tố: Đất, Gió.' ]
+    },
+    {
+      id: 'glob', name: 'GLOB', kind: 'Boss', image: 'img/enemies/glob.png',
+      elements: ['wind', 'earth', 'bio'],
+      res: { fire: -50, ice: -50, earth: 150, bio: 150, water: 50, holy: -50, dark: 100, 'chill&freeze': 80, 'weaken&tired': 50, 'death&doom': 100, hpdown: 45, atkdown: 60, magdown: 20, defdown: 20, mdedown: 20, accdown: 60, evadown: 20 },
+      desc: 'Thành viên nhóm Arcade · HP 3134* · Atk 2.5 · Def 2 · Mag 2.5 · Mdf 2 · Acc 4.2 · Eva 4.2 · Thưởng: 211 XP, 17 AP, 17 SP, 12 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Earth Ball (75%)', 'Gash Root (75%)', 'Amber (75%)', 'Bio Virus (75%)', 'Garlic (25%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−50%).', 'Các đòn thường dùng nguyên tố: Gió, Đất, Độc.' ]
+    },
+    {
+      id: 'god', name: 'God', kind: 'Boss', image: 'img/enemies/god.png',
+      res: { 'burn&scorch': 50, 'chill&freeze': 100, 'poison&virus': 50, 'syphon&disable': 50, 'weaken&tired': 50, 'death&doom': 100, hpdown: 50, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40, evadown: 40 },
+      desc: 'Thành viên nhóm Evil Players · HP 14000 · Atk 5.5 · Def 2.7 · Mag 6 · Mdf 2.7 · Acc 9 · Eva 9 · Thưởng: 1200 XP, 120 AP, 250 SP, 3000 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (100%)', 'Wool (100%)', 'Wool (100%)', 'Wool (100%)', 'Wool (100%)' ],
+      tips: [ 'Đối chiếu số liệu từ bảng Statistics trên trang wiki gốc.' ]
+    },
+    {
+      id: 'gray-pixel', name: 'Gray Pixel', kind: 'Quái thường', image: 'img/enemies/gray-pixel.png',
+      elements: ['thunder', 'bomb'],
+      res: { fire: -80, bio: 50, water: -50, 'stagger&confuse': -100, 'death&doom': 100, thunder: 200, bomb: 150, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 50, evadown: 50 },
+      desc: 'Thành viên nhóm Pixels · HP 1.11 · Atk 8 · Def 999 · Mag 8 · Mdf 999 · Acc 100% · Eva 4.2 · Thưởng: 22 XP, 2.1 AP, 9 SP, 16 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Steel Plate (20%)', 'Shuriken (25%)', 'Floppy (10%)', 'P2 Processor (2%)' ],
+      tips: [ 'Yếu nhất hệ Chững & Hoang mang (−100%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Sấm, Bom.' ]
+    },
+    {
+      id: 'green-pixel', name: 'Green Pixel', kind: 'Quái thường', image: 'img/enemies/green-pixel.png',
+      elements: ['bio', 'earth'],
+      res: { fire: -50, ice: -80, bio: 150, bomb: -50, water: 150, dark: -50, 'chill&freeze': 100, 'death&doom': -100, earth: 150, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 50, evadown: 50 },
+      desc: 'Thành viên nhóm Pixels · HP 256 · Atk 8 · Def 4 · Mag 8 · Mdf 4 · Acc 100% · Eva 3 · Thưởng: 17 XP, 1.9 AP, 6 SP, 12 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'An Herb (20%)', 'Gash Root (10%)', 'Earth Ball (10%)', 'Floppy (10%)' ],
+      tips: [ 'Yếu nhất hệ Chết ngay & Doom (−100%).', 'Các đòn thường dùng nguyên tố: Độc, Đất.' ]
+    },
+    {
+      id: 'gunslinger', name: 'Gunslinger', kind: 'Quái thường', image: 'img/enemies/gunslinger.png',
+      elements: ['bomb', 'thunder'],
+      res: { thunder: -50, earth: 50, bio: 100, bomb: -50, water: -80, 'burn&scorch': 100, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 50, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Slingers · HP 271 · Atk 3.5 · Def 4 · Mag 3.5 · Mdf 4 · Acc 4 · Eva 4.4 · Thưởng: 18 XP, 3.6 AP, 3.6 SP, 30 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Spring (75%)', 'Copper Pipe (75%)', 'Gunpowder (50%)', 'Hand Bomb (25%)', 'Leather (25%)' ],
+      tips: [ 'Yếu nhất hệ Nước (−80%).', 'Các đòn thường dùng nguyên tố: Bom, Sấm.' ]
+    },
+    {
+      id: 'guoye', name: 'GUOYE', kind: 'Boss', image: 'img/enemies/guoye.png',
+      elements: ['dark', 'wind', 'ice'],
+      res: { earth: -50, bio: 150, water: 150, wind: 150, holy: -50, dark: 150, 'chill&freeze': 100, 'syphon&disable': 50, 'stagger&confuse': 50, 'wet&dry': -100, 'heavy&light': -100, 'weaken&tired': 50, 'death&doom': 100, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 60, evadown: 60 },
+      desc: 'Thành viên nhóm Arcade · HP 1543* · Atk 5 · Def 4 · Mag 5 · Mdf 4 · Acc 4.4 · Eva 4.4 · Thưởng: 222 XP, 18 AP, 22 SP, 88 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Butterfly Wing (75%)', 'Butterfly Wing (75%)', 'Butterfly Wing (75%)', 'Moon Pearl (75%)', 'Star Fragment (25%)' ],
+      tips: [ 'Yếu nhất hệ Ướt & Khô (−100%).', 'Các đòn thường dùng nguyên tố: Bóng tối, Gió, Băng.' ]
+    },
+    {
+      id: 'hardy-gloop', name: 'Hardy Gloop', kind: 'Quái thường', image: 'img/enemies/hardy-gloop.png',
+      elements: ['ice', 'dark'],
+      res: { fire: 50, thunder: 50, ice: 200, bomb: -80, wind: 50, holy: -50, dark: 200, 'chill&freeze': 100, 'wet&dry': -100 },
+      desc: 'Thành viên nhóm Gloops · HP 158 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 23 XP, 2.2 AP, 2.2 SP, 16 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Glass Shards (25%)', 'Rainbow Ore (75%)', 'Sacred Rune (15%)' ],
+      tips: [ 'Yếu nhất hệ Ướt & Khô (−100%).', 'Hấp thụ Băng, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Băng, Bóng tối.' ]
+    },
+    {
+      id: 'harpoon-turret', name: 'Harpoon Turret', kind: 'Quái thường', image: 'img/enemies/harpoon-turret.png',
+      elements: ['thunder'],
+      res: { thunder: -80, ice: -50, earth: -80, bio: 100, bomb: -50, wind: 100, 'poison&virus': 100, 'stagger&confuse': 100 },
+      desc: 'Thành viên nhóm Turrets · HP 344 · Atk 2* · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 32 XP, 3.8 AP, 3.8 SP, 30 vàng · Không bắt Capture được.',
+      drops: [ 'Steel Plate (50%)', 'Metal Gear (75%)', 'Spring (100%)', 'Nano Fibre (10%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Các đòn thường dùng nguyên tố: Sấm.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'haunted-tree', name: 'Haunted Tree', kind: 'Quái thường', image: 'img/enemies/haunted-tree.png',
+      elements: ['bio', 'dark', 'earth'],
+      res: { fire: -100, 'burn&scorch': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Trees · HP 298 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 400 · Eva 0 · Thưởng: 15 XP, 6 AP, 6 SP, 25 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Gash Root (80%)', 'Soft Wood (80%)', 'Amber (20%)', 'An Herb (20%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−100%).', 'Các đòn thường dùng nguyên tố: Độc, Bóng tối, Đất.' ]
+    },
+    {
+      id: 'heasy', name: 'Heasy', kind: 'Quái thường', image: 'img/enemies/heasy.png',
+      elements: ['earth'],
+      res: { fire: -50, ice: -50, bio: -50, wind: -50, water: 150, holy: 200, dark: -80, 'syphon&disable': 50, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Flowers · HP 143 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 2.5 AP, 2.5 SP, 2 vàng · Không bắt Capture được.',
+      drops: [ 'Jungle Flower (75%)', 'Butterfly Wing (50%)', 'An Herb (30%)', 'Garlic (30%)', 'Moon Pearl (5%)' ],
+      tips: [ 'Yếu nhất hệ Bóng tối (−80%).', 'Hấp thụ Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Đất.' ]
+    },
+    {
+      id: 'hermit-creep', name: 'Hermit Creep', kind: 'Quái thường', image: 'img/enemies/hermit-creep.png',
+      elements: ['water'],
+      res: { fire: 50, thunder: -50, earth: -80, bio: -50, water: 200, wind: 50, holy: -50, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Creeps · HP 230 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.6 · Thưởng: 38 XP, 3.7 AP, 3.7 SP, 22 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Sea Shell (100%)', 'Liquid Ice (50%)', 'Razor Claw (30%)', 'Bone Spike (5%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Hấp thụ Nước (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Nước.' ]
+    },
+    {
+      id: 'jack', name: 'Jack', kind: 'Boss', image: 'img/enemies/jack.png',
+      elements: ['fire', 'bomb', 'earth'],
+      res: { fire: 50, thunder: -80, earth: -50, bio: 100, bomb: -50, wind: 100, 'burn&scorch': 100, 'poison&virus': 100, 'syphon&disable': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 100, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40, evadown: 40 },
+      desc: 'HP 2366 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4.2 · Eva 4 · Thưởng: 220 XP, 20 AP, 20 SP, 160 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Pumpkin (100%)', 'Pumpkin (100%)', 'P2 Processor (100%)', 'Titanium (100%)', 'Game Child (100%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Các đòn thường dùng nguyên tố: Lửa, Bom, Đất.' ]
+    },
+    {
+      id: 'jet-fish', name: 'Jet Fish', kind: 'Quái thường', image: 'img/enemies/jet-fish.png',
+      elements: ['bomb', 'thunder', 'wind'],
+      res: { thunder: -80, earth: 100, bio: 50, bomb: -50, wind: -50, 'poison&virus': 100 },
+      desc: 'Thành viên nhóm Fishes · HP 164 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 31 XP, 2.8 AP, 2.8 SP, 17 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Spring (25%)', 'Hand Bomb (75%)', 'Gunpowder (25%)', 'Super Tape (25%)', 'Metal Gear (25%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Các đòn thường dùng nguyên tố: Bom, Sấm, Gió.' ]
+    },
+    {
+      id: 'jotun', name: 'Jotun', kind: 'Boss', image: 'img/enemies/jotun.png',
+      elements: ['earth', 'bomb'],
+      res: { ice: -80, bio: -50, water: -50, 'chill&freeze': 100, 'syphon&disable': 100, 'death&doom': 100, atkdown: 10, magdown: 10, defdown: 10, mdedown: 10, accdown: 10, evadown: 10 },
+      desc: 'HP 2100 · Atk 3.5 · Def 4 · Mag 3.5 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 150 XP, 25 AP, 25 SP, 300 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Hand Bomb (100%)', 'Pretzel (100%)', 'Leather (100%)', 'Hamburger (100%)', 'Topaz (100%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−80%).', 'Các đòn thường dùng nguyên tố: Đất, Bom.' ]
+    },
+    {
+      id: 'king-slime', name: 'King Slime', kind: 'Boss', image: 'img/enemies/king-slime.png',
+      elements: ['bomb', 'earth'],
+      res: { 'burn&scorch': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Big Slimes · HP 1005 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 400 · Eva 0 · Thưởng: 125 XP, 18 AP, 18 SP, 300 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (100%)', 'Brick (100%)', 'Gunpowder (100%)', 'Hand Bomb (100%)', 'Steel Plate (100%)' ],
+      tips: [ 'Các đòn thường dùng nguyên tố: Bom, Đất.' ]
+    },
+    {
+      id: 'lance-doll', name: 'Lance Doll', kind: 'Quái thường', image: 'img/enemies/lance-doll.png',
+      elements: ['bomb'],
+      res: { fire: -50, holy: -80, dark: 200 },
+      desc: 'Thành viên nhóm Dolls · HP 210 · Atk 4 · Def 3.9 · Mag 4 · Mdf 4.1 · Acc 4 · Eva 4 · Thưởng: 55 XP, 5.1 AP, 5.1 SP, 37 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (100%)', 'Floppy (50%)', 'Gunpowder (50%)', 'Super Tape (30%)', 'Plastic (25%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bom.' ]
+    },
+    {
+      id: 'laser-turret', name: 'Laser Turret', kind: 'Quái thường', image: 'img/enemies/laser-turret.png',
+      elements: ['thunder', 'holy'],
+      res: { earth: -80, bio: 100, bomb: -50, water: -50, wind: 100, dark: -80, 'poison&virus': 100, 'stagger&confuse': 100 },
+      desc: 'Thành viên nhóm Turrets · HP 302 · Atk 4 · Def 4 · Mag 2* · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 32 XP, 3.8 AP, 3.8 SP, 30 vàng · Không bắt Capture được.',
+      drops: [ 'Steel Plate (25%)', 'Metal Gear (50%)', 'Glass Shards (50%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Các đòn thường dùng nguyên tố: Sấm, Thánh.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'lava-turtle', name: 'Lava Turtle', kind: 'Quái thường', image: 'img/enemies/lava-turtle.png',
+      elements: ['fire', 'earth'],
+      res: { fire: 50, thunder: 50, ice: -50, earth: -50, water: -50, wind: 50, 'burn&scorch': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 50, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Turtles · HP 324 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.5 · Thưởng: 55 XP, 9 AP, 7 SP, 60 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Magma Chunk (100%)', 'Magma Chunk (50%)', 'Magma Chunk (25%)', 'Ruby (5%)', 'Dragon Scales (5%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−50%).', 'Các đòn thường dùng nguyên tố: Lửa, Đất.' ]
+    },
+    {
+      id: 'lost-fallen', name: 'Lost Fallen', kind: 'Quái thường', image: 'img/enemies/lost-fallen.png',
+      elements: ['ice', 'wind', 'earth'],
+      res: { fire: -80, thunder: 100, ice: 200, bomb: 50, wind: 150, holy: 100, dark: 200, 'chill&freeze': 100, 'weaken&tired': 100, 'death&doom': 100, water: 100, bio: 100, atkdown: 30, defdown: 30, accdown: 30 },
+      desc: 'Thành viên nhóm Fallen · HP 249 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 35 XP, 3.8 AP, 3.8 SP, 28 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Fine Fur (75%)', 'Leather (30%)', 'Belt Buckle (33%)', 'Steel Plate (25%)', 'Mythril Shards (2%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Hấp thụ Băng, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Băng, Gió, Đất.' ]
+    },
+    {
+      id: 'mage-dog', name: 'Mage Dog', kind: 'Quái thường', image: 'img/enemies/mage-dog.png',
+      elements: ['dark', 'holy'],
+      res: { bio: -80, holy: 150, dark: 150, 'chill&freeze': 50, 'death&doom': 100 },
+      desc: 'Thành viên nhóm Dogs · HP 244 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 62 XP, 4 AP, 4 SP, 40 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Fine Fur (33%)', 'Sacred Rune (20%)', 'Silk (30%)', 'Satin (15%)', 'Dark Rune (10%)' ],
+      tips: [ 'Yếu nhất hệ Độc (−80%).', 'Các đòn thường dùng nguyên tố: Bóng tối, Thánh.' ]
+    },
+    {
+      id: 'marble-boulder', name: 'Marble Boulder', kind: 'Quái thường', image: 'img/enemies/marble-boulder.png',
+      elements: ['wind'],
+      res: { fire: 50, thunder: 50, ice: 50, earth: 50, bio: 50, bomb: -50, water: 50, wind: 50, holy: 200, dark: -80, 'poison&virus': 100, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Boulders · HP 266 · Atk 4 · Def 4 · Mag 4 · Mdf 5 · Acc 4 · Eva 3.6 · Thưởng: 48 XP, 6.6 AP, 6.6 SP, 44 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Sacred Rune (35%)', 'Silk (20%)', 'Satin (5%)' ],
+      tips: [ 'Yếu nhất hệ Bóng tối (−80%).', 'Hấp thụ Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Gió.' ]
+    },
+    {
+      id: 'matt-doll', name: 'Matt Doll', kind: 'Quái thường', image: 'img/enemies/matt-doll.png',
+      elements: ['holy'],
+      res: { fire: -50, holy: -80, dark: 200 },
+      desc: 'Thành viên nhóm Dolls · HP 240 · Atk 4 · Def 4.4 · Mag 4 · Mdf 3.7 · Acc 4 · Eva 4 · Thưởng: 55 XP, 5.1 AP, 5.1 SP, 37 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (100%)', 'Steel Plate (50%)', 'Super Tape (30%)', 'Plastic (40%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Thánh.' ]
+    },
+    {
+      id: 'metal-idol', name: 'Metal Idol', kind: 'Quái thường', image: 'img/enemies/metal-idol.png',
+      elements: ['earth'],
+      res: { fire: -80, bio: 50, water: -50, 'stagger&confuse': -100 },
+      desc: 'Thành viên nhóm Idols · HP 68 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.2 · Thưởng: 6 XP, 1 AP, 1 SP, 7 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Steel Plate (20%)', 'Shuriken (25%)', 'Floppy (10%)' ],
+      tips: [ 'Yếu nhất hệ Chững & Hoang mang (−100%).', 'Các đòn thường dùng nguyên tố: Đất.' ]
+    },
+    {
+      id: 'muddy-bush', name: 'Muddy Bush', kind: 'Quái thường', image: 'img/enemies/muddy-bush.png',
+      elements: ['bio'],
+      res: { fire: -50, ice: -80, water: 150, 'stagger&confuse': -100 },
+      desc: 'Thành viên nhóm Bushes · HP 65 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 6.5 XP, 1 AP, 1 SP, 4.5 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Gash Root (20%)', 'Earth Ball (10%)', 'An Herb (10%)' ],
+      tips: [ 'Yếu nhất hệ Chững & Hoang mang (−100%).', 'Các đòn thường dùng nguyên tố: Độc.' ]
+    },
+    {
+      id: 'mutant-chomper', name: 'Mutant Chomper', kind: 'Quái thường', image: 'img/enemies/mutant-chomper.png',
+      elements: ['bio', 'dark'],
+      res: { fire: -50, thunder: 50, ice: 50, earth: 50, bio: 200, water: 50, holy: -50, dark: 200, 'chill&freeze': 50, 'death&doom': 70, atkdown: 60, defdown: 60, wind: 50, bomb: 50 },
+      desc: 'Thành viên nhóm Chompers · HP 588 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 80 XP, 8.5 AP, 8.5 SP, 48 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Gash Root (100%)', 'Bone Spike (30%)', 'Bio Virus (50%)', 'Dragon Scales (10%)', 'Dark Matter (3%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−50%).', 'Hấp thụ Độc, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Độc, Bóng tối.' ]
+    },
+    {
+      id: 'natalie-doll', name: 'Natalie Doll', kind: 'Quái thường', image: 'img/enemies/natalie-doll.png',
+      elements: ['fire', 'ice', 'thunder'],
+      res: { fire: -50, holy: -80, dark: 200 },
+      desc: 'Thành viên nhóm Dolls · HP 190 · Atk 4 · Def 3.7 · Mag 3.6 · Mdf 4.4 · Acc 4 · Eva 4 · Thưởng: 55 XP, 5.1 AP, 5.1 SP, 37 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (100%)', 'Super Tape (30%)', 'Jungle Flower (30%)', 'Silk (30%)', 'Satin (10%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa, Băng, Sấm.' ]
+    },
+    {
+      id: 'neon-valhalla', name: 'Neon Valhalla', kind: 'Boss', image: 'img/enemies/neon-valhalla.png',
+      elements: ['wind', 'bomb'],
+      res: { fire: 100, thunder: -50, ice: -50, earth: -80, bio: 100, bomb: -80, water: -50, wind: 100, 'burn&scorch': 100, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 100, 'stagger&confuse': 100, 'death&doom': 100, hpdown: 30, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 80, evadown: 80 },
+      desc: 'HP 8000 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 2.5 · Thưởng: 270 XP, 44 AP, 44 SP, 420 vàng · Không bắt Capture được.',
+      drops: [ 'Steel Plate (100%)', 'Copper Pipe (100%)', 'Gunpowder (100%)', 'P2 Processor (100%)', 'Titanium (100%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Các đòn thường dùng nguyên tố: Gió, Bom.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'nolegs-doll', name: 'NoLegs Doll', kind: 'Quái thường', image: 'img/enemies/nolegs-doll.png',
+      elements: ['dark', 'wind', 'water'],
+      res: { fire: -50, holy: -80, dark: 200 },
+      desc: 'Thành viên nhóm Dolls · HP 150 · Atk 4 · Def 3.6 · Mag 4 · Mdf 3.6 · Acc 4 · Eva 6 · Thưởng: 55 XP, 5.1 AP, 5.1 SP, 37 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Wool (100%)', 'White Feather (50%)', 'Silk (10%)', 'Super Tape (30%)', 'Plastic (30%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Gió, Nước.' ]
+    },
+    {
+      id: 'nuclear-bomb', name: 'Nuclear Bomb', kind: 'Quái thường', image: 'img/enemies/nuclear-bomb.png',
+      elements: ['fire'],
+      res: { thunder: -80, ice: -50, earth: -80, bio: 100, bomb: -50, water: -50, wind: 100, 'poison&virus': 100, 'stagger&confuse': 100 },
+      desc: 'Thành viên nhóm Bombs · HP 589 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 52 XP, 4 AP, 4 SP, 44 vàng · Không bắt Capture được.',
+      drops: [ 'Steel Plate (50%)', 'Gunpowder (50%)', 'Spring (40%)', 'Plutonium Core (2%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Các đòn thường dùng nguyên tố: Lửa.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'obsidian-boulder', name: 'Obsidian Boulder', kind: 'Quái thường', image: 'img/enemies/obsidian-boulder.png',
+      elements: ['fire'],
+      res: { fire: 200, earth: 50, bio: 50, bomb: -50, water: -80, holy: -50, dark: 50, 'poison&virus': 100, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Boulders · HP 266 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.6 · Thưởng: 48 XP, 6.6 AP, 6.6 SP, 44 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Gunpowder (25%)', 'Magma Chunk (20%)', 'Magma Chunk (10%)', 'Ruby (5%)' ],
+      tips: [ 'Yếu nhất hệ Nước (−80%).', 'Hấp thụ Lửa (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa.' ]
+    },
+    {
+      id: 'omega-dragon', name: 'Omega Dragon', kind: 'Quái thường', image: 'img/enemies/omega-dragon.png',
+      elements: ['fire', 'wind', 'bomb', 'holy', 'water'],
+      res: { fire: 200, bio: -50, holy: 200, dark: -80, 'chill&freeze': 100, 'syphon&disable': 100, 'death&doom': 100, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40, evadown: 40, thunder: 200, ice: 200, earth: 100, wind: 100, 'weaken&tired': 70 },
+      desc: 'Thành viên nhóm Dragons · HP 1234 · Atk 4 · Def 4 · Mag 6 · Mdf 4 · Acc 5 · Eva 4 · Thưởng: 399 XP, 24 AP, 24 SP, 330 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Dragon Scales (60%)', 'Dragon Scales (60%)', 'Silk (50%)', 'The Holy Grail (10%)', 'Crispy Bacon (2%)' ],
+      tips: [ 'Yếu nhất hệ Bóng tối (−80%).', 'Hấp thụ Lửa, Thánh, Sấm, Băng (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa, Gió, Bom, Thánh, Nước.' ]
+    },
+    {
+      id: 'origami-dragon', name: 'Origami Dragon', kind: 'Quái thường', image: 'img/enemies/origami-dragon.png',
+      elements: ['wind', 'fire'],
+      res: { fire: -80, earth: 100, water: -80, wind: -80, holy: 200, dark: -80, 'chill&freeze': 100, 'syphon&disable': 50, 'wet&dry': -100, 'heavy&light': -100, 'weaken&tired': 50, 'death&doom': 100, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Dragons · HP 525 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4.2 · Eva 6 · Thưởng: 165 XP, 14 AP, 14 SP, 125 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Razor Claw (75%)', 'Super Tape (75%)', 'Bone Spike (35%)', 'Satin (35%)', 'World Map (2%)' ],
+      tips: [ 'Yếu nhất hệ Ướt & Khô (−100%).', 'Hấp thụ Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Gió, Lửa.' ]
+    },
+    {
+      id: 'origami-wraith', name: 'Origami Wraith', kind: 'Quái thường', image: 'img/enemies/origami-wraith.png',
+      elements: ['dark', 'fire'],
+      res: { fire: -80, water: -80, wind: -80, holy: 200, dark: -80, 'burn&scorch': -100, 'wet&dry': -100, 'heavy&light': -100, 'weaken&tired': 100, 'death&doom': 100 },
+      desc: 'Thành viên nhóm Wraiths · HP 180 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4.4 · Eva 5 · Thưởng: 31 XP, 3.5 AP, 3.5 SP, 25 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Leather (25%)', 'Belt Buckle (25%)', 'Silk (10%)', 'Satin (5%)', 'Gold Plate (5%)' ],
+      tips: [ 'Yếu nhất hệ Đốt & Xém (−100%).', 'Hấp thụ Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Lửa.' ]
+    },
+    {
+      id: 'panda-bear', name: 'Panda Bear', kind: 'Quái thường', image: 'img/enemies/panda-bear.png',
+      elements: ['bio', 'earth'],
+      res: { fire: -80, water: 50, wind: 50, holy: 200, dark: 200, 'chill&freeze': 70, 'stagger&confuse': -100, 'death&doom': 100, atkdown: 30, defdown: 30, earth: 50, bio: 50, magdown: 30, mdedown: 30 },
+      desc: 'Thành viên nhóm Bears · HP 422 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 68 XP, 8 AP, 8 SP, 40 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'An Herb (100%)', 'Leather (100%)', 'Fine Fur (100%)', 'Razor Claw (20%)', 'Bread (2%)' ],
+      tips: [ 'Yếu nhất hệ Chững & Hoang mang (−100%).', 'Hấp thụ Thánh, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Độc, Đất.' ]
+    },
+    {
+      id: 'papalotl', name: 'Papalotl', kind: 'Boss', image: 'img/enemies/papalotl.png',
+      res: { fire: -80, water: 50, earth: 200, wind: -50, bio: -30, 'chill&freeze': 100, 'syphon&disable': 100, 'death&doom': 100, hpdown: 30, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 30 },
+      desc: 'HP 1878 · Atk 5.5 · Def 4.8 · Mag 5.5 · Mdf 3.5 · Acc 4.4 · Eva 4.4 · Thưởng: 198 XP, 20 AP, 24 SP, 122 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Jungle Flower (100%)', 'An Herb (75%)', 'Belt Buckle (50%)', 'Soft Wood (25%)', 'Stick (15%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Hấp thụ Đất (200%): đòn hệ này lại hồi máu cho nó.' ]
+    },
+    {
+      id: 'peridot-ore', name: 'Peridot Ore', kind: 'Quái thường', image: 'img/enemies/peridot-ore.png',
+      elements: ['bio'],
+      res: { fire: -80, thunder: 50, ice: -50, earth: 100, bio: 200, bomb: -50, water: 50, wind: -50, 'poison&virus': 100 },
+      desc: 'Thành viên nhóm Ores · HP 101 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 1.2 AP, 1.2 SP, 5 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Geode (50%)', 'Rainbow Ore (5%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Hấp thụ Độc (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Độc.' ]
+    },
+    {
+      id: 'phoenix', name: 'PHOENIX', kind: 'Boss', image: 'img/enemies/phoenix.png',
+      elements: ['dark', 'fire'],
+      res: { fire: 200, thunder: -50, ice: -50, earth: 100, bio: -50, water: -50, wind: -50, holy: -50, dark: 200, 'chill&freeze': 80, 'syphon&disable': 80, 'weaken&tired': 50, 'death&doom': 100, atkdown: 20, magdown: 60, defdown: 20, mdedown: 20, accdown: 60, evadown: 20 },
+      desc: 'Thành viên nhóm Arcade · HP 534* · Atk 4 · Def 3 · Mag 4 · Mdf 6 · Acc 4 · Eva 5* · Thưởng: 75 XP, 10 AP, 10 SP, 100 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'White Feather (75%)', 'Cactus (75%)', 'Amber (75%)', 'Magma Chunk (75%)', 'Razor Claw (25%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−50%).', 'Hấp thụ Lửa, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Lửa.' ]
+    },
+    {
+      id: 'pink-squid', name: 'Pink Squid', kind: 'Quái thường', image: 'img/enemies/pink-squid.png',
+      elements: ['water', 'ice', 'dark', 'bomb'],
+      res: { thunder: -80, ice: -50, earth: -80, bio: -50, water: 200, wind: 50, 'chill&freeze': 70, 'death&doom': 50, accdown: 60 },
+      desc: 'Thành viên nhóm Squids · HP 722 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 144 XP, 17.5 AP, 17.5 SP, 111 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Sea Shell (100%)', 'Liquid Ice (75%)', 'Liquid Ice (75%)', 'Moon Pearl (5%)', 'Sushi (2%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Hấp thụ Nước (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Nước, Băng, Bóng tối, Bom.' ]
+    },
+    {
+      id: 'poseidon', name: 'Poseidon', kind: 'Boss', image: 'img/enemies/poseidon.png',
+      elements: ['water', 'wind', 'earth', 'ice', 'bio'],
+      res: { fire: 50, thunder: 100, ice: -80, earth: 200, bio: 100, bomb: -80, water: 200, wind: 100, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 100, 'weaken&tired': 100, 'death&doom': 100, hpdown: 30, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40 },
+      desc: 'HP 5800 · Atk 6 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 1000 XP, 60 AP, 60 SP, 500 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Sacred Rune (100%)', 'Liquid Ice (100%)', 'Solid Water (100%)', 'Sapphire (100%)', 'Diamond (100%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−80%).', 'Hấp thụ Đất, Nước (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Nước, Gió, Đất, Băng, Độc.' ]
+    },
+    {
+      id: 'praetorian', name: 'Praetorian', kind: 'Boss', image: 'img/enemies/praetorian.png',
+      elements: ['thunder', 'bomb', 'fire', 'dark'],
+      res: { fire: 50, thunder: -50, ice: 50, earth: 100, bio: 100, bomb: -80, water: -50, wind: -80, 'poison&virus': 100, 'syphon&disable': 100, 'chill&freeze': 100, 'death&doom': 100, hpdown: 50, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 50, evadown: 50 },
+      desc: 'HP 4377 · Atk 4 · Def 4 · Mag 8 · Mdf 4 · Acc 4.5 · Eva 5 · Thưởng: 450 XP, 33 AP, 33 SP, 500 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Iron Plate (100%)', 'Iron Plate (100%)', 'Ruby (100%)', 'P2 Processor (100%)', 'Titanium (100%)' ],
+      tips: [ 'Yếu nhất hệ Bom (−80%).', 'Các đòn thường dùng nguyên tố: Sấm, Bom, Lửa, Bóng tối.' ]
+    },
+    {
+      id: 'protector', name: 'Protector', kind: 'Boss', image: 'img/enemies/protector.png',
+      elements: ['bomb', 'earth', 'thunder', 'fire'],
+      res: { fire: 50, thunder: 200, earth: 100, bio: 100, bomb: -50, water: -80, wind: 100, holy: 50, dark: -80, 'burn&scorch': 100, 'poison&virus': 100, 'syphon&disable': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 100, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40, evadown: 40 },
+      desc: 'HP 2511 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4.3 · Eva 3.8 · Thưởng: 0 XP, 0 AP, 30 SP, 0 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Metal Gear (100%)', 'Metal Gear (100%)', 'Metal Gear (100%)', 'P2 Processor (100%)', 'Plutonium Core (100%)' ],
+      tips: [ 'Yếu nhất hệ Nước (−80%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bom, Đất, Sấm, Lửa.' ]
+    },
+    {
+      id: 'prototype-9x', name: 'Prototype 9X', kind: 'Quái thường', image: 'img/enemies/prototype-9x.png',
+      elements: ['dark', 'bomb'],
+      res: { fire: 50, thunder: -80, ice: 50, earth: 50, bio: 50, bomb: -50, water: -80, wind: 50, dark: 200, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 100, 'death&doom': 100, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 20, evadown: 20 },
+      desc: 'Thành viên nhóm Defenders · HP 900 · Atk 4 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 210 XP, 23 AP, 23 SP, 220 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Steel Plate (100%)', 'P2 Processor (50%)', 'Nano Fibre (50%)', 'Dark Rune (25%)', 'Plutonium Core (5%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Bom.' ]
+    },
+    {
+      id: 'pumpkus', name: 'PUMPKUS', kind: 'Quái thường', image: 'img/enemies/pumpkus.png',
+      elements: ['bio', 'earth'],
+      res: { fire: -50, earth: -50, bio: 150, water: 150, wind: -50, dark: -50, 'chill&freeze': 80, 'death&doom': 100, atkdown: 20, magdown: 20, defdown: 60, mdedown: 60, accdown: 20, evadown: 20 },
+      desc: 'Thành viên nhóm Arcade · HP 456* · Atk 1* · Def 4* · Mag 1* · Mdf 4* · Acc 4* · Eva 3.5* · Thưởng: 156 XP, 12 AP, 16 SP, 16 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Pumpkin (75%)', 'Pumpkin (75%)', 'Pumpkin (75%)', 'Pumpkin (75%)', 'Watermelon (25%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−50%).', 'Các đòn thường dùng nguyên tố: Độc, Đất.' ]
+    },
+    {
+      id: 'purple-squid', name: 'Purple Squid', kind: 'Quái thường', image: 'img/enemies/purple-squid.png',
+      elements: ['dark', 'bio', 'bomb'],
+      res: { thunder: -80, ice: -50, earth: -80, bio: 200, water: 200, wind: 50, holy: -80, 'chill&freeze': 70, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Squids · HP 611 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 111 XP, 16 AP, 16 SP, 95 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Razor Claw (100%)', 'Razor Claw (100%)', 'Bone Spike (50%)', 'Bio Virus (50%)', 'Poptart (2%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Hấp thụ Độc, Nước (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Độc, Bom.' ]
+    },
+    {
+      id: 'quartz-ore', name: 'Quartz Ore', kind: 'Quái thường', image: 'img/enemies/quartz-ore.png',
+      elements: ['holy'],
+      res: { thunder: 50, ice: -50, earth: 100, bio: 50, bomb: -50, wind: -50, holy: 200, dark: -80, 'poison&virus': 100 },
+      desc: 'Thành viên nhóm Ores · HP 101 · Atk 4 · Def 4 · Mag 4.4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 1.2 AP, 1.2 SP, 5 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Sacred Rune (20%)', 'Rainbow Ore (5%)' ],
+      tips: [ 'Yếu nhất hệ Bóng tối (−80%).', 'Hấp thụ Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Thánh.' ]
+    },
+    {
+      id: 'red-bush', name: 'Red Bush', kind: 'Quái thường', image: 'img/enemies/red-bush.png',
+      elements: ['bio', 'wind'],
+      res: { fire: -80, earth: -50, bio: -80, water: 150, wind: -50, 'burn&scorch': -100, 'stagger&confuse': -100, 'wet&dry': -100 },
+      desc: 'Thành viên nhóm Bushes · HP 65 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 6.5 XP, 1 AP, 1 SP, 4.5 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Gash Root (20%)', 'Soft Wood (10%)', 'An Herb (10%)' ],
+      tips: [ 'Yếu nhất hệ Đốt & Xém (−100%).', 'Các đòn thường dùng nguyên tố: Độc, Gió.' ]
+    },
+    {
+      id: 'red-clay', name: 'Red Clay', kind: 'Quái thường', image: 'img/enemies/red-clay.png',
+      elements: ['earth', 'fire'],
+      res: { fire: 200, thunder: 100, ice: -100, earth: 200, bio: 100, water: -50, bomb: -50, 'burn&scorch': 100, 'poison&virus': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Clays · HP 225 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 25 XP, 3 AP, 3.5 SP, 12 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Brick (75%)', 'Belt Buckle (35%)', 'Leather (25%)', 'Geode (15%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−100%).', 'Hấp thụ Lửa, Đất (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Đất, Lửa.' ]
+    },
+    {
+      id: 'red-creep', name: 'Red Creep', kind: 'Quái thường', image: 'img/enemies/red-creep.png',
+      elements: ['wind'],
+      res: { thunder: -50, earth: -80, water: 100, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Creeps · HP 230 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.6 · Thưởng: 38 XP, 3.7 AP, 3.7 SP, 22 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Sea Shell (25%)', 'Razor Claw (15%)', 'White Feather (100%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Các đòn thường dùng nguyên tố: Gió.' ]
+    },
+    {
+      id: 'red-crystal', name: 'Red Crystal', kind: 'Quái thường', image: 'img/enemies/red-crystal.png',
+      elements: ['fire'],
+      res: { fire: 200, ice: -100, bomb: 200, holy: -100, dark: 100, 'poison&virus': 100, 'chill&freeze': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Crystals · HP 340 · Atk 4 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 70 XP, 3 AP, 3 SP, 100 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Magma Chunk (50%)', 'Magma Chunk (50%)', 'Glass Shards (40%)', 'Rainbow Ore (20%)', 'Ruby (5%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−100%).', 'Hấp thụ Lửa, Bom (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa.' ]
+    },
+    {
+      id: 'red-pixel', name: 'Red Pixel', kind: 'Quái thường', image: 'img/enemies/red-pixel.png',
+      elements: ['fire'],
+      res: { fire: 200, earth: 150, bio: -80, water: 150, wind: -50, 'burn&scorch': -100, 'stagger&confuse': -100, 'wet&dry': -100, 'death&doom': 100, dark: 50, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 50, evadown: 50 },
+      desc: 'Thành viên nhóm Pixels · HP 295 · Atk 8 · Def 4 · Mag 8 · Mdf 4 · Acc 100% · Eva 4.5 · Thưởng: 18 XP, 2 AP, 8 SP, 12 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Gash Root (20%)', 'Soft Wood (10%)', 'An Herb (10%)', 'Floppy (10%)' ],
+      tips: [ 'Yếu nhất hệ Đốt & Xém (−100%).', 'Hấp thụ Lửa (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa.' ]
+    },
+    {
+      id: 'red-wasp', name: 'Red Wasp', kind: 'Quái thường', image: 'img/enemies/red-wasp.png',
+      elements: ['wind', 'bio'],
+      res: { fire: -50, thunder: -30, ice: -30, earth: 50, bio: 50, wind: -80, holy: -50, 'burn&scorch': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Giant Insects · HP 104 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 5.5 · Thưởng: 12 XP, 2.6 AP, 2.6 SP, 18 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Butterfly Wing (50%)', 'Butterfly Wing (50%)' ],
+      tips: [ 'Yếu nhất hệ Gió (−80%).', 'Các đòn thường dùng nguyên tố: Gió, Độc.' ]
+    },
+    {
+      id: 'rescue-dog', name: 'Rescue Dog', kind: 'Quái thường', image: 'img/enemies/rescue-dog.png',
+      res: { bio: -50, dark: -80, 'chill&freeze': 50 },
+      desc: 'Thành viên nhóm Dogs · HP 138 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 17 XP, 2.2 AP, 2.2 SP, 15 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Iron Brew (20%)', 'Beer (20%)', 'Cola (20%)', 'Energy Drink (20%)', 'Coffee (10%)' ],
+      tips: [ 'Yếu nhất hệ Bóng tối (−80%).' ]
+    },
+    {
+      id: 'roasted-gloop', name: 'Roasted Gloop', kind: 'Quái thường', image: 'img/enemies/roasted-gloop.png',
+      elements: ['dark', 'fire'],
+      res: { fire: 200, earth: -80, water: -50, holy: -50, dark: 200, 'wet&dry': -100 },
+      desc: 'Thành viên nhóm Gloops · HP 158 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 23 XP, 2.2 AP, 2.2 SP, 16 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Garlic (50%)', 'Gunpowder (50%)', 'Soft Wood (25%)', 'Magma Chunk (15%)' ],
+      tips: [ 'Yếu nhất hệ Ướt & Khô (−100%).', 'Hấp thụ Lửa, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Lửa.' ]
+    },
+    {
+      id: 'robo', name: 'ROBO', kind: 'Boss', image: 'img/enemies/robo.png',
+      elements: ['thunder', 'bomb'],
+      res: { fire: 50, thunder: -50, ice: 50, bio: 100, bomb: -50, water: -50, wind: 100, 'chill&freeze': 80, 'syphon&disable': 80, 'weaken&tired': 100, 'death&doom': 100, atkdown: 60, magdown: 20, defdown: 60, mdedown: 20, accdown: 20, evadown: 20 },
+      desc: 'Thành viên nhóm Arcade · HP 112* · Atk 2 · Def 40 · Mag 2 · Mdf 40 · Acc 4 · Eva 4 · Thưởng: 220 XP, 16 AP, 16 SP, 111 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Steel Plate (75%)', 'Copper Pipe (75%)', 'Plastic (75%)', 'Metal Gear (75%)', 'P2 Processor (25%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−50%).', 'Các đòn thường dùng nguyên tố: Sấm, Bom.' ]
+    },
+    {
+      id: 'rock-sprite', name: 'Rock Sprite', kind: 'Quái thường', image: 'img/enemies/rock-sprite.png',
+      elements: ['earth'],
+      res: { thunder: 100, ice: -50, earth: 200, bio: -50, bomb: -80, water: -50, wind: 100, dark: -50, 'poison&virus': -50 },
+      desc: 'Thành viên nhóm Sprites · HP 166 · Atk 5 · Def 4 · Mag 5 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 21 XP, 3 AP, 2.2 SP, 20 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Brick (25%)', 'Pretzel (10%)' ],
+      tips: [ 'Yếu nhất hệ Bom (−80%).', 'Hấp thụ Đất (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Đất.' ]
+    },
+    {
+      id: 'ruby-ore', name: 'Ruby Ore', kind: 'Quái thường', image: 'img/enemies/ruby-ore.png',
+      elements: ['fire'],
+      res: { fire: 200, thunder: 50, ice: -50, earth: 100, bio: 50, bomb: -50, water: -80, wind: -50, 'poison&virus': 100 },
+      desc: 'Thành viên nhóm Ores · HP 101 · Atk 4 · Def 4 · Mag 4.5 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 1.2 AP, 1.2 SP, 5 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Magma Chunk (25%)', 'Rainbow Ore (5%)' ],
+      tips: [ 'Yếu nhất hệ Nước (−80%).', 'Hấp thụ Lửa (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa.' ]
+    },
+    {
+      id: 'sand-tail', name: 'Sand Tail', kind: 'Quái thường', image: 'img/enemies/sand-tail.png',
+      elements: ['earth'],
+      res: { fire: 50, ice: -50, thunder: 50, earth: 50, water: -50, wind: 50, 'burn&scorch': 100, 'poison&virus': 50, 'syphon&disable': 70, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 50, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40, evadown: 40 },
+      desc: 'Thành viên nhóm Giant Worms · HP 303 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 17 XP, 7 AP, 7 SP, 0 vàng · Không bắt Capture được.',
+      drops: [ 'Earth Ball (100%)', 'Earth Ball (50%)', 'Earth Ball (25%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−50%).', 'Các đòn thường dùng nguyên tố: Đất.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'sand-worm', name: 'Sand Worm', kind: 'Boss', image: 'img/enemies/sand-worm.png',
+      elements: ['wind', 'earth', 'bio'],
+      res: { fire: 50, ice: -50, thunder: 50, earth: 50, water: -50, wind: 50, 'burn&scorch': 100, 'poison&virus': 50, 'syphon&disable': 70, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 100, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40, evadown: 40 },
+      desc: 'Thành viên nhóm Worms (EBF2-4) · HP 2266 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4.4 · Eva 4 · Thưởng: 280 XP, 30 AP, 30 SP, 350 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Razor Claw (100%)', 'Razor Claw (100%)', 'Bone Spike (100%)', 'Bone Spike (100%)', 'Bio Virus (100%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−50%).', 'Các đòn thường dùng nguyên tố: Gió, Đất, Độc.' ]
+    },
+    {
+      id: 'sandstone-boulder', name: 'Sandstone Boulder', kind: 'Quái thường', image: 'img/enemies/sandstone-boulder.png',
+      elements: ['earth'],
+      res: { fire: 50, thunder: 50, ice: -80, earth: 50, bio: 50, bomb: -50, water: -50, wind: 50, 'poison&virus': 100, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Boulders · HP 266 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.6 · Thưởng: 48 XP, 6.6 AP, 6.6 SP, 44 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Brick (100%)', 'Sea Shell (20%)', 'Amber (10%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−80%).', 'Các đòn thường dùng nguyên tố: Đất.' ]
+    },
+    {
+      id: 'sapphire-ore', name: 'Sapphire Ore', kind: 'Quái thường', image: 'img/enemies/sapphire-ore.png',
+      elements: ['water'],
+      res: { fire: 50, thunder: -80, ice: -50, earth: 100, bio: 50, bomb: -50, water: 200, wind: -50, 'poison&virus': 100 },
+      desc: 'Thành viên nhóm Ores · HP 101 · Atk 4 · Def 4 · Mag 2.5 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 1.2 AP, 1.2 SP, 5 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Liquid Ice (35%)', 'Rainbow Ore (5%)' ],
+      tips: [ 'Yếu nhất hệ Sấm (−80%).', 'Hấp thụ Nước (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Nước.' ]
+    },
+    {
+      id: 'scaly-worm', name: 'Scaly Worm', kind: 'Quái thường', image: 'img/enemies/scaly-worm.png',
+      elements: ['water'],
+      res: { thunder: -80, ice: -50, earth: -50, bio: -80, water: 200, 'poison&virus': -100 },
+      desc: 'Thành viên nhóm Worms · HP 77 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.5 · Thưởng: 6 XP, 1 AP, 1 SP, 6 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Blueberries (15%)', 'Silk (5%)' ],
+      tips: [ 'Yếu nhất hệ Nhiễm độc & Virus (−100%).', 'Hấp thụ Nước (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Nước.' ]
+    },
+    {
+      id: 'shockwave-bomb', name: 'Shockwave Bomb', kind: 'Quái thường', image: 'img/enemies/shockwave-bomb.png',
+      elements: ['wind'],
+      res: { fire: 100, thunder: -50, ice: -50, earth: -80, bio: 100, bomb: -80, water: -50, wind: 100, 'burn&scorch': 100, 'chill&freeze': 70, 'poison&virus': 100, 'syphon&disable': 70, 'stagger&confuse': 100, 'death&doom': 70, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 50, evadown: 50 },
+      desc: 'Thành viên nhóm Bombs · HP 446 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 52 XP, 4 AP, 4 SP, 44 vàng · Không bắt Capture được.',
+      drops: [ 'Steel Plate (100%)', 'Copper Pipe (30%)', 'Gunpowder (30%)', 'Spring (50%)', 'Metal Gear (75%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Các đòn thường dùng nguyên tố: Gió.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'skeleton-cat', name: 'Skeleton Cat', kind: 'Quái thường', image: 'img/enemies/skeleton-cat.png',
+      elements: ['dark'],
+      res: { fire: -50, water: -50, holy: -80, thunder: 50, bio: 50, wind: 50, dark: 200, 'death&doom': 100 },
+      desc: 'Thành viên nhóm Kitten Army · HP 74 · Atk 4 · Def 8* · Mag 4 · Mdf 8* · Acc 4.2 · Eva 4.2 · Thưởng: 12 XP, 2 AP, 2 SP, 12 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Belt Buckle (20%)', 'Iron Plate (20%)', 'Leather (20%)', 'Steel Plate (20%)', 'Old Boots (2%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối.' ]
+    },
+    {
+      id: 'skeleton-hand', name: 'Skeleton Hand', kind: 'Quái thường', image: 'img/enemies/skeleton-hand.png',
+      elements: ['dark', 'ice', 'wind', 'fire'],
+      res: { earth: -80, bio: 50, bomb: 50, wind: 50, holy: -50, dark: 100, 'death&doom': 100 },
+      desc: 'Thành viên nhóm Hands · HP 144 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.9 · Thưởng: 21 XP, 2.2 AP, 2.2 SP, 14 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Iron Plate (25%)', 'Soft Wood (25%)', 'Hand Bomb (33%)', 'Shuriken (33%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Các đòn thường dùng nguyên tố: Bóng tối, Băng, Gió, Lửa.' ]
+    },
+    {
+      id: 'slimy-tentacle', name: 'Slimy Tentacle', kind: 'Quái thường', image: 'img/enemies/slimy-tentacle.png',
+      elements: ['bio', 'wind', 'ice'],
+      res: { bio: 150, fire: -80, thunder: -80, ice: -80, 'chill&freeze': 100, 'weaken&tired': 50, 'death&doom': 50, hpdown: 30, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 20 },
+      desc: 'HP 623 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4.1 · Eva 4 · Thưởng: 90 XP, 6 AP, 6 SP, 20 vàng · Không bắt Capture được.',
+      drops: [ 'Bio Virus (25%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Các đòn thường dùng nguyên tố: Độc, Gió, Băng.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'snek', name: 'SNEK', kind: 'Quái thường', image: 'img/enemies/snek.png',
+      elements: ['bio', 'earth'],
+      res: { earth: -50, bio: -50, 'chill&freeze': 80, 'syphon&disable': 50, 'hravy&light': 50, 'weaken&tired': 50, 'death&doom': 80, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 60, evadown: 60 },
+      desc: 'Thành viên nhóm Arcade · HP 1839* · Atk 3 · Def 3.7 · Mag 3 · Mdf 4.4 · Acc 4.4 · Eva 5.66 · Thưởng: 130 XP, 10 AP, 16 SP, 66 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Razor Claw (75%)', 'Leather (75%)', 'Amber (75%)', 'Raspberries (75%)', 'Dragon Scales (25%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−50%).', 'Các đòn thường dùng nguyên tố: Độc, Đất.' ]
+    },
+    {
+      id: 'snow-bat', name: 'Snow Bat', kind: 'Quái thường', image: 'img/enemies/snow-bat.png',
+      elements: ['wind', 'ice'],
+      res: { thunder: -80, ice: 100, earth: 100, holy: 50, 'weaken&tired': -100 },
+      desc: 'Thành viên nhóm Bats · HP 90 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.6 · Thưởng: 11 XP, 1.2 AP, 1.2 SP, 9 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Snowball (25%)', 'Leather (15%)', 'Glass Shards (5%)', 'Solid Water (10%)' ],
+      tips: [ 'Yếu nhất hệ Yếu đi & Mỏi (−100%).', 'Các đòn thường dùng nguyên tố: Gió, Băng.' ]
+    },
+    {
+      id: 'snowflake', name: 'Snowflake', kind: 'Boss', image: 'img/enemies/snowflake.png',
+      res: { 'chill&freeze': 100, 'syphon&disable': 100, 'death&doom': 100, hpdown: 50, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40, evadown: 40, 'burn&scorch': 50, 'wet&dry': 50, 'heavy&light': 50, 'poison&virus': 50, 'stagger&confuse': 50, 'weaken&tired': 50 },
+      desc: 'HP 10000 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 200% · Eva 4.5 · Thưởng: 2200 XP, 60 AP, 135 SP, 500 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Plastic (100%)', 'Plastic (100%)', 'Lecko Brick (100%)', 'Game Child (100%)', 'Espresso (100%)' ],
+      tips: [ 'Đối chiếu số liệu từ bảng Statistics trên trang wiki gốc.' ]
+    },
+    {
+      id: 'sol-and-skadi', name: 'Sól and Skadi', kind: 'Boss', image: 'img/enemies/sol-and-skadi.png',
+      elements: ['earth', 'fire', 'ice'],
+      res: { fire: -80, ice: 200, bio: -50, bomb: -50, water: 50, 'chill&freeze': 100, 'syphon&disable': 100, 'death&doom': 100, atkdown: 10, magdown: 10, defdown: 10, mdedown: 10, accdown: 10, evadown: 10, earth: 50, dark: 100, holy: 100 },
+      desc: 'HP 1900 · Atk 3.3 · Def 4 · Mag 3.3 · Mdf 4 · Acc 120% · Eva 3.8 · Thưởng: 120 XP, 20 AP, 95 SP, 220 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Leather (100%)', 'Solid Water (100%)', 'Satin (100%)', 'Solid Water (100%)', 'Sapphire (100%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Hấp thụ Băng (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Đất, Lửa, Băng.' ]
+    },
+    {
+      id: 'spikey-tentacle', name: 'Spikey Tentacle', kind: 'Quái thường', image: 'img/enemies/spikey-tentacle.png',
+      elements: ['wind', 'bio', 'earth'],
+      res: { bio: 150, fire: -80, thunder: -80, ice: -80, 'chill&freeze': 100, 'weaken&tired': 50, 'death&doom': 50, hpdown: 30, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 20, water: 150, bomb: 150 },
+      desc: 'HP 656 · Atk 8 · Def 4 · Mag 8 · Mdf 4 · Acc 4.1 · Eva 5.5 · Thưởng: 90 XP, 6 AP, 6 SP, 20 vàng · Không bắt Capture được.',
+      drops: [ 'Bone Spike (25%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Các đòn thường dùng nguyên tố: Gió, Độc, Đất.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'steam-fish', name: 'Steam Fish', kind: 'Quái thường', image: 'img/enemies/steam-fish.png',
+      elements: ['wind', 'bomb'],
+      res: { ice: -80, earth: 100, bio: 50, bomb: -50, wind: -50, 'poison&virus': 100 },
+      desc: 'Thành viên nhóm Fishes · HP 135 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.3 · Thưởng: 26 XP, 2.8 AP, 2.8 SP, 16 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Spring (25%)', 'Metal Gear (50%)', 'Copper Pipe (75%)', 'Leather (25%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−80%).', 'Các đòn thường dùng nguyên tố: Gió, Bom.' ]
+    },
+    {
+      id: 'steel-wraith', name: 'Steel Wraith', kind: 'Quái thường', image: 'img/enemies/steel-wraith.png',
+      elements: ['dark', 'bomb'],
+      res: { wind: -80, holy: -80, dark: 200, 'weaken&tired': 100, 'death&doom': 100 },
+      desc: 'Thành viên nhóm Wraiths · HP 185 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 31 XP, 3.5 AP, 3.5 SP, 25 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Steel Plate (75%)', 'Iron Plate (20%)', 'Gunpowder (20%)', 'Hand Bomb (33%)', 'Shuriken (33%)' ],
+      tips: [ 'Yếu nhất hệ Gió (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Bom.' ]
+    },
+    {
+      id: 'stumpy-gloop', name: 'Stumpy Gloop', kind: 'Quái thường', image: 'img/enemies/stumpy-gloop.png',
+      elements: ['dark', 'earth'],
+      res: { fire: -80, thunder: -50, earth: 50, water: 50, holy: -50, dark: 200, 'burn&scorch': -100, 'wet&dry': -100 },
+      desc: 'Thành viên nhóm Gloops · HP 158 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.8 · Thưởng: 23 XP, 2.2 AP, 2.2 SP, 16 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'An Herb (50%)', 'Apple (50%)', 'Soft Wood (50%)', 'Gash Root (25%)' ],
+      tips: [ 'Yếu nhất hệ Đốt & Xém (−100%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Đất.' ]
+    },
+    {
+      id: 'stunflower', name: 'Stunflower', kind: 'Quái thường', image: 'img/enemies/stunflower.png',
+      elements: ['thunder'],
+      res: { fire: -50, thunder: 200, ice: -50, bio: -50, wind: -50, water: 150, 'syphon&disable': 50, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Flowers · HP 168 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 2.5 AP, 2.5 SP, 2 vàng · Không bắt Capture được.',
+      drops: [ 'Gash Root (75%)', 'Amber (35%)', 'An Herb (30%)', 'Cloudberries (10%)', 'Topaz (5%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−50%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Sấm.' ]
+    },
+    {
+      id: 'super-chibi-knight', name: 'Super Chibi Knight', kind: 'Boss', image: 'img/enemies/super-chibi-knight.png',
+      elements: ['fire', 'thunder', 'ice'],
+      res: { fire: 50, thunder: 50, ice: 50, bio: -50, dark: 100, 'chill&freeze': 100, 'syphon&disable': 100, 'death&doom': 100, hpdown: 30, atkdown: 50, magdown: 50, defdown: 20, mdedown: 20, accdown: 50, evadown: 50 },
+      desc: 'HP 2000 · Atk 5 · Def 4 · Mag 5 · Mdf 4 · Acc 4 · Eva 4.2 · Thưởng: 600 XP, 60 AP, 60 SP, 500 vàng · Không bắt Capture được.',
+      drops: [ 'Apple (100%)', 'Raspberries (100%)', 'Cupcake (100%)', 'Orange Juice (100%)', 'Pizza (100%)' ],
+      tips: [ 'Yếu nhất hệ Độc (−50%).', 'Các đòn thường dùng nguyên tố: Lửa, Sấm, Băng.', 'Không bắt được bằng Capture.' ]
+    },
+    {
+      id: 'swordslinger', name: 'Swordslinger', kind: 'Quái thường', image: 'img/enemies/swordslinger.png',
+      elements: ['bomb'],
+      res: { thunder: -50, earth: 50, bio: 100, bomb: -50, water: -80, 'burn&scorch': 100, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 50, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Slingers · HP 271 · Atk 3.5 · Def 4 · Mag 3.5 · Mdf 4 · Acc 4 · Eva 4.4 · Thưởng: 18 XP, 3.6 AP, 3.6 SP, 30 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Spring (75%)', 'Shuriken (75%)', 'Belt Buckle (50%)', 'Steel Plate (25%)', 'Leather (25%)' ],
+      tips: [ 'Yếu nhất hệ Nước (−80%).', 'Các đòn thường dùng nguyên tố: Bom.' ]
+    },
+    {
+      id: 'tanuki-dog', name: 'Tanuki Dog', kind: 'Quái thường', image: 'img/enemies/tanuki-dog.png',
+      elements: ['fire'],
+      res: { fire: 150, ice: -80, bio: -50, bomb: 50, 'chill&freeze': 50 },
+      desc: 'Thành viên nhóm Dogs · HP 132 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 15 XP, 2.1 AP, 2.1 SP, 12 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Fine Fur (33%)', 'Leather (20%)', 'Beer (20%)', 'Magma Chunk (10%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−80%).', 'Các đòn thường dùng nguyên tố: Lửa.' ]
+    },
+    {
+      id: 'telperion', name: 'Telperion', kind: 'Boss', image: 'img/enemies/telperion.png',
+      elements: ['bomb', 'dark', 'bio', 'earth'],
+      res: { fire: -50, earth: 150, bio: -80, water: 150, wind: -50, holy: -50, dark: 100, 'chill&freeze': 100, 'syphon&disable': 100, 'stagger&confuse': 100, 'heavy&light': 50, 'weaken&tired': 50, 'death&doom': 100, hpdown: 30, atkdown: 80, magdown: 80, defdown: 20, mdedown: 20, accdown: 80, evadown: 80 },
+      desc: 'HP 6666 · Atk 5.5 · Def 4 · Mag 5.5 · Mdf 4 · Acc 6 · Eva 2 · Thưởng: 770 XP, 64 AP, 64 SP, 580 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Bone Spike (100%)', 'Bone Spike (100%)', 'Bone Spike (100%)', 'Plutonium Core (100%)', 'Titanium (100%)' ],
+      tips: [ 'Yếu nhất hệ Độc (−80%).', 'Các đòn thường dùng nguyên tố: Bom, Bóng tối, Độc, Đất.' ]
+    },
+    {
+      id: 'the-devourer', name: 'The Devourer', kind: 'Boss', image: 'img/enemies/the-devourer.png',
+      elements: ['bomb', 'wind', 'earth', 'fire', 'thunder'],
+      res: { bio: 150, holy: -50, dark: -50, 'chill&freeze': 100, 'syphon&disable': 100, 'weaken&tired': 50, 'death&doom': 100, hpdown: 30, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 50, earth: 100, wind: 100, bomb: 150 },
+      desc: 'HP 9999 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 100%9999% · Eva 3 · Thưởng: 3000 XP, 300 AP, 250 SP, 10000 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Orange Juice (0%)', 'Espresso (0%)', 'Chili Pepper (0%)', 'Pizza (0%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−50%).', 'Các đòn thường dùng nguyên tố: Bom, Gió, Đất, Lửa, Sấm.' ]
+    },
+    {
+      id: 'the-glitch', name: 'The Glitch', kind: 'Boss', image: 'img/enemies/the-glitch.png',
+      res: { fire: 300, thunder: 300, ice: 300, earth: 300, bio: 300, bomb: 300, water: 300, wind: 300, holy: 300, dark: 300, 'burn&scorch': 100, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 100, atkdown: 100, magdown: 100, defdown: 100, mdedown: 100, accdown: 100, evadown: 100, hpdown: 100 },
+      desc: 'HP 4004 · Atk 4 · Def 1 · Mag 4 · Mdf 1 · Acc 400000 · Eva 8 · Thưởng: 1600 XP, 60 AP, 60 SP, 70 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Game Child (2%)' ],
+      tips: [ 'Hấp thụ Lửa, Sấm, Băng, Đất, Độc, Bom, Nước, Gió, Thánh, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.' ]
+    },
+    {
+      id: 'the-maw', name: 'THE MAW', kind: 'Boss', image: 'img/enemies/the-maw.png',
+      elements: ['bio'],
+      res: { bio: 150, bomb: -50, holy: -50, dark: 150, 'chill&freeze': 100, 'poison&virus': -100, 'syphon&disable': 100, 'heavy&light': 100, 'weaken&tired': 100, 'death&doom': 100, hpdown: 50, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 50, evadown: 50 },
+      desc: 'Thành viên nhóm Arcade · HP 4133* · Atk 2.5 · Def 4 · Mag 3 · Mdf 4 · Acc 5.5 · Eva 4.5 · Thưởng: 999 XP, 66 AP, 66 SP, 666 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Razor Claw (100%)', 'Razor Claw (100%)', 'Bone Spike (100%)', 'Bone Spike (100%)', 'Dark Matter (100%)' ],
+      tips: [ 'Yếu nhất hệ Nhiễm độc & Virus (−100%).', 'Các đòn thường dùng nguyên tố: Độc.' ]
+    },
+    {
+      id: 'thorny-creep', name: 'Thorny Creep', kind: 'Quái thường', image: 'img/enemies/thorny-creep.png',
+      elements: ['earth', 'thunder'],
+      res: { thunder: 200, earth: -80, bio: -50, holy: -50, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Creeps · HP 230 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.6 · Thưởng: 38 XP, 3.7 AP, 3.7 SP, 22 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Sea Shell (15%)', 'Razor Claw (30%)', 'Bone Spike (10%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Đất, Sấm.' ]
+    },
+    {
+      id: 'thunder-sprite', name: 'Thunder Sprite', kind: 'Quái thường', image: 'img/enemies/thunder-sprite.png',
+      elements: ['thunder'],
+      res: { thunder: 200, earth: -80, bio: -50, dark: -50, 'poison&virus': -50 },
+      desc: 'Thành viên nhóm Sprites · HP 155 · Atk 5 · Def 4 · Mag 4.2 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 21 XP, 3 AP, 2.2 SP, 20 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Pumpkin (25%)', 'Pineapple (10%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Sấm.' ]
+    },
+    {
+      id: 'topaz-golem', name: 'Topaz Golem', kind: 'Quái thường', image: 'img/enemies/topaz-golem.png',
+      elements: ['thunder', 'fire'],
+      res: { fire: 200, thunder: 100, ice: -50, earth: 200, bio: 100, bomb: -50, wind: 100, holy: -80, dark: 200, 'poison&virus': 100, 'death&doom': 70, atkdown: 60, magdown: 60, defdown: 20, mdedown: 20, accdown: 20, evadown: 20, 'chill&freeze': 100 },
+      desc: 'Thành viên nhóm Golems · HP 588 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.2 · Thưởng: 128 XP, 15 AP, 15 SP, 90 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Iron Plate (100%)', 'Iron Plate (100%)', 'Ruby (30%)', 'Topaz (30%)', 'Donut (2%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−80%).', 'Hấp thụ Lửa, Đất, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Sấm, Lửa.' ]
+    },
+    {
+      id: 'topaz-ore', name: 'Topaz Ore', kind: 'Quái thường', image: 'img/enemies/topaz-ore.png',
+      elements: ['thunder'],
+      res: { thunder: 200, ice: -80, earth: 100, bio: 50, bomb: -50, water: -50, wind: -50, 'poison&virus': 100 },
+      desc: 'Thành viên nhóm Ores · HP 101 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 1.2 AP, 1.2 SP, 5 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Amber (15%)', 'Rainbow Ore (5%)' ],
+      tips: [ 'Yếu nhất hệ Băng (−80%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Sấm.' ]
+    },
+    {
+      id: 'totom', name: 'TOTOM', kind: 'Boss', image: 'img/enemies/totom.png',
+      elements: ['bio', 'earth'],
+      res: { fire: -50, thunder: -50, earth: 150, bio: 150, wind: -50, holy: 150, dark: -50, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 100, 'weaken&tired': 50, 'death&doom': 100, hpdown: 30, atkdown: 20, magdown: 60, defdown: 20, mdedown: 20, accdown: 60, evadown: 20 },
+      desc: 'Thành viên nhóm Arcade · HP 2042* · Atk 2 · Def 4.4 · Mag 2 · Mdf 3.7 · Acc 4 · Eva 4* · Thưởng: 290 XP, 25 AP, 35 SP, 200 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Soft Wood (75%)', 'Soft Wood (75%)', 'Soft Wood (75%)', 'Amber (75%)', 'Opal (25%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−50%).', 'Các đòn thường dùng nguyên tố: Độc, Đất.' ]
+    },
+    {
+      id: 'treagure', name: 'TREAGURE', kind: 'Boss', image: 'img/enemies/treagure.png',
+      elements: ['bomb'],
+      res: { holy: 150, dark: -100, 'chill&freeze': 100, 'heavy&light': 100, 'syphon&disable': 100, 'weaken&tired': 100, 'death&doom': 100, hpdown: 30, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40 },
+      desc: 'Thành viên nhóm Arcade · HP 2440* · Atk 4 · Def 6 · Mag 4 · Mdf 3 · Acc 4.2 · Eva 3.8 · Thưởng: 330 XP, 28 AP, 22 SP, 500 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Topaz (75%)', 'Emerald (75%)', 'Sapphire (75%)', 'Ruby (75%)', 'Diamond (25%)' ],
+      tips: [ 'Yếu nhất hệ Bóng tối (−100%).', 'Các đòn thường dùng nguyên tố: Bom.' ]
+    },
+    {
+      id: 'ultra-chibi-knight', name: 'Ultra Chibi Knight', kind: 'Boss', image: 'img/enemies/ultra-chibi-knight.png',
+      elements: ['holy', 'fire', 'thunder', 'ice'],
+      res: { fire: 200, thunder: 200, ice: 200, bio: -50, dark: -80, holy: 200, 'chill&freeze': 100, 'death&doom': 100, hpdown: 30, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 10, evadown: 10 },
+      desc: 'HP 2600 · Atk 5 · Def 4 · Mag 5 · Mdf 4 · Acc 4 · Eva 4.2 · Thưởng: 600 XP, 60 AP, 60 SP, 500 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Belt Buckle (100%)', 'Gold Plate (100%)', 'Cloudberries (100%)', 'Star Fragment (100%)', 'The Holy Grail (100%)' ],
+      tips: [ 'Yếu nhất hệ Bóng tối (−80%).', 'Hấp thụ Lửa, Sấm, Băng, Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Thánh, Lửa, Sấm, Băng.' ]
+    },
+    {
+      id: 'viking-monolith', name: 'Viking Monolith', kind: 'Quái thường', image: 'img/enemies/viking-monolith.png',
+      elements: ['ice', 'wind', 'earth', 'water'],
+      res: { fire: 100, thunder: 100, ice: -50, earth: 100, bio: 100, bomb: -80, wind: 200, 'burn&scorch': 100, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 50, 'stagger&confuse': 100, 'weaken&tired': 100, 'death&doom': 100, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40 },
+      desc: 'Thành viên nhóm Monoliths · HP 460 · Atk 4 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 200 XP, 19 AP, 19 SP, 150 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Sacred Rune (50%)', 'Sacred Rune (50%)', 'Sacred Rune (50%)', 'Diamond (5%)', 'Turnip (2%)' ],
+      tips: [ 'Yếu nhất hệ Bom (−80%).', 'Hấp thụ Gió (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Băng, Gió, Đất, Nước.' ]
+    },
+    {
+      id: 'vulcan', name: 'Vulcan', kind: 'Boss', image: 'img/enemies/vulcan.png',
+      elements: ['fire', 'wind', 'bomb', 'earth', 'water'],
+      res: { fire: 300, thunder: 100, ice: -50, earth: 200, bio: 100, bomb: -50, water: -80, wind: 100, holy: -80, dark: 200, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 100, 'weaken&tired': 100, 'death&doom': 100, hpdown: 30, atkdown: 40, magdown: 40, defdown: 40, mdedown: 40, accdown: 40 },
+      desc: 'HP 7000 · Atk 6 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 2 · Thưởng: 1100 XP, 60 AP, 60 SP, 500 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Magma Chunk (100%)', 'Opal (100%)', 'Amber (100%)', 'Topaz (100%)', 'Ruby (100%)' ],
+      tips: [ 'Yếu nhất hệ Nước (−80%).', 'Hấp thụ Lửa, Đất, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Lửa, Gió, Bom, Đất, Nước.' ]
+    },
+    {
+      id: 'war-mammoth', name: 'War Mammoth', kind: 'Quái thường', image: 'img/enemies/war-mammoth.png',
+      elements: ['bomb', 'earth'],
+      res: { fire: 50, earth: -50, bio: -80, bomb: 50, wind: 100, 'chill&freeze': 100, 'poison&virus': -50, 'weaken&tired': -50, 'death&doom': 90, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50 },
+      desc: 'Thành viên nhóm Mammoths · HP 1355 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.5 · Thưởng: 299 XP, 24 AP, 28 SP, 230 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Steel Plate (100%)', 'Steel Plate (100%)', 'Fine Fur (100%)', 'Belt Buckle (100%)', 'Nano Fibre (50%)' ],
+      tips: [ 'Yếu nhất hệ Độc (−80%).', 'Các đòn thường dùng nguyên tố: Bom, Đất.' ]
+    },
+    {
+      id: 'white-clay', name: 'White Clay', kind: 'Quái thường', image: 'img/enemies/white-clay.png',
+      elements: ['holy'],
+      res: { thunder: 100, earth: 200, bio: 100, water: -50, bomb: -50, holy: 200, dark: -100, 'burn&scorch': 100, 'poison&virus': 100, 'chill&freeze': 100, 'stagger&confuse': 100, 'wet&dry': 100, 'heavy&light': 100, 'weaken&tired': 100, atkdown: 30, defdown: 30, magdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Clays · HP 253 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 29 XP, 3.5 AP, 3.8 SP, 20 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Brick (75%)', 'Silk (25%)', 'Satin (15%)', 'Silver Plate (10%)', 'The Holy Grail (2%)' ],
+      tips: [ 'Yếu nhất hệ Bóng tối (−100%).', 'Hấp thụ Đất, Thánh (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Thánh.' ]
+    },
+    {
+      id: 'wind-sprite', name: 'Wind Sprite', kind: 'Quái thường', image: 'img/enemies/wind-sprite.png',
+      elements: ['wind'],
+      res: { thunder: 50, ice: 50, earth: -80, bio: -50, water: 50, wind: 200, dark: -50, 'poison&virus': -50 },
+      desc: 'Thành viên nhóm Sprites · HP 155 · Atk 5 · Def 4 · Mag 5 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 21 XP, 3 AP, 2.2 SP, 20 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Garlic (50%)', 'White Feather (25%)' ],
+      tips: [ 'Yếu nhất hệ Đất (−80%).', 'Hấp thụ Gió (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Gió.' ]
+    },
+    {
+      id: 'wise-mirror', name: 'Wise Mirror', kind: 'Quái thường', image: 'img/enemies/wise-mirror.png',
+      elements: ['wind', 'bio'],
+      res: { fire: -80, earth: 100, holy: -50, 'burn&scorch': -50, 'heavy&light': -50 },
+      desc: 'Thành viên nhóm Mirrors · HP 201 · Atk 4 · Def 3.8 · Mag 4 · Mdf 4.2 · Acc 4 · Eva 4 · Thưởng: 39 XP, 4.1 AP, 4.1 SP, 32 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Soft Wood (15%)', 'Glass Shards (45%)', 'Cloudberries (10%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Các đòn thường dùng nguyên tố: Gió, Độc.' ]
+    },
+    {
+      id: 'wolf-dog', name: 'Wolf Dog', kind: 'Quái thường', image: 'img/enemies/wolf-dog.png',
+      elements: ['ice'],
+      res: { fire: -80, ice: 150, bio: -50, wind: 50, 'chill&freeze': 50 },
+      desc: 'Thành viên nhóm Dogs · HP 118 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.2 · Thưởng: 17 XP, 2.1 AP, 2.1 SP, 13 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Fine Fur (33%)', 'Snowball (100%)', 'White Feather (50%)', 'Silk (10%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Các đòn thường dùng nguyên tố: Băng.' ]
+    },
+    {
+      id: 'wooden-idol', name: 'Wooden Idol', kind: 'Quái thường', image: 'img/enemies/wooden-idol.png',
+      elements: ['earth'],
+      res: { fire: -80, thunder: -50, earth: 50, bio: -50, wind: -50, dark: -80, 'burn&scorch': -100, 'stagger&confuse': -100 },
+      desc: 'Thành viên nhóm Idols · HP 65 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.2 · Thưởng: 6 XP, 1 AP, 1 SP, 7 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Soft Wood (25%)', 'Raspberries (10%)' ],
+      tips: [ 'Yếu nhất hệ Đốt & Xém (−100%).', 'Các đòn thường dùng nguyên tố: Đất.' ]
+    },
+    {
+      id: 'wooly-mammoth', name: 'Wooly Mammoth', kind: 'Boss', image: 'img/enemies/wooly-mammoth.png',
+      elements: ['earth', 'ice', 'fire'],
+      res: { fire: -50, ice: 100, bio: -80, wind: 100, dark: -50, 'chill&freeze': 100, 'poison&virus': -50, 'weaken&tired': -50, 'death&doom': 90, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50 },
+      desc: 'Thành viên nhóm Mammoths · HP 1199 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 3.7 · Thưởng: 255 XP, 22 AP, 25 SP, 202 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Fine Fur (100%)', 'Fine Fur (100%)', 'Fine Fur (100%)', 'Bone Spike (100%)', 'Chicken Leg (2%)' ],
+      tips: [ 'Yếu nhất hệ Độc (−80%).', 'Các đòn thường dùng nguyên tố: Đất, Băng, Lửa.' ]
+    },
+    {
+      id: 'xolotl', name: 'Xolotl', kind: 'Boss', image: 'img/enemies/xolotl.png',
+      elements: ['dark'],
+      res: { fire: -50, water: 50, holy: -80, bio: -30, dark: 200, 'chill&freeze': 100, 'syphon&disable': 100, 'death&doom': 100, hpdown: 30, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 30 },
+      desc: 'HP 2113 · Atk 5.5 · Def 3.5 · Mag 5.5 · Mdf 4.8 · Acc 4.4 · Eva 3.8 · Thưởng: 209 XP, 20 AP, 26 SP, 127 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Silk (100%)', 'Leather (75%)', 'Belt Buckle (50%)', 'Bone Spike (25%)', 'Opal (15%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối.' ]
+    },
+    {
+      id: 'yellow-flybot', name: 'Yellow Flybot', kind: 'Quái thường', image: 'img/enemies/yellow-flybot.png',
+      elements: ['thunder'],
+      res: { thunder: 200, earth: 100, bio: 50, bomb: -50, water: -80, 'poison&virus': 100, 'syphon&disable': 50, 'death&doom': 50 },
+      desc: 'Thành viên nhóm Flybots · HP 201 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.1 · Thưởng: 37 XP, 2.8 AP, 2.8 SP, 16 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Copper Pipe (50%)', 'Plastic (50%)', 'Glass Shards (50%)', 'Floppy (50%)', 'P2 Processor (5%)' ],
+      tips: [ 'Yếu nhất hệ Nước (−80%).', 'Hấp thụ Sấm (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Sấm.' ]
+    },
+    {
+      id: 'zap-dog', name: 'Zap Dog', kind: 'Quái thường', image: 'img/enemies/zap-dog.png',
+      elements: ['thunder'],
+      res: { thunder: 150, bio: -50, holy: -80, dark: 50, 'chill&freeze': 50 },
+      desc: 'Thành viên nhóm Dogs · HP 154 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4.2 · Thưởng: 30 XP, 3 AP, 3 SP, 25 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Fine Fur (33%)', 'Razor Claw (25%)', 'Amber (5%)' ],
+      tips: [ 'Yếu nhất hệ Thánh (−80%).', 'Các đòn thường dùng nguyên tố: Sấm.' ]
+    },
+    {
+      id: 'zircon-ore', name: 'Zircon Ore', kind: 'Quái thường', image: 'img/enemies/zircon-ore.png',
+      elements: ['ice'],
+      res: { fire: -80, ice: 200, earth: 100, bio: 50, bomb: -50, wind: -50, 'poison&virus': 100 },
+      desc: 'Thành viên nhóm Ores · HP 101 · Atk 4 · Def 4 · Mag 1.5 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 12 XP, 1.2 AP, 1.2 SP, 5 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Solid Water (35%)', 'Rainbow Ore (5%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Hấp thụ Băng (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Băng.' ]
+    },
+    {
+      id: 'zombie-hand', name: 'Zombie Hand', kind: 'Quái thường', image: 'img/enemies/zombie-hand.png',
+      elements: ['bio', 'dark', 'ice', 'wind'],
+      res: { fire: -80, earth: -50, bio: 200, holy: -80, dark: 200, 'death&doom': 100 },
+      desc: 'Thành viên nhóm Hands · HP 166 · Atk 4 · Def 4 · Mag 4 · Mdf 4 · Acc 4 · Eva 4 · Thưởng: 21 XP, 2.2 AP, 2.2 SP, 14 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Solid Water (25%)', 'Hand Bomb (33%)', 'Shuriken (33%)', 'Bio Virus (15%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Hấp thụ Độc, Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Độc, Bóng tối, Băng, Gió.' ]
+    },
+    {
+      id: 'zombie-hydra', name: 'Zombie Hydra', kind: 'Boss', image: 'img/enemies/zombie-hydra.png',
+      elements: ['dark', 'fire'],
+      res: { fire: -80, bio: 50, holy: -80, dark: 200, 'chill&freeze': 100, 'syphon&disable': 70, 'death&doom': 100, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
+      desc: 'Thành viên nhóm Hydras · HP 1777 · Atk 4 · Def 4 · Mag 6 · Mdf 4 · Acc 4 · Eva 4.4 · Thưởng: 333 XP, 22 AP, 22 SP, 200 vàng · Có thể bắt Capture (mở khóa summon tương ứng).',
+      drops: [ 'Razor Claw (50%)', 'Bone Spike (75%)', 'Dark Matter (5%)' ],
+      tips: [ 'Yếu nhất hệ Lửa (−80%).', 'Hấp thụ Bóng tối (200%): đòn hệ này lại hồi máu cho nó.', 'Các đòn thường dùng nguyên tố: Bóng tối, Lửa.' ]
     }
   ],
 
@@ -2148,7 +3451,172 @@ window.EBF5DATA = {
       'sea-dragon': 'Sea Dragon (foe)',
       'angel-mirror': 'Angel Mirror (foe)',
       'gold-fish': 'Gold Fish (foe)',
-      'gem-idol': 'Gem Idol (foe)'
+      'gem-idol': 'Gem Idol (foe)',
+      /* Lượt 21 — nguồn truy vết cho 164 foe sinh máy (mỗi id → trang foe riêng) */
+      'acid-bomb': 'Acid Bomb (foe)',
+      'amethyst-ore': 'Amethyst Ore (foe)',
+      'ancient-monolith': 'Ancient Monolith (foe)',
+      'angry-chair': 'ANGRY CHAIR (foe)',
+      'anna-boss': 'Anna (boss) (foe)',
+      'anna-doll': 'Anna Doll (foe)',
+      'beholder': 'Beholder (foe)',
+      'big-chocolate-slime': 'Big Chocolate Slime (foe)',
+      'big-icecream-slime': 'Big Icecream Slime (foe)',
+      'big-lava-slime': 'Big Lava Slime (foe)',
+      'big-mud-slime': 'Big Mud Slime (foe)',
+      'big-sand-slime': 'Big Sand Slime (foe)',
+      'black-clay': 'Black Clay (foe)',
+      'black-wasp': 'Black Wasp (foe)',
+      'blaze-hydra': 'Blaze Hydra (foe)',
+      'blue-clay': 'Blue Clay (foe)',
+      'blue-creep': 'Blue Creep (foe)',
+      'blue-crystal': 'Blue Crystal (foe)',
+      'blue-flybot': 'Blue Flybot (foe)',
+      'bone-bat': 'Bone Bat (foe)',
+      'bone-golem': 'Bone Golem (foe)',
+      'bosh': 'BOSH (foe)',
+      'brown-bear': 'Brown Bear (foe)',
+      'bubbler-mx-01': 'Bubbler MX-01 (foe)',
+      'burned-fallen': 'Burned Fallen (foe)',
+      'cannon-turret': 'Cannon Turret (foe)',
+      'cat-bomber': 'Cat Bomber (foe)',
+      'cat-ninja': 'Cat Ninja (foe)',
+      'cat-sniper': 'Cat Sniper (foe)',
+      'cat-warrior': 'Cat Warrior (foe)',
+      'cat-wizard': 'Cat Wizard (foe)',
+      'chibi-knight': 'Chibi Knight (foe)',
+      'chunky-gloop': 'Chunky Gloop (foe)',
+      'coral-boulder': 'Coral Boulder (foe)',
+      'coralia': 'CORALIA (foe)',
+      'cosmic-gigalith': 'Cosmic Gigalith (foe)',
+      'cosmic-monolith': 'Cosmic Monolith (foe)',
+      'crucified-fallen': 'Crucified Fallen (foe)',
+      'crystal-hydra': 'Crystal Hydra (foe)',
+      'dark-bush': 'Dark Bush (foe)',
+      'dead-pixel': 'Dead Pixel (foe)',
+      'defender-mk-iii': 'Defender Mk III (foe)',
+      'demon-mirror': 'Demon Mirror (foe)',
+      'dirt-boulder': 'Dirt Boulder (foe)',
+      'drowned-fallen': 'Drowned Fallen (foe)',
+      'earth-dragon': 'Earth Dragon (foe)',
+      'earthquake-bomb': 'Earthquake Bomb (foe)',
+      'electric-bat': 'Electric Bat (foe)',
+      'evil-eye': 'Evil Eye (foe)',
+      'eyeball': 'Eyeball (foe)',
+      'fabulous-gloop': 'Fabulous Gloop (foe)',
+      'fire-sprite': 'Fire Sprite (foe)',
+      'florn': 'Florn (foe)',
+      'frose': 'Frose (foe)',
+      'frost-wraith': 'Frost Wraith (foe)',
+      'furry-slime': 'Furry Slime (foe)',
+      'fuzzy-worm': 'Fuzzy Worm (foe)',
+      'giga-golem': 'Giga Golem (foe)',
+      'giga-harpoon': 'Giga Harpoon (foe)',
+      'glacier-turtle': 'Glacier Turtle (foe)',
+      'glaurung': 'Glaurung (foe)',
+      'glob': 'GLOB (foe)',
+      'god': 'God (foe)',
+      'gray-pixel': 'Gray Pixel (foe)',
+      'green-pixel': 'Green Pixel (foe)',
+      'gunslinger': 'Gunslinger (foe)',
+      'guoye': 'GUOYE (foe)',
+      'hardy-gloop': 'Hardy Gloop (foe)',
+      'harpoon-turret': 'Harpoon Turret (foe)',
+      'haunted-tree': 'Haunted Tree (foe)',
+      'heasy': 'Heasy (foe)',
+      'hermit-creep': 'Hermit Creep (foe)',
+      'jack': 'Jack (foe)',
+      'jet-fish': 'Jet Fish (foe)',
+      'jotun': 'Jotun (foe)',
+      'king-slime': 'King Slime (foe)',
+      'lance-doll': 'Lance Doll (foe)',
+      'laser-turret': 'Laser Turret (foe)',
+      'lava-turtle': 'Lava Turtle (foe)',
+      'lost-fallen': 'Lost Fallen (foe)',
+      'mage-dog': 'Mage Dog (foe)',
+      'marble-boulder': 'Marble Boulder (foe)',
+      'matt-doll': 'Matt Doll (foe)',
+      'metal-idol': 'Metal Idol (foe)',
+      'muddy-bush': 'Muddy Bush (foe)',
+      'mutant-chomper': 'Mutant Chomper (foe)',
+      'natalie-doll': 'Natalie Doll (foe)',
+      'neon-valhalla': 'Neon Valhalla (foe)',
+      'nolegs-doll': 'NoLegs Doll (foe)',
+      'nuclear-bomb': 'Nuclear Bomb (foe)',
+      'obsidian-boulder': 'Obsidian Boulder (foe)',
+      'omega-dragon': 'Omega Dragon (foe)',
+      'origami-dragon': 'Origami Dragon (foe)',
+      'origami-wraith': 'Origami Wraith (foe)',
+      'panda-bear': 'Panda Bear (foe)',
+      'papalotl': 'Papalotl (foe)',
+      'peridot-ore': 'Peridot Ore (foe)',
+      'phoenix': 'PHOENIX (foe)',
+      'pink-squid': 'Pink Squid (foe)',
+      'poseidon': 'Poseidon (foe)',
+      'praetorian': 'Praetorian (foe)',
+      'protector': 'Protector (foe)',
+      'prototype-9x': 'Prototype 9X (foe)',
+      'pumpkus': 'PUMPKUS (foe)',
+      'purple-squid': 'Purple Squid (foe)',
+      'quartz-ore': 'Quartz Ore (foe)',
+      'red-bush': 'Red Bush (foe)',
+      'red-clay': 'Red Clay (foe)',
+      'red-creep': 'Red Creep (foe)',
+      'red-crystal': 'Red Crystal (foe)',
+      'red-pixel': 'Red Pixel (foe)',
+      'red-wasp': 'Red Wasp (foe)',
+      'rescue-dog': 'Rescue Dog (foe)',
+      'roasted-gloop': 'Roasted Gloop (foe)',
+      'robo': 'ROBO (foe)',
+      'rock-sprite': 'Rock Sprite (foe)',
+      'ruby-ore': 'Ruby Ore (foe)',
+      'sand-tail': 'Sand Tail (foe)',
+      'sand-worm': 'Sand Worm (foe)',
+      'sandstone-boulder': 'Sandstone Boulder (foe)',
+      'sapphire-ore': 'Sapphire Ore (foe)',
+      'scaly-worm': 'Scaly Worm (foe)',
+      'shockwave-bomb': 'Shockwave Bomb (foe)',
+      'skeleton-cat': 'Skeleton Cat (foe)',
+      'skeleton-hand': 'Skeleton Hand (foe)',
+      'slimy-tentacle': 'Slimy Tentacle (foe)',
+      'snek': 'SNEK (foe)',
+      'snow-bat': 'Snow Bat (foe)',
+      'snowflake': 'Snowflake (foe)',
+      'sol-and-skadi': 'Sól and Skadi (foe)',
+      'spikey-tentacle': 'Spikey Tentacle (foe)',
+      'steam-fish': 'Steam Fish (foe)',
+      'steel-wraith': 'Steel Wraith (foe)',
+      'stumpy-gloop': 'Stumpy Gloop (foe)',
+      'stunflower': 'Stunflower (foe)',
+      'super-chibi-knight': 'Super Chibi Knight (foe)',
+      'swordslinger': 'Swordslinger (foe)',
+      'tanuki-dog': 'Tanuki Dog (foe)',
+      'telperion': 'Telperion (foe)',
+      'the-devourer': 'The Devourer (foe)',
+      'the-glitch': 'The Glitch (foe)',
+      'the-maw': 'THE MAW (foe)',
+      'thorny-creep': 'Thorny Creep (foe)',
+      'thunder-sprite': 'Thunder Sprite (foe)',
+      'topaz-golem': 'Topaz Golem (foe)',
+      'topaz-ore': 'Topaz Ore (foe)',
+      'totom': 'TOTOM (foe)',
+      'treagure': 'TREAGURE (foe)',
+      'ultra-chibi-knight': 'Ultra Chibi Knight (foe)',
+      'viking-monolith': 'Viking Monolith (foe)',
+      'vulcan': 'Vulcan (foe)',
+      'war-mammoth': 'War Mammoth (foe)',
+      'white-clay': 'White Clay (foe)',
+      'wind-sprite': 'Wind Sprite (foe)',
+      'wise-mirror': 'Wise Mirror (foe)',
+      'wolf-dog': 'Wolf Dog (foe)',
+      'wooden-idol': 'Wooden Idol (foe)',
+      'wooly-mammoth': 'Wooly Mammoth (foe)',
+      'xolotl': 'Xolotl (foe)',
+      'yellow-flybot': 'Yellow Flybot (foe)',
+      'zap-dog': 'Zap Dog (foe)',
+      'zircon-ore': 'Zircon Ore (foe)',
+      'zombie-hand': 'Zombie Hand (foe)',
+      'zombie-hydra': 'Zombie Hydra (foe)'
     },
     skills: {
       '_default': 'List of Skills in Epic Battle Fantasy 5'

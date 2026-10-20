@@ -1,4 +1,4 @@
-# ROADMAP — Wiki tiếng Việt Epic Battle Fantasy 5
+﻿# ROADMAP — Wiki tiếng Việt Epic Battle Fantasy 5
 
 > Wiki tĩnh thuần HTML/CSS/JS, chạy trực tiếp khi mở `index.html` (không build, không server).
 > Dữ liệu soạn trong `js/data.js`, đối chiếu theo **Epic Battle Fantasy Wiki** chính thức
@@ -16,12 +16,12 @@
 - `css/style.css`: theme tối phong cách game, card grid, chip, `.detail-media`, fallback `.img-fail`.
 - Thêm chủ đề mới = **1 hàng trong `categories` + 1 mảng dữ liệu + (tuỳ) 1 nhánh chip/detail trong app.js**.
 
-### Dữ liệu — 9 chủ đề, 749 mục, 748 tham chiếu ảnh ↔ 744 file (0 thiếu, 0 file lẻ)
+### Dữ liệu — 9 chủ đề, 913 mục, 912 tham chiếu ảnh ↔ 908 file (0 thiếu, 0 file lẻ)
 
 | # | Chủ đề | key | Mục | Ảnh | Ghi chú |
 |---|--------|-----|-----|-----|---------|
 | 1 | Nhân vật | `characters` | 5 | 5/5 | Matt, Natalie, Lance, Anna, NoLegs — lore EBF5 thật, kèm danh mục kỹ năng/trang bị chính |
-| 2 | Kẻ địch | `enemies` | 50 | 50/50 | 8 slime thật + 32 quái thường dàn theo 18 khu vực + 10 boss — icon `EBF5 Bestiary X`; **drops thật 50/50** (tên item + % từ bảng `FoeTableEBF5`); **15: khắc chế 50/50** — trường `res` trích cột % `FoeTableEBF5` (10 nguyên tố + nhóm trạng thái), hiển thị Yếu/Kháng/Miễn/Hấp thụ ở trang chi tiết |
+| 2 | Kẻ địch | `enemies` | 214 | 214/214 | **Lượt 21: đủ bộ quái EBF5 50 → 214** — 164 entry mới sinh máy từ bảng `FoeTableEBF5` của 167 trang foe fandom (lọc `Category:Foes` tag EBF5 222 → bỏ 36 trang Foe Groups → bỏ 6 trang nội dung + Mighty Oak); icon `EBF5 Bestiary <Tên>` (thiếu → `EBF5 Foe Icon` / `Icon bestiary ebf4`); giữ drops thật + `res` khắc chế 50/50 lượt 15; sources mỗi foe = `X (foe)` |
 | 3 | Kỹ năng | `skills` | 183 | 183/183 | **Đủ bộ 5 nhân vật + 53 Extra Skills** (kèm chars từng người học được từ trang bị), theo *List of Skills in EBF5*; icon `EBF5 Skill X` |
 | 4 | Vật phẩm | `items` | 28 | 28/28 | 24 món Food thật (Pumpkin→Pizza, Garlic/Banana gỡ status/debuff, Apple/Cupcake trừ cooldown…) + 5 Steroid từng nhân vật — icon `EBF5 Item X` |
 | 5 | Trang bị | `equipment` | 228 | 228/228 | **Lượt 16: 84 vũ khí** (78 sinh máy từ 4 trang `Swords`/`Bows`/`Guns`/`Staves` bảng 1 post-v2 + 8 entry tay: Heaven Gate, Ultra Pro 9000X, Fairy Bow, Dark Tooth, Shadow Blaster, Spine Snapper, Crystal Staff, Steel Buckler); **Lượt 17: +142 mũ giáp & Flair** — 84 mũ/giáp sinh máy (21+21 Mũ/Giáp nam theo `Male Hats and Armor`, 21+21 nữ theo `Female Hats and Armor`) + 58 Flair (55 sinh máy từ trang `Flairs` + 3 tay NoLegs); thay 8 entry tay mỏng bằng bản sinh máy; 24 món nhãn Độc quyền bản Steam qua `PaywallNote` từng trang item |
@@ -38,10 +38,10 @@
 - **Bài học lớn**: soạn văn tiếng Việt dài trong shell/here-string dễ lẫn ký tự rác (CJK/Cyrillic) → soạn file tạm bằng công cụ `write`, rồi splice vào `data.js` bằng PowerShell; luôn quét kiểm `[CJK]=0, [Cyrillic]=0` và đếm ngoặc sau mỗi lần sửa.
 
 ### Kiểm thử pass (trạng thái hiện tại)
-- `data.js`: braces 1001/1001, brackets 1055/1055, quotes chẵn (trừ nháy có escape `\'`), 0 ký tự rác, JScript parse OK (lượt 17 đã thay backtick trong desc bằng `"` để hết cảnh báo ES6 giả).
-- `app.js`: braces 133/133, brackets 52/52 (file có ES6 sẵn nên JScript bỏ qua, trình duyệt chạy tốt).
+- `data.js`: braces 1358/1358, brackets 1538/1538, quotes chẵn (21866), 0 ký tự rác, JScript parse OK.
+- `app.js`: braces 137/137, brackets 61/61 (file có ES6 sẵn nên JScript bỏ qua, trình duyệt chạy tốt).
 - `test.html`: trang smoke test chạy trong trình duyệt (7 case: 9 chủ đề/26 status, `renderDetail` sinh tooltip `.st-tip` + hàng `.prev-next`, lightbox, `#statusTip`, `#toTop`) — mở trực tiếp là chạy, không cần Node; xoá đi khi không cần nữa.
-- 748 tham chiếu `image:` ↔ 744 file thật (limit dùng lại icon skills) — **0 thiếu, 0 file lẻ**.
+- 912 tham chiếu `image:` ↔ 908 file thật (limit dùng lại icon skills) — **0 thiếu, 0 file lẻ**.
 - README + hero trang chủ khớp số liệu thật.
 
 ---
@@ -64,6 +64,7 @@
 ### C. Mở rộng dữ liệu (dày hơn nữa)
 - [x] Kỹ năng: phát hiện trang tổng *List of Skills in Epic Battle Fantasy 5* — thêm **91 entry (39 → 130)** rồi **53 Extra Skills (130 → 183)**, kèm ảnh chuẩn; status hoàn tất bộ 5 nhân vật + **danh sách ai học được từ trang bị** cho Extra Skills.
 - [x] Kẻ địch: bổ sung cột **drops thật 50/50** (tên item + tỉ lệ %) từ bảng `FoeTableEBF5` của từng trang quái — 48/50 có drop thật, Slime Bunny & Lancelot ghi chú "không drop".
+- [x] Kẻ địch (lượt 21): **đủ bộ quái 50 → 214** — sinh máy từ `FoeTableEBF5` của 167 trang foe (lọc `Category:Foes`, trừ Foe Groups + 6 trang nội dung + Mighty Oak), desc/tips/drops/khắc chế theo đúng schema cũ, sources = `X (foe)` từng trang.
 - [x] Limit Break: **phủ kín 20/20 icon** — 5 cái tải từ `EBF5 Skill X` (bảng *Extra Limit Breaks*), 4 cái tái sử dụng icon mảng skills; Radiation status giữ emoji (wiki không có file).
 - [x] Khu vực (C3): **quái + Key Items theo từng ô lưới cho đủ 18 khu** — parser nguồn các trang `Epic Battle Fantasy 5 Map/X` (điểm xuất phát theo ô lưới, wave quái, Key Items, ô con như Nhà Matt/Phòng Arcade/Khu Glitch), các ghi chú cơ chế dịch tay (rương mở bằng mã, Đầu Đá trên bệ đá, cần gạt, Arcade Boss Rush…), bỏ các ghi chú trivia (mã Morse, tên hex glitch). Hiển thị trong panel areas "Ô lưới — Quái và Key Items".
 - [x] Summon (C4): **mở rộng 18 → 40 + cột "Mở khoá"** — nguồn = trang *Summons/Epic Battle Fantasy 5*, dùng bảng hiện hành post-v2 (bảng chính; bảng `Pre-v2 update` chỉ giữ đối chiếu). 22 summon mới: Glitch, Annabelle, Lancelot, Matteus, Laurelin, War Mammoth, Sól, Viking Monolith, Ultra Chibi Knight, Zombie Hand, Wooden Idol, SNEK, Roasted Gloop, Sapphire Ore, Ruby Ore, Amethyst Ore, Red Bush, Metal Idol (14, heavy +5), Cat Sniper, PUMPKUS, Cutie Worm, Cat Wizard; SP của 18 entry cũ chốt lại theo bảng hiện hành (God 160, Natalia 139…). 22 icon mới tải từ `EBF5 Foe Icon` (wiki.gg).
@@ -97,9 +98,9 @@
 
 **Tiêu chí "hoàn thiện" theo 3 mức:**
 
-1. **Dùng được** (đã đạt): 9 chủ đề, 749 mục (744 file ảnh, mỗi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
+1. **Dùng được** (đã đạt): 9 chủ đề, 913 mục (908 file ảnh, mỗi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
 2. **Dễ dùng** (đã đạt): lightbox + tooltip + phím tắt + tìm kiếm sâu (tips/effect/quái theo ô lưới) + nút lên đầu trang; **deploy GitHub Pages ✅ https://longawr.github.io/Wiki/**.
-3. **Sống lâu** (mục tiêu xa): dữ liệu phủ ~100% kỹ năng/quái; quy trình cập nhật từ fandom API thành script có sẵn; mỗi mục truy vết được về trang wiki gốc để tự đối chiếu khi game ra bản vá mới (EBF5 vẫn nhận update v2+).
+3. **Sống lâu** (mục tiêu xa): dữ liệu phủ ~100% kỹ năng/quái ✅ (kỹ năng 183, kẻ địch 214 — wiki ghi 216 unique, chênh 2 chấp nhận); quy trình cập nhật từ fandom API thành script có sẵn; mỗi mục truy vết được về trang wiki gốc để tự đối chiếu khi game ra bản vá mới (EBF5 vẫn nhận update v2+).
 
 **Nguyên tắc giữ vững:**
 - Không framework, không build — mở `index.html` là chạy.
@@ -174,4 +175,12 @@
 - **Bẫy học thêm (lượt 20)**: `.ps1` UTF-8 không BOM làm so khớp tiếng Việt (`'Vũ khí'`, `'Mũ nam'`) sai im lặng → *mọi* script .ps1 chứa ký tự UTF-8 phải có BOM; name đưa  `name: "No Man's Land"` double-quote làm regex nháy đơn tủt không bắt được → thêm fallback regex double-quote; chuỗi giá trị chèn vào data.js phải qua hàm Esc (`\'`) trước; **JScript (cscript) khước từ trailing comma** — property cuối của object phải close KHÔNG comma (trình duyệt ES5 khoan dung, JScript ES3 không); bẫy quoting inline shell lặp lại như lượt trước — mọi logic phức tạp phải soạn qua file `.ps1`.
 - **QA headless**: enemies `NoLegs (boss)` → URL `wiki/NoLegs_(boss)_(foe)`; skills `fireball` → `wiki/List_of_Skills_in_Epic_Battle_Fantasy_5`; summons `the-devourer` → `wiki/Summons/Epic_Battle_Fantasy_5` (%2F encode lại thành `/`); areas `hope-harbor` → map chính + link 10 ô lưới A2/A5/B2… đúng trang tường.
 
-*Cập nhật lần cuối: 2026-10-20 — sau lượt 20 (nguồn truy vết 749 mục; 749 mục / 748 tham chiếu ↔ 744 file ảnh).*
+### Lượt 21 — kẻ địch đủ bộ: 50 → 214 (sinh máy từ `FoeTableEBF5`)
+- **Lọc nguồn**: `Category:Foes` (389 trang) → giữ tag `Epic Battle Fantasy 5` (222) → bỏ 36 trang *Foe Groups* → loại 6 trang nội dung (Difficulty, Farming, Foes & Bestiary, List of Foes, Nuke, Valkyrie Tank) + `Mighty Oak (boss)` (bảng là `FoeTableEBF4`; EBF5 Mighty Oak là Limit Break của Anna, không phải foe) → **167 trang có `{{FoeTableEBF5}}`** → bỏ 2 trùng/trang nước ngoài (`Lancelot (EBF5)` trùng entry tay; `Neon Valhalla(中文)` CJK) → **164 entry mới**, tổng enemies **214/214** (wiki ghi 216 unique foe EBF5 — chênh 2 chấp nhận, ghi chú ở đây).
+- **desc sinh máy theo đúng schema cũ** (không văn tự do): `Thành viên nhóm <Group> · HP · Atk … Eva · Thưởng: XP/AP/SP/vàng · [Không bắt Capture được.|Có thể bắt Capture (mở khóa summon tương ứng)]`; tips ≤ 3 (yếu nhất / nguyên tố của đòn / hấp thụ / capture); `kind` quái thường = nhóm khu vực, boss giữ `Boss`; nối tiếp lượt 20 — mỗi foe mới có dòng `'X (foe)'` trong `sources.enemies` (QA headless xác nhận URL `wiki/Acid_Bomb_(foe)`, `wiki/Anna_(boss)_(foe)`).
+- **Chỉnh entry cũ phát hiện khi lọc**: drop `"Chili Pepper (30%}})"` → `"(30%)"` (rác template kẹt lại); `HPdown` → `hpdown` (32 chỗ — key RES của app.js là chữ thường).
+- **Icon — 164 dòng mới `fetch-images.map.txt`**: tên wiki lấy từ infobox `|Image =` (trang dùng `<gallery>` thì lấy png đầu, ví dụ `EBF5 Bestiary CORALIA 1`). DryRun đầu ra 116 OK / **48 SKIP** → viết script patch soạn chain candidate cho từng dòng SKIP: `EBF5 Bestiary <core>` → `EBF5 Foe Icon <core>` → `Icon bestiary ebf4 <core>` → `EBF3/EBF2 Foe Icon <core>`, validate **mỗi candidate qua fandom API** (bó 40/lượt, key lowercase, buộc kèm đuôi `.png` khi gọi) rồi mới ghi đè map — kết quả 164/164 resolve, patch đúng 48 dòng: 40 → `EBF5 Foe Icon <Tên>`, 7 tái dùng icon game cũ `Icon bestiary ebf4 <tên thường>`, đặc biệt `Sól and Skadi` → `EBF5 Foe Icon Skadi`, `Praetoriun` → `EBF5 Foe Icon Praetorian` (typo có sẵn trên wiki), `The Glitch` → `EBF5 Foe Icon Glitch`. **Tải thật: 164/164 OK, 0 SKIP, 0 FAIL**.
+- **Bẫy rút ra lượt này**: khi gọi fandom API, title của file **buộc kèm đuôi `.png`** (thiếu đuôi = cả bó cùng coi như không tồn tại — dry-run từng SKIP 148/164 vì lý do này); replacement của `-replace` cắn ký tự `$` — không bao giờ nhét chuỗi có `$` vào replacement; đọc/ghi map giữ nguyên BOM + EOL trộn (thay trên chuỗi thô bằng `[regex]::Match`/`Substring`); script ps1 phức tạp vẫn soạn file riêng ASCII không dấu.
+- **check.ps1**: PASS — data.js braces 1358/1358; tổng **913 mục / 912 tham chiếu ↔ 908 file** (enemies 214/214, 0 thiếu, 0 file lẻ). QA headless 3 trang: `acid-bomb` (bảng res Yếu/Kháng/Miễn đủ, chip Độc, drops sạch `(30%)`), `anna-boss` (boss đa nguyên tố + tooltip trạng thái), `sol-and-skadi` (tên có dấu `ó` render đúng).
+
+*Cập nhật lần cuối: 2026-10-21 — sau lượt 21 (kẻ địch đủ bộ 214; 913 mục / 912 tham chiếu ảnh ↔ 908 file).*

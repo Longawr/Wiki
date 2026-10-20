@@ -1,4 +1,4 @@
-# Map cho fetch-images.ps1: img path <TAB> wiki-file-name (khong .png)
+﻿# Map cho fetch-images.ps1: img path <TAB> wiki-file-name (khong .png)
 # Dong # va rong bi bo qua; cot 2 trong = bo qua khi download.
 # --- icon summon moi (luot 14, nguoi trich tu bang Summons fandom hien hanh) ---
 img/summons/furry-slime.png	EBF5 Foe Icon Furry Slime
@@ -372,3 +372,169 @@ img/equipment/the-one-rng.png	EBF5 Flair The One R*ng
 img/equipment/the-trforce.png	EBF5 Flair The Tr*force
 img/equipment/tooth.png	EBF5 Flair Tooth
 img/status/confuse.png	EBF5 Status Confuse
+
+# --- Luot 21: icon 164 foe sinh may (List of Foes) ---
+img/enemies/acid-bomb.png	EBF5 Bestiary Acid Bomb
+img/enemies/amethyst-ore.png	EBF5 Bestiary Amethyst Ore
+img/enemies/ancient-monolith.png	EBF5 Bestiary Ancient Monolith
+img/enemies/angry-chair.png	EBF5 Bestiary ANGRY CHAIR
+img/enemies/anna-boss.png	EBF5 Bestiary Anna
+img/enemies/anna-doll.png	EBF5 Bestiary Anna Doll
+img/enemies/beholder.png	EBF5 Foe Icon Beholder
+img/enemies/big-chocolate-slime.png	EBF5 Bestiary Big Chocolate Slime
+img/enemies/big-icecream-slime.png	EBF5 Bestiary Big Icecream Slime
+img/enemies/big-lava-slime.png	EBF5 Bestiary Big Lava Slime
+img/enemies/big-mud-slime.png	EBF5 Bestiary Big Mud Slime
+img/enemies/big-sand-slime.png	EBF5 Bestiary Big Sand Slime
+img/enemies/black-clay.png	Icon bestiary ebf4 black clay
+img/enemies/black-wasp.png	Icon bestiary ebf4 black wasp
+img/enemies/blaze-hydra.png	EBF5 Bestiary Blaze Hydra
+img/enemies/blue-clay.png	EBF5 Foe Icon Blue Clay
+img/enemies/blue-creep.png	EBF5 Bestiary Blue Creep
+img/enemies/blue-crystal.png	EBF5 Foe Icon Blue Crystal
+img/enemies/blue-flybot.png	EBF5 Bestiary Blue Flybot
+img/enemies/bone-bat.png	EBF5 Foe Icon Bone Bat
+img/enemies/bone-golem.png	EBF5 Bestiary Bone Golem
+img/enemies/bosh.png	EBF5 Bestiary BOSH
+img/enemies/brown-bear.png	EBF5 Bestiary Brown Bear
+img/enemies/bubbler-mx-01.png	EBF5 Bestiary Bubbler MX-01
+img/enemies/burned-fallen.png	EBF5 Bestiary Burned Fallen
+img/enemies/cannon-turret.png	EBF5 Bestiary Cannon Turret
+img/enemies/cat-bomber.png	EBF5 Foe Icon Cat Bomber
+img/enemies/cat-ninja.png	EBF5 Foe Icon Cat Ninja
+img/enemies/cat-sniper.png	EBF5 Foe Icon Cat Sniper
+img/enemies/cat-warrior.png	EBF5 Foe Icon Cat Warrior
+img/enemies/cat-wizard.png	EBF5 Foe Icon Cat Wizard
+img/enemies/chibi-knight.png	EBF5 Bestiary Chibi Knight
+img/enemies/chunky-gloop.png	EBF5 Foe Icon Chunky Gloop
+img/enemies/coral-boulder.png	EBF5 Bestiary Coral Boulder
+img/enemies/coralia.png	EBF5 Bestiary CORALIA 1
+img/enemies/cosmic-gigalith.png	EBF5 Bestiary Cosmic Gigalith
+img/enemies/cosmic-monolith.png	EBF5 Bestiary Cosmic Monolith
+img/enemies/crucified-fallen.png	EBF5 Bestiary Crucified Fallen
+img/enemies/crystal-hydra.png	EBF5 Bestiary Crystal Hydra
+img/enemies/dark-bush.png	EBF5 Foe Icon Dark Bush
+img/enemies/dead-pixel.png	EBF5 Foe Icon Dead Pixel
+img/enemies/defender-mk-iii.png	EBF5 Bestiary Defender Mk III
+img/enemies/demon-mirror.png	EBF5 Bestiary Demon Mirror
+img/enemies/dirt-boulder.png	EBF5 Bestiary Dirt Boulder
+img/enemies/drowned-fallen.png	EBF5 Bestiary Drowned Fallen
+img/enemies/earth-dragon.png	EBF5 Bestiary Earth Dragon
+img/enemies/earthquake-bomb.png	EBF5 Bestiary Earthquake Bomb
+img/enemies/electric-bat.png	EBF5 Foe Icon Electric Bat
+img/enemies/evil-eye.png	EBF5 Bestiary Eyeball
+img/enemies/eyeball.png	EBF5 Bestiary Eyeball
+img/enemies/fabulous-gloop.png	EBF5 Bestiary Fabulous Gloop
+img/enemies/fire-sprite.png	EBF5 Bestiary Fire Sprite
+img/enemies/florn.png	EBF4 Foe Florn
+img/enemies/frose.png	Frose
+img/enemies/frost-wraith.png	EBF5 Bestiary Frost Wraith
+img/enemies/furry-slime.png	EBF5 Foe Icon Furry Slime
+img/enemies/fuzzy-worm.png	EBF5 Foe Icon Fuzzy Worm
+img/enemies/giga-golem.png	EBF5 Foe Icon Giga Golem
+img/enemies/giga-harpoon.png	EBF5 Bestiary Giga Harpoon
+img/enemies/glacier-turtle.png	Icon bestiary ebf4 glacier turtle
+img/enemies/glaurung.png	EBF5 Bestiary Glaurung
+img/enemies/glob.png	EBF5 Bestiary GLOB
+img/enemies/god.png	EBF5 Bestiary God
+img/enemies/gray-pixel.png	EBF5 Foe Icon Gray Pixel
+img/enemies/green-pixel.png	EBF5 Foe Icon Green Pixel
+img/enemies/gunslinger.png	EBF5 Foe Icon Gunslinger
+img/enemies/guoye.png	EBF5 Bestiary GUOYE
+img/enemies/hardy-gloop.png	EBF5 Foe Icon Hardy Gloop
+img/enemies/harpoon-turret.png	EBF5 Bestiary Harpoon Turret
+img/enemies/haunted-tree.png	EBF5 Foe Icon Haunted Tree
+img/enemies/heasy.png	Heasy
+img/enemies/hermit-creep.png	EBF5 Bestiary Hermit Creep
+img/enemies/jack.png	EBF5 Foe Icon Jack
+img/enemies/jet-fish.png	EBF5 Bestiary Jet Fish
+img/enemies/jotun.png	EBF5 Bestiary Jotun
+img/enemies/king-slime.png	EBF5 Bestiary King Slime
+img/enemies/lance-doll.png	EBF5 Bestiary Lance Doll
+img/enemies/laser-turret.png	EBF5 Bestiary Laser Turret
+img/enemies/lava-turtle.png	Icon bestiary ebf4 lava turtle
+img/enemies/lost-fallen.png	EBF5 Bestiary Lost Fallen
+img/enemies/mage-dog.png	EBF5 Bestiary Mage Dog
+img/enemies/marble-boulder.png	EBF5 Bestiary Marble Boulder
+img/enemies/matt-doll.png	EBF5 Bestiary Matt Doll
+img/enemies/metal-idol.png	EBF5 Foe Icon Metal Idol
+img/enemies/muddy-bush.png	EBF5 Foe Icon Muddy Bush
+img/enemies/mutant-chomper.png	EBF5 Bestiary Mutant Chomper
+img/enemies/natalie-doll.png	EBF5 Bestiary Natalie Doll
+img/enemies/neon-valhalla.png	EBF5 Bestiary Neon Valhalla
+img/enemies/nolegs-doll.png	EBF5 Bestiary NoLegs Doll
+img/enemies/nuclear-bomb.png	EBF5 Bestiary Nuclear Bomb
+img/enemies/obsidian-boulder.png	EBF5 Bestiary Obsidian Boulder
+img/enemies/omega-dragon.png	EBF5 Bestiary Omega Dragon
+img/enemies/origami-dragon.png	EBF5 Bestiary Origami Dragon
+img/enemies/origami-wraith.png	EBF5 Bestiary Origami Wraith
+img/enemies/panda-bear.png	EBF5 Bestiary Panda Bear
+img/enemies/papalotl.png	EBF5 Bestiary Papalotl
+img/enemies/peridot-ore.png	EBF5 Bestiary Peridot Ore
+img/enemies/phoenix.png	EBF5 Bestiary PHOENIX
+img/enemies/pink-squid.png	EBF5 Bestiary Pink Squid
+img/enemies/poseidon.png	EBF5 Bestiary Poseidon
+img/enemies/praetorian.png	EBF5 Foe Icon Praetorian
+img/enemies/protector.png	EBF5 Foe Icon Protector
+img/enemies/prototype-9x.png	EBF5 Bestiary Prototype 9X
+img/enemies/pumpkus.png	EBF5 Bestiary PUMPKUS
+img/enemies/purple-squid.png	EBF5 Bestiary Purple Squid
+img/enemies/quartz-ore.png	EBF5 Bestiary Quartz Ore
+img/enemies/red-bush.png	EBF5 Foe Icon Red Bush
+img/enemies/red-clay.png	EBF5 Foe Icon Red Clay
+img/enemies/red-creep.png	EBF5 Bestiary Red Creep
+img/enemies/red-crystal.png	EBF5 Foe Icon Red Crystal
+img/enemies/red-pixel.png	EBF5 Bestiary Red Pixel
+img/enemies/red-wasp.png	Icon bestiary ebf4 red wasp
+img/enemies/rescue-dog.png	EBF5 Bestiary Rescue Dog
+img/enemies/roasted-gloop.png	EBF5 Foe Icon Roasted Gloop
+img/enemies/robo.png	EBF5 Bestiary ROBO
+img/enemies/rock-sprite.png	EBF5 Bestiary Rock Sprite
+img/enemies/ruby-ore.png	EBF5 Bestiary Ruby Ore
+img/enemies/sand-tail.png	Icon bestiary ebf4 sand tail
+img/enemies/sand-worm.png	EBF5 Foe Icon Sandworm
+img/enemies/sandstone-boulder.png	EBF5 Bestiary Sandstone Boulder
+img/enemies/sapphire-ore.png	EBF5 Bestiary Sapphire Ore
+img/enemies/scaly-worm.png	EBF5 Foe Icon Scaly Worm
+img/enemies/shockwave-bomb.png	EBF5 Bestiary Shockwave Bomb
+img/enemies/skeleton-cat.png	EBF5 Bestiary Skeleton Cat
+img/enemies/skeleton-hand.png	EBF5 Foe Icon Skeleton Hand
+img/enemies/slimy-tentacle.png	EBF5 Bestiary Slimy Tentacle
+img/enemies/snek.png	EBF5 Bestiary SNEK
+img/enemies/snow-bat.png	EBF5 Foe Icon Snow Bat
+img/enemies/snowflake.png	EBF5 Bestiary Snowflake
+img/enemies/sol-and-skadi.png	EBF5 Foe Icon Skadi
+img/enemies/spikey-tentacle.png	EBF5 Bestiary Spikey Tentacle
+img/enemies/steam-fish.png	EBF5 Bestiary Steam Fish
+img/enemies/steel-wraith.png	EBF5 Bestiary Steel Wraith
+img/enemies/stumpy-gloop.png	EBF5 Foe Icon Stumpy Gloop
+img/enemies/stunflower.png	Stunflower
+img/enemies/super-chibi-knight.png	EBF5 Bestiary Super Chibi Knight
+img/enemies/swordslinger.png	EBF5 Foe Icon Swordslinger
+img/enemies/tanuki-dog.png	EBF5 Bestiary Tanuki Dog
+img/enemies/telperion.png	EBF5 Bestiary Telperion
+img/enemies/the-devourer.png	EBF5 Bestiary The Devourer
+img/enemies/the-glitch.png	EBF5 Foe Icon Glitch
+img/enemies/the-maw.png	EBF5 Bestiary THE MAW
+img/enemies/thorny-creep.png	EBF5 Bestiary Thorny Creep
+img/enemies/thunder-sprite.png	EBF5 Bestiary Thunder Sprite
+img/enemies/topaz-golem.png	EBF5 Bestiary Topaz Golem
+img/enemies/topaz-ore.png	EBF5 Bestiary Topaz Ore
+img/enemies/totom.png	EBF5 Bestiary TOTOM
+img/enemies/treagure.png	EBF5 Bestiary TREAGURE
+img/enemies/ultra-chibi-knight.png	EBF5 Bestiary Ultra Chibi Knight
+img/enemies/viking-monolith.png	EBF5 Bestiary Viking Monolith
+img/enemies/vulcan.png	EBF5 Bestiary Vulcan
+img/enemies/war-mammoth.png	EBF5 Bestiary War Mammoth
+img/enemies/white-clay.png	Icon bestiary ebf4 white clay
+img/enemies/wind-sprite.png	EBF5 Bestiary Wind Sprite
+img/enemies/wise-mirror.png	EBF5 Bestiary Wise Mirror
+img/enemies/wolf-dog.png	EBF5 Bestiary Wolf Dog
+img/enemies/wooden-idol.png	EBF5 Foe Icon Wooden Idol
+img/enemies/wooly-mammoth.png	EBF5 Bestiary Wooly Mammoth
+img/enemies/xolotl.png	EBF5 Bestiary Xolotl
+img/enemies/yellow-flybot.png	EBF5 Bestiary Yellow Flybot
+img/enemies/zap-dog.png	EBF5 Bestiary Zap Dog
+img/enemies/zircon-ore.png	EBF5 Bestiary Zircon Ore
+img/enemies/zombie-hand.png	EBF5 Foe Icon Zombie Hand
+img/enemies/zombie-hydra.png	EBF5 Bestiary Zombie Hydra
