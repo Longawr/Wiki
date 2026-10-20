@@ -58,7 +58,7 @@ foreach ($f in $jsFiles) {
   foreach ($tl in $tlines) {
     $tr = $tl.TrimStart()
     if ($tr.StartsWith('/*') -or $tr.StartsWith('*') -or $tr.StartsWith('//')) { continue }
-    $q += ([regex]::Matches($tl, "'")).Count
+    $q += ([regex]::Matches($tl, "(?<!\\)'")).Count
   }
   if ($q % 2 -eq 0) { Ok ("{0}: single-quotes chan ({1})" -f $f, $q) }
   else { Bad ("{0}: single-quotes LE ({1}) - kha nang co chuoi chua dau nhay don" -f $f, $q) }

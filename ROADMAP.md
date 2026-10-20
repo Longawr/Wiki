@@ -24,7 +24,7 @@
 | 2 | Kẻ địch | `enemies` | 50 | 50/50 | 8 slime thật + 32 quái thường dàn theo 18 khu vực + 10 boss — icon `EBF5 Bestiary X`; **drops thật 50/50** (tên item + % từ bảng `FoeTableEBF5`); **15: khắc chế 50/50** — trường `res` trích cột % `FoeTableEBF5` (10 nguyên tố + nhóm trạng thái), hiển thị Yếu/Kháng/Miễn/Hấp thụ ở trang chi tiết |
 | 3 | Kỹ năng | `skills` | 183 | 183/183 | **Đủ bộ 5 nhân vật + 53 Extra Skills** (kèm chars từng người học được từ trang bị), theo *List of Skills in EBF5*; icon `EBF5 Skill X` |
 | 4 | Vật phẩm | `items` | 28 | 28/28 | 24 món Food thật (Pumpkin→Pizza, Garlic/Banana gỡ status/debuff, Apple/Cupcake trừ cooldown…) + 5 Steroid từng nhân vật — icon `EBF5 Item X` |
-| 5 | Trang bị | `equipment` | 19 | 19/19 | Vũ khí/mũ giáp/Flair tên thật; Crystal Staff có ghi chú "không trở lại EBF5" theo wiki |
+| 5 | Trang bị | `equipment` | 97 | 97/97 | 19 mục tay + **78 vũ khí sinh máy (lượt 16) — đủ bộ 84 vũ khí** (21 Kiếm + 21 Cung + 21 Súng + 21 Trượng, bảng 1 post-v2 của `Swords`/`Bows`/`Guns`/`Staves`); 15 món nhãn Độc quyền bản Steam qua `PaywallNote`; Crystal Staff có ghi chú "không trở lại EBF5" |
 | 6 | Trạng thái | `statuses` | 25 | 24/25 | Đủ Doom, Scorch, Berserk, Syphon, Brave, Regen, Vận may…; "Trói chân" (không tồn tại) đã thay bằng Mỏi (Tired) — icon `EBF5 Status X`; Radiation giữ emoji |
 | 7 | Khu vực | `areas` | 18 | 18/18 | 12 khu chính + 6 khu trả phí theo trang *EBF5 Map*; mỗi khu có ô lưới (grid), Điểm nhấn, Lưu ý — ảnh tile bản đồ; **C3: ~200 ô lưới có bảng Quái (wave) + Key Items + vị trí con + ghi chú cơ chế từ các trang `EBF5 Map/X`** |
 | 8 | Triệu hồi | `summons` | 191 | 191/191 | **C4: 18 → 40** (lượt 8+11) rồi **14: 40 → 191 — gần như đủ bộ** theo bảng hiện hành post-v2 (192 hàng, trừ demo ẩn Glitch 2; The Devourer 250 → Furry Slime 1); 151 entry mới sinh máy từ cột target/type/power/element/status/debuff; 151 icon tải từ `EBF5 Foe Icon` qua fetch-images.map.txt |
@@ -122,4 +122,14 @@
 - **Bẫy PowerShell lần nữa**: `$psObj[$key]` trên PSCustomObject trả `$null` → `[int]$null = 0` (toàn dòng res thành 0). Truy cập đúng là `$res.PSObject.Properties[$k].Value`.
 - **Kiểm tra cuối**: `check.ps1` PASS.
 
-*Cập nhật lần cuối: 2026-10-20 — sau lượt 15 (khắc chế 50/50 kẻ địch từ bảng FoeTableEBF5 wiki + panel hiển thị Yếu/Kháng/Miễn/Hấp thụ; tổng dữ liệu giữ nguyên 539 mục).*
+### Lượt 16 — mở rộng trang bị: 19 → 97 (đủ bộ 84 vũ khí EBF5)
+- **Nguồn**: 4 trang `Swords` / `Bows` / `Guns` / `Staves` trên fandom (mỗi trang có **3 bảng**: 1 = giá trị hiện hành, 2 = với Equip Remix, 3 = Pre-v2 update — dùng bảng 1, đúng nguyên tắc lượt 14 dùng bảng hiện hành).
+- **Cấu trúc ô** (đã kiểm chống bằng cách đếm từng ô): Swords 22 dòng/hàng (có cột Defend), 3 trang còn lại 21 dòng (không Defend). Template: `{{PS|n}}` chỉ số, `{{EI5P|El|n}}` nguyên tố/kháng, `{{ElementIcon5}}` phi nguyên tố, `{{Boost5|X}}`, `{{GS5|Status|n}}` trạng thái khi đánh, `{{Defending|X|n}}`, `{{UA5|Skill}}`, `{{CA5|Skill}}`, `{{RS5|Skill}}` (Ngẫu nhiên Cast giữa các lượt — xác nhận qua alt-text "Randomly casts X between turns"), `{{SI5X|S|p%<br/>kx}}` trạng thái trong cột đánh.
+- **data.js**: +78 vũ khí sinh máy (84 trừ 6 trùng đội cũ: Heaven's Gate, Ultra Pro 9000X, Fairy Bow, Dark Tooth, Shadow Blaster, Spine Snapper). desc gồm: vị trí, chỉ số, Cast, Boost, trạng thái khi đánh, Defend, Unleash, Counter, kháng — không văn tự do.
+- **"Độc quyền bản Steam"**: nền hồng bảng wiki chỉ phỏng đoán không chuẩn (33 runtime) — sau đó truy trang item từng món kiểm `PaywallNote`: đúng 15 món (Golden Axe, Devil's Fork, Dragon's Feather, Emerald Smasher, Hyper Drill, Fusion Blade, Emerald Cyclone, Angel Wing, Flame Titan, Heartstopper, Gungnir, Accelerator, Green Goliath, Oak Staff, Shooting Star). Màu hồng bảng này chỉ tham khảo.
+- **Icon**: 79 dòng map icon `File:5<TenKetHop>.png` → tại đủ 79/79, 0 SKIP, 0 FAIL (sau đó xóa 1 file của entry heaven-s-gate bị loại).
+- **Sửa curl slug**: "Heaven's Gate" → slug `heaven-s-gate` trùng hợp ý và gây double entry với `heavens-gate` cũ — chỉ giữ bản tay; xóa cả file ảnh + dòng map cho entry bị loại.
+- **check.ps1**: đếm nháy đơn thay đổi — bỏ qua các kỳ nháy **có escape** `\'`: regex `(?<!\\)'` — ngừng false FAIL.
+- **Kiểm tra cuối**: `check.ps1` PASS — 97 mục trang bị / 97 ảnh; tổng 617 mục / 616 ảnh.
+
+*Cập nhật lần cuối: 2026-10-20 — sau lượt 16 (đủ bộ 84 vũ khí EBF5 qua 4 trang class, trích cột từ bảng 1 current; tổng 617 mục / 616 ảnh).*
