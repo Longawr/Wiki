@@ -1,0 +1,4 @@
+# Skip Jekyll processing on GitHub Pages.
+# js/data.js contains `{{...}}` template syntax copied from wiki wikitext notes,
+# which the Jekyll/Liquid parser trips over. The wiki is pure static HTML/CSS/JS,
+# so Jekyll processing is unnecessary.
