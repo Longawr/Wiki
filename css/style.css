@@ -479,14 +479,18 @@ body.no-scroll { overflow: hidden; }
 }
 .st-tip:hover { color: var(--accent-2); }
 
-/* ---------- Mục trước / sau trang chi tiết ---------- */
-.prev-next {
+/* ---------- Mục trước / sau trang chi tiết ---------- */.prev-next {
   display: flex;
   justify-content: space-between;
   gap: 10px;
   margin-top: 22px;
   flex-wrap: wrap;
 }
+
+/* ---------- Bảng khắc chế kẻ địch (res) ---------- */
+.res-table th { width: 88px; white-space: nowrap; }
+.res-table td { line-height: 1.9; }
+.res-note { font-size: 0.8rem; opacity: 0.75; margin: 8px 0 0; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 760px) {

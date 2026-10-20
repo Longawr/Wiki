@@ -55,6 +55,71 @@
         esc(e.icon + ' ' + e.name) + '</span>';
     }).join('');
   }
+  /* --- Khắc chế của kẻ địch (bảng % từ FoeTableEBF5 trên wiki) ---------------- */
+  var RES_LBL = {
+    'stun': 'Choáng', 'dispel': 'Dispel',
+    'syphon&disable': 'Syphon & Disable', 'chill&freeze': 'Lạnh & Đóng băng',
+    'poison&virus': 'Nhiễm độc & Virus', 'weaken&tired': 'Yếu đi & Mỏi',
+    'stagger&confuse': 'Chững & Hoang mang', 'death&doom': 'Chết ngay & Doom',
+    'burn&scorch': 'Đốt & Xém', 'wet&dry': 'Ướt & Khô', 'heavy&light': 'Nặng & Nhẹ',
+    'atkdown': 'Trừ Attack', 'defdown': 'Trừ Defence', 'magdown': 'Trừ Magic Attack',
+    'mdedown': 'Trừ Magic Defence', 'accdown': 'Trừ Chính xác', 'evadown': 'Trừ Né',
+    'hpdown': 'Trừ Max HP'
+  };
+
+  function resLabel(k) {
+    if (RES_LBL[k]) return RES_LBL[k];
+    var e = elOf(k);
+    return e ? e.name : k;
+  }
+
+  function resPct(v) {
+    if (v >= 200) return 'hấp thụ';
+    if (v >= 100) return '0% sát thương';
+    if (v > 0)    return '−' + v + '% sát thương';
+    if (v < 0)    return '+' + (-v) + '% sát thương';
+    return '';
+  }
+
+  function resRow(label, keys, res) {
+    if (!keys.length) return '';
+    var cells = keys.map(function (k) {
+      var v = res[k];
+      var e = elOf(k);
+      var icon = e ? '<span class="dot" style="background:rgba(0,0,0,.25)"></span>' : '';
+      var cls = 'chip';
+      if (e) cls += ' el';
+      var style = e ? ' style="background:' + esc(e.color) + '"' : '';
+      return '<span class="' + cls + '"' + style + '>' + icon + esc(resLabel(k) + ' — ' + resPct(v)) + '</span>';
+    }).join(' ');
+    return '<tr><th>' + label + '</th><td>' + cells + '</td></tr>';
+  }
+
+  function resTable(res) {
+    if (!res) return '<p class="muted">Không có dữ liệu khắc chế trên wiki.</p>';
+    var keys = Object.keys(res);
+    var weak = [], resist = [], immune = [], absorb = [];
+    keys.sort(function (a, b) {
+      var ea = elOf(a) ? 0 : 1, eb = elOf(b) ? 0 : 1;
+      if (ea !== eb) return ea - eb;
+      return res[b] - res[a];
+    });
+    keys.forEach(function (k) {
+      var v = res[k];
+      if (v >= 200)      absorb.push(k);
+      else if (v >= 100) immune.push(k);
+      else if (v > 0)    resist.push(k);
+      else if (v < 0)    weak.push(k);
+    });
+    var rows =
+      resRow('Yếu', weak, res) +
+      resRow('Kháng', resist, res) +
+      resRow('Miễn', immune, res) +
+      resRow('Hấp thụ', absorb, res);
+    if (!rows) return '<p class="muted">Cân bằng với mọi nguyên tố — không có điểm yếu/kháng nổi bật theo wiki.</p>';
+    return '<table class="data-table res-table"><tbody>' + rows + '</tbody></table>' +
+      '<p class="muted res-note">Số % lấy từ bảng FoeTableEBF5 của wiki: phần trăm kháng (dương) giảm sát thương, phần trăm âm tăng sát thương nhận vào, 200% là hấp thụ (chữa HP).</p>';
+  }
 
   function kindChip(kind) {
     return kind ? '<span class="chip">' + esc(kind) + '</span>' : '';
@@ -484,6 +549,7 @@
     /* ----- Kẻ địch ----- */
     if (key === 'enemies') {
       html +=
+        '<div class="panel"><h3>Khắc chế nguyên tố & trạng thái</h3>' + resTable(item.res) + '</div>' +
         '<div class="two-col">' +
           '<div class="panel"><h3>Vật phẩm rơi (mẫu)</h3><ul class="clean">' +
             (item.drops || []).map(function (s) { return '<li>' + txt(s) + '</li>'; }).join('') +

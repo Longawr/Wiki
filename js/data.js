@@ -237,6 +237,7 @@ window.EBF5DATA = {
     {
       id: 'water-slime', name: 'Water Slime', kind: 'Quái thường', image: 'img/enemies/water-slime.png',
       elements: ['water'],
+      res: { fire: 100, thunder: -80, ice: -50, bomb: -50, water: 200, wind: 50, dark: -50, 'burn&scorch': 100, 'death&doom': -100 },
       desc: 'Loại slime phổ biến của EBF5: thân là nước trong veo, đòn chủ động gần như chỉ là nhảy lên cắn nhẹ. Cả họ slime luôn là quái yếu nhất nhưng thường xuất hiện theo đàn.',
       drops: [ 'Liquid Ice (10%)', 'Sea Shell (10%)' ],
       tips: [ 'Đòn phủ diện quét đàn slime nhanh nhất.', 'Slime cực nhạy với Doom và Instant Death — kết liễu cả đám dễ dàng.' ]
@@ -244,6 +245,7 @@ window.EBF5DATA = {
     {
       id: 'lava-slime', name: 'Lava Slime', kind: 'Quái thường', image: 'img/enemies/lava-slime.png',
       elements: ['fire'],
+      res: { fire: 200, ice: 50, earth: 50, water: -80, dark: -50, 'chill&freeze': 100, 'death&doom': -100 },
       desc: 'Slime nham thạch: biến thể "cháy sáng" của họ slime, một số con biết Fire Rain (mưa lửa). Sợ Nước và Bang.',
       drops: [ 'Magma Chunk (10%)' ],
       tips: [ 'Dùng Nước hoặc trạng thái Ướt để hạ dễ.', 'Cẩn thận đốt dồn lên Natalie hoặc NoLegs.' ]
@@ -251,6 +253,7 @@ window.EBF5DATA = {
     {
       id: 'slime-mouse', name: 'Slime Mouse', kind: 'Quái thường', image: 'img/enemies/slime-mouse.png',
       elements: ['thunder'],
+      res: { thunder: 200, earth: -80, bio: -50, dark: -50, stun: 100, 'death&doom': -100 },
       desc: 'Slime chuột nhỏ có chỏm sét: một vài biến thể của nó trông giống hệt các "Pikaclone" trong Pokémon. Đòn có pha Thunderbolt và có thể gây Choáng.',
       drops: [ 'Banana (15%)', 'Apple (10%)', 'Blueberries (5%)', 'Dragon Fruit (3%)' ],
       tips: [ 'Đừng dùng phép Sấm — chính chú mèo mới là chuyên gia sấm đấy.', 'Guard chuẩn trước các đòn sấm choáng.' ]
@@ -258,6 +261,7 @@ window.EBF5DATA = {
     {
       id: 'icecream-slime', name: 'Icecream Slime', kind: 'Quái thường', image: 'img/enemies/icecream-slime.png',
       elements: ['ice', 'water'],
+      res: { fire: -80, ice: 200, bomb: -50, wind: 50, dark: -50, 'death&doom': -100 },
       desc: 'Slime kem — một trong các "slime món ngọt" của EBF5 (cùng Chocolate Slime). Sở hữu nguyên tố Bang và dễ gây Lạnh / Đóng băng.',
       drops: [ 'Snowball (100%)' ],
       tips: [ 'Tránh tuyệt đối phép Bang.', 'Dùng phép Lửa cho hiệu quả tốt nhất.' ]
@@ -265,6 +269,7 @@ window.EBF5DATA = {
     {
       id: 'chocolate-slime', name: 'Chocolate Slime', kind: 'Quái thường', image: 'img/enemies/chocolate-slime.png',
       elements: ['physical'],
+      res: { earth: 200, bomb: -50, water: -80, wind: 100, dark: -50, 'death&doom': -100 },
       desc: 'Slime socola nâu: một loại khác của "slime món ngọt" trong EBF5 như Icecream Slime, độ kháng thay đổi theo vật chất cấu thành.',
       drops: [ 'Earth Ball (30%)', 'Coffee (5%)' ],
       tips: [ 'Slime luôn yếu về sát thương, nhưng nếu đông thì vẫn đừng xem thường.', 'Một số trang bị khiến slime sợ mà tự bỏ chạy trong lượt của chúng.' ]
@@ -272,6 +277,7 @@ window.EBF5DATA = {
     {
       id: 'mud-slime', name: 'Mud Slime', kind: 'Quái thường', image: 'img/enemies/mud-slime.png',
       elements: ['earth', 'bio'],
+      res: { fire: -50, ice: -80, bio: 150, bomb: -50, water: 150, dark: -50, 'death&doom': -100 },
       desc: 'Slime bùn: sống ở vùng đất ẩm, kết hợp cả đất với độc — một chất liệu rất khó chịu.',
       drops: [ 'Earth Ball (30%)', 'An Herb (20%)', 'Gash Root (10%)', 'Jungle Flower (10%)' ],
       tips: [ 'Tránh để trạng thái bùn dồn lên quá lâu — giải sớm.', 'Đòn đất phát huy tốt.' ]
@@ -279,6 +285,7 @@ window.EBF5DATA = {
     {
       id: 'sand-slime', name: 'Sand Slime', kind: 'Quái thường', image: 'img/enemies/sand-slime.png',
       elements: ['earth'],
+      res: { ice: -50, earth: 100, bomb: -50, wind: -80, dark: -50, 'death&doom': -100 },
       desc: 'Slime cát: loại slime tiếp tục hiện diện từ EBF4, sống chủ yếu ở vùng sa mạc, mang kiểu tóc cát trên đầu.',
       drops: [ 'Dirt Ball (80%)', 'Sea Shell (10%)', 'Seaweed (10%)' ],
       tips: [ 'Đất và Sấm phát huy tốt với các quái dạng cát.', 'Giữ sát thương vùng rộng để quét đám.' ]
@@ -286,6 +293,7 @@ window.EBF5DATA = {
     {
       id: 'slime-bunny', name: 'Slime Bunny', kind: 'Quái thường', image: 'img/enemies/slime-bunny.png',
       elements: ['bio'],
+      res: { bomb: -50, holy: 200, dark: -80, 'death&doom': -100 },
       desc: 'Slime thỏ — đáng yêu hơn chút so với họ hàng, nhưng vẫn là quái. Slime Bunny còn xuất hiện vai khác trong series: summon ở EBF2 và mũ (hat) trong EBF5.',
       drops: [ 'Không drop vật phẩm (trang wiki không ghi — Slime Bunny là đối tượng trị liệu hỗ trợ)' ],
       tips: [ 'Đừng bị bộ má tội nghiệp lừa — vẫn cứ đập bình thường.', 'Đòn của nó cường độ nhẹ, dễ Guard.' ]
@@ -293,6 +301,7 @@ window.EBF5DATA = {
     {
       id: 'nolegs-boss', name: 'NoLegs (boss)', image: 'img/enemies/nolegs-boss.png', kind: 'Boss',
       elements: ['physical'],
+      res: { fire: -50, thunder: 50, water: -30, stun: 100, 'chill&freeze': 100, 'death&doom': 100 },
       desc: 'Boss nhỏ xuất hiện sớm nhất game: chú mèo xanh tấn công Matt ngay ở bến cảng Hope Harbor vì... trộm rác bị bắt quả tang. Thua xong liền theo Matt lên đường.',
       drops: [ 'Wool (100%)', 'Wool (75%)', 'Wool (50%)' ],
       tips: [ 'Trận này dạy các gốc cơ bản: Guard đúng thời điểm và giữ HP ổn định.' ]
@@ -300,6 +309,7 @@ window.EBF5DATA = {
     {
       id: 'natalie-boss', name: 'Natalie (boss)', image: 'img/enemies/natalie-boss.png', kind: 'Boss',
       elements: ['fire', 'thunder', 'ice', 'holy'],
+      res: { holy: 50, dark: 50, fire: 50, thunder: 50, ice: 50, stun: 100, 'chill&freeze': 100, 'death&doom': 100 },
       desc: 'Trận đánh giữa Matt / NoLegs và Natalie ngay đầu game: cô truy lùng vì thấy hai kẻ ăn cắp cây xẻng ngoài chợ Hope Harbor. Thua xong, Natalie mời cả hai về phía mình đi điều tra Monoliths rải khắp thế giới.',
       drops: [ 'Cupcake (100%)', 'Pretzel (50%)', 'Coffee (25%)' ],
       tips: [ 'Chú ý phép đa nguyên tố của cô; yếu vật lý thế nên Matt là người đánh chính.' ]
@@ -307,6 +317,7 @@ window.EBF5DATA = {
     {
       id: 'lance-boss', name: 'Lance (boss)', image: 'img/enemies/lance-boss.png', kind: 'Boss',
       elements: ['fire', 'thunder', 'dark', 'bomb'],
+      res: { fire: 20, thunder: 20, holy: -100, dark: 100, stun: 100, 'chill&freeze': 100, 'syphon&disable': 100, 'death&doom': 100 },
       desc: 'Chuyến đánh Lance ở Iron Fortress: bắt đầu từ giao chiến trực tiếp, rồi trận cuối phía cửa ra vào kèm hovertank Neon Valkyrie. Sau thất bại, Lance gia nhập hội nhóm với tư cách "tù binh" — nhưng vẫn được giúp đỡ chiến đấu.',
       drops: [ 'Hand Bomb (100%) x 4 slot' ],
       tips: [ 'Guard để gánh loạt pháo nặng; Neon Valkyrie là boss riêng của trận cuối.' ]
@@ -314,6 +325,7 @@ window.EBF5DATA = {
     {
       id: 'neon-valkyrie', name: 'Neon Valkyrie', image: 'img/enemies/neon-valkyrie.png', kind: 'Boss',
       elements: ['physical', 'fire', 'bomb'],
+      res: { thunder: -80, bio: 100, bomb: -50, water: -50, wind: 100, stun: 100, 'chill&freeze': 100, 'poison&virus': 100, 'stagger&confuse': 100, dispel: 100, 'death&doom': 100, hpdown: 30, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 20, evadown: 20 },
       desc: 'Hovertank của Lance. Xuất hiện ngay đầu game khi đâm Matt và cả hội, rồi trở lại "last stand" cùng Lance ở cửa Iron Fortress.',
       drops: [ 'Nano Fibre (100%) x 2', 'Gunpowder (100%)', 'Dark Rune (100%)', 'Plutonium Core (100%)' ],
       tips: [ 'Boss phối cùng Lance nên phải tính trận đấu dài và chuẩn bị Guard cho các lượt pháo lớn.' ]
@@ -321,6 +333,7 @@ window.EBF5DATA = {
     {
       id: 'matteus', name: 'Matteus', image: 'img/enemies/matteus.png', kind: 'Boss',
       elements: ['earth', 'holy'],
+      res: { thunder: 100, ice: -50, earth: 200, bomb: -80, water: -80, wind: 100, stun: 100, 'chill&freeze': 100, 'syphon&disable': 100, 'stagger&confuse': 100, 'wet&dry': -100, 'weaken&tired': 50, dispel: 50, 'death&doom': 100, hpdown: 50, atkdown: 40, magdown: 40, defdown: 80, mdedown: 80, accdown: 40, evadown: 40 },
       desc: 'Phiên bản bóng ma méo mó của Matt được triệu hồi ở Temple of Trials — phản chiếu cả hình dáng lẫn tính cách của anh đao thủ.',
       drops: [ 'Earth Ball (100%)', 'Geode (100%)', 'Steel Plate (100%)', 'Belt Buckle (100%)', 'Mythril Shards (100%)' ],
       tips: [ 'Nhóm tấn công chủ đạo đất / thánh theo bộ đế của Matt.' ]
@@ -328,6 +341,7 @@ window.EBF5DATA = {
     {
       id: 'natalia', name: 'Natalia', image: 'img/enemies/natalia.png', kind: 'Boss',
       elements: ['fire', 'thunder', 'ice', 'holy', 'dark'],
+      res: { fire: 200, water: -80, wind: -80, holy: 200, dark: -80, stun: 100, 'chill&freeze': 100, 'syphon&disable': 100, 'stagger&confuse': 50, 'weaken&tired': 50, dispel: 50, 'death&doom': 100, hpdown: 50, atkdown: 40, magdown: 80, defdown: 40, mdedown: 80, accdown: 40, evadown: 40 },
       desc: 'Phiên bản bóng ma của Natalie ở Temple of Trials — pháp sư méo mó mang lối đánh na ná Natalie ở bản gốc.',
       drops: [ 'Silk (100%)', 'Satin (100%)', 'Gold Plate (100%)', 'Ruby (100%)', 'Dark Rune (100%)' ],
       tips: [ 'Boss phép thuật đa nguyên tố: Guard đều và sẵn sàng hồi cho đồng đội.' ]
@@ -335,6 +349,7 @@ window.EBF5DATA = {
     {
       id: 'lancelot', name: 'Lancelot', image: 'img/enemies/lancelot.png', kind: 'Boss',
       elements: ['fire', 'thunder', 'dark', 'bomb'],
+      res: { fire: -50, thunder: -50, earth: -50, bio: 100, bomb: -80, wind: 100, holy: -50, dark: 200, 'burn&scorch': 100, stun: 100, 'chill&freeze': 100, 'poison&virus': 100, 'syphon&disable': 100, 'stagger&confuse': 100, 'weaken&tired': 100, dispel: 50, 'death&doom': 100, hpdown: 50, atkdown: 40, magdown: 40, defdown: 80, mdedown: 40, accdown: 80, evadown: 40 },
       desc: 'Phiên bản bóng ma của Lance ở Temple of Trials — mang cách đánh của Lance ở dạng méo mó.',
       drops: [ 'Không drop vật phẩm (trang wiki không ghi drop cho boss phản chiếu này)' ],
       tips: [ 'Chuẩn bị sẵn sàng cho đòn pháo cũng như số lượng Bomb.' ]
@@ -342,6 +357,7 @@ window.EBF5DATA = {
     {
       id: 'annabelle', name: 'Annabelle', image: 'img/enemies/annabelle.png', kind: 'Boss',
       elements: ['bio', 'earth', 'wind', 'water'],
+      res: { fire: 200, ice: -50, bio: 200, bomb: 100, wind: -50, holy: -80, dark: 200, stun: 100, 'chill&freeze': 100, 'syphon&disable': 100, 'weaken&tired': 100, dispel: 50, 'death&doom': 100, hpdown: 50, atkdown: 80, magdown: 80, defdown: 40, mdedown: 40, accdown: 40, evadown: 40 },
       desc: 'Phiên bản bóng ma của Anna ở Temple of Trials — mũi tên và phép rừng của bản gốc được biến tấu theo lối quái vật.',
       drops: [ 'Razor Claw (100%)', 'Bone Spike (100%)', 'Satin (100%)', 'Dark Rune (100%)', 'Dark Matter (100%)' ],
       tips: [ 'Đòn của nó treo trạng thái Mỏi và độc — chuẩn bị Garlic và Banana trước.' ]
@@ -349,6 +365,7 @@ window.EBF5DATA = {
     {
       id: 'rafflesia', name: 'Rafflesia', image: 'img/enemies/rafflesia.png', kind: 'Boss',
       elements: ['bio', 'wind'],
+      res: { fire: -80, ice: -50, bio: 150, water: 150, wind: -50, stun: 100, 'syphon&disable': 100, 'chill&freeze': 100, dispel: 50, 'death&doom': 100, hpdown: 50, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50, accdown: 50, evadown: 50 },
       desc: 'Boss hoa khổng lồ nổi tiếng "mùi thối": trong trận này, Lance buộc phải thú nhận dị ứng phấn hoa — may là mô phỏng không hỗ trợ mùi.',
       drops: [ 'Jungle Flower (100%)', 'Pink Potion (100%)', 'Gash Nut (100%)', 'Bio Virus (100%)', 'Lanky Root (100%)', 'Cactus (100%)' ],
       tips: [ 'Độc là vế mạnh chính, chuẩn bị sẵn vật phẩm giải độc cho cả đội.' ]
@@ -356,6 +373,7 @@ window.EBF5DATA = {
     {
       id: 'laurelin', name: 'Laurelin', image: 'img/enemies/laurelin.png', kind: 'Boss',
       elements: ['holy', 'wind'],
+      res: { fire: -80, thunder: -50, earth: 150, water: 150, wind: -80, holy: 100, dark: -50, 'burn&scorch': -100, stun: 100, 'chill&freeze': 100, 'syphon&disable': 100, 'stagger&confuse': 100, 'heavy&light': 50, 'weaken&tired': 50, dispel: 100, 'death&doom': 100, hpdown: 30, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 50 },
       desc: 'Boss thánh của vùng rừng, bên cạnh có các chú mèo chiến binh (NoLegs sẵn lòng đánh đồng loại vì hội nhóm của mình).',
       drops: [ 'Soft Wood (100%) x 3', 'Amber (100%)', 'Emerald (100%)' ],
       tips: [ 'Chú ý các con mèo bên cạnh cùng bộ buff của boss — quyết định hạ con nào trước.' ]
@@ -366,6 +384,7 @@ window.EBF5DATA = {
     {
       id: 'blood-bat', name: 'Blood Bat', kind: 'Quái thường', image: 'img/enemies/blood-bat.png',
       elements: ['dark'],
+      res: { thunder: -80, ice: -50, earth: 100, bio: -50, wind: -80, stun: -50, 'weaken&tired': -100 },
       desc: 'Dơi hút máu làm tổ trong Ice Cave gần thị trấn khởi đầu — quái đầu tiên của EBF5.',
       drops: [ 'Ogle Berries (20%)', 'Red Feather (20%)', 'Amber (10%)', 'Ruby (5%)' ],
       tips: [ 'Phép Thánh cho hiệu quả tốt nhất.', 'Xuất hiện theo đàn trong hang tối.' ]
@@ -373,6 +392,7 @@ window.EBF5DATA = {
     {
       id: 'green-creep', name: 'Green Creep', kind: 'Quái thường', image: 'img/enemies/green-creep.png',
       elements: ['bio'],
+      res: { thunder: -50, earth: -80, water: 100, wind: 50, stun: 50, 'death&doom': 50 },
       desc: 'Sinh vật cỏ dại một mắt quanh Hope Harbor — nhỏ bé nhưng có thể gây độc.',
       drops: [ 'Sea Shell (25%)', 'Razor Claw (15%)', 'Liquid Ice (25%)' ],
       tips: [ 'Quái yếu, đòn thường là đủ.', 'Xử lý sớm để tránh bị gây độc dồn dập.' ]
@@ -382,6 +402,7 @@ window.EBF5DATA = {
     {
       id: 'green-bush', name: 'Green Bush', kind: 'Quái thường', image: 'img/enemies/green-bush.png',
       elements: ['bio'],
+      res: { fire: -80, earth: -50, bio: -80, water: 150, wind: -50, 'burn&scorch': -100, 'stagger&confuse': -100, 'wet&dry': -100 },
       desc: 'Bụi cây trá hình ở Wild Tropics — trông như cây thường cho tới khi nhúc nhích.',
       drops: [ 'Herb (10%)', 'Cactus (40%)', 'Lanky Root (10%)', 'Kiwi (40%)', 'Ogle Berries (35%)' ],
       tips: [ 'Đốt bằng Lửa rất hiệu quả.', 'Ít đe dọa — quét nhanh cùng đợt khác.' ]
@@ -389,6 +410,7 @@ window.EBF5DATA = {
     {
       id: 'leafy-chomper', name: 'Leafy Chomper', kind: 'Quái thường', image: 'img/enemies/leafy-chomper.png',
       elements: ['bio'],
+      res: { fire: -80, ice: -50, earth: -50, bio: 150, water: 150, wind: -50, stun: 50, 'chill&freeze': 50, 'death&doom': 70, atkdown: 30, defdown: 30 },
       desc: 'Cây bẫy há mồm của Wild Tropics — họ hàng với dòng Chomper kinh điển trong series.',
       drops: [ 'An Herb (100%)', 'Soft Wood (75%)', 'Gash Root (75%)', 'Cactus (50%)', 'Emerald (5%)' ],
       tips: [ 'Giữ khoảng cách và đánh bằng phép xa.', 'Lửa khắc chế tốt.' ]
@@ -396,6 +418,7 @@ window.EBF5DATA = {
     {
       id: 'cutie-worm', name: 'Cutie Worm', kind: 'Quái thường', image: 'img/enemies/cutie-worm.png',
       elements: ['holy'],
+      res: { earth: -50, bio: -80, holy: 200, dark: -50, 'poison&virus': -100 },
       desc: 'Sâu dễ thương hồi máu cho đồng đội thay vì tấn công.',
       drops: [ 'Butterfly Wing (50%)', 'Silk (5%)' ],
       tips: [ 'Hạ sớm để trận đấu đỡ kéo dài.', 'Summon của nó cũng thuộc hàng hỗ trợ nổi tiếng.' ]
@@ -405,6 +428,7 @@ window.EBF5DATA = {
     {
       id: 'haunted-mirror', name: 'Haunted Mirror', kind: 'Quái thường', image: 'img/enemies/haunted-mirror.png',
       elements: ['dark'],
+      res: { fire: -50, earth: 50, wind: -50, holy: -80, dark: 200, 'burn&scorch': -50, 'heavy&light': -50 },
       desc: 'Chiếc gương ma ám trong triển lãm Grand Gallery — phản lại một phần đòn phép của bạn.',
       drops: [ 'Soft Wood (15%)', 'Glass Shards (45%)', 'Butterfly Wing (15%)' ],
       tips: [ 'Đánh vật lý thay vì phép.', 'Cẩn thận khi dồn phép dập dồn vào nó.' ]
@@ -412,6 +436,7 @@ window.EBF5DATA = {
     {
       id: 'angel-mirror', name: 'Angel Mirror', kind: 'Quái thường', image: 'img/enemies/angel-mirror.png',
       elements: ['holy'],
+      res: { ice: -80, earth: 50, holy: 200, dark: -80, 'heavy&light': -50 },
       desc: 'Gương Thánh cùng bộ sưu tập với Haunted Mirror — kháng phép Thánh.',
       drops: [ 'White Feather (50%)', 'Glass Shards (45%)', 'Gold Plate (10%)' ],
       tips: [ 'Tránh dùng phép Thánh.', 'Chọn nguyên tố khác trước khi tấn công.' ]
@@ -421,6 +446,7 @@ window.EBF5DATA = {
     {
       id: 'sandy-bush', name: 'Sandy Bush', kind: 'Quái thường', image: 'img/enemies/sandy-bush.png',
       elements: ['earth'],
+      res: { ice: -80, bio: -50, water: 150, wind: -50, 'stagger&confuse': -100, 'wet&dry': -100 },
       desc: 'Bụi cây phủ cát ở vùng đất hoang — bản sa mạc của Green Bush.',
       drops: [ 'Gash Root (20%)', 'Cactus (5%)', 'Jungle Flower (10%)' ],
       tips: [ 'Xử lý như bản gốc nhưng dày da hơn.', 'Quét nhanh cùng đợt quái toàn khu.' ]
@@ -428,6 +454,7 @@ window.EBF5DATA = {
     {
       id: 'camel-mammoth', name: 'Camel Mammoth', kind: 'Quái thường', image: 'img/enemies/camel-mammoth.png',
       elements: ['earth'],
+      res: { thunder: -50, bio: -80, water: 50, wind: 100, dark: -50, stun: 80, 'chill&freeze': 100, 'poison&virus': -50, 'weaken&tired': -50, 'death&doom': 90, atkdown: 50, magdown: 50, defdown: 50, mdedown: 50 },
       desc: 'Lai giữa lạc đà và ma mút — thích nghi tốt với sa mạc khốc liệt.',
       drops: [ 'Liquid Ice (100%)', 'Fine Fur (100%) x 2', 'Razor Claw (100%)', 'Chocolate Milk (2%)' ],
       tips: [ 'Vóc dáng lớn, da dày — buff Atk trước.', 'Đứng chung nhóm quái lớn của vùng này.' ]
@@ -437,6 +464,7 @@ window.EBF5DATA = {
     {
       id: 'red-flybot', name: 'Red Flybot', kind: 'Quái thường', image: 'img/enemies/red-flybot.png',
       elements: ['fire'],
+      res: { thunder: -50, earth: 100, bio: 50, bomb: -80, water: -50, stun: 50, 'poison&virus': 100, 'syphon&disable': 50, 'death&doom': 50 },
       desc: 'Flybot màu đỏ của quân đội — phóng đạn lửa và di chuyển rất nhanh.',
       drops: [ 'Spring (50%)', 'Plastic (50%)', 'Iron Plate (50%)', 'Floppy (50%)', 'Dark Rune (5%)' ],
       tips: [ 'Đòn phủ diện bắt nó dễ hơn đòn đơn.', 'Chuẩn bị kháng Lửa trước trận.' ]
@@ -444,6 +472,7 @@ window.EBF5DATA = {
     {
       id: 'gunkat-800xl', name: 'GunKat-800XL', kind: 'Quái thường', image: 'img/enemies/gunkat-800xl.png',
       elements: ['thunder'],
+      res: { fire: 50, thunder: -50, water: -30, bomb: -80, wind: 100, bio: 100, stun: 100, 'burn&scorch': 100, 'poison&virus': 100, 'chill&freeze': 100, 'syphon&disable': 100, 'weaken&tired': 100, 'death&doom': 100, hpdown: 30, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 30 },
       desc: 'Robot mèo vũ khí hóa của Iron Fortress — bọc thép và bắn dồn dập.',
       drops: [ 'Steel Plate (75%)', 'Spring (75%)', 'Gunpowder (75%)', 'Hand Bomb (75%)', 'Nano Fibre (15%)' ],
       tips: [ 'Đòn Đất và Bom công phá máy móc tốt.', 'Buff Defence để đỡ đạn tầm xa.' ]
@@ -453,6 +482,7 @@ window.EBF5DATA = {
     {
       id: 'book-worm', name: 'Book Worm', kind: 'Quái thường', image: 'img/enemies/book-worm.png',
       elements: ['bio'],
+      res: { ice: -50, earth: -50, bio: -80, 'chill&freeze': -100, 'poison&virus': -100 },
       desc: 'Sâu thư ăn sách sống trong Greenwood Library.',
       drops: [ 'Glass Shards (15%)', 'Belt Buckle (5%)', 'Silk (5%)' ],
       tips: [ 'Hạ nhanh trước khi nó kịp tự hỗ trợ.', 'Chỉ gặp quanh khu thư viện.' ]
@@ -460,6 +490,7 @@ window.EBF5DATA = {
     {
       id: 'black-bear', name: 'Black Bear', kind: 'Quái thường', image: 'img/enemies/black-bear.png',
       elements: ['physical'],
+      res: { fire: 200, ice: -80, earth: -50, bomb: 80, water: -80, wind: 80, stun: 70, 'chill&freeze': 70, 'stagger&confuse': -100, 'death&doom': 70, atkdown: 30, defdown: 30 },
       desc: 'Gấu đen hoang dã quanh Greenwood — sức mạnh vật lý cao.',
       drops: [ 'Magma Chunk (50%)', 'Leather (100%)', 'Fine Fur (100%)', 'Razor Claw (20%)', 'Ruby (10%)' ],
       tips: [ 'Hạ nhanh vì nó đánh dồn dập.', 'Giảm Atk của nó ngay từ lượt đầu.' ]
@@ -469,6 +500,7 @@ window.EBF5DATA = {
     {
       id: 'leaf-wraith', name: 'Leaf Wraith', kind: 'Quái thường', image: 'img/enemies/leaf-wraith.png',
       elements: ['bio'],
+      res: { fire: -80, bio: 200, wind: -80, holy: -80, dark: 200, 'weaken&tired': 100, 'death&doom': 100 },
       desc: 'Vong hồn lá cây trong Mystic Woods.',
       drops: [ 'An Herb (50%)', 'Gash Root (30%)', 'Jungle Flower (30%)' ],
       tips: [ 'Lửa là khắc tinh của nó.', 'Quét chung cả nhóm wraith nhỏ một lượt.' ]
@@ -476,6 +508,7 @@ window.EBF5DATA = {
     {
       id: 'master-wraith', name: 'Master Wraith', kind: 'Quái thường', image: 'img/enemies/master-wraith.png',
       elements: ['dark'],
+      res: { fire: 50, thunder: 50, ice: 50, bio: 50, water: 50, wind: -80, holy: -80, dark: 200, 'weaken&tired': 100, 'death&doom': 100 },
       desc: 'Đầu sỏ các vong hồn — phép Bóng nặng tay hơn hẳn đàn em.',
       drops: [ 'Razor Claw (25%)', 'Bone Spike (10%)', 'Silk (10%)', 'Dark Rune (5%)' ],
       tips: [ 'Phép Thánh hiệu quả cao.', 'Giết trước để cắt nhịp hồi phục của nhóm.' ]
@@ -485,6 +518,7 @@ window.EBF5DATA = {
     {
       id: 'stone-idol', name: 'Stone Idol', kind: 'Quái thường', image: 'img/enemies/stone-idol.png',
       elements: ['earth'],
+      res: { fire: 50, thunder: 50, ice: -80, earth: 50, bio: 50, bomb: -50, 'chill&freeze': -100, 'stagger&confuse': -100 },
       desc: 'Tượng đá cổ Forgotten Ruins — đứng im như cảnh vật cho tới khi có người tới gần.',
       drops: [ 'Brick (50%)' ],
       tips: [ 'Hạ nhanh trước khi nó kịp buff.', 'Thân đá nên đòn vật lý nặng tay là đủ.' ]
@@ -492,6 +526,7 @@ window.EBF5DATA = {
     {
       id: 'gem-idol', name: 'Gem Idol', kind: 'Quái thường', image: 'img/enemies/gem-idol.png',
       elements: ['holy'],
+      res: { fire: 50, thunder: 50, ice: 50, earth: 50, bio: 50, bomb: -50, water: 50, wind: -50, holy: 200, dark: -80, 'poison&virus': 100, 'stagger&confuse': -100 },
       desc: 'Tượng đá phủ đá quý — sáng lấp lánh nhưng cùng nhóm với Stone Idol.',
       drops: [ 'Rainbow Gems (25%)', 'Amethyst (10%)', 'Emerald (2%)', 'Ruby (2%)', 'Topaz (2%)' ],
       tips: [ 'Tránh dùng phép Thánh lên nó.', 'Đất vẫn công phá hiệu quả.' ]
@@ -501,6 +536,7 @@ window.EBF5DATA = {
     {
       id: 'gold-fish', name: 'Gold Fish', kind: 'Quái thường', image: 'img/enemies/gold-fish.png',
       elements: ['holy'],
+      res: { thunder: 200, earth: 100, bio: 50, bomb: 200, wind: -80, holy: 50, dark: -80, 'poison&virus': 100 },
       desc: 'Cá vàng bơi ngang Rainbow River — to hơn bạn tưởng.',
       drops: [ 'Microcontroller (70%)', 'Springy Spring (60%)', 'Steel Plate (20%)', 'Chain Link (40%)', 'Gold Plate (10%)' ],
       tips: [ 'Sấm đánh quái nước rất tốt.', 'Xử lý nhanh trước khi nó gọi thêm đồng bọn.' ]
@@ -508,6 +544,7 @@ window.EBF5DATA = {
     {
       id: 'lime-squid', name: 'Lime Squid', kind: 'Quái thường', image: 'img/enemies/lime-squid.png',
       elements: ['bio'],
+      res: { fire: -80, thunder: 200, ice: -50, earth: -80, bio: -50, water: 200, wind: 50, stun: 70, 'chill&freeze': 70, 'death&doom': 50, accdown: 60 },
       desc: 'Mực chanh từ dòng sông phun mực độc về phía cả đội.',
       drops: [ 'Cactus (75%) x 2', 'Bone Spike (100%)', 'Sapphire (40%)', 'Grapes (2%)' ],
       tips: [ 'Sẵn Garlic để giải độc.', 'Sấm vẫn là lựa chọn mạnh nhất.' ]
@@ -517,6 +554,7 @@ window.EBF5DATA = {
     {
       id: 'ice-sprite', name: 'Ice Sprite', kind: 'Quái thường', image: 'img/enemies/ice-sprite.png',
       elements: ['ice'],
+      res: { fire: -80, thunder: -50, ice: 200, earth: -80, bio: -50, water: 200, dark: -50, 'chill&freeze': 100, 'poison&virus': -50 },
       desc: 'Thiêng thể băng nhỏ bay quanh Frozen Valley — đùa tuyết và gây Bang.',
       drops: [ 'Snowball (60%)', 'Liquid Ice (20%)', 'Solid Water (20%)', 'Bubble Stone (10%)' ],
       tips: [ 'Lửa khắc chế nhanh.', 'Tránh để cả đội Ướt rồi nhận Bang.' ]
@@ -524,6 +562,7 @@ window.EBF5DATA = {
     {
       id: 'icicle-creep', name: 'Icicle Creep', kind: 'Quái thường', image: 'img/enemies/icicle-creep.png',
       elements: ['ice'],
+      res: { fire: -50, ice: 200, earth: -80, bio: -50, water: 200, holy: -50, stun: 50, 'chill&freeze': 100, 'death&doom': 50 },
       desc: 'Họ hàng băng của Green Creep sống ở Frozen Valley.',
       drops: [ 'Solid Water (100%)', 'Liquid Ice (25%)', 'Glass Shards (25%)' ],
       tips: [ 'Lửa phá băng chuẩn nhất.', 'Giữ kháng Bang cho cả đội.' ]
@@ -531,6 +570,7 @@ window.EBF5DATA = {
     {
       id: 'grolar-bear', name: 'Grolar Bear', kind: 'Quái thường', image: 'img/enemies/grolar-bear.png',
       elements: ['ice'],
+      res: { fire: -80, ice: 200, bio: -80, water: 80, wind: 80, dark: -50, stun: 70, 'chill&freeze': 100, 'stagger&confuse': -100, 'death&doom': 70, atkdown: 30, defdown: 30 },
       desc: 'Lai giữa gấu bắc cực và gấu xám — to lớn và dữ dằn quanh Redpine Town.',
       drops: [ 'Solid Water (50%)', 'Leather (100%)', 'Fine Fur (100%)', 'Razor Claw (20%)', 'Raw Beef (2%)' ],
       tips: [ 'Lửa ổn định hơn đòn vật lý thường.', 'Buff Defence và hạ Atk của nó song song.' ]
@@ -540,6 +580,7 @@ window.EBF5DATA = {
     {
       id: 'flame-wraith', name: 'Flame Wraith', kind: 'Quái thường', image: 'img/enemies/flame-wraith.png',
       elements: ['fire'],
+      res: { fire: 200, water: -80, wind: -80, holy: 200, dark: -80, 'weaken&tired': 100, 'death&doom': 100 },
       desc: 'Vong hồn lửa ở The Rapture — đốt cả đội hình dày đặc.',
       drops: [ 'Bottled Darkness (10%)', 'Magma Sample (25%)', 'Ruby (5%)', 'Donut (1%)' ],
       tips: [ 'Nước và Bang khắc tốt.', 'Đề phòng trạng thái Đốt.' ]
@@ -547,6 +588,7 @@ window.EBF5DATA = {
     {
       id: 'magma-chomper', name: 'Magma Chomper', kind: 'Quái thường', image: 'img/enemies/magma-chomper.png',
       elements: ['fire'],
+      res: { fire: 150, earth: -80, water: 150, wind: -50, holy: -50, stun: 50, 'chill&freeze': 50, 'death&doom': 70, atkdown: 30, defdown: 30 },
       desc: 'Cây bẫy dung nham — nhánh Chomper mạnh nhất, sống trên Lava Lake.',
       drops: [ 'Magma Chunk (100%)', 'Gunpowder (75%)', 'Magma Chunk (75%)', 'Amber (25%)' ],
       tips: [ 'Ném phép Nước từ xa.', 'Tuyệt đối không trực diện.' ]
@@ -556,6 +598,7 @@ window.EBF5DATA = {
     {
       id: 'magma-hand', name: 'Magma Hand', kind: 'Quái thường', image: 'img/enemies/magma-hand.png',
       elements: ['fire'],
+      res: { fire: 200, ice: -50, earth: -80, bomb: 50, water: -80, 'chill&freeze': 100, 'wet&dry': 100 },
       desc: 'Bàn tay magma tự do, vung nhiều loại vũ khí lửa ở Freezeflame Dungeon.',
       drops: [ 'Steel Plate (25%)', 'Hand Bomb (33%)', 'Shuriken (33%)', 'Magma Chunk (25%)' ],
       tips: [ 'Nước hạ gọn nó.', 'Giữ kháng Lửa khi vào phòng nóng.' ]
@@ -565,6 +608,7 @@ window.EBF5DATA = {
     {
       id: 'putrid-worm', name: 'Putrid Worm', kind: 'Quái thường', image: 'img/enemies/putrid-worm.png',
       elements: ['bio'],
+      res: { fire: -80, earth: -50, bio: 200, 'poison&virus': -100 },
       desc: 'Sâu thối trong Mineshaft Maze — bắn độc từ chính rác thải của mỏ.',
       drops: [ 'Cactus (10%)', 'Silk (5%)' ],
       tips: [ 'Giải độc liên tục.', 'Tránh để nó tung độc vào cuối lượt.' ]
@@ -574,6 +618,7 @@ window.EBF5DATA = {
     {
       id: 'beheaded-fallen', name: 'Beheaded Fallen', kind: 'Quái thường', image: 'img/enemies/beheaded-fallen.png',
       elements: ['dark'],
+      res: { fire: 50, thunder: 100, earth: 50, bio: 150, bomb: 50, water: -50, holy: -80, dark: 200, 'weaken&tired': 100, 'death&doom': 100 },
       desc: 'Người đã khu không đầu trong Deathly Hollows — vẫn tiến lên như thường lệ.',
       drops: [ 'Iron Plate (75%)', 'Hand Bomb (75%)', 'Leather (20%)', 'Belt Buckle (33%)' ],
       tips: [ 'Phép Thánh mạnh nhất với nó.', 'Dễ hơn boss của khu — đừng ngại hình dáng.' ]
@@ -583,6 +628,7 @@ window.EBF5DATA = {
     {
       id: 'sea-dragon', name: 'Sea Dragon', kind: 'Quái thường', image: 'img/enemies/sea-dragon.png',
       elements: ['water'],
+      res: { fire: 50, thunder: -80, ice: -50, bio: -50, water: 200, wind: 50, stun: 70, 'chill&freeze': 70, 'syphon&disable': 70, 'death&doom': 100, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
       desc: 'Rồng biển lăn lộn ở The Great Sea — phun nước mạnh.',
       drops: [ 'Liquid Ice (100%) x 2', 'Dragon Scales (50%)', 'Moon Pearl (25%)', 'Yoghurt (2%)' ],
       tips: [ 'Sấm đập trực tiếp tốt nhất.', 'Giữ kháng Nước cho cả đội.' ]
@@ -590,6 +636,7 @@ window.EBF5DATA = {
     {
       id: 'seaweed-chomper', name: 'Seaweed Chomper', kind: 'Quái thường', image: 'img/enemies/seaweed-chomper.png',
       elements: ['water'],
+      res: { thunder: 150, ice: -80, earth: -50, water: 150, wind: -50, holy: -80, stun: 50, 'chill&freeze': 50, 'death&doom': 70, atkdown: 30, defdown: 30 },
       desc: 'Chomper biển làm từ rong rêu ở đáy The Great Sea.',
       drops: [ 'Sea Shell (50%)', 'Gash Root (50%)', 'Liquid Ice (50%)', 'Bone Spike (20%)', 'Moon Pearl (3%)' ],
       tips: [ 'Sấm là khắc tinh.', 'Hạ cùng đợt quái nước khác.' ]
@@ -599,6 +646,7 @@ window.EBF5DATA = {
     {
       id: 'sky-dragon', name: 'Sky Dragon', kind: 'Quái thường', image: 'img/enemies/sky-dragon.png',
       elements: ['wind'],
+      res: { thunder: -80, ice: -50, earth: 100, wind: 200, holy: 50, stun: 70, 'chill&freeze': 70, 'syphon&disable': 70, 'death&doom': 100, atkdown: 30, magdown: 30, defdown: 30, mdedown: 30, accdown: 30, evadown: 30 },
       desc: 'Rồng trời của Temple of Trials — vung cánh tạo gió lớn.',
       drops: [ 'White Feather (100%) x 2', 'Bone Spike (75%)', 'Star Fragment (20%)', 'Mint Leaf (2%)' ],
       tips: [ 'Sấm và Đất đều tấn công tốt.', 'Buff Evade để đỡ đợt gió.' ]
@@ -608,6 +656,7 @@ window.EBF5DATA = {
     {
       id: 'amethyst-golem', name: 'Amethyst Golem', kind: 'Quái thường', image: 'img/enemies/amethyst-golem.png',
       elements: ['dark'],
+      res: { fire: 50, thunder: 50, ice: 50, earth: 200, bio: 50, bomb: -50, water: 50, wind: 100, holy: 200, dark: -80, stun: 70, 'poison&virus': 100, 'death&doom': 70, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 20, evadown: 20 },
       desc: 'Golem thạch anh tím ở Crystal Caverns — nén đá để ném xa.',
       drops: [ 'Steel Plate (100%) x 2', 'Silver Plate (40%) x 2', 'Diamond (5%)' ],
       tips: [ 'Gián đoạn lúc nó nén đá.', 'Golem kháng nhiều — cứ đánh đều tay bằng Piercing.' ]
@@ -615,6 +664,7 @@ window.EBF5DATA = {
     {
       id: 'pearl-golem', name: 'Pearl Golem', kind: 'Quái thường', image: 'img/enemies/pearl-golem.png',
       elements: ['holy'],
+      res: { fire: 50, thunder: 50, ice: -80, earth: 200, bio: 50, bomb: -50, water: 200, wind: 100, stun: 70, 'poison&virus': 100, 'death&doom': 70, atkdown: 20, magdown: 20, defdown: 20, mdedown: 20, accdown: 20, evadown: 20 },
       desc: 'Golem ngọc trai trắng sạch ở Crystal Caverns.',
       drops: [ 'Sea Shell (100%) x 2', 'Sacred Rune (25%) x 2', 'Moon Pearl (10%)' ],
       tips: [ 'Đất công phá hiệu quả.', 'Không dùng phép Thánh.' ]

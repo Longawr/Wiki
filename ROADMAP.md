@@ -21,7 +21,7 @@
 | # | Chủ đề | key | Mục | Ảnh | Ghi chú |
 |---|--------|-----|-----|-----|---------|
 | 1 | Nhân vật | `characters` | 5 | 5/5 | Matt, Natalie, Lance, Anna, NoLegs — lore EBF5 thật, kèm danh mục kỹ năng/trang bị chính |
-| 2 | Kẻ địch | `enemies` | 50 | 50/50 | 8 slime thật + 32 quái thường dàn theo 18 khu vực + 10 boss — icon `EBF5 Bestiary X`; **drops thật 50/50** (tên item + % từ bảng `FoeTableEBF5`) |
+| 2 | Kẻ địch | `enemies` | 50 | 50/50 | 8 slime thật + 32 quái thường dàn theo 18 khu vực + 10 boss — icon `EBF5 Bestiary X`; **drops thật 50/50** (tên item + % từ bảng `FoeTableEBF5`); **15: khắc chế 50/50** — trường `res` trích cột % `FoeTableEBF5` (10 nguyên tố + nhóm trạng thái), hiển thị Yếu/Kháng/Miễn/Hấp thụ ở trang chi tiết |
 | 3 | Kỹ năng | `skills` | 183 | 183/183 | **Đủ bộ 5 nhân vật + 53 Extra Skills** (kèm chars từng người học được từ trang bị), theo *List of Skills in EBF5*; icon `EBF5 Skill X` |
 | 4 | Vật phẩm | `items` | 28 | 28/28 | 24 món Food thật (Pumpkin→Pizza, Garlic/Banana gỡ status/debuff, Apple/Cupcake trừ cooldown…) + 5 Steroid từng nhân vật — icon `EBF5 Item X` |
 | 5 | Trang bị | `equipment` | 19 | 19/19 | Vũ khí/mũ giáp/Flair tên thật; Crystal Staff có ghi chú "không trở lại EBF5" theo wiki |
@@ -114,4 +114,12 @@
 - **Icon**: 151 dòng mới trong `fetch-images.map.txt` (`img/summons/<slug>.png<TAB>EBF5 Foe Icon <Tên EN>`) → `-Download` tải đủ 151/151, SKIP 0, FAIL 0.
 - **Kiểm tra cuối**: `check.ps1` PASS (539 mục / 538 tham chiếu ảnh, 0 thiếu); tổng mục 388 → **539**.
 
-*Cập nhật lần cuối: 2026-10-20 — sau lượt 14 (mở rộng dữ liệu Summon 40 → 191 theo bảng fandom hiện hành post-v2 + 151 icon mới; tổng 539 mục / 538 tham chiếu ảnh).*
+### Lượt 15 — khắc chế nguyên tố & trạng thái cho 50 kẻ địch
+- **Nguồn**: mỗi trang foe trên fandom có bảng `{{FoeTableEBF5}}` chứa sẵn các cột `% kháng` (ví dụ Water Slime: `water 200%` hấp thụ, `fire 100%` miễn, `thunder -80%` yếu). Trích **bảng đầu tiên** (bản thường; bảng sau là bản More Foe Resistance, bỏ).
+- **Một lượt fetch duy nhất**: `action=query&prop=revisions&rvprop=content&titles=<50 tên>|&redirects=1` — 50/50 tồn tại. Hai ngoại lệ: `Slime Bunny` là trang disambig → dùng `Slime Bunny (foe)`; `Lancelot` redirect về `Lancelot (EBF5)` — script khớp tên theo chuẩn hoá tiền tố.
+- **data.js**: thêm trường `res` vào đủ 50 entry (10 nguyên tố + nhóm trạng thái: `death&doom`, `chill&freeze`, `poison&virus`, `stagger&confuse`, `syphon&disable`, `burn&scorch`, `wet&dry`, `heavy&light`, `stun`, `dispel`, `atkdown`/`defdown`/`magdown`/`mdedown`/`accdown`/`evadown`/`hpdown`). Giá trị giữ nguyên % wiki (dương = kháng, âm = yếu, 200 = hấp thụ).
+- **render**: `app.js` thêm panel "Khắc chế nguyên tố & trạng thái" cho foes — 4 nhóm Yếu / Kháng / Miễn / Hấp thụ, chip nguyên tố tái dùng `elOf()`, chip trạng thái theo `RES_LBL`; `style.css` thêm block `.res-table`/`.res-note`.
+- **Bẫy PowerShell lần nữa**: `$psObj[$key]` trên PSCustomObject trả `$null` → `[int]$null = 0` (toàn dòng res thành 0). Truy cập đúng là `$res.PSObject.Properties[$k].Value`.
+- **Kiểm tra cuối**: `check.ps1` PASS.
+
+*Cập nhật lần cuối: 2026-10-20 — sau lượt 15 (khắc chế 50/50 kẻ địch từ bảng FoeTableEBF5 wiki + panel hiển thị Yếu/Kháng/Miễn/Hấp thụ; tổng dữ liệu giữ nguyên 539 mục).*
