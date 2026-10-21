@@ -203,17 +203,25 @@
 
   // Nhận văn bản ĐÃ esc(), bọc tên trạng thái bằng span tooltip.
   // Chỉ dùng cho trang chi tiết; card grid giữ esc() thuần cho nhẹ.
+  // Lượt 25: thay vòng forEach split/join bằng regex một lượt duy nhất có biên
+  // chữ cái — vòng cũ bọc nhầm "Khô" bên trong "Không..." (Khi thêm status "Khô")
+  // và tự lồng span vào output của lần thay thế trước; regex + lookaround xử lý
+  // cả hai vấn đề, thêm bậc tên dài hơn ưu tiên trước (sort giảm dần).
+  var stReg = null;
   function withStatusTips(text) {
     var map = stMap();
-    var names = Object.keys(map).sort(function (a, b) { return b.length - a.length; });
-    names.forEach(function (n) {
-      var en = esc(n);
-      if (text.indexOf(en) === -1) return;
-      text = text.split(en).join(
-        '<span class="st-tip" tabindex="0" data-st="' + esc(map[n].id) + '">' + en + '</span>'
-      );
+    if (!stReg) {
+      // Luu luot 25: '-' KHONG duoc escape khi bat co 'u' (vs Auto\-Revive la
+      // loi "Invalid escape"); ben ngoai la that '-' la literal cung an toan.
+      var eRe = function (s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
+      var names = Object.keys(map).sort(function (a, b) { return b.length - a.length; });
+      stReg = new RegExp('(?<![\\p{L}])(?:' + names.map(function (n) { return eRe(esc(n)); }).join('|') +
+        ')(?![\\p{L}])', 'gu');
+    }
+    return text.replace(stReg, function (m) {
+      var s = map[m];
+      return s ? '<span class="st-tip" tabindex="0" data-st="' + esc(s.id) + '">' + m + '</span>' : m;
     });
-    return text;
   }
 
   function txt(s) { return withStatusTips(esc(s)); }

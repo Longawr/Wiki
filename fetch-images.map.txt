@@ -684,3 +684,25 @@ img/keyitems/candy-cane.png	5CandyCane
 img/keyitems/heart-chocolate.png	5HeartChocolate
 img/keyitems/easter-egg.png	5EasterEgg
 # --- Key Items 66 icon (luot 24: trang Key Items EBF5, dat theo PlacementGrid) ---
+# --- Trang thai +21 icon (luot 25: trang Status Effects) ---
+img/status/charge.png	EBF5 Status Charge
+img/status/defend.png	Status Defend
+img/status/epic.png	EBF5 Status Epic
+img/status/haste.png	EBF5 Status Haste
+img/status/lovable.png	EBF5 Status Lovable
+img/status/morale.png	EBF5 Status Morale
+img/status/random.png	EBF5 Status Random
+img/status/brimstone.png	EBF5 Status Brimstone
+img/status/delete.png	EBF5 Status Delete
+img/status/hungry.png	EBF5 Status Hungry
+img/status/repulsion.png	EBF5 Status Repulsion
+img/status/shroud.png	EBF5 Status Shroud
+img/status/stuffed.png	EBF5 Status Stuffed
+img/status/stoned.png	EBF5 Status Stoned
+img/status/undead.png	EBF5 Status Undead
+img/status/target.png	EBF5 Status Target
+img/status/dry.png	EBF5 Status Dry
+img/status/enchanted.png	EBF5 Status Enchanted
+img/status/heavy.png	EBF5 Status Heavy
+img/status/invisible.png	EBF5 Status Invisible
+img/status/surrender.png	EBF5 Status Surrender
