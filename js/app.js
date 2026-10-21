@@ -146,10 +146,43 @@
     if (key === 'equipment')  return item.forChar ? kindChip(item.kind) + slotChip(item.slot) + charChip(item.forChar)
                                                    : kindChip(item.kind) + slotChip(item.slot);
     if (key === 'statuses')   return kindChip(item.kind) + elementChips(item.elements);
+    if (key === 'keyitems')   return kindChip(item.kind);
     if (key === 'areas')      return kindChip(item.kind) + (item.grid ? '<span class="chip">Ô ' + esc(item.grid) + '</span>' : '');
     if (key === 'summons')    return kindChip(item.kind) + (item.sp ? '<span class="chip">SP ' + esc(item.sp) + '</span>' : '') + elementChips(item.elements);
     if (key === 'limits')     return kindChip(item.kind) + (item.chars || []).map(charChip).join('') + elementChips(item.elements);
     return '';
+  }
+
+  // Bọc tên Key Item trong chuỗi ô lưới "K 06 — The Shovel" thành link sang chủ đề keyitems (lượt 24)
+  function keyCellHtml(s) {
+    var str = String(s);
+    var sep = ' — ';
+    var i = str.indexOf(sep);
+    if (i === -1) return txt(str);
+    var left = str.slice(0, i);
+    var names = str.slice(i + sep.length).split(', ');
+    return esc(left) + sep + names.map(function (n) {
+      var nm = n.trim();
+      var ki = list('keyitems').find(function (k) { return k.name === nm; });
+      return ki ? '<a href="' + hrefTo('keyitems', ki.id) + '">' + esc(nm) + '</a>' : txt(nm);
+    }).join(', ');
+  }
+
+  // Quét bảng ô lưới của chủ đề Khu vực để liệt kê nơi tìm thấy 1 Key Item (lượt 24)
+  function keyItemGrids(name) {
+    var out = [];
+    list('areas').forEach(function (a) {
+      (a.cells || []).forEach(function (c) {
+        (c.keys || []).forEach(function (s) {
+          var str = String(s);
+          var i = str.indexOf(' — ');
+          if (i === -1) return;
+          var names = str.slice(i + 3).split(', ').map(function (x) { return x.trim(); });
+          if (names.indexOf(name) !== -1) out.push({ areaId: a.id, area: a.name, grid: c.grid });
+        });
+      });
+    });
+    return out;
   }
 
   function charChip(id) {
@@ -312,6 +345,7 @@
     var parts = [item.name, item.desc, item.kind];
     if (item.effect) parts.push(item.effect);
     if (item.unlock) parts.push(item.unlock);
+    if (item.note) parts.push(item.note);
     if (item.slot) parts.push(item.slot);
     ['tips', 'features', 'strengths', 'weaknesses', 'drops'].forEach(function (f) {
       if (Array.isArray(item[f])) parts.push(item[f].join(' '));
@@ -629,7 +663,7 @@
               (c.foes || []).forEach(function (s) { rows += '<li>' + txt(s) + '</li>'; });
               var foesHtml = rows ? '<ul class="clean">' + rows + '</ul>' : '<span class="muted">—</span>';
               var rowsK = '';
-              (c.keys || []).forEach(function (s) { rowsK += '<li>' + txt(s) + '</li>'; });
+              (c.keys || []).forEach(function (s) { rowsK += '<li>' + keyCellHtml(s) + '</li>'; });
               var keysHtml = rowsK ? '<ul class="clean">' + rowsK + '</ul>' : '<span class="muted">—</span>';
               var notesHtml = (c.notes || []).map(function (s) { return '<p class="muted" style="margin:4px 0">' + txt(s) + '</p>'; }).join('') +
                 (c.subs ? '<p class="muted" style="margin:4px 0">Vị trí con: ' + esc(c.subs) + '</p>' : '');
@@ -665,6 +699,25 @@
         '</div>';
     }
 
+    /* ----- Vật phẩm nhiệm vụ (Key Items) ----- */
+    if (key === 'keyitems') {
+      var locs = keyItemGrids(item.name);
+      html +=
+        '<div class="panel"><h3>Thông tin</h3>' +
+          '<table class="data-table"><tbody>' +
+            '<tr><td>Loại</td><td>' + esc(item.kind || '') + '</td></tr>' +
+            '<tr><td>Chi tiết</td><td>' + txt(item.note || '—') + '</td></tr>' +
+          '</tbody></table>' +
+        '</div>' +
+        (locs.length ?
+          '<div class="panel"><h3>Ô lưới có Key Item này</h3><ul class="clean">' +
+            locs.map(function (l) {
+              return '<li><a href="' + hrefTo('areas', l.areaId) + '">' + esc(l.area) + '</a> — Ô ' + esc(l.grid) + '</li>';
+            }).join('') +
+          '</ul>' +
+          '<p class="muted small">Quét tự động từ bảng ô lưới (keys) của chủ đề Khu vực.</p></div>' : '');
+    }
+
     /* ----- Ghi chú nguồn ----- */
     var srcDef = D.sources ? (D.sources[key] || null) : null;
     var srcTitle = srcDef ? (srcDef[item.id] || srcDef._default || null) : null;
@@ -685,6 +738,7 @@
         '<p class="muted" style="margin:0">Nội dung đối chiếu theo Epic Battle Fantasy Wiki chính thức tại' +
         ' <a href="' + esc(D.externalWiki) + '" target="_blank" rel="noopener">epicbattlefantasy.fandom.com</a>' +
         (key === 'areas' ? ' — xem trang <em>Epic Battle Fantasy 5 Map</em> để tra từng ô lưới chi tiết (quái, Key Items, rương).' : '') +
+        (key === 'keyitems' ? ' — xem trang <em>Key Items</em> để đối chiếu bảng đầy đủ 66 món Key Items của EBF5 (mục {{EBF|5}}).' : '') +
         (key === 'summons' ? ' — xem trang <em>Summons/Epic Battle Fantasy 5</em> để xem toàn bộ hơn 190 summon, giá SP và điều kiện mở khoá.' : '') +
         (key === 'limits' ? ' — xem trang <em>Limit Break</em> để đối chiếu nhiệm vụ mở khoá từng skill (một số chỉ có ở v2).' : '') +
         '. Muốn bổ sung, sửa trực tiếp trong <code>js/data.js</code>.</p>' +

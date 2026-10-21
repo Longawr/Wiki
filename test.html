@@ -33,11 +33,15 @@
       catch (err) { log.push(['fail', name + ' — ' + (err && err.message || err)]); }
     }
     function assert(cond, msg) { if (!cond) throw new Error(msg); }
+    function getOneStatusSafe(id) {
+      return (window.EBF5DATA.statuses || []).some(function (s) { return s.id === id; });
+    }
 
     // 1. Dữ liệu sẵn sàng
-    add('EBF5DATA: 10 chủ đề, 26 trạng thái', function () {
-      assert(window.EBF5DATA.categories.length === 10, 'categories != 10');
+    add('EBF5DATA: 11 chủ đề, 26 trạng thái, 66 key items', function () {
+      assert(window.EBF5DATA.categories.length === 11, 'categories != 11');
       assert(window.EBF5DATA.statuses.length === 26, 'statuses != 26');
+      assert(window.EBF5DATA.keyitems.length === 66, 'keyitems != 66');
     });
 
     // 2. esc (qua EBF5App nếu được xuất — nếu không dùng thử gián tiếp qua withStatusTips)
@@ -84,9 +88,13 @@
 
       var tips = article.querySelectorAll('.st-tip');
       assert(tips.length > 0, 'desc của burn không chứa .st-tip nào');
-      var hasBurn = false;
-      tips.forEach(function (t) { if (t.getAttribute('data-st') === 'burn') hasBurn = true; });
-      assert(hasBurn, 'không thấy span data-st="burn"');
+      // Ghi chú lượt 24: desc của burn nêu tên "Ướt"/"Lạnh" (không có từ "Đốt"),
+      // nên kiểm tra tooltip bọc đúng một status có trong desc thay vì data-st="burn".
+      var hasReal = false;
+      tips.forEach(function (t) {
+        if (getOneStatusSafe(t.getAttribute('data-st'))) hasReal = true;
+      });
+      assert(hasReal, '.st-tip không bọc status có thật trong desc');
 
       var prevNext = article.querySelector('.prev-next');
       assert(prevNext, 'thiếu .prev-next');

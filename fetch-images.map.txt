@@ -1,4 +1,4 @@
-﻿# Map cho fetch-images.ps1: img path <TAB> wiki-file-name (khong .png)
+# Map cho fetch-images.ps1: img path <TAB> wiki-file-name (khong .png)
 # Dong # va rong bi bo qua; cot 2 trong = bo qua khi download.
 # --- icon summon moi (luot 14, nguoi trich tu bang Summons fandom hien hanh) ---
 # --- Vat lieu + Food/steroid con thieu (luot 23: trang Materials EBF5 + trang Food) ---
@@ -616,3 +616,71 @@ img/enemies/zap-dog.png	EBF5 Bestiary Zap Dog
 img/enemies/zircon-ore.png	EBF5 Bestiary Zircon Ore
 img/enemies/zombie-hand.png	EBF5 Foe Icon Zombie Hand
 img/enemies/zombie-hydra.png	EBF5 Bestiary Zombie Hydra
+# --- Key Items 66 icon (luot 24: trang Key Items EBF5, dat theo PlacementGrid) ---
+img/keyitems/scouter.png	5Scouter
+img/keyitems/old-boots.png	5OldBoots
+img/keyitems/magnetic-boots.png	5MagneticBoots
+img/keyitems/leafy-boots.png	5LeafyBoots
+img/keyitems/spiked-boots.png	5SpikedBoots
+img/keyitems/thermal-boots.png	5ThermalBoots
+img/keyitems/winged-boots.png	5WingedBoots
+img/keyitems/rubber-boots.png	5RubberBoots
+img/keyitems/the-hammer.png	5TheHammer
+img/keyitems/the-big-hammer.png	5TheBigHammer
+img/keyitems/the-axe.png	5TheAxe
+img/keyitems/the-shovel.png	5TheShovel
+img/keyitems/the-stepladder.png	5TheStepladder
+img/keyitems/the-raft.png	5TheRaft
+img/keyitems/the-candle.png	5TheCandle
+img/keyitems/the-fishing-rod.png	5TheFishingRod
+img/keyitems/red-envelope.png	5RedEnvelope
+img/keyitems/world-map.png	5WorldMap
+img/keyitems/wooden-key.png	5WoodenKey
+img/keyitems/coral-key.png	5CoralKey
+img/keyitems/topaz-key.png	5TopazKey
+img/keyitems/copper-key.png	5CopperKey
+img/keyitems/gold-key.png	5GoldKey
+img/keyitems/diamond-key.png	5DiamondKey
+img/keyitems/flute.png	5Flute
+img/keyitems/ocarina.png	5Ocarina
+img/keyitems/star-ball.png	5StarBall
+img/keyitems/music-cd.png	5MusicCD
+img/keyitems/stick.png	5Stick
+img/keyitems/wooden-plank.png	5WoodenPlank
+img/keyitems/panties.png	5Panties
+img/keyitems/earthenware.png	5Earthenware
+img/keyitems/newspaper.png	5Newspaper
+img/keyitems/meow-magazine.png	5MeowMagazine
+img/keyitems/snail-mail.png	5SnailMail
+img/keyitems/popcorn.png	5Popcorn
+img/keyitems/golden-ticket.png	5GoldenTicket
+img/keyitems/green-keycard.png	5GreenCard
+img/keyitems/empty-bottle.png	5EmptyBottle
+img/keyitems/bottled-milk.png	5BottledMilk
+img/keyitems/lava-sample.png	5LavaSample
+img/keyitems/holy-water.png	5HolyWater
+img/keyitems/evil-essence.png	5EvilEssence
+img/keyitems/fairy-dust.png	5FairyDust
+img/keyitems/sunglasses.png	5Sunglasses
+img/keyitems/glasses.png	5Glasses
+img/keyitems/left-sock.png	5LeftSock
+img/keyitems/right-sock.png	5RightSock
+img/keyitems/cool-headband.png	5CoolHeadband
+img/keyitems/big-battery.png	5BigBattery
+img/keyitems/stone-head.png	5StoneHead
+img/keyitems/turd.png	5Turd
+img/keyitems/cookie.png	5Cookie
+img/keyitems/chocolate.png	5Chocolate
+img/keyitems/tomato.png	EBF5 Item Tomato
+img/keyitems/earth-orb.png	5EarthOrb
+img/keyitems/wind-orb.png	5WindOrb
+img/keyitems/fire-orb.png	5FireOrb
+img/keyitems/water-orb.png	5WaterOrb
+img/keyitems/emerald-of-life.png	5EmeraldOfLife
+img/keyitems/sapphire-of-dreams.png	5SapphireOfDreams
+img/keyitems/ruby-of-death.png	5RubyOfDeath
+img/keyitems/halloween-candy.png	5HalloweenCandy
+img/keyitems/candy-cane.png	5CandyCane
+img/keyitems/heart-chocolate.png	5HeartChocolate
+img/keyitems/easter-egg.png	5EasterEgg
+# --- Key Items 66 icon (luot 24: trang Key Items EBF5, dat theo PlacementGrid) ---

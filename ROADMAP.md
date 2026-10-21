@@ -1,4 +1,4 @@
-﻿# ROADMAP — Wiki tiếng Việt Epic Battle Fantasy 5
+# ROADMAP — Wiki tiếng Việt Epic Battle Fantasy 5
 
 > Wiki tĩnh thuần HTML/CSS/JS, chạy trực tiếp khi mở `index.html` (không build, không server).
 > Dữ liệu soạn trong `js/data.js`, đối chiếu theo **Epic Battle Fantasy Wiki** chính thức
@@ -16,7 +16,7 @@
 - `css/style.css`: theme tối phong cách game, card grid, chip, `.detail-media`, fallback `.img-fail`.
 - Thêm chủ đề mới = **1 hàng trong `categories` + 1 mảng dữ liệu + (tuỳ) 1 nhánh chip/detail trong app.js**.
 
-### Dữ liệu — 10 chủ đề, 991 mục, 990 tham chiếu ảnh ↔ 985 file (0 thiếu, 0 file lẻ)
+### Dữ liệu — 11 chủ đề, 1057 mục, 1056 tham chiếu ảnh ↔ 1051 file (0 thiếu, 0 file lẻ)
 
 | # | Chủ đề | key | Mục | Ảnh | Ghi chú |
 |---|--------|-----|-----|-----|---------|
@@ -27,7 +27,8 @@
 | 5 | Trang bị | `equipment` | 228 | 228/228 | **Lượt 16: 84 vũ khí** (78 sinh máy từ 4 trang `Swords`/`Bows`/`Guns`/`Staves` bảng 1 post-v2 + 8 entry tay: Heaven Gate, Ultra Pro 9000X, Fairy Bow, Dark Tooth, Shadow Blaster, Spine Snapper, Crystal Staff, Steel Buckler); **Lượt 17: +142 mũ giáp & Flair** — 84 mũ/giáp sinh máy (21+21 Mũ/Giáp nam theo `Male Hats and Armor`, 21+21 nữ theo `Female Hats and Armor`) + 58 Flair (55 sinh máy từ trang `Flairs` + 3 tay NoLegs); thay 8 entry tay mỏng bằng bản sinh máy; 24 món nhãn Độc quyền bản Steam qua `PaywallNote` từng trang item |
 | 5b | Vật liệu | `materials` | 60 | 60/60 | **Lượt 23 — chủ đề mới**: đủ 60 nguyên liệu forge EBF5 sinh máy từ bảng `{{EBF|5}}` trang *Materials* (tên, mô tả wiki dịch, giá mua/bán); "Can be thrown in battle" → kind `Ném được` (Snowball, Brick, Shuriken, Hand Bomb — Hand Bomb tái dùng icon của items); icon `EBF5 Item X` vào `img/materials/`; sources `_default = Materials` |
 | 6 | Trạng thái | `statuses` | 26 | 25/26 | Đủ Doom, Scorch, Berserk, Syphon, Brave, Regen, Vận may, **Hoang mang (Confuse — chỉ tác động người chơi, tự dùng bản kỹ năng yếu nhất, bỏ qua Syphon & cooldown, ưu tiên cao hơn Berserk)**…; "Trói chân" (không tồn tại) đã thay bằng Mỏi (Tired) — icon `EBF5 Status X`; Radiation giữ emoji |
-| 7 | Khu vực | `areas` | 18 | 18/18 | 12 khu chính + 6 khu trả phí theo trang *EBF5 Map*; mỗi khu có ô lưới (grid), Điểm nhấn, Lưu ý — ảnh tile bản đồ; **C3: ~200 ô lưới có bảng Quái (wave) + Key Items + vị trí con + ghi chú cơ chế từ các trang `EBF5 Map/X`** |
+| 7 | Khu vực | `areas` | 18 | 18/18 | 12 khu chính + 6 khu trả phí theo trang *EBF5 Map*; mỗi khu có ô lưới (grid), Điểm nhấn, Lưu ý — ảnh tile bản đồ; **C3: ~200 ô lưới có bảng Quái (wave) + Key Items + vị trí con + ghi chú cơ chế từ các trang `EBF5 Map/X`**; lượt 24: tên Key Item trong ô lưới thành **link** sang `keyitems` |
+| 7b | Vật phẩm nhiệm vụ | `keyitems` | 66 | 66/66 | **Lượt 24 — chủ đề mới**: đủ bộ Key Items EBF5 theo bảng `{{EBF|5}}` trang *Key Items* (wiki: "There are 66 key items in total" — ~71 trong roadmap là ước lượng trước khi trích nguồn); desc = dịch hàng Description, `note` cô đọng hàng Note (nơi tìm thấy, nhiệm vụ của ai, số lượng (1)…(N), Equip Remix); kinds = Qua vật cản(16) / Chìa khoá(6) / Nhiệm vụ(34) / Cổng The Beyond(7) / Công cụ hệ thống(3); icon `5<Tên>` theo PlacementGrid (`5GreenCard`, `EBF5 Item Tomato` là 2 tên đặc biệt); panel "Ô lưới có Key Item này" quét tự động từ `areas.cells` |
 | 8 | Triệu hồi | `summons` | 191 | 191/191 | **C4: 18 → 40** (lượt 8+11) rồi **14: 40 → 191 — gần như đủ bộ** theo bảng hiện hành post-v2 (192 hàng, trừ demo ẩn Glitch 2; The Devourer 250 → Furry Slime 1); 151 entry mới sinh máy từ cột target/type/power/element/status/debuff; 151 icon tải từ `EBF5 Foe Icon` qua fetch-images.map.txt |
 | 9 | Limit Break | `limits` | 20 | 20/20 (11 trong `img/limits/` + 9 dùng lại icon skills) | 10 riêng + 10 dùng chung; danh sách nhân vật học được trích từ Category tags wiki; 5 icon thiếu cũ (Supernova, Hidden Power, Absolute Zero, Seven Swords, Art Attack) đã tải về; 4 cái còn lại tái sử dụng icon từ mảng skills; Radiation status vẫn emoji (wiki không có file) |
 
@@ -200,4 +201,17 @@
 - **QA headless (Edge)**: 3 trang detail (`materials/steel-plate`, `materials/hand-bomb`, `items/raw-beef`) + list `materials` (60 card, chip `Ném được` = 5) + home (nav "🧱 Vật liệu" active) — đủ xanh. Bẫy: chuyển hướng dump qua `cmd /c` với URL chứa `&` bị cmd cắt lệnh tại dấu `&` (mất redirect `>`, file 0 byte, HTML rò ra console) — **phải quote URL trong `cmd /c`**; xóa rồi gọi Edge dùng chung một `--user-data-dir` thì lần sau bàn giao tiến trình cũ và thoát không dump.
 - **test.html sửa 2 lớp**: (a) case 1 cập nhật 9 chủ đề → 10 (trước đó file còn stale mặc lượt 19 — khẳng định `statuses != 25` FAIL); (b) case 4 bọc `history.replaceState` bằng try/catch + flag `detailRouted`: qua `file://` Chromium chặn pushState (origin 'null') nên case 4–6 tự SKIP thay vì FAIL — đã đối chứng bằng worktree commit lượt 22 (cùng 3 FAIL y hệt, không phải hồi quy của lượt 23). Chạy localhost HTTP server thì đủ 7 case xanh như cũ.
 
-*Cập nhật lần cuối: 2026-10-21 — sau lượt 23 (materials mới; 991 mục / 990 tham chiếu ảnh ↔ 985 file).*
+
+### Lượt 24 — chủ đề mới "Vật phẩm nhiệm vụ": đủ bộ Key Items EBF5 (66 mục)
+- **Định hướng**: chốt khoảng trống cuối của hệ item — nhóm Key Items trước đây chỉ rải rác trong `areas.cells.keys` (140 tham chiếu / 56 tên riêng) giờ thành chủ đề độc lập; lượt 23 dặn "Key Items (71) để lượt kế tiếp" — trích nguồn thì wiki ghi đúng **"There are 66 key items in total"** (bảng hiện hành sau v2), chốt 66/66.
+- **Nguồn duy nhất = bảng `{{EBF|5}}` trang *Key Items*** (`api.php?action=parse&page=Key_Items`): 66 dòng Image/Name/Description/Note; bảng PlacementGrid đầu trang chốt tên file icon `5<TênCamel>.png`. Parse bằng script PS soạn sẵn (không soạn JS inline trong shell). 2 bẫy: (a) query fandom API với danh sách file **nhớ thêm prefix `File:`**, thiếu là cả 66 đều coi như không tồn tại; (b) bảng cuối trang bật ra 3 dòng trivia của EBF3/EBF4 — cắt cứng tại ranh giới section.
+- **desc/note theo đúng schema cũ**: desc = bản dịch hàng Description, note = cô đọng hàng Note (nơi tìm thấy + nhiệm vụ của ai + số lượng đánh số (1)…(N) + dùng Equip Remix nào). 56 tên có mặt trong grid được tự khớp; 10 món không nằm trên grid (Scouter, Old Boots, Rubber Boots, Star Ball, Wooden Plank, Snail Mail, Green Keycard, Cool Headband, Big Battery, Empty Bottle — đều là quà/xuất phát/nhiệm vụ liên hoàn) vẫn có ghi chú nguồn trong note.
+- **kinds bộ lọc (5)**: `Qua vật cản` 16 (7 boots + 7 công cụ + Stone Head + Turd) / `Chìa khoá` 6 (Wooden/Coral/Topaz/Copper/Gold/Diamond) / `Nhiệm vụ` 34 / `Cổng The Beyond` 7 (4 orb nguyên tố + 3 viên đá Emerald/Sapphire/Ruby kích portal Forgotten Temple) / `Công cụ hệ thống` 3 (Scouter, World Map, Tomato). Category chèn ngay sau `areas` — đúng tinh thần "link với bản đồ".
+- **app.js**: `cardSub` thêm nhánh `keyitems`; panel chi tiết = Thông tin (Loại / Chi tiết) + **panel "Ô lưới có Key Item này"** — hàm `keyItemGrids(name)` quét ngược `areas[].cells[].keys` (format `'K 06 — The Shovel'`, hỗ trợ ô ghép `'R 07 — Cookie, Meow Magazine'`) ra area + ô + link khu; **link hai chiều**: hàm `keyCellHtml` bọc tên Key Item trong ô lưới Khu vực thành link tới `detail.html?type=keyitems` (khớp name chuẩn xác nên "The Hammer" không nhầm "The Big Hammer"); `searchText` giờ quét cả `note`.
+- **Nguồn truy vết**: `sources.keyitems = { _default: 'Key Items' }`.
+- **Icon: 66/66 OK, 0 SKIP, 0 FAIL** — xác thực 66 tên file qua fandom API bó 40/lượt (kèm đuôi `.png`, prefix `File:`) trước khi ghi map, rồi `fetch-images.ps1 -Download` tải cả lo; 2 tên đặc biệt: Green Keycard → `5GreenCard`, Tomato → `EBF5 Item Tomato` (icon items thật).
+- **check.ps1**: thêm `keyitems` vào mảng `$keys` — 1057 mục / 1056 tham chiếu ↔ 1051 file, 0 thiếu / 0 file lẻ; data.js braces 1510/1510, quotes chẵn 23524.
+- **test.html**: case 1 nâng lên 11 chủ đề + assert `keyitems.length === 66`; **fix hồi quy lưu từ lượt 23** — case 4 assert cứng `data-st="burn"` trong khi desc của Burn không có từ "Đốt" (đối chứng bằng stash: HEAD lượt 23 đã FAIL y hệt qua harness HTTP) → đổi thành assert tooltip bọc một status có thật trong desc, kèm ghi chú lý do ngay trong comment.
+- **QA headless (Edge + HttpListener server tạm, 8 case)**: list `keyitems` đủ 66 card & lọc "Chìa khoá" = 6; detail `the-raft` / `glasses` / `wooden-key` — panel quét ô lưới đúng khu (Mystic Woods/Frozen Valley…, không undefined/NaN); detail `hope-harbor` — 16 tên key item biến thành link; tìm toàn cục "Sam" không rác; `test.html` đủ xanh 0 SKIP.
+
+*Cập nhật lần cuối: 2026-10-21 — sau lượt 24 (chủ đề keyitems mới; 1057 mục / 1056 tham chiếu ảnh ↔ 1051 file).*
