@@ -59,7 +59,7 @@
 - [x] `git init` + commit đầu tiên ✅ (commit `343eeba`, working tree sạch; warning LF→CRLF vô hại).
 - [x] Đẩy lên GitHub, bật **GitHub Pages** ✅ — remote `origin` = `Longawr/Wiki`, bật qua GitHub REST API (`POST /repos/Longawr/Wiki/pages`, source `master` / root) bằng credential git sẵn có trên máy; **URL trực tuyến: https://longawr.github.io/Wiki/** (thuần tĩnh nên chạy ngay, không cần build).
 - [x] Kiểm tra lại đường dẫn tương đối `img/...` sau deploy (đã dùng tương đối nên an toàn với path `longawr.github.io/Wiki/`).
-- [ ] (Tuỳ) tên miền riêng + favicon/logo.
+- [x] (Tuỳ) **favicon/logo (lượt 22)** — `favicon.svg` vẽ tay (kiếm vàng trên nền tối, vòng tròn đinh ốc phong cách EBF), gắn `<link rel="icon">` cả 3 trang. Tên miền riêng: bỏ qua — cần người dùng tự mua + cấu hình DNS.
 
 ### C. Mở rộng dữ liệu (dày hơn nữa)
 - [x] Kỹ năng: phát hiện trang tổng *List of Skills in Epic Battle Fantasy 5* — thêm **91 entry (39 → 130)** rồi **53 Extra Skills (130 → 183)**, kèm ảnh chuẩn; status hoàn tất bộ 5 nhân vật + **danh sách ai học được từ trang bị** cho Extra Skills.
@@ -183,4 +183,10 @@
 - **Bẫy rút ra lượt này**: khi gọi fandom API, title của file **buộc kèm đuôi `.png`** (thiếu đuôi = cả bó cùng coi như không tồn tại — dry-run từng SKIP 148/164 vì lý do này); replacement của `-replace` cắn ký tự `$` — không bao giờ nhét chuỗi có `$` vào replacement; đọc/ghi map giữ nguyên BOM + EOL trộn (thay trên chuỗi thô bằng `[regex]::Match`/`Substring`); script ps1 phức tạp vẫn soạn file riêng ASCII không dấu.
 - **check.ps1**: PASS — data.js braces 1358/1358; tổng **913 mục / 912 tham chiếu ↔ 908 file** (enemies 214/214, 0 thiếu, 0 file lẻ). QA headless 3 trang: `acid-bomb` (bảng res Yếu/Kháng/Miễn đủ, chip Độc, drops sạch `(30%)`), `anna-boss` (boss đa nguyên tố + tooltip trạng thái), `sol-and-skadi` (tên có dấu `ó` render đúng).
 
-*Cập nhật lần cuối: 2026-10-21 — sau lượt 21 (kẻ địch đủ bộ 214; 913 mục / 912 tham chiếu ảnh ↔ 908 file).*
+### Lượt 22 — favicon + logo (kết thúc mục B của roadmap)
+- Tạo `favicon.svg` ở gốc repo (SVG vẽ tay: nền tối gradient, vòng chiếc nhẫn vàng, thanh kiếm — phong cách game; không dùng ảnh có bản quyền riêng ngoài ảnh wiki đã có).
+- Gắn vào cả 3 trang (`index.html`, `list.html`, `detail.html`): `<link rel="icon" type="image/svg+xml" href="favicon.svg">` — đường dẫn tương đối nên hoạt động cả file:// lẫn `longawr.github.io/Wiki/`.
+- Tên miền riêng: bỏ qua theo roadmap (cần mua tên miền + cấu hình DNS bên ngoài phạm vi repo).
+- `check.ps1`: PASS 0 FAIL (không đổi data.js — 913 mục / 912 tham chiếu ↔ 908 file giữ nguyên).
+
+*Cập nhật lần cuối: 2026-10-21 — sau lượt 22 (favicon; 913 mục / 912 tham chiếu ảnh ↔ 908 file).*

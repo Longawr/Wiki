@@ -117,7 +117,7 @@ Dự án là trang tĩnh nên có thể đẩy thẳng lên bất kỳ host tĩn
 
 ## 🛣️ Tiếp theo có thể làm
 
-- (Tuỳ) tên miền riêng + favicon/logo
+- ~~(Tuỳ) favicon/logo~~ ✅ đã có `favicon.svg` trên GitHub Pages; (Tuỳ) tên miền riêng — cần tự mua
 - Bảng khắc chế nguyên tố tương tác (nút bấm xem điểm yếu)
 - So sánh đội hình / máy tính đòn damage
 - Chuyển dữ liệu sang file JSON nếu muốn gắn server/CMS sau này
