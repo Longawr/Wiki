@@ -1,6 +1,84 @@
 ﻿# Map cho fetch-images.ps1: img path <TAB> wiki-file-name (khong .png)
 # Dong # va rong bi bo qua; cot 2 trong = bo qua khi download.
 # --- icon summon moi (luot 14, nguoi trich tu bang Summons fandom hien hanh) ---
+# --- Vat lieu + Food/steroid con thieu (luot 23: trang Materials EBF5 + trang Food) ---
+img/materials/snowball.png	EBF5 Item Snowball
+img/materials/wool.png	EBF5 Item Wool
+img/materials/brick.png	EBF5 Item Brick
+img/materials/earth-ball.png	EBF5 Item Earth Ball
+img/materials/sea-shell.png	EBF5 Item Sea Shell
+img/materials/cactus.png	EBF5 Item Cactus
+img/materials/iron-plate.png	EBF5 Item Iron Plate
+img/materials/shuriken.png	EBF5 Item Shuriken
+img/materials/white-feather.png	EBF5 Item White Feather
+img/materials/jungle-flower.png	EBF5 Item Jungle Flower
+img/materials/spring.png	EBF5 Item Spring
+img/materials/soft-wood.png	EBF5 Item Soft Wood
+img/materials/an-herb.png	EBF5 Item An Herb
+img/materials/copper-pipe.png	EBF5 Item Copper Pipe
+img/materials/super-tape.png	EBF5 Item Super Tape
+img/materials/geode.png	EBF5 Item Geode
+img/materials/gash-root.png	EBF5 Item Gash Root
+img/materials/gunpowder.png	EBF5 Item Gunpowder
+img/materials/glass-shards.png	EBF5 Item Glass Shards
+img/materials/fine-fur.png	EBF5 Item Fine Fur
+img/materials/butterfly-wing.png	EBF5 Item Butterfly Wing
+img/materials/rainbow-ore.png	EBF5 Item Rainbow Ore
+img/materials/liquid-ice.png	EBF5 Item Liquid Ice
+img/materials/solid-water.png	EBF5 Item Solid Water
+img/materials/belt-buckle.png	EBF5 Item Belt Buckle
+img/materials/steel-plate.png	EBF5 Item Steel Plate
+img/materials/magma-chunk.png	EBF5 Item Magma Chunk
+img/materials/floppy.png	EBF5 Item Floppy
+img/materials/silk.png	EBF5 Item Silk
+img/materials/metal-gear.png	EBF5 Item Metal Gear
+img/materials/plastic.png	EBF5 Item Plastic
+img/materials/amber.png	EBF5 Item Amber
+img/materials/leather.png	EBF5 Item Leather
+img/materials/bio-virus.png	EBF5 Item Bio Virus
+img/materials/razor-claw.png	EBF5 Item Razor Claw
+img/materials/sacred-rune.png	EBF5 Item Sacred Rune
+img/materials/bone-spike.png	EBF5 Item Bone Spike
+img/materials/silver-plate.png	EBF5 Item Silver Plate
+img/materials/satin.png	EBF5 Item Satin
+img/materials/ruby.png	EBF5 Item Ruby
+img/materials/topaz.png	EBF5 Item Topaz
+img/materials/sapphire.png	EBF5 Item Sapphire
+img/materials/emerald.png	EBF5 Item Emerald
+img/materials/gold-plate.png	EBF5 Item Gold Plate
+img/materials/dark-rune.png	EBF5 Item Dark Rune
+img/materials/p2-processor.png	EBF5 Item P2 Processor
+img/materials/nano-fibre.png	EBF5 Item Nano Fibre
+img/materials/opal.png	EBF5 Item Opal
+img/materials/lecko-brick.png	EBF5 Item Lecko Brick
+img/materials/moon-pearl.png	EBF5 Item Moon Pearl
+img/materials/dragon-scales.png	EBF5 Item Dragon Scales
+img/materials/game-child.png	EBF5 Item Game Child
+img/materials/titanium.png	EBF5 Item Titanium
+img/materials/diamond.png	EBF5 Item Diamond
+img/materials/dark-matter.png	EBF5 Item Dark Matter
+img/materials/plutonium-core.png	EBF5 Item Plutonium Core
+img/materials/the-holy-grail.png	EBF5 Item The Holy Grail
+img/materials/mythril-shards.png	EBF5 Item Mythril Shards
+img/materials/star-fragment.png	EBF5 Item Star Fragment
+img/items/pretzel.png	EBF5 Item Pretzel
+img/items/iron-brew.png	EBF5 Item Iron Brew
+img/items/energy-drink.png	EBF5 Item Energy Drink
+img/items/raw-beef.png	EBF5 Item Raw Beef
+img/items/chicken-leg.png	EBF5 Item Chicken Leg
+img/items/fried-egg.png	EBF5 Item Fried Egg
+img/items/poptart.png	EBF5 Item Poptart
+img/items/cake.png	EBF5 Item Cake
+img/items/lollipop.png	EBF5 Item Lollipop
+img/items/bread.png	EBF5 Item Bread
+img/items/potato.png	EBF5 Item Potato
+img/items/mushroom.png	EBF5 Item Mushroom
+img/items/turnip.png	EBF5 Item Turnip
+img/items/grapes.png	EBF5 Item Grapes
+img/items/hard-nut.png	EBF5 Item Hard Nut
+img/items/sushi.png	EBF5 Item Sushi
+img/items/riceball.png	EBF5 Item Riceball
+img/items/yoghurt.png	EBF5 Item Yoghurt
 img/summons/furry-slime.png	EBF5 Foe Icon Furry Slime
 img/summons/water-slime.png	EBF5 Foe Icon Water Slime
 img/summons/electric-bat.png	EBF5 Foe Icon Electric Bat

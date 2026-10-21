@@ -71,7 +71,8 @@ Toàn bộ nội dung nằm trong **`js/data.js`**, chia theo chủ đề:
 | Nhân vật | `characters` | 5 nhân vật, dữ liệu theo wiki chính thức, có ảnh |
 | Kẻ địch | `enemies` | **214 mục — đủ bộ quái EBF5** (8 slime thật + quái thường theo 18 khu vực + boss + 164 entry mới lượt 21 sinh máy từ bảng `FoeTableEBF5` của 167 trang foe trên fandom) — 214/214 có ảnh (`EBF5 Bestiary <Tên>`, thiếu mới dùng `EBF5 Foe Icon` / `Icon bestiary ebf4`) — **drops thật** (tên item + %) — **khắc chế nguyên tố & trạng thái** (`res` từ cột % của `FoeTableEBF5`) — trang chi tiết hiển thị bảng Yếu / Kháng / Miễn / Hấp thụ, kèm link trang wiki gốc từng foe |
 | Kỹ năng | `skills` | **183 mục — đủ bộ 5 nhân vật + 53 Extra Skills (kỹ năng học qua trang bị, kèm danh sách nhân vật học được)** theo *List of Skills in Epic Battle Fantasy 5* + Guard; 183/183 icon chuẩn `EBF5 Skill X`; Guard dùng icon EBF4 (lệnh giống hệt) |
-| Vật phẩm | `items` | 28 món Food thật của EBF5 (Pumpkin → Pizza, số liệu theo bảng wiki), Hand Bomb và 5 Steroid riêng từng nhân vật — tất cả đều có icon (`img/items/`) |
+| Vật phẩm | `items` | 46 mục (lượt 23 đủ bộ): 1 entry nhóm Food + 24 món Food thật của EBF5 (Pumpkin → Pizza, thêm Pretzel, Iron Brew, Energy Drink) + 20 Steroid (4 chỉ số × 5 nhân vật, theo bảng Steroids của trang Food) + Hand Bomb (throwable) — tất cả đều có icon (`img/items/`) |
+| Vật liệu | `materials` | **60 mục — đủ bộ nguyên liệu forge EBF5** sinh máy từ bảng EBF5 của trang *Materials* (tên, mô tả wiki, giá mua/bán; món "Can be thrown in battle" loại `Ném được`: Snowball, Brick, Shuriken, Hand Bomb — Hand Bomb tái dùng icon của items) — 60/60 có icon `EBF5 Item X` (`img/materials/`) |
 | Trang bị | `equipment` | **228 mục** — 86 vũ khí (78 sinh máy lượt 16 đủ bộ 84 theo wiki + 8 entry tay: Heaven Gate, Ultra Pro 9000X, Fairy Bow, Dark Tooth, Shadow Blaster, Spine Snapper, Crystal Staff, Steel Buckler) + **84 mũ giáp** (21 Mũ nam + 21 Giáp nam + 21 Mũ nữ + 21 Giáp nữ, bảng hiện hành post-v2 của `Male Hats and Armor`/`Female Hats and Armor`) + **58 Flair** (55 sinh máy từ trang `Flairs` + giữ 3 món tay NoLegs: Human Skull, Book of Spells, Neon Lightbulb) - desc sinh máy gồm vị trí, chỉ số, hiệu ứng (Cast triệu hồi ngẫu nhiên / Boost / Trạng thái tự nhận / Defend / Gây trạng thái khi đánh / Kháng) - 24 món nhãn Độc quyền bản Steam (15 lượt 16 + 9 lượt 17: Fur Hat, Ninja Skirt, School Uniform, Maid Outfit, Mecha Suit, Sword Medal, Shield Medal, Gold Star, Platinum Star) - **228/228 có ảnh** (`img/equipment/`) |
 | Trạng thái | `statuses` | 26 hiệu ứng (thêm Doom, Scorch, Berserk, Syphon, Brave, Regen, Vận may, Hoang mang; thay "Trói chân" bằng Mỏi theo wiki) — 25/26 có icon chuẩn `EBF5 Status X` (`img/status/`), Radiation giữ emoji |
 | Khu vực | `areas` | 12 khu vực chính + 6 khu vực trả phí (Freezeflame, Mineshaft Maze, Deathly Hollows, The Great Sea, Temple of Trials, Crystal Caverns) theo trang Epic Battle Fantasy 5 Map — 18/18 có ảnh tile bản đồ (`img/areas/`), kèm ô lưới — **với từng ô lưới có bảng Quái (waves) + Key Items + vị trí con + ghi chú cơ chế** (dành cho 18 khu, lấy từ các trang `EBF5 Map/X`) |
@@ -96,7 +97,7 @@ và 1 mảng dữ liệu cùng tên `key` vào `window.EBF5DATA` — trang web t
 
 ## 🧩 Tính năng hiện có
 
-- Trang chủ + 9 chủ đề wiki, điều hướng cố định
+- Trang chủ + 10 chủ đề wiki, điều hướng cố định
 - Tìm kiếm toàn wiki (bỏ dấu, không phân biệt hoa/thường) — tìm sâu cả **mẹo, hiệu quả, key items, quái theo từng ô lưới khu vực**
 - Lọc danh sách theo **nguyên tố** và **loại**
 - Trang chi tiết riêng cho từng loại dữ liệu (nhân vật có bảng kỹ năng, mẹo chơi...)

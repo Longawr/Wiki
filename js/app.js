@@ -142,6 +142,7 @@
     if (key === 'enemies')    return kindChip(item.kind) + elementChips(item.elements);
     if (key === 'skills')     return item.user ? kindChip(item.kind) + charChip(item.user) : kindChip(item.kind);
     if (key === 'items')      return kindChip(item.kind) + elementChips(item.elements);
+    if (key === 'materials')  return kindChip(item.kind) + elementChips(item.elements);
     if (key === 'equipment')  return item.forChar ? kindChip(item.kind) + slotChip(item.slot) + charChip(item.forChar)
                                                    : kindChip(item.kind) + slotChip(item.slot);
     if (key === 'statuses')   return kindChip(item.kind) + elementChips(item.elements);
@@ -578,8 +579,8 @@
         '</div>';
     }
 
-    /* ----- Vật phẩm ----- */
-    if (key === 'items') {
+    /* ----- Vật phẩm / Vật liệu ----- */
+    if (key === 'items' || key === 'materials') {
       html +=
         '<div class="panel"><h3>Thông tin</h3>' +
           '<table class="data-table"><tbody>' +

@@ -24,7 +24,7 @@ function Warn($msg) { $script:warn++; Write-Output ("  [WARN] " + $msg) }
 # ---------------------------------------------------------------------
 $jsFiles   = @('js\data.js', 'js\app.js')
 $htmlFiles = @('index.html', 'list.html', 'detail.html')
-$keys      = @('characters','enemies','skills','items','equipment','statuses','areas','summons','limits')
+$keys      = @('characters','enemies','skills','items','materials','equipment','statuses','areas','summons','limits')
 $imgRoot   = 'img'
 
 foreach ($f in ($jsFiles + $htmlFiles)) {

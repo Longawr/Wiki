@@ -24,6 +24,7 @@ window.EBF5DATA = {
     { key: 'enemies',    title: 'Kẻ địch',    icon: '👾', desc: 'Quái thường và boss, điểm yếu và cách đối phó.', kinds: [ 'Quái thường', 'Boss' ] },
     { key: 'skills',     title: 'Kỹ năng',    icon: '⚔️', desc: 'Kỹ năng và Limit Break đáng chú ý của nhân vật.', kinds: [ 'Tấn công', 'Phòng thủ', 'Hỗ trợ', 'Limit Break' ] },
     { key: 'items',      title: 'Vật phẩm',   icon: '🧪', desc: 'Đồ tiêu hao dùng trong chiến đấu.',             kinds: [ 'Hồi phục', 'Tiêu hao', 'Steroid' ] },
+    { key: 'materials',  title: 'Vật liệu',   icon: '🧱', desc: '60 nguyên liệu forge dùng nâng cấp trang bị, có thể ném trong trận.', kinds: [ 'Nguyên liệu', 'Ném được' ] },
     { key: 'equipment',  title: 'Trang bị',   icon: '🗡️', desc: 'Đủ 84 vũ khí của Matt/Anna/Lance/Natalie theo 4 trang wiki cùng mũ giáp, Flair.', kinds: [ 'Vũ khí', 'Mũ giáp', 'Phụ kiện' ] },
     { key: 'statuses',   title: 'Trạng thái', icon: '🌀', desc: 'Các hiệu ứng bất lợi / hỗ trợ trong chiến đấu.', kinds: [ 'Bất lợi', 'Trung tính', 'Hỗ trợ' ] },
     { key: 'areas',      title: 'Khu vực',    icon: '🗺️', desc: '12 khu vực chính và 6 khu vực trả phí trên bản đồ EBF5 — kèm quái và Key Items theo từng ô lưới.', kinds: [ 'Khu vực chính', 'Khu vực trả phí' ] },
@@ -2164,7 +2165,9 @@ window.EBF5DATA = {
   ],
 
   /* ------------------------------------ Vật phẩm -----------------------------
-     Các vật phẩm tiêu hao điển hình của EBF5. */
+     46 mục: 1 entry nhóm Food + 24 món Food thật (lượt 23 đủ bộ — thêm Pretzel,
+     Iron Brew, Energy Drink) + 20 steroid (lượt 23 đủ bộ: 4 chỉ số × 5 nhân vật;
+     nguồn bảng Steroids của trang Food) + Hand Bomb (throwable, lượt 9). */
   items: [
     { id: 'food-general',     name: 'Food',             kind: 'Hồi phục', elements: ['holy'], image: 'img/items/food-general.png',  effect: 'Hồi HP + gỡ debuff',         desc: 'Nhóm vật phẩm hồi phục của EBF5: vừa hồi vừa gỡ debuff cho người ăn, thay vai trò potion cổ điển. Bán ở 5 cửa hàng Food: Hope Harbor, Greenwood Village, Redpine Town, Iron Fortress và The Great Sea.' },
     { id: 'pumpkin',          name: 'Pumpkin',          kind: 'Hồi phục', elements: ['holy'], image: 'img/items/pumpkin.png',       effect: 'Hồi 300 HP hoặc 20% max HP',  desc: 'Quy tắc hồi phục mọi món Food đơn trong EBF5: lấy con số cao hơn. Giá 30 gold.' },
@@ -2193,7 +2196,94 @@ window.EBF5DATA = {
     { id: 'donut',            name: 'Donut',            kind: 'Steroid',  elements: [],       image: 'img/items/donut.png',         effect: 'Natalie: MAtk & MDef +2%',    desc: 'Steroid vĩnh viễn của Natalie cho Magic Attack & Magic Defence.' },
     { id: 'red-pill',         name: 'Red Pill',         kind: 'Steroid',  elements: [],       image: 'img/items/red-pill.png',      effect: 'Lance: Evade & Accuracy +1%', desc: 'Steroid của Lance, trò chơi chữ đầy đủ: chọn viên nào trong The Matrix.' },
     { id: 'mint-leaf',        name: 'Mint Leaf',        kind: 'Steroid',  elements: [],       image: 'img/items/mint-leaf.png',     effect: 'Anna: Evade & Accuracy +1%',  desc: 'Steroid của Anna — cùng Hard Nut là thù lác về series Golden Sun.' },
-    { id: 'chocolate-milk',   name: 'Chocolate Milk',   kind: 'Steroid',  elements: [],       image: 'img/items/chocolate-milk.png', effect: 'NoLegs: Max HP +2%',         desc: 'Steroid Max HP +2% vĩnh viễn cho chú mèo không chân.' }
+    { id: 'chocolate-milk',   name: 'Chocolate Milk',   kind: 'Steroid',  elements: [],       image: 'img/items/chocolate-milk.png', effect: 'NoLegs: Max HP +2%',         desc: 'Steroid Max HP +2% vĩnh viễn cho chú mèo không chân.' },
+    { id: 'raw-beef', name: 'Raw Beef', kind: 'Steroid', elements: [], image: 'img/items/raw-beef.png', effect: 'Matt: MAtk & MDef +2%', desc: 'Steroid vĩnh viễn của Matt: +2% Magic Attack và Magic Defence. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'chicken-leg', name: 'Chicken Leg', kind: 'Steroid', elements: [], image: 'img/items/chicken-leg.png', effect: 'Matt: Evade & Accuracy +1%', desc: 'Steroid vĩnh viễn của Matt: +1% Evade và Accuracy. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'fried-egg', name: 'Fried Egg', kind: 'Steroid', elements: [], image: 'img/items/fried-egg.png', effect: 'Matt: Max HP +2%', desc: 'Steroid vĩnh viễn của Matt: +2% Max HP. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'poptart', name: 'Poptart', kind: 'Steroid', elements: [], image: 'img/items/poptart.png', effect: 'Natalie: Attack & Defence +2%', desc: 'Steroid vĩnh viễn của Natalie: +2% Attack và Defence. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'cake', name: 'Cake', kind: 'Steroid', elements: [], image: 'img/items/cake.png', effect: 'Natalie: Evade & Accuracy +1%', desc: 'Steroid vĩnh viễn của Natalie: +1% Evade và Accuracy. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'lollipop', name: 'Lollipop', kind: 'Steroid', elements: [], image: 'img/items/lollipop.png', effect: 'Natalie: Max HP +2%', desc: 'Steroid vĩnh viễn của Natalie: +2% Max HP. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'bread', name: 'Bread', kind: 'Steroid', elements: [], image: 'img/items/bread.png', effect: 'Lance: Attack & Defence +2%', desc: 'Steroid vĩnh viễn của Lance: +2% Attack và Defence. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'potato', name: 'Potato', kind: 'Steroid', elements: [], image: 'img/items/potato.png', effect: 'Lance: MAtk & MDef +2%', desc: 'Steroid vĩnh viễn của Lance: +2% Magic Attack và Magic Defence. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'mushroom', name: 'Mushroom', kind: 'Steroid', elements: [], image: 'img/items/mushroom.png', effect: 'Lance: Max HP +2%', desc: 'Steroid vĩnh viễn của Lance: +2% Max HP. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'turnip', name: 'Turnip', kind: 'Steroid', elements: [], image: 'img/items/turnip.png', effect: 'Anna: Attack & Defence +2%', desc: 'Steroid vĩnh viễn của Anna: +2% Attack và Defence. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'grapes', name: 'Grapes', kind: 'Steroid', elements: [], image: 'img/items/grapes.png', effect: 'Anna: MAtk & MDef +2%', desc: 'Steroid vĩnh viễn của Anna: +2% Magic Attack và Magic Defence. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'hard-nut', name: 'Hard Nut', kind: 'Steroid', elements: [], image: 'img/items/hard-nut.png', effect: 'Anna: Max HP +2%', desc: 'Steroid vĩnh viễn của Anna: +2% Max HP — thù lác series Golden Sun cùng Mint Leaf. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'sushi', name: 'Sushi', kind: 'Steroid', elements: [], image: 'img/items/sushi.png', effect: 'NoLegs: Attack & Defence +2%', desc: 'Steroid vĩnh viễn của NoLegs: +2% Attack và Defence. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'riceball', name: 'Riceball', kind: 'Steroid', elements: [], image: 'img/items/riceball.png', effect: 'NoLegs: MAtk & MDef +2%', desc: 'Steroid vĩnh viễn của NoLegs: +2% Magic Attack và Magic Defence. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'yoghurt', name: 'Yoghurt', kind: 'Steroid', elements: [], image: 'img/items/yoghurt.png', effect: 'NoLegs: Evade & Accuracy +1%', desc: 'Steroid vĩnh viễn của NoLegs: +1% Evade và Accuracy. Mua ở Cửa hàng Steroid (giá khởi điểm 1000 gold, nhân đôi mỗi lần mua cùng loại).' },
+    { id: 'pretzel', name: 'Pretzel', kind: 'Hồi phục', elements: [], image: 'img/items/pretzel.png', effect: 'Gỡ debuff cả đội + Stuffed 2 lượt', desc: 'Gỡ mọi debuff của toàn bộ đồng đội, kèm Stuffed 2 lượt cho mỗi người — món Food đắt tiền nhất nhánh gỡ (4000 gold).' },
+    { id: 'iron-brew', name: 'Iron Brew', kind: 'Hồi phục', elements: [], image: 'img/items/iron-brew.png', effect: 'Buff Chính xác 60%', desc: 'Buff Chính xác 60% cho một đồng đội. Giá 400 gold.' },
+    { id: 'energy-drink', name: 'Energy Drink', kind: 'Hồi phục', elements: [], image: 'img/items/energy-drink.png', effect: 'Buff Né 60%', desc: 'Buff Né 60% cho một đồng đội. Giá 400 gold.' }
+  ],
+
+  /* ------------------------------------ Vật liệu -----------------------------
+     60 mục (lượt 23): đủ bộ nguyên liệu forge EBF5, sinh máy từ bảng {{EBF|5}} của
+     trang Materials (60 dòng: Image / Name / Description / Buy / Sell). desc = bản
+     dịch đoạn mô tả trên wiki + giá mua/bán; món có ghi chú "Can be thrown in
+     battle" nhận kind 'Ném được' (Snowball, Brick, Shuriken, Hand Bomb). Hand Bomb
+     có entry riêng ở items (lượt 9) — entry materials tái dùng img/items/hand-bomb.png. */
+  materials: [
+    { id: 'snowball', name: 'Snowball', kind: 'Ném được', elements: [], image: 'img/materials/snowball.png', effect: 'Nguyên liệu forge + đồ ném', desc: 'Quả tuyết phổ thông và chẳng thích hợp mấy. Có thể ném trong trận. Giá mua 20 / Bán 5 gold.' },
+    { id: 'wool', name: 'Wool', kind: 'Nguyên liệu', elements: [], image: 'img/materials/wool.png', effect: 'Nguyên liệu forge trang bị', desc: 'Chắc có thể đan thành một chiếc áo len ra đây. Giá mua 30 / Bán 7 gold.' },
+    { id: 'brick', name: 'Brick', kind: 'Ném được', elements: [], image: 'img/materials/brick.png', effect: 'Nguyên liệu forge + đồ ném', desc: 'Chồng lại với nhau sẽ thành một cái nhà. Có thể ném trong trận. Giá mua 40 / Bán 10 gold.' },
+    { id: 'earth-ball', name: 'Earth Ball', kind: 'Nguyên liệu', elements: [], image: 'img/materials/earth-ball.png', effect: 'Nguyên liệu forge trang bị', desc: 'Một cục đất khá chất — và là một báu vật đấy nhé. Giá mua 60 / Bán 15 gold.' },
+    { id: 'sea-shell', name: 'Sea Shell', kind: 'Nguyên liệu', elements: [], image: 'img/materials/sea-shell.png', effect: 'Nguyên liệu forge trang bị', desc: 'Chỗ này từng có sinh vật ở. Giờ nó đã chết rồi. Giá mua 130 / Bán 32 gold.' },
+    { id: 'cactus', name: 'Cactus', kind: 'Nguyên liệu', elements: [], image: 'img/materials/cactus.png', effect: 'Nguyên liệu forge trang bị', desc: 'Cây gai giữ trọn một bồn nước bên trong. Giá mua 170 / Bán 42 gold.' },
+    { id: 'iron-plate', name: 'Iron Plate', kind: 'Nguyên liệu', elements: [], image: 'img/materials/iron-plate.png', effect: 'Nguyên liệu forge trang bị', desc: 'Thứ tạ mà người muốn nâng cấp cơ thể dùng để-luyện thân. Giá mua 200 / Bán 50 gold.' },
+    { id: 'shuriken', name: 'Shuriken', kind: 'Ném được', elements: [], image: 'img/materials/shuriken.png', effect: 'Nguyên liệu forge + đồ ném', desc: 'Lưỡi phi tiêu của các fan anime. Có thể ném trong trận. Giá mua 250 / Bán 62 gold.' },
+    { id: 'white-feather', name: 'White Feather', kind: 'Nguyên liệu', elements: [], image: 'img/materials/white-feather.png', effect: 'Nguyên liệu forge trang bị', desc: 'Làm mũ lông sang chảnh và chiếm đoạt văn hoá từ những chú chim. Giá mua 270 / Bán 67 gold.' },
+    { id: 'jungle-flower', name: 'Jungle Flower', kind: 'Nguyên liệu', elements: [], image: 'img/materials/jungle-flower.png', effect: 'Nguyên liệu forge trang bị', desc: 'Loài hoa quý hiếm với mùi hương phi thường. Giá mua 300 / Bán 75 gold.' },
+    { id: 'spring', name: 'Spring', kind: 'Nguyên liệu', elements: [], image: 'img/materials/spring.png', effect: 'Nguyên liệu forge trang bị', desc: 'Linh kiện lò xo dùng trong nhiều loại máy móc để thêm phần nhún nhảy. Giá mua 330 / Bán 82 gold.' },
+    { id: 'soft-wood', name: 'Soft Wood', kind: 'Nguyên liệu', elements: [], image: 'img/materials/soft-wood.png', effect: 'Nguyên liệu forge trang bị', desc: 'Loại gỗ dịu nhẹ ưa dùng làm đồ trang trí. Giá mua 360 / Bán 90 gold.' },
+    { id: 'hand-bomb', name: 'Hand Bomb', kind: 'Ném được', elements: ['bomb'], image: 'img/items/hand-bomb.png', effect: 'Nguyên liệu forge + đồ ném', desc: 'Cục bom cầm tay gọn gàng chứa uy lực nổ. Có thể ném trong trận. Giá mua 400 / Bán 100 gold.' },
+    { id: 'an-herb', name: 'An Herb', kind: 'Nguyên liệu', elements: [], image: 'img/materials/an-herb.png', effect: 'Nguyên liệu forge trang bị', desc: 'Loại cỏ có cả tác dụng y học lẫn... giải trí. Giá mua 420 / Bán 105 gold.' },
+    { id: 'copper-pipe', name: 'Copper Pipe', kind: 'Nguyên liệu', elements: [], image: 'img/materials/copper-pipe.png', effect: 'Nguyên liệu forge trang bị', desc: 'Ống đồng — không phải loại ống làm con người ta đần ra đâu đấy. Giá mua 480 / Bán 120 gold.' },
+    { id: 'super-tape', name: 'Super Tape', kind: 'Nguyên liệu', elements: [], image: 'img/materials/super-tape.png', effect: 'Nguyên liệu forge trang bị', desc: 'Sửa các thứ mà đáng lẽ phải đứng yên. Giá mua 500 / Bán 125 gold.' },
+    { id: 'geode', name: 'Geode', kind: 'Nguyên liệu', elements: [], image: 'img/materials/geode.png', effect: 'Nguyên liệu forge trang bị', desc: 'Khối tinh thể hình thành tự nhiên, tìm thấy ngay trong thiên nhiên. Giá mua 600 / Bán 150 gold.' },
+    { id: 'gash-root', name: 'Gash Root', kind: 'Nguyên liệu', elements: [], image: 'img/materials/gash-root.png', effect: 'Nguyên liệu forge trang bị', desc: 'Củ rễ của một thứ cỏ dại kinh khủng nào đó. Giá mua 650 / Bán 162 gold.' },
+    { id: 'gunpowder', name: 'Gunpowder', kind: 'Nguyên liệu', elements: [], image: 'img/materials/gunpowder.png', effect: 'Nguyên liệu forge trang bị', desc: 'Bột súng dùng để — đúng nghĩa — cho mọi thứ nổ tung. Giá mua 800 / Bán 200 gold.' },
+    { id: 'glass-shards', name: 'Glass Shards', kind: 'Nguyên liệu', elements: [], image: 'img/materials/glass-shards.png', effect: 'Nguyên liệu forge trang bị', desc: 'Thứ vừa rắn vừa trong suốt tuyệt đối. Điên thật. Giá mua 900 / Bán 225 gold.' },
+    { id: 'fine-fur', name: 'Fine Fur', kind: 'Nguyên liệu', elements: [], image: 'img/materials/fine-fur.png', effect: 'Nguyên liệu forge trang bị', desc: 'Bộ lông mượt từ một con thú không mấy may mắn. Giá mua 950 / Bán 237 gold.' },
+    { id: 'butterfly-wing', name: 'Butterfly Wing', kind: 'Nguyên liệu', elements: [], image: 'img/materials/butterfly-wing.png', effect: 'Nguyên liệu forge trang bị', desc: 'Chiếc cánh nhẹ và đẹp, chặt lấy từ một con côn trùng tội nghiệp. Giá mua 980 / Bán 245 gold.' },
+    { id: 'rainbow-ore', name: 'Rainbow Ore', kind: 'Nguyên liệu', elements: [], image: 'img/materials/rainbow-ore.png', effect: 'Nguyên liệu forge trang bị', desc: 'Hỗn hợp các loại đá đầy màu sắc — viên đá này chẳng quyết định nổi mình là thứ gì. Giá mua 1000 / Bán 250 gold.' },
+    { id: 'liquid-ice', name: 'Liquid Ice', kind: 'Nguyên liệu', elements: ['ice'], image: 'img/materials/liquid-ice.png', effect: 'Nguyên liệu forge trang bị', desc: 'Dạng băng hiếm có, chỉ gặp ở vùng khí hậu ấm áp. Giá mua 1100 / Bán 275 gold.' },
+    { id: 'solid-water', name: 'Solid Water', kind: 'Nguyên liệu', elements: ['water'], image: 'img/materials/solid-water.png', effect: 'Nguyên liệu forge trang bị', desc: 'Dạng nước hiếm có, chỉ gặp ở vùng khí hậu lạnh giá. Giá mua 1200 / Bán 300 gold.' },
+    { id: 'belt-buckle', name: 'Belt Buckle', kind: 'Nguyên liệu', elements: [], image: 'img/materials/belt-buckle.png', effect: 'Nguyên liệu forge trang bị', desc: 'Nhân vật dạng RPG cần rất nhiều thứ này lắm. Giá mua 1300 / Bán 325 gold.' },
+    { id: 'steel-plate', name: 'Steel Plate', kind: 'Nguyên liệu', elements: [], image: 'img/materials/steel-plate.png', effect: 'Nguyên liệu forge trang bị', desc: 'Nguyên liệu chế tạo mạnh mẽ mà vẫn hợp túi tiền. Giá mua 1400 / Bán 350 gold.' },
+    { id: 'magma-chunk', name: 'Magma Chunk', kind: 'Nguyên liệu', elements: ['fire'], image: 'img/materials/magma-chunk.png', effect: 'Nguyên liệu forge trang bị', desc: 'Cục vật chất mà lòng đất "tống" ra ngoài. Giá mua 1800 / Bán 450 gold.' },
+    { id: 'floppy', name: 'Floppy', kind: 'Nguyên liệu', elements: [], image: 'img/materials/floppy.png', effect: 'Nguyên liệu forge trang bị', desc: 'Từng nổi tiếng với cái tên "biểu tượng save". Giá mua 2000 / Bán 500 gold.' },
+    { id: 'silk', name: 'Silk', kind: 'Nguyên liệu', elements: [], image: 'img/materials/silk.png', effect: 'Nguyên liệu forge trang bị', desc: 'Lụa mịn dành cho bộ đồ sang chảnh. Sản phẩm của giun đấy. Giá mua 2100 / Bán 525 gold.' },
+    { id: 'metal-gear', name: 'Metal Gear', kind: 'Nguyên liệu', elements: [], image: 'img/materials/metal-gear.png', effect: 'Nguyên liệu forge trang bị', desc: 'Dùng trong máy có bánh răng lẫn những vũ khí to lớn quái đản. Giá mua 2300 / Bán 575 gold.' },
+    { id: 'plastic', name: 'Plastic', kind: 'Nguyên liệu', elements: [], image: 'img/materials/plastic.png', effect: 'Nguyên liệu forge trang bị', desc: 'Vật liệu tương lai, ứng dụng từ quần áo mềm mại tới bộ giáp rắn chắc. Giá mua 2500 / Bán 625 gold.' },
+    { id: 'amber', name: 'Amber', kind: 'Nguyên liệu', elements: [], image: 'img/materials/amber.png', effect: 'Nguyên liệu forge trang bị', desc: 'Có điều gì đó rất cổ xưa đang bị mắc kẹt bên trong. Giá mua 2700 / Bán 675 gold.' },
+    { id: 'leather', name: 'Leather', kind: 'Nguyên liệu', elements: [], image: 'img/materials/leather.png', effect: 'Nguyên liệu forge trang bị', desc: 'Chắc chắn có động vật bị tổn hại trong quá trình làm món này. Giá mua 3000 / Bán 750 gold.' },
+    { id: 'bio-virus', name: 'Bio Virus', kind: 'Nguyên liệu', elements: ['bio'], image: 'img/materials/bio-virus.png', effect: 'Nguyên liệu forge trang bị', desc: 'Tưởng tốt nhất đừng giữ thứ này trong túi quần. Giá mua 3200 / Bán 800 gold.' },
+    { id: 'razor-claw', name: 'Razor Claw', kind: 'Nguyên liệu', elements: [], image: 'img/materials/razor-claw.png', effect: 'Nguyên liệu forge trang bị', desc: 'Móng vuốt cứng như đá, gãy ra từ một con quái dữ hung hãn. Giá mua 3500 / Bán 875 gold.' },
+    { id: 'sacred-rune', name: 'Sacred Rune', kind: 'Nguyên liệu', elements: ['holy'], image: 'img/materials/sacred-rune.png', effect: 'Nguyên liệu forge trang bị', desc: 'Viên đá thần bí được phủ kín những ký hiệu quái dị. Giá mua 4000 / Bán 1000 gold.' },
+    { id: 'bone-spike', name: 'Bone Spike', kind: 'Nguyên liệu', elements: [], image: 'img/materials/bone-spike.png', effect: 'Nguyên liệu forge trang bị', desc: 'Là răng, là móng vuốt, hay là cái gối? Giá mua 4500 / Bán 1125 gold.' },
+    { id: 'silver-plate', name: 'Silver Plate', kind: 'Nguyên liệu', elements: [], image: 'img/materials/silver-plate.png', effect: 'Nguyên liệu forge trang bị', desc: 'Chưa bằng vàng nhưng giá trị vẫn khá cao. Giá mua 5000 / Bán 1250 gold.' },
+    { id: 'satin', name: 'Satin', kind: 'Nguyên liệu', elements: [], image: 'img/materials/satin.png', effect: 'Nguyên liệu forge trang bị', desc: 'Vải satin sang chảnh dùng may váy đi dạ hội và thứ tương tự. Giá mua 6000 / Bán 1500 gold.' },
+    { id: 'ruby', name: 'Ruby', kind: 'Nguyên liệu', elements: [], image: 'img/materials/ruby.png', effect: 'Nguyên liệu forge trang bị', desc: 'Viên ngọc hồng rực như bùng cháy năng lượng. Giá mua 6600 / Bán 1650 gold.' },
+    { id: 'topaz', name: 'Topaz', kind: 'Nguyên liệu', elements: [], image: 'img/materials/topaz.png', effect: 'Nguyên liệu forge trang bị', desc: 'Chắc chẳng ai làm ra game bắt quái từ loại ngọc này đâu. Giá mua 7700 / Bán 1925 gold.' },
+    { id: 'sapphire', name: 'Sapphire', kind: 'Nguyên liệu', elements: [], image: 'img/materials/sapphire.png', effect: 'Nguyên liệu forge trang bị', desc: 'Viên ngọc gợi nhớ biển cả sâu thẳm... và cả cái chết đuối. Giá mua 8800 / Bán 2200 gold.' },
+    { id: 'emerald', name: 'Emerald', kind: 'Nguyên liệu', elements: [], image: 'img/materials/emerald.png', effect: 'Nguyên liệu forge trang bị', desc: 'Viên ngọc màu xanh lá hiền hoà, tĩnh lặng. Giá mua 9900 / Bán 2475 gold.' },
+    { id: 'gold-plate', name: 'Gold Plate', kind: 'Nguyên liệu', elements: [], image: 'img/materials/gold-plate.png', effect: 'Nguyên liệu forge trang bị', desc: 'Thứ khiến người nhìn cảm thấy giàu có. Nhưng chẳng cứng cáp mấy. Giá mua 12000 / Bán 3000 gold.' },
+    { id: 'dark-rune', name: 'Dark Rune', kind: 'Nguyên liệu', elements: ['dark'], image: 'img/materials/dark-rune.png', effect: 'Nguyên liệu forge trang bị', desc: 'Dị vật thần bí, tương truyền là rơi từ trên trời xuống. Giá mua 20000 / Bán 5000 gold.' },
+    { id: 'p2-processor', name: 'P2 Processor', kind: 'Nguyên liệu', elements: [], image: 'img/materials/p2-processor.png', effect: 'Nguyên liệu forge trang bị', desc: 'Mạch điện tính toán con số cực nhanh. Giá mua 22000 / Bán 5500 gold.' },
+    { id: 'nano-fibre', name: 'Nano Fibre', kind: 'Nguyên liệu', elements: [], image: 'img/materials/nano-fibre.png', effect: 'Nguyên liệu forge trang bị', desc: 'Vải siêu bền dệt bằng công nghệ nano hiện đại. Giá mua 25000 / Bán 6250 gold.' },
+    { id: 'opal', name: 'Opal', kind: 'Nguyên liệu', elements: [], image: 'img/materials/opal.png', effect: 'Nguyên liệu forge trang bị', desc: 'Viên đá hiếm có, loang màu muôn vàn. Giá mua 30000 / Bán 7500 gold.' },
+    { id: 'lecko-brick', name: 'Lecko Brick', kind: 'Nguyên liệu', elements: [], image: 'img/materials/lecko-brick.png', effect: 'Nguyên liệu forge trang bị', desc: 'Viên gạch làm từ những viên gạch nhỏ hơn! Và tương thích với cả các hãng khác! Giá mua 40000 / Bán 10000 gold.' },
+    { id: 'moon-pearl', name: 'Moon Pearl', kind: 'Nguyên liệu', elements: [], image: 'img/materials/moon-pearl.png', effect: 'Nguyên liệu forge trang bị', desc: 'Viên ngọc lớn trông khá giống mặt trăng. Giá mua 48000 / Bán 12000 gold.' },
+    { id: 'dragon-scales', name: 'Dragon Scales', kind: 'Nguyên liệu', elements: [], image: 'img/materials/dragon-scales.png', effect: 'Nguyên liệu forge trang bị', desc: 'Da rồng đã hoá cứng, dùng làm giáp. Giá mua 56000 / Bán 14000 gold.' },
+    { id: 'game-child', name: 'Game Child', kind: 'Nguyên liệu', elements: [], image: 'img/materials/game-child.png', effect: 'Nguyên liệu forge trang bị', desc: 'Một máy chơi game giờ chỉ còn thấy trong bảo tàng. Giá mua 76000 / Bán 19000 gold.' },
+    { id: 'titanium', name: 'Titanium', kind: 'Nguyên liệu', elements: [], image: 'img/materials/titanium.png', effect: 'Nguyên liệu forge trang bị', desc: 'Nguyên liệu chế tạo cứng cáp đến kinh ngạc. Giá mua 80000 / Bán 20000 gold.' },
+    { id: 'diamond', name: 'Diamond', kind: 'Nguyên liệu', elements: [], image: 'img/materials/diamond.png', effect: 'Nguyên liệu forge trang bị', desc: 'Giá trị rớt một chút kể từ khi trẻ con đào khoáng khắp nơi. Giá mua 92000 / Bán 23000 gold.' },
+    { id: 'dark-matter', name: 'Dark Matter', kind: 'Nguyên liệu', elements: ['dark'], image: 'img/materials/dark-matter.png', effect: 'Nguyên liệu forge trang bị', desc: 'Dạng vật chất thần bí, giữ cho các dải ngân hà bám lấy nhau. Giá mua 100000 / Bán 25000 gold.' },
+    { id: 'plutonium-core', name: 'Plutonium Core', kind: 'Nguyên liệu', elements: [], image: 'img/materials/plutonium-core.png', effect: 'Nguyên liệu forge trang bị', desc: 'Nguyên liệu bị giám sát chặt chẽ, dùng để chế vũ khí hạt nhân. Giá mua 104000 / Bán 26000 gold.' },
+    { id: 'the-holy-grail', name: 'The Holy Grail', kind: 'Nguyên liệu', elements: ['holy'], image: 'img/materials/the-holy-grail.png', effect: 'Nguyên liệu forge trang bị', desc: 'Di vật huyền thoại. Thôi, nấu chảy lấy nguyên liệu luôn cho nhanh! Giá mua 112000 / Bán 28000 gold.' },
+    { id: 'mythril-shards', name: 'Mythril Shards', kind: 'Nguyên liệu', elements: [], image: 'img/materials/mythril-shards.png', effect: 'Nguyên liệu forge trang bị', desc: 'Nguyên liệu thần thoại không thể phá huỷ, dùng rèn nên những vũ khí tuyệt hảo nhất. Giá mua 120000 / Bán 30000 gold.' },
+    { id: 'star-fragment', name: 'Star Fragment', kind: 'Nguyên liệu', elements: [], image: 'img/materials/star-fragment.png', effect: 'Nguyên liệu forge trang bị', desc: 'Một mảnh của một ngôi sao thật. Đặc đến kinh hoàng! Giá mua 124000 / Bán 31000 gold.' }
   ],
 
   /* ------------------------------------ Trang bị -----------------------------
@@ -3622,6 +3712,7 @@ window.EBF5DATA = {
       '_default': 'List of Skills in Epic Battle Fantasy 5'
     },
     items: {
+      '_default': 'Food',
       'mint-leaf': 'Mint Leaf',
       'chili-pepper': 'Chili Pepper',
       'donut': 'Donut',
@@ -3650,6 +3741,9 @@ window.EBF5DATA = {
       'apple': 'Apple',
       'hamburger': 'Hamburger (item)',
       'espresso': 'Espresso'
+    },
+    materials: {
+      '_default': 'Materials'
     },
     equipment: {
       'lightning-badge': 'Flairs',

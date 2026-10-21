@@ -11,20 +11,21 @@
 
 ### Kiến trúc
 - **SPA router tĩnh 3 trang**: `index.html` (trang chủ), `list.html?type=X` (danh sách + bộ lọc), `detail.html?id=Y&type=X` (chi tiết).
-- **Nguồn dữ liệu trung tâm** `js/data.js`: 9 mảng chủ đề + `categories` + `elements` (10 nguyên tố) + `externalWiki`.
+- **Nguồn dữ liệu trung tâm** `js/data.js`: 10 mảng chủ đề + `categories` + `elements` (10 nguyên tố) + `externalWiki`.
 - `js/app.js` render mọi thứ: nav tự sinh từ `categories`, thẻ card có ảnh + chip, trang chi tiết có bảng thông tin / panel mẹo / ghi chú nguồn dẫn về trang wiki tương ứng của từng chủ đề.
 - `css/style.css`: theme tối phong cách game, card grid, chip, `.detail-media`, fallback `.img-fail`.
 - Thêm chủ đề mới = **1 hàng trong `categories` + 1 mảng dữ liệu + (tuỳ) 1 nhánh chip/detail trong app.js**.
 
-### Dữ liệu — 9 chủ đề, 913 mục, 912 tham chiếu ảnh ↔ 908 file (0 thiếu, 0 file lẻ)
+### Dữ liệu — 10 chủ đề, 991 mục, 990 tham chiếu ảnh ↔ 985 file (0 thiếu, 0 file lẻ)
 
 | # | Chủ đề | key | Mục | Ảnh | Ghi chú |
 |---|--------|-----|-----|-----|---------|
 | 1 | Nhân vật | `characters` | 5 | 5/5 | Matt, Natalie, Lance, Anna, NoLegs — lore EBF5 thật, kèm danh mục kỹ năng/trang bị chính |
 | 2 | Kẻ địch | `enemies` | 214 | 214/214 | **Lượt 21: đủ bộ quái EBF5 50 → 214** — 164 entry mới sinh máy từ bảng `FoeTableEBF5` của 167 trang foe fandom (lọc `Category:Foes` tag EBF5 222 → bỏ 36 trang Foe Groups → bỏ 6 trang nội dung + Mighty Oak); icon `EBF5 Bestiary <Tên>` (thiếu → `EBF5 Foe Icon` / `Icon bestiary ebf4`); giữ drops thật + `res` khắc chế 50/50 lượt 15; sources mỗi foe = `X (foe)` |
 | 3 | Kỹ năng | `skills` | 183 | 183/183 | **Đủ bộ 5 nhân vật + 53 Extra Skills** (kèm chars từng người học được từ trang bị), theo *List of Skills in EBF5*; icon `EBF5 Skill X` |
-| 4 | Vật phẩm | `items` | 28 | 28/28 | 24 món Food thật (Pumpkin→Pizza, Garlic/Banana gỡ status/debuff, Apple/Cupcake trừ cooldown…) + 5 Steroid từng nhân vật — icon `EBF5 Item X` |
+| 4 | Vật phẩm | `items` | 46 | 46/46 | **Lượt 23 — đủ bộ**: 1 entry nhóm Food + 24 món Food thật (Pumpkin→Pizza, thêm Pretzel/Iron Brew/Energy Drink) + **20 Steroid đủ bộ 4 chỉ số × 5 nhân vật** (theo bảng Steroids trang *Food*) + Hand Bomb; icon `EBF5 Item X` — mon mới không có trang item riêng trên fandom (Turnip/"Mushroom" là trang item EBF3/4, không phải steroid EBF5) → nguồn mới lại `_default = Food` |
 | 5 | Trang bị | `equipment` | 228 | 228/228 | **Lượt 16: 84 vũ khí** (78 sinh máy từ 4 trang `Swords`/`Bows`/`Guns`/`Staves` bảng 1 post-v2 + 8 entry tay: Heaven Gate, Ultra Pro 9000X, Fairy Bow, Dark Tooth, Shadow Blaster, Spine Snapper, Crystal Staff, Steel Buckler); **Lượt 17: +142 mũ giáp & Flair** — 84 mũ/giáp sinh máy (21+21 Mũ/Giáp nam theo `Male Hats and Armor`, 21+21 nữ theo `Female Hats and Armor`) + 58 Flair (55 sinh máy từ trang `Flairs` + 3 tay NoLegs); thay 8 entry tay mỏng bằng bản sinh máy; 24 món nhãn Độc quyền bản Steam qua `PaywallNote` từng trang item |
+| 5b | Vật liệu | `materials` | 60 | 60/60 | **Lượt 23 — chủ đề mới**: đủ 60 nguyên liệu forge EBF5 sinh máy từ bảng `{{EBF|5}}` trang *Materials* (tên, mô tả wiki dịch, giá mua/bán); "Can be thrown in battle" → kind `Ném được` (Snowball, Brick, Shuriken, Hand Bomb — Hand Bomb tái dùng icon của items); icon `EBF5 Item X` vào `img/materials/`; sources `_default = Materials` |
 | 6 | Trạng thái | `statuses` | 26 | 25/26 | Đủ Doom, Scorch, Berserk, Syphon, Brave, Regen, Vận may, **Hoang mang (Confuse — chỉ tác động người chơi, tự dùng bản kỹ năng yếu nhất, bỏ qua Syphon & cooldown, ưu tiên cao hơn Berserk)**…; "Trói chân" (không tồn tại) đã thay bằng Mỏi (Tired) — icon `EBF5 Status X`; Radiation giữ emoji |
 | 7 | Khu vực | `areas` | 18 | 18/18 | 12 khu chính + 6 khu trả phí theo trang *EBF5 Map*; mỗi khu có ô lưới (grid), Điểm nhấn, Lưu ý — ảnh tile bản đồ; **C3: ~200 ô lưới có bảng Quái (wave) + Key Items + vị trí con + ghi chú cơ chế từ các trang `EBF5 Map/X`** |
 | 8 | Triệu hồi | `summons` | 191 | 191/191 | **C4: 18 → 40** (lượt 8+11) rồi **14: 40 → 191 — gần như đủ bộ** theo bảng hiện hành post-v2 (192 hàng, trừ demo ẩn Glitch 2; The Devourer 250 → Furry Slime 1); 151 entry mới sinh máy từ cột target/type/power/element/status/debuff; 151 icon tải từ `EBF5 Foe Icon` qua fetch-images.map.txt |
@@ -38,10 +39,10 @@
 - **Bài học lớn**: soạn văn tiếng Việt dài trong shell/here-string dễ lẫn ký tự rác (CJK/Cyrillic) → soạn file tạm bằng công cụ `write`, rồi splice vào `data.js` bằng PowerShell; luôn quét kiểm `[CJK]=0, [Cyrillic]=0` và đếm ngoặc sau mỗi lần sửa.
 
 ### Kiểm thử pass (trạng thái hiện tại)
-- `data.js`: braces 1358/1358, brackets 1538/1538, quotes chẵn (21866), 0 ký tự rác, JScript parse OK.
+- `data.js`: braces 1440/1440, brackets 1618/1618, quotes chẵn (22842), 0 ký tự rác, JScript parse OK.
 - `app.js`: braces 137/137, brackets 61/61 (file có ES6 sẵn nên JScript bỏ qua, trình duyệt chạy tốt).
-- `test.html`: trang smoke test chạy trong trình duyệt (7 case: 9 chủ đề/26 status, `renderDetail` sinh tooltip `.st-tip` + hàng `.prev-next`, lightbox, `#statusTip`, `#toTop`) — mở trực tiếp là chạy, không cần Node; xoá đi khi không cần nữa.
-- 912 tham chiếu `image:` ↔ 908 file thật (limit dùng lại icon skills) — **0 thiếu, 0 file lẻ**.
+- `test.html`: trang smoke test chạy trong trình duyệt (10 chủ đề / 26 status, `renderDetail` sinh tooltip `.st-tip` + hàng `.prev-next`, lightbox, `#statusTip`, `#toTop`) — **mở bằng HTTP server thì đủ case xanh; qua `file://` Chromium chặn `history.replaceState` (origin null) nên các case phụ thuộc URL route tự chuyển SKIP (không FAIL)**; xoá đi khi không cần nữa.
+- 990 tham chiếu `image:` ↔ 985 file thật (limits dùng lại icon skills; Hand Bomb materials tái dùng icon items) — **0 thiếu, 0 file lẻ**.
 - README + hero trang chủ khớp số liệu thật.
 
 ---
@@ -98,9 +99,9 @@
 
 **Tiêu chí "hoàn thiện" theo 3 mức:**
 
-1. **Dùng được** (đã đạt): 9 chủ đề, 913 mục (908 file ảnh, mỗi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
+1. **Dùng được** (đã đạt): 10 chủ đề, 991 mục (985 file ảnh, mọi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
 2. **Dễ dùng** (đã đạt): lightbox + tooltip + phím tắt + tìm kiếm sâu (tips/effect/quái theo ô lưới) + nút lên đầu trang; **deploy GitHub Pages ✅ https://longawr.github.io/Wiki/**.
-3. **Sống lâu** (mục tiêu xa): dữ liệu phủ ~100% kỹ năng/quái ✅ (kỹ năng 183, kẻ địch 214 — wiki ghi 216 unique, chênh 2 chấp nhận); quy trình cập nhật từ fandom API thành script có sẵn; mỗi mục truy vết được về trang wiki gốc để tự đối chiếu khi game ra bản vá mới (EBF5 vẫn nhận update v2+).
+3. **Sống lâu** (mục tiêu xa): dữ liệu phủ ~100% kỹ năng/quái/hệ vật phẩm ✅ (kỹ năng 183, kẻ địch 214 — wiki ghi 216 unique, chênh 2 chấp nhận; **lượt 23: materials 60/60 + items đủ bộ Food 24 + Steroid 20**); quy trình cập nhật từ fandom API thành script có sẵn; mỗi mục truy vết được về trang wiki gốc để tự đối chiếu khi game ra bản vá mới (EBF5 vẫn nhận update v2+).
 
 **Nguyên tắc giữ vững:**
 - Không framework, không build — mở `index.html` là chạy.
@@ -189,4 +190,14 @@
 - Tên miền riêng: bỏ qua theo roadmap (cần mua tên miền + cấu hình DNS bên ngoài phạm vi repo).
 - `check.ps1`: PASS 0 FAIL (không đổi data.js — 913 mục / 912 tham chiếu ↔ 908 file giữ nguyên).
 
-*Cập nhật lần cuối: 2026-10-21 — sau lượt 22 (favicon; 913 mục / 912 tham chiếu ảnh ↔ 908 file).*
+### Lượt 23 — hệ vật phẩm hoàn chỉnh: chủ đề mới "Vật liệu" (60) + nốt Food/Steroid items (28 → 46)
+- **Định hướng**: mọi mục A–D của roadmap đã xong — lượt này chốt khoảng trống lớn còn lại theo tầm nhìn "Sống lâu": hệ item EBF5 gồm 3 nhóm trên wiki (Materials / Food / Key Items), trong đó 2 nhóm chưa có chủ đề và items đã thiếu bộ. Key Items (71) để lượt kế tiếp.
+- **Chủ đề mới `materials` (60 mục)**: nguồn duy nhất = bảng `{{EBF|5}}` của trang *Materials* (60 dòng: Image / Name / Description / Buy Price / Sell Price; dàn icon `EBF5 Item X` 12×5 kiểu PlacementGrid). desc sinh máy = bản dịch đoạn "Description" của wiki + `Giá mua X / Bán Y gold`; các dòng có ghi chú "Can be thrown in battle" → kind `Ném được` (Snowball, Brick, Shuriken, Hand Bomb), còn lại `Nguyên liệu`; `kinds` bộ lọc = [Nguyên liệu, Ném được]. Nguyên tố chỉ gắn cho entry rõ nghĩa (Liquid Ice→ice, Solid Water→water, Magma Chunk→fire, Bio Virus→bio, Dark Rune/Dark Matter→dark, Sacred Rune/The Holy Grail→holy, Hand Bomb→bomb). app.js: `cardSub` thêm nhánh `materials` (chip kind + nguyên tố), panel chi tiết gộp chung `items || materials` (Loại / Hiệu quả / Nguyên tố).
+- **items 28 → 46**: trang *Food* wiki EBF5 có 24 món (Pumpkin→Pizza) ⇒ items chỉ còn thiếu Pretzel, Iron Brew, Energy Drink; bảng *Steroids* cùng trang cho đủ 20 (4 chỉ số × 5 nhân vật — Atk&Def 2% / MAtk&MDef 2% / Eva&Acc 1% / HP 2%, giá Steroid Shop khởi điểm 1000 gold nhân đôi mỗi lần mua cùng loại) ⇒ thiếu 15. 18 entry mới đều sinh máy (không văn tự do), desc steroid kèm luật giá của Steroid Shop.
+- **Nguồn truy vết**: kiểm 36 ứng viên tên trang qua fandom API (redirects=1, cả biến `(item)`) → **hầu hết steroid/food mới KHÔNG có trang riêng**; `Turnip` thật ra là trang item EBF4, `Mushroom` redirect về `Bad Mushroom` (item EBF3/4) — không phải steroid EBF5 ⇒ 18 mục mới dùng `_default = 'Food'` trong `sources.items` (trang nguồn dữ liệu thật); `sources.materials` = map mới `_default = 'Materials'`.
+- **Icon: 77/77 OK, 0 SKIP, 0 FAIL** — 59 nguyên liệu (tái dùng `img/items/hand-bomb.png` cho entry hand-bomb) + 18 icon items mới; tên file `EBF5 Item <Tên>.png` xác thực qua fandom API bó 50/lượt **kèm đuôi .png** trước khi ghi map (bài học lượt 21).
+- **check.ps1**: thêm `materials` vào mảng `$keys` (section 6 đếm theo chủ đề) — 991 mục / 990 tham chiếu ↔ 985 file, 0 thiếu / 0 file lẻ; data.js braces 1440/1440, quotes chẵn 22842.
+- **QA headless (Edge)**: 3 trang detail (`materials/steel-plate`, `materials/hand-bomb`, `items/raw-beef`) + list `materials` (60 card, chip `Ném được` = 5) + home (nav "🧱 Vật liệu" active) — đủ xanh. Bẫy: chuyển hướng dump qua `cmd /c` với URL chứa `&` bị cmd cắt lệnh tại dấu `&` (mất redirect `>`, file 0 byte, HTML rò ra console) — **phải quote URL trong `cmd /c`**; xóa rồi gọi Edge dùng chung một `--user-data-dir` thì lần sau bàn giao tiến trình cũ và thoát không dump.
+- **test.html sửa 2 lớp**: (a) case 1 cập nhật 9 chủ đề → 10 (trước đó file còn stale mặc lượt 19 — khẳng định `statuses != 25` FAIL); (b) case 4 bọc `history.replaceState` bằng try/catch + flag `detailRouted`: qua `file://` Chromium chặn pushState (origin 'null') nên case 4–6 tự SKIP thay vì FAIL — đã đối chứng bằng worktree commit lượt 22 (cùng 3 FAIL y hệt, không phải hồi quy của lượt 23). Chạy localhost HTTP server thì đủ 7 case xanh như cũ.
+
+*Cập nhật lần cuối: 2026-10-21 — sau lượt 23 (materials mới; 991 mục / 990 tham chiếu ảnh ↔ 985 file).*
