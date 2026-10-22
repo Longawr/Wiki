@@ -218,6 +218,86 @@ foreach ($h in $htmlFiles) {
 }
 
 # ---------------------------------------------------------------------
+# 8. Khu vuc: o luoi trong areas.cells vs cap sources.areaCells
+#    (luot 27) - moi o co cells phai co cap mapping va nguoc lai;
+#    grid trong cap phai trung grid trong title 'Epic Battle Fantasy 5 Map/<gr>'.
+# ---------------------------------------------------------------------
+Write-Output ""
+Write-Output "== 8. KHU VUC: O LUOI vs AREACELLS =="
+$mAreas = [regex]::Match($data, "(?s)\r?\n  areas: \[(.*?)\r?\n  \],")
+$mPairs = [regex]::Match($data, "(?s)\r?\n    areaCells: \{(.*?)\r?\n    \}")
+if ((-not $mAreas.Success) -or (-not $mPairs.Success)) {
+  Bad "khong doc duoc block areas / areaCells trong data.js"
+} else {
+  $cellsByArea = @{}
+  $pairByArea = @{}
+  $nCells = 0
+  $nContent = 0
+  $cur = $null
+  foreach ($line in ($mAreas.Groups[1].Value -split "`n")) {
+    $l = ($line + '').TrimEnd("`r")
+    $mi = [regex]::Match($l, "^\s*\{ id: '([^']+)', name: (.+), kind: ")
+    if ($mi.Success) { $cur = $mi.Groups[1].Value; continue }
+    $mc = [regex]::Match($l, "^\s*\{ grid: '([A-Z]\d{1,2})'")
+    if ($mc.Success -and $cur) {
+      $grid = $mc.Groups[1].Value
+      if (-not $cellsByArea.ContainsKey($cur)) { $cellsByArea[$cur] = @() }
+      if (@($cellsByArea[$cur]) -contains $grid) {
+        Bad ("khu {0}: o '{1}' trung lap trong cells" -f $cur, $grid)
+      } else {
+        $cellsByArea[$cur] = @($cellsByArea[$cur]) + @($grid)
+        $nCells++
+        if (($l -match '\bfoes: \[') -or ($l -match '\bkeys: \[')) { $nContent++ }
+      }
+    }
+  }
+  $nPairs = 0
+  $pcur = $null
+  foreach ($line in ($mPairs.Groups[1].Value -split "`n")) {
+    $l = ($line + '').TrimEnd("`r")
+    $mp = [regex]::Match($l, "^      '([^']+)': \{$")
+    if ($mp.Success) {
+      $pcur = $mp.Groups[1].Value
+      if (-not $cellsByArea.ContainsKey($pcur)) {
+        Bad ("areaCells co khu '{0}' nhung block areas khong co khu nay" -f $pcur)
+      } else {
+        $pairByArea[$pcur] = @()
+      }
+      continue
+    }
+    $mg = [regex]::Match($l, "^\s+'([A-Z]\d{1,2})': 'Epic Battle Fantasy 5 Map/([A-Z]\d{1,2}) ")
+    if ($mg.Success -and $pcur -and $cellsByArea.ContainsKey($pcur)) {
+      if ($mg.Groups[1].Value -ne $mg.Groups[2].Value) {
+        Bad ("areaCells {0}/{1}: title sai grid ({2})" -f $pcur, $mg.Groups[1].Value, $mg.Groups[2].Value)
+      }
+      if (@($pairByArea[$pcur]) -contains $mg.Groups[1].Value) {
+        Bad ("areaCells khu {0}: o '{1}' trung lap" -f $pcur, $mg.Groups[1].Value)
+      } else {
+        $pairByArea[$pcur] = @($pairByArea[$pcur]) + @($mg.Groups[1].Value)
+        $nPairs++
+      }
+    }
+  }
+  foreach ($aid in @($cellsByArea.Keys)) {
+    foreach ($g in @($cellsByArea[$aid])) {
+      if ((-not $pairByArea.ContainsKey($aid)) -or (@($pairByArea[$aid]) -notcontains $g)) {
+        Bad ("thieu cap sources.areaCells cho {0}/{1}" -f $aid, $g)
+      }
+    }
+  }
+  foreach ($aid in @($pairByArea.Keys)) {
+    foreach ($g in @($pairByArea[$aid])) {
+      if (@($cellsByArea[$aid]) -notcontains $g) {
+        Bad ("cap {0}/{1} khong co o tuong ung trong cells" -f $aid, $g)
+      }
+    }
+  }
+  if ($script:fail -eq 0) {
+    Ok ("{0} khu co cells, {1} o luoi ({2} o co noi dung), {3} cap areaCells - khop nhau 2 chieu" -f @($cellsByArea.Keys).Count, $nCells, $nContent, $nPairs)
+  }
+}
+
+# ---------------------------------------------------------------------
 # Tong ket
 # ---------------------------------------------------------------------
 Write-Output ""

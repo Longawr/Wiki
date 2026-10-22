@@ -2890,7 +2890,12 @@ window.EBF5DATA = {
     { id: 'crystal-caverns', name: 'Crystal Caverns', kind: 'Khu vực trả phí', image: 'img/areas/crystal-caverns.png', grid: 'E0',
       desc: 'Hang pha lê lấp lánh phần trả phí: khoáng vật dày đặc cùng quái thuật của vùng tối.',
       features: [ 'Khoáng vật và đá quý dày đặc', 'Quái pháp thuật vùng tối' ],
-      tips: [ 'Đường tối quanh co — học thuộc lối hoặc ghi chú từng bước.' ] }
+      tips: [ 'Đường tối quanh co — học thuộc lối hoặc ghi chú từng bước.' ],
+    cells: [
+        { grid: 'D0', foes: ['D 05 - 3 Thunder Sprite, 2 Rock Sprite / 3 Earth Dragon', 'J 06 - 2 Thunder Sprite, 2 Big Sand Slime, 1 Chunky Gloop / 2 Thunder Sprite, 1 Camel Mammoth, 1 Chunky Gloop', 'P 05 - 2 Sandstone Boulder, 2 Chunky Gloop, 1 Ancient Monolith / 2 Thorny Creep, 2 Ancient Monolith, 1 Chunky Gloop'] },
+        { grid: 'D1', foes: ['H 05 - 2 Roasted Gloop, 2 Obsidian Boulder, 1 Ancient Monolith / 3 Thunder Sprite, 2 Demon Mirror / 2 Ancient Monolith, 1 Topaz Golem', 'N 05 - 1 Ruby Ore, Vulcan, 1 Topaz Ore, 1 Peridot Ore'] },
+        { grid: 'I9', foes: ['F 07 - 2 Sapphire Ore, 2 Zap Dog, 1 Viking Monolith / 2 Zap Dog, 2 Icicle Creep, 1 Sapphire Ore / 3 Blue Flybot, 2 Zircon Ore / 2 Blue Flybot, 2 Sapphire Ore, 1 Bubbler MX-01', 'I 07 - 2 Ice Sprite, 2 Coral Boulder, 1 Viking Monolith / 2 Icicle Creep, 2 Angel Mirror, 1 Crucified Fallen / 2 Hardy Gloop, 2 Crucified Fallen, 1 Zap Dog / 2 Viking Monolith, 1 Pearl Golem', 'K 07 - 3 Crystal Hydra'] }
+      ] }
   ],
 
   /* ------------------------------------ Triệu hồi ----------------------------
@@ -4228,7 +4233,8 @@ window.EBF5DATA = {
         'K1': 'Epic Battle Fantasy 5 Map/K1 Greenwood Village',
         'K2': 'Epic Battle Fantasy 5 Map/K2 Greenwood Village',
         'K3': 'Epic Battle Fantasy 5 Map/K3 Greenwood Village',
-        'K4': 'Epic Battle Fantasy 5 Map/K4 Greenwood Village'
+        'K4': 'Epic Battle Fantasy 5 Map/K4 Greenwood Village',
+        'I2': 'Epic Battle Fantasy 5 Map/I2 Library'
       },
       'hope-harbor': {
         'A2': 'Epic Battle Fantasy 5 Map/A2 Hope Harbor',
@@ -4240,7 +4246,8 @@ window.EBF5DATA = {
         'D2': 'Epic Battle Fantasy 5 Map/D2 Hope Harbor',
         'D3': 'Epic Battle Fantasy 5 Map/D3 Hope Harbor',
         'D4': 'Epic Battle Fantasy 5 Map/D4 Hope Harbor',
-        'D5': 'Epic Battle Fantasy 5 Map/D5 Hope Harbor'
+        'D5': 'Epic Battle Fantasy 5 Map/D5 Hope Harbor',
+        'E3': 'Epic Battle Fantasy 5 Map/E3 Ice Cave'
       },
       'wild-tropics': {
         'A3': 'Epic Battle Fantasy 5 Map/A3 Wild Tropics',
@@ -4281,7 +4288,12 @@ window.EBF5DATA = {
         'I7': 'Epic Battle Fantasy 5 Map/I7 The Rapture',
         'I8': 'Epic Battle Fantasy 5 Map/I8 The Rapture',
         'I9': 'Epic Battle Fantasy 5 Map/I9 The Rapture',
-        'K9': 'Epic Battle Fantasy 5 Map/K9 Lava Lake'
+        'K9': 'Epic Battle Fantasy 5 Map/K9 Lava Lake',
+        'J7': 'Epic Battle Fantasy 5 Map/J7 Lava Lake',
+        'J8': 'Epic Battle Fantasy 5 Map/J8 Lava Lake',
+        'J9': 'Epic Battle Fantasy 5 Map/J9 Lava Lake',
+        'K7': 'Epic Battle Fantasy 5 Map/K7 Lava Lake',
+        'K8': 'Epic Battle Fantasy 5 Map/K8 Lava Lake'
       },
       'freezeflame-dungeon': {
         'D1': 'Epic Battle Fantasy 5 Map/D1 Freezeflame Dungeon',
@@ -4334,6 +4346,11 @@ window.EBF5DATA = {
         'K5': 'Epic Battle Fantasy 5 Map/K5 Temple of Trials',
         'K6': 'Epic Battle Fantasy 5 Map/K6 Temple of Trials',
         'K7': 'Epic Battle Fantasy 5 Map/K7 Temple of Trials'
+      },
+      'crystal-caverns': {
+        'D0': 'Epic Battle Fantasy 5 Map/D0 Crystal Caverns',
+        'D1': 'Epic Battle Fantasy 5 Map/D1 Crystal Caverns',
+        'I9': 'Epic Battle Fantasy 5 Map/I9 Crystal Caverns'
       }
     }
   },

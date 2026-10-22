@@ -38,7 +38,7 @@
     }
 
     // 1. Dữ liệu sẵn sàng
-    add('EBF5DATA: 11 chủ đề, 26 trạng thái, 66 key items', function () {
+    add('EBF5DATA: 11 chủ đề, 48 trạng thái, 66 key items', function () {
       assert(window.EBF5DATA.categories.length === 11, 'categories != 11');
       assert(window.EBF5DATA.statuses.length === 48, 'statuses != 48');
       assert(window.EBF5DATA.keyitems.length === 66, 'keyitems != 66');
@@ -120,9 +120,38 @@
       assert(!!b, 'không thấy #toTop');
     });
 
-    // 7. Không ký tự rác / khôngISMATCH cú pháp (máy chạy = JS parse OK toàn file)
+    // 7. Chạy được toàn bộ script (máy chạy = JS parse OK toàn file)
     add('app.js parse toàn bộ (không lỗi runtime khi load)', function () {
       assert(typeof EBF5App.renderDetail === 'function', 'renderDetail không phải hàm');
+    });
+
+    // 8. Ô lưới khu vực (luot 27): 18 khu, Crystal Caverns 3 ô D0/D1/I9, tổng 142 ô nội dung
+    add('areas: 18 khu, Crystal Caverns đủ D0/D1/I9, tổng 142 ô nội dung', function () {
+      var areas = window.EBF5DATA.areas;
+      assert(areas.length === 18, 'areas != 18 (là ' + areas.length + ')');
+      var cry = areas.find(function (a) { return a.id === 'crystal-caverns'; });
+      assert(!!cry, 'thiếu khu crystal-caverns');
+      var grids = (cry.cells || []).map(function (c) { return c.grid; }).join(',');
+      assert(grids === 'D0,D1,I9', 'cells của crystal-caverns tăng: ' + grids);
+      assert(cry.cells.every(function (c) { return c.foes && c.foes.length > 0; }), 'cell crystal thiếu foes');
+      var src = window.EBF5DATA.sources && window.EBF5DATA.sources.areaCells;
+      assert(!!src && !!src['crystal-caverns'], 'thiếu sources.areaCells[crystal-caverns]');
+      Object.keys(src['crystal-caverns']).forEach(function (g) {
+        assert(/^Epic Battle Fantasy 5 Map\/[A-Z]\d{1,2} /.test(src['crystal-caverns'][g]), 'title mapping lạ: ' + g);
+      });
+      var content = 0;
+      areas.forEach(function (a) {
+        (a.cells || []).forEach(function (c) {
+          if ((c.foes && c.foes.length) || (c.keys && c.keys.length)) content++;
+        });
+      });
+      assert(content === 142, 'ô có nội dung != 142 (là ' + content + ')');
+      // ô mới phải có nội dung đọc được: mỗi foes entry bắt đầu bằng "<cột> - "
+      cry.cells.forEach(function (c) {
+        c.foes.forEach(function (f) {
+          assert(/^[A-Z] \d{1,2} - /.test(f), 'foes của ' + c.grid + ' thiếu "<cột> - ": ' + f.slice(0, 30));
+        });
+      });
     });
 
     // in kết quả
