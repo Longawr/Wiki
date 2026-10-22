@@ -16,18 +16,18 @@
 - `css/style.css`: theme tối phong cách game, card grid, chip, `.detail-media`, fallback `.img-fail`.
 - Thêm chủ đề mới = **1 hàng trong `categories` + 1 mảng dữ liệu + (tuỳ) 1 nhánh chip/detail trong app.js**.
 
-### Dữ liệu — 11 chủ đề, 1079 mục, 1077 tham chiếu ảnh ↔ 1072 file (0 thiếu, 0 file lẻ)
+### Dữ liệu — 11 chủ đề, 1081 mục, 1079 tham chiếu ảnh ↔ 1074 file (0 thiếu, 0 file lẻ)
 
 | # | Chủ đề | key | Mục | Ảnh | Ghi chú |
 |---|--------|-----|-----|-----|---------|
 | 1 | Nhân vật | `characters` | 5 | 5/5 | Matt, Natalie, Lance, Anna, NoLegs — lore EBF5 thật, kèm danh mục kỹ năng/trang bị chính |
-| 2 | Kẻ địch | `enemies` | 214 | 214/214 | **Lượt 21: đủ bộ quái EBF5 50 → 214** — 164 entry mới sinh máy từ bảng `FoeTableEBF5` của 167 trang foe fandom (lọc `Category:Foes` tag EBF5 222 → bỏ 36 trang Foe Groups → bỏ 6 trang nội dung + Mighty Oak); icon `EBF5 Bestiary <Tên>` (thiếu → `EBF5 Foe Icon` / `Icon bestiary ebf4`); giữ drops thật + `res` khắc chế 50/50 lượt 15; sources mỗi foe = `X (foe)` |
+| 2 | Kẻ địch | `enemies` | 216 | 216/216 | **Lượt 21: đủ bộ quái 50 → 214** — 164 entry mới sinh máy từ bảng `FoeTableEBF5` của 167 trang foe fandom (lọc `Category:Foes` tag EBF5 222 → bỏ 36 trang Foe Groups → bỏ 6 trang nội dung + Mighty Oak); **lượt 26 khớp đúng "216 unique foe" của wiki** khi tách 2 entry gộp (Sól + Skadi, Glitch nhỏ + The Glitch boss); icon `EBF5 Bestiary <Tên>` (thiếu → `EBF5 Foe Icon` / `Icon bestiary ebf4`); giữ drops thật + `res` khắc chế 50/50 lượt 15; sources mỗi foe = trang thật `X` / `X (EBF5 boss)` (lượt 26 sửa 211 title `(foe)` ảo) |
 | 3 | Kỹ năng | `skills` | 183 | 183/183 | **Đủ bộ 5 nhân vật + 53 Extra Skills** (kèm chars từng người học được từ trang bị), theo *List of Skills in EBF5*; icon `EBF5 Skill X` |
 | 4 | Vật phẩm | `items` | 46 | 46/46 | **Lượt 23 — đủ bộ**: 1 entry nhóm Food + 24 món Food thật (Pumpkin→Pizza, thêm Pretzel/Iron Brew/Energy Drink) + **20 Steroid đủ bộ 4 chỉ số × 5 nhân vật** (theo bảng Steroids trang *Food*) + Hand Bomb; icon `EBF5 Item X` — mon mới không có trang item riêng trên fandom (Turnip/"Mushroom" là trang item EBF3/4, không phải steroid EBF5) → nguồn mới lại `_default = Food` |
 | 5 | Trang bị | `equipment` | 228 | 228/228 | **Lượt 16: 84 vũ khí** (78 sinh máy từ 4 trang `Swords`/`Bows`/`Guns`/`Staves` bảng 1 post-v2 + 8 entry tay: Heaven Gate, Ultra Pro 9000X, Fairy Bow, Dark Tooth, Shadow Blaster, Spine Snapper, Crystal Staff, Steel Buckler); **Lượt 17: +142 mũ giáp & Flair** — 84 mũ/giáp sinh máy (21+21 Mũ/Giáp nam theo `Male Hats and Armor`, 21+21 nữ theo `Female Hats and Armor`) + 58 Flair (55 sinh máy từ trang `Flairs` + 3 tay NoLegs); thay 8 entry tay mỏng bằng bản sinh máy; 24 món nhãn Độc quyền bản Steam qua `PaywallNote` từng trang item |
 | 5b | Vật liệu | `materials` | 60 | 60/60 | **Lượt 23 — chủ đề mới**: đủ 60 nguyên liệu forge EBF5 sinh máy từ bảng `{{EBF|5}}` trang *Materials* (tên, mô tả wiki dịch, giá mua/bán); "Can be thrown in battle" → kind `Ném được` (Snowball, Brick, Shuriken, Hand Bomb — Hand Bomb tái dùng icon của items); icon `EBF5 Item X` vào `img/materials/`; sources `_default = Materials` |
 | 6 | Trạng thái | `statuses` | 48 | 47/48 | **Lượt 25: phủ kín bộ status EBF5 26 → 48** theo trang *Status Effects* — thêm Tích lực (Charge), Phòng thủ (Defend), Epic (aura trận God), Tốc hành (Haste), Đáng yêu (Lovable), Tinh thần (Morale), Random (máy gieo 20 status ×9/×5/×4/×3 tầng, xác thực qua trang riêng), Diêm ngục (Brimstone), Delete, Vô hiệu (Disable), Đói bụng (Hungry), No căng (Stuffed), Che khuất (Shroud), Repulsion, Undead, Hoá đá (Stoned), Mục tiêu (Target), Khô (Dry), Enchanted, Nặng (Heavy), Vô hình (Invisible), Đầu hàng (Surrender); 6 status "không thể gỡ" chỉ có trong trận boss (Epic/Diêm ngục/Delete/Repulsion/Undead/Hoá đá) đúng ghi chú wiki; Blind (chỉ EBF2) và Slimed (chỉ EBF4) không vào bộ; "Trói chân" (không tồn tại) đã thay bằng Mỏi (Tired) từ lượt đầu; Radiation giữ emoji + Disable không có icon in-game (wiki ghi rõ) |
-| 7 | Khu vực | `areas` | 18 | 18/18 | 12 khu chính + 6 khu trả phí theo trang *EBF5 Map*; mỗi khu có ô lưới (grid), Điểm nhấn, Lưu ý — ảnh tile bản đồ; **C3: ~200 ô lưới có bảng Quái (wave) + Key Items + vị trí con + ghi chú cơ chế từ các trang `EBF5 Map/X`**; lượt 24: tên Key Item trong ô lưới thành **link** sang `keyitems` |
+| 7 | Khu vực | `areas` | 18 | 18/18 | 12 khu chính + 6 khu trả phí theo trang *EBF5 Map*; mỗi khu có ô lưới (grid), Điểm nhấn, Lưu ý — ảnh tile bản đồ; **C3–26: 141/212 ô chính có bảng Quái (wave) + Key Items + vị trí con + ghi chú cơ chế** từ các trang `EBF5 Map/X` (đủ 12/18 khu — còn 82 ô, xem *Khoảng trống còn lại* cuối file); lượt 24: tên Key Item trong ô lưới thành **link** sang `keyitems` |
 | 7b | Vật phẩm nhiệm vụ | `keyitems` | 66 | 66/66 | **Lượt 24 — chủ đề mới**: đủ bộ Key Items EBF5 theo bảng `{{EBF|5}}` trang *Key Items* (wiki: "There are 66 key items in total" — ~71 trong roadmap là ước lượng trước khi trích nguồn); desc = dịch hàng Description, `note` cô đọng hàng Note (nơi tìm thấy, nhiệm vụ của ai, số lượng (1)…(N), Equip Remix); kinds = Qua vật cản(16) / Chìa khoá(6) / Nhiệm vụ(34) / Cổng The Beyond(7) / Công cụ hệ thống(3); icon `5<Tên>` theo PlacementGrid (`5GreenCard`, `EBF5 Item Tomato` là 2 tên đặc biệt); panel "Ô lưới có Key Item này" quét tự động từ `areas.cells` |
 | 8 | Triệu hồi | `summons` | 191 | 191/191 | **C4: 18 → 40** (lượt 8+11) rồi **14: 40 → 191 — gần như đủ bộ** theo bảng hiện hành post-v2 (192 hàng, trừ demo ẩn Glitch 2; The Devourer 250 → Furry Slime 1); 151 entry mới sinh máy từ cột target/type/power/element/status/debuff; 151 icon tải từ `EBF5 Foe Icon` qua fetch-images.map.txt |
 | 9 | Limit Break | `limits` | 20 | 20/20 (11 trong `img/limits/` + 9 dùng lại icon skills) | 10 riêng + 10 dùng chung; danh sách nhân vật học được trích từ Category tags wiki; 5 icon thiếu cũ (Supernova, Hidden Power, Absolute Zero, Seven Swords, Art Attack) đã tải về; 4 cái còn lại tái sử dụng icon từ mảng skills; Radiation status vẫn emoji (wiki không có file) |
@@ -40,10 +40,10 @@
 - **Bài học lớn**: soạn văn tiếng Việt dài trong shell/here-string dễ lẫn ký tự rác (CJK/Cyrillic) → soạn file tạm bằng công cụ `write`, rồi splice vào `data.js` bằng PowerShell; luôn quét kiểm `[CJK]=0, [Cyrillic]=0` và đếm ngoặc sau mỗi lần sửa.
 
 ### Kiểm thử pass (trạng thái hiện tại)
-- `data.js`: braces 1532/1532, brackets 1642/1642, quotes chẵn (23818), 0 ký tự rác, JScript parse OK.
+- `data.js`: braces 1536/1536, brackets 1647/1647, quotes chẵn (23894), 0 ký tự rác, JScript parse OK.
 - `app.js`: braces 156/156, brackets 68/68 (file có ES6 sẵn nên JScript bỏ qua, trình duyệt chạy tốt).
 - `test.html`: trang smoke test chạy trong trình duyệt (11 chủ đề / 48 status, `renderDetail` sinh tooltip `.st-tip` + hàng `.prev-next`, lightbox, `#statusTip`, `#toTop`) — **mở bằng HTTP server thì đủ case xanh; qua `file://` Chromium chặn `history.replaceState` (origin null) nên các case phụ thuộc URL route tự chuyển SKIP (không FAIL)**; xoá đi khi không cần nữa.
-- 1077 tham chiếu `image:` ↔ 1072 file thật (limits dùng lại icon skills; Hand Bomb materials tái dùng icon items; Disable không có icon in-game như wiki ghi, Defend dùng icon chung) — **0 thiếu, 0 file lẻ**.
+- 1079 tham chiếu `image:` ↔ 1074 file thật (limits dùng lại icon skills; Hand Bomb materials tái dùng icon items; Disable không có icon in-game như wiki ghi, Defend dùng icon chung) — **0 thiếu, 0 file lẻ**.
 - README + hero trang chủ khớp số liệu thật.
 
 ---
@@ -66,7 +66,7 @@
 ### C. Mở rộng dữ liệu (dày hơn nữa)
 - [x] Kỹ năng: phát hiện trang tổng *List of Skills in Epic Battle Fantasy 5* — thêm **91 entry (39 → 130)** rồi **53 Extra Skills (130 → 183)**, kèm ảnh chuẩn; status hoàn tất bộ 5 nhân vật + **danh sách ai học được từ trang bị** cho Extra Skills.
 - [x] Kẻ địch: bổ sung cột **drops thật 50/50** (tên item + tỉ lệ %) từ bảng `FoeTableEBF5` của từng trang quái — 48/50 có drop thật, Slime Bunny & Lancelot ghi chú "không drop".
-- [x] Kẻ địch (lượt 21): **đủ bộ quái 50 → 214** — sinh máy từ `FoeTableEBF5` của 167 trang foe (lọc `Category:Foes`, trừ Foe Groups + 6 trang nội dung + Mighty Oak), desc/tips/drops/khắc chế theo đúng schema cũ, sources = `X (foe)` từng trang.
+- [x] Kẻ địch (lượt 21): **đủ bộ quái 50 → 214** — sinh máy từ `FoeTableEBF5` của 167 trang foe (lọc `Category:Foes`, trừ Foe Groups + 6 trang nội dung + Mighty Oak), desc/tips/drops/khắc chế theo đúng schema cũ, sources = `X (foe)` từng trang *(lượt 26: sources sửa thành trang thật `X` / `X (EBF5 boss)` — 211 title `(foe)` trên wiki không tồn tại)*.
 - [x] Limit Break: **phủ kín 20/20 icon** — 5 cái tải từ `EBF5 Skill X` (bảng *Extra Limit Breaks*), 4 cái tái sử dụng icon mảng skills; Radiation status giữ emoji (wiki không có file).
 - [x] Khu vực (C3): **quái + Key Items theo từng ô lưới cho đủ 18 khu** — parser nguồn các trang `Epic Battle Fantasy 5 Map/X` (điểm xuất phát theo ô lưới, wave quái, Key Items, ô con như Nhà Matt/Phòng Arcade/Khu Glitch), các ghi chú cơ chế dịch tay (rương mở bằng mã, Đầu Đá trên bệ đá, cần gạt, Arcade Boss Rush…), bỏ các ghi chú trivia (mã Morse, tên hex glitch). Hiển thị trong panel areas "Ô lưới — Quái và Key Items".
 - [x] Summon (C4): **mở rộng 18 → 40 + cột "Mở khoá"** — nguồn = trang *Summons/Epic Battle Fantasy 5*, dùng bảng hiện hành post-v2 (bảng chính; bảng `Pre-v2 update` chỉ giữ đối chiếu). 22 summon mới: Glitch, Annabelle, Lancelot, Matteus, Laurelin, War Mammoth, Sól, Viking Monolith, Ultra Chibi Knight, Zombie Hand, Wooden Idol, SNEK, Roasted Gloop, Sapphire Ore, Ruby Ore, Amethyst Ore, Red Bush, Metal Idol (14, heavy +5), Cat Sniper, PUMPKUS, Cutie Worm, Cat Wizard; SP của 18 entry cũ chốt lại theo bảng hiện hành (God 160, Natalia 139…). 22 icon mới tải từ `EBF5 Foe Icon` (wiki.gg).
@@ -100,7 +100,7 @@
 
 **Tiêu chí "hoàn thiện" theo 3 mức:**
 
-1. **Dùng được** (đã đạt): 10 chủ đề, 991 mục (985 file ảnh, mọi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
+1. **Dùng được** (đã đạt): 11 chủ đề, 1081 mục (1074 file ảnh, mọi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
 2. **Dễ dùng** (đã đạt): lightbox + tooltip + phím tắt + tìm kiếm sâu (tips/effect/quái theo ô lưới) + nút lên đầu trang; **deploy GitHub Pages ✅ https://longawr.github.io/Wiki/**.
 3. **Sống lâu** (mục tiêu xa): dữ liệu phủ ~100% kỹ năng/quái/hệ vật phẩm/trạng thái ✅ (kỹ năng 183, **kẻ địch 216/216 — khớp đúng con số 216 unique foe của wiki, "chênh 2" đã giải quyết ở lượt 26**; **lượt 23: materials 60/60 + items đủ bộ Food 24 + Steroid 20**; **lượt 25: statuses 48/48 — phủ kín trang Status Effects của EBF5**); **quy trình cập nhật từ fandom API đã là script có sẵn `update-data.ps1` (lượt 26)** — quét foes/statuses/items mới + kiểm title `sources` stale, có `-Fix` tự sửa data.js; mỗi mục truy vết được về trang wiki gốc để tự đối chiếu khi game ra bản vá mới (EBF5 vẫn nhận update v2+).
 
@@ -238,4 +238,22 @@
 
 ---
 
-*Cập nhật lần cuối: 2026-10-21 — sau lượt 26 (khớp đủ 216 foe: tách Sól/Skadi + Glitch nhỏ; script `update-data.ps1`; sources sạch 247 title stale → số liệu check.ps1: 1081 mục / 1079 tham chiếu ↔ 1074 file).*
+## Khoảng trống còn lại (kiểm kê 2026-10-22, sau lượt 26)
+
+Đối chiếu trực tiếp `allpages` prefix `Epic Battle Fantasy 5 Map/` của fandom (303 trang) với `areas.cells` trong data.js (141 ô) — **các con số dưới đây đã xác minh bằng API, không phải ước lượng**:
+
+- [ ] **Ô lưới khu vực — lấp nốt 82 ô chính** (wiki 212 ô của 18 khu ↔ data 130 ô chính):
+  - Mineshaft Maze: **7/69** — thiếu 62 (E3–M8)
+  - The Great Sea: **4/13** — thiếu C11 C12 D10 D11 D12 D13 E12 E13 E15 (Data Bunker C13/C14 + Battle Arena E14 hiện nằm lộn trong `cells` — nên tách thành khu con)
+  - Crystal Caverns (trả phí): **0/8** — D0 D1 E0 E9 F9 G9 H9 I9
+  - 3 ô lẻ: Hope Harbor **C4** (shop), No Man's Land **I5**, Freezeflame **D2**
+  - ~91 trang khu con (Ice Cave, The Void, The Beyond, Lava Lake, shops, nhà nhân vật, Arcade Room, Office Bộ trưởng, Secret World…) hiện chỉ được ghi bằng chữ trong `subs` — chưa có wave/Key Item riêng
+- [ ] **`check.ps1`/`update-data.ps1`: thêm chế độ `-Update areas`** — so `areas.cells` với `allpages` prefix `Epic Battle Fantasy 5 Map/`; thiếu ô lưới hiện không báo FAIL nào (Pass khi Mineshaft thiếu 62 ô)
+- [ ] `update-data.ps1`: mở rộng quét **skills / equipment / summons / keyitems / materials** (hiện chỉ có enemies/statuses/items/sources)
+- [ ] **`sources` per-entry cho `skills`** — 183 entry toàn dùng `_default` về *List of Skills* trong khi wiki có trang riêng từng kỹ năng (đã xác minh Fireball / Heal → Whirlwind redirect). Xem xét làm tiếp cho keyitems/materials/summons (khả thi từng trang có trang riêng)
+- [ ] `test.html`: assert 216 enemies / 60 materials / tổng 1081 (hiện chỉ assert 11 chủ đề, statuses 48, keyitems 66)
+- [ ] *(phụ, ngoài roadmap gốc)* `og:image` + `404.html` + `robots.txt`/`sitemap.xml` cho GitHub Pages; kiểm spell layout mobile cho bảng res & lưới area
+
+---
+
+*Cập nhật lần cuối: 2026-10-22 — sau lượt 26 + khớp số liệu docs với check.ps1 (1081 mục / 1079 tham chiếu ↔ 1074 file; foes 216/216; thêm kiểm kê khoảng trống ô lưới).*
