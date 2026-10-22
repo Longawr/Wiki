@@ -48,6 +48,23 @@ powershell -ExecutionPolicy Bypass -File fetch-images.ps1 -Download -Limit 30
 - Map file phân cách bằng TAB: `img/<chude>/<id>.png<TAB>tên-file-trên-wiki` — cột 2 trống = bỏ qua.
 - Tải qua fandom API (bó 50/lượt), tự gửi header `Referer` + User-Agent trình duyệt (CDN cần để tránh 403), chỉ tải file chưa có (`-Force` để tải đè), tạo sẵn thư mục con, exit `1` khi còn FAIL/thiếu.
 
+## 🔁 Cập nhật dữ liệu từ wiki (`update-data.ps1`, lượt 26)
+
+Kiểm độ "tươi" của data.js so với fandom wiki và tự sửa phần lệch có thể sửa:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File update-data.ps1 -Update enemies
+powershell -ExecutionPolicy Bypass -File update-data.ps1 -Update statuses
+powershell -ExecutionPolicy Bypass -File update-data.ps1 -Update items
+powershell -ExecutionPolicy Bypass -File update-data.ps1 -Update sources        # chỉ báo cáo title stale
+powershell -ExecutionPolicy Bypass -File update-data.ps1 -Update sources -Fix   # tự sửa title stale trong data.js
+```
+
+- `enemies`: liệt kê trang foe gắn `{{FoeTableEBF5}}` qua API `list=embeddedin` (215 trang hiện nay), so khớp **tên chuẩn hoá** (lower, gộp khoảng trắng, bỏ đuôi `(foe)`/`(item)`/`(status)`/`(EBF5)`/`(boss)`/`(EBF5 boss)`, bỏ suffix ngoặc chứa ký tự non-ASCII như bản ngôn ngữ khác — quy tắc ăn khớp cả `God (EBF5 boss)` lẫn `Neon Valhalla(中文)`) với entry `enemies` + `sources.enemies` → báo foe mới xuất hiện trên wiki.
+- `statuses`: so heading có icon EBF5 của trang *Status Effects* (41) với title per-entry lẫn **id entry** (tên như Epic/Brimstone/Stoned/Undead/Repulsion/Regen không có trang riêng nên phải khớp qua id); `items`: so anchor `5<Tên>` của trang *Food* (44) với title + id (dash chép thành space) — entry không trang riêng được tính đã phủ qua `_default`.
+- `sources`: kiểm từng title per-entry trong block `sources` (674 mục, trừ `_default`) còn tồn tại trên wiki (`redirects=1`, bó 40/lượt). `-Fix` chọn trang theo thứ tự: (1) foes → trang thật khớp theo norm map từ 215 trang FoeTableEBF5 (`God (foe)` → `God (EBF5 boss)`, `Sand Worm (foe)` → `Sand Worm`); (2) tách suffix + redirect chuẩn (`The Destroyer (EBF5)` → `The Destroyer (boss)`); (3) không tồn tại trang riêng → trang `_default` của chủ đề (26 item Food/Steroid trần → `Food`, Radiation/Regen → `Status Effects`). Chỉ thay pair khi chuỗi xuất hiện **đúng 1 lần** trong block sources, thay bằng `String.Replace` literal (không regex — replacement chứa `$` không an toàn), ghi UTF-8 **no BOM**.
+- Exit code: `0` = đã phủ / sạch, `1` = phát hiện foe/status/item mới hoặc title stale, `2` = lỗi. Sau mỗi lần script tự sửa data.js, chạy lại `check.ps1` để kiểm tra toàn bộ.
+
 ## 📁 Cấu trúc dự án
 
 ```
@@ -69,7 +86,7 @@ Toàn bộ nội dung nằm trong **`js/data.js`**, chia theo chủ đề:
 | Chủ đề | Biến trong data.js | Ghi chú |
 |---|---|---|
 | Nhân vật | `characters` | 5 nhân vật, dữ liệu theo wiki chính thức, có ảnh |
-| Kẻ địch | `enemies` | **214 mục — đủ bộ quái EBF5** (8 slime thật + quái thường theo 18 khu vực + boss + 164 entry mới lượt 21 sinh máy từ bảng `FoeTableEBF5` của 167 trang foe trên fandom) — 214/214 có ảnh (`EBF5 Bestiary <Tên>`, thiếu mới dùng `EBF5 Foe Icon` / `Icon bestiary ebf4`) — **drops thật** (tên item + %) — **khắc chế nguyên tố & trạng thái** (`res` từ cột % của `FoeTableEBF5`) — trang chi tiết hiển thị bảng Yếu / Kháng / Miễn / Hấp thụ, kèm link trang wiki gốc từng foe |
+| Kẻ địch | `enemies` | **216 mục — khớp đúng "216 unique foe" của wiki** (8 slime thật + quái thường theo 18 khu vực + boss + entry sinh máy lượt 21 từ bảng `FoeTableEBF5`; lượt 26 tách 2 entry gộp: `sol-and-skadi` → **Sól** + **Skadi**, và **Glitch nhỏ** vào entry riêng cạnh **The Glitch** boss) — so khớp qua script `update-data.ps1 -Update enemies` với 215 trang foe gắn `FoeTableEBF5` trên fandom — 216/216 có ảnh (`EBF5 Bestiary <Tên>`, thiếu mới dùng `EBF5 Foe Icon` / `Icon bestiary ebf4`) — **drops thật** (tên item + %) — **khắc chế nguyên tố & trạng thái** (`res` từ cột % của `FoeTableEBF5`) — trang chi tiết hiển thị bảng Yếu / Kháng / Miễn / Hấp thụ, kèm link trang wiki gốc từng foe |
 | Kỹ năng | `skills` | **183 mục — đủ bộ 5 nhân vật + 53 Extra Skills (kỹ năng học qua trang bị, kèm danh sách nhân vật học được)** theo *List of Skills in Epic Battle Fantasy 5* + Guard; 183/183 icon chuẩn `EBF5 Skill X`; Guard dùng icon EBF4 (lệnh giống hệt) |
 | Vật phẩm | `items` | 46 mục (lượt 23 đủ bộ): 1 entry nhóm Food + 24 món Food thật của EBF5 (Pumpkin → Pizza, thêm Pretzel, Iron Brew, Energy Drink) + 20 Steroid (4 chỉ số × 5 nhân vật, theo bảng Steroids của trang Food) + Hand Bomb (throwable) — tất cả đều có icon (`img/items/`) |
 | Vật liệu | `materials` | **60 mục — đủ bộ nguyên liệu forge EBF5** sinh máy từ bảng EBF5 của trang *Materials* (tên, mô tả wiki, giá mua/bán; món "Can be thrown in battle" loại `Ném được`: Snowball, Brick, Shuriken, Hand Bomb — Hand Bomb tái dùng icon của items) — 60/60 có icon `EBF5 Item X` (`img/materials/`) |

@@ -513,6 +513,7 @@ img/enemies/giga-golem.png	EBF5 Foe Icon Giga Golem
 img/enemies/giga-harpoon.png	EBF5 Bestiary Giga Harpoon
 img/enemies/glacier-turtle.png	Icon bestiary ebf4 glacier turtle
 img/enemies/glaurung.png	EBF5 Bestiary Glaurung
+img/enemies/glitch.png	EBF5 Foe Icon Glitch 2
 img/enemies/glob.png	EBF5 Bestiary GLOB
 img/enemies/god.png	EBF5 Bestiary God
 img/enemies/gray-pixel.png	EBF5 Foe Icon Gray Pixel
@@ -577,11 +578,12 @@ img/enemies/scaly-worm.png	EBF5 Foe Icon Scaly Worm
 img/enemies/shockwave-bomb.png	EBF5 Bestiary Shockwave Bomb
 img/enemies/skeleton-cat.png	EBF5 Bestiary Skeleton Cat
 img/enemies/skeleton-hand.png	EBF5 Foe Icon Skeleton Hand
+img/enemies/skadi.png	EBF5 Foe Icon Skadi
 img/enemies/slimy-tentacle.png	EBF5 Bestiary Slimy Tentacle
 img/enemies/snek.png	EBF5 Bestiary SNEK
 img/enemies/snow-bat.png	EBF5 Foe Icon Snow Bat
 img/enemies/snowflake.png	EBF5 Bestiary Snowflake
-img/enemies/sol-and-skadi.png	EBF5 Foe Icon Skadi
+img/enemies/sol.png	EBF5 Foe Icon Sól
 img/enemies/spikey-tentacle.png	EBF5 Bestiary Spikey Tentacle
 img/enemies/steam-fish.png	EBF5 Bestiary Steam Fish
 img/enemies/steel-wraith.png	EBF5 Bestiary Steel Wraith

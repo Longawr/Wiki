@@ -64,7 +64,7 @@
   /* --- Khắc chế của kẻ địch (bảng % từ FoeTableEBF5 trên wiki) ---------------- */
   var RES_LBL = {
     'stun': 'Choáng', 'dispel': 'Dispel',
-    'syphon&disable': 'Syphon & Disable', 'chill&freeze': 'Lạnh & Đóng băng',
+    'syphon&disable': 'Syphon & Disable', 'chill&freeze': 'Lạnh & Đóng băng', 'curse&bad luck': 'Nguyền & Vận xui',
     'poison&virus': 'Nhiễm độc & Virus', 'weaken&tired': 'Yếu đi & Mỏi',
     'stagger&confuse': 'Chững & Hoang mang', 'death&doom': 'Chết ngay & Doom',
     'burn&scorch': 'Đốt & Xém', 'wet&dry': 'Ướt & Khô', 'heavy&light': 'Nặng & Nhẹ',
