@@ -27,7 +27,7 @@ window.EBF5DATA = {
     { key: 'materials',  title: 'Vật liệu',   icon: '🧱', desc: '60 nguyên liệu forge dùng nâng cấp trang bị, có thể ném trong trận.', kinds: [ 'Nguyên liệu', 'Ném được' ] },
     { key: 'equipment',  title: 'Trang bị',   icon: '🗡️', desc: 'Đủ 84 vũ khí của Matt/Anna/Lance/Natalie theo 4 trang wiki cùng mũ giáp, Flair.', kinds: [ 'Vũ khí', 'Mũ giáp', 'Phụ kiện' ] },
     { key: 'statuses',   title: 'Trạng thái', icon: '🌀', desc: 'Các hiệu ứng bất lợi / hỗ trợ trong chiến đấu.', kinds: [ 'Bất lợi', 'Trung tính', 'Hỗ trợ' ] },
-    { key: 'areas',      title: 'Khu vực',    icon: '🗺️', desc: '12 khu vực chính và 6 khu vực trả phí trên bản đồ EBF5 — kèm quái và Key Items theo từng ô lưới.', kinds: [ 'Khu vực chính', 'Khu vực trả phí' ] },
+    { key: 'areas',      title: 'Khu vực',    icon: '🗺️', desc: '18 khu vực chính/trả phí và 63 khu con trên bản đồ EBF5 — kèm quái, Key Items và ảnh map theo từng ô lưới.', kinds: [ 'Khu vực chính', 'Khu vực trả phí', 'Khu con' ] },
     { key: 'keyitems',   title: 'Vật phẩm nhiệm vụ', icon: '🔑', desc: '66 vật phẩm nhiệm vụ của EBF5 — bộ sưu tập đủ 66 món theo trang Key Items của wiki.', kinds: [ 'Qua vật cản', 'Chìa khoá', 'Nhiệm vụ', 'Cổng The Beyond', 'Công cụ hệ thống' ] },
     { key: 'summons',    title: 'Triệu hồi',  icon: '💎', desc: '191 summon — gần như đủ bộ Capture (từ Furry Slime 1 SP đến boss The Devourer 250 SP).', kinds: [ 'Tấn công', 'Hỗ trợ' ] },
     { key: 'limits',     title: 'Limit Break', icon: '💥', desc: '20 Limit Break riêng và dùng chung của EBF5.', kinds: [ 'Limit riêng', 'Limit dùng chung' ] }
@@ -2642,7 +2642,8 @@ window.EBF5DATA = {
 
   /* ------------------------------------ Khu vực ------------------------------
      12 khu vực chính + 6 khu vực trả phí theo trang "Epic Battle Fantasy 5 Map"
-     của wiki chính thức. grid: ô lưới của tile đại diện trên bản đồ. */
+     của wiki chính thức, cùng 63 khu con tách từ các ô lưới (kind: 'Khu con').
+     grid: ô lưới của tile đại diện trên bản đồ; khu con có parent + cells[].image. */
   areas: [
     { id: 'hope-harbor', name: 'Hope Harbor', kind: 'Khu vực chính', image: 'img/areas/hope-harbor.png', grid: 'A2',
       desc: 'Thị trấn ven biển nơi cuộc phiêu lưu EBF5 bắt đầu: mua trang bị, nạp Food và chuẩn bị trước khi tiến ra thế giới rộng.',
@@ -2650,16 +2651,14 @@ window.EBF5DATA = {
       tips: [ 'Mua đủ Garlic và Banana trước khi rời thị trấn — quái ngoài kia hay gây trạng thái xấu.' ],
     cells: [
         { grid: 'A2', foes: ['P 03 — 3 Putrid Worm, 1 Cutie Worm'], keys: ['C 01 — Glasses', 'K 06 — The Shovel', 'L 02 — Copper Key'] },
-        { grid: 'A5', keys: ['P 05 — Earthenware', 'G 04 — Chocolate', 'M 04 — Golden Ticket', 'E 09 — Sunglasses', 'Q 08 — The Fishing Rod'], subs: 'Nhà Jerry, Hầm nhà Jerry' },
-        { grid: 'B2', foes: ['E 04 — 2 Green Bush, 2 Stumpy Gloop', 'H 07 — Natalie', 'K 07 — 2 Putrid Worm, 2 Stumpy Gloop'], keys: ['I 08 — Coral Key'], notes: ['Khu Glitch (Glitch Area) mở cửa sau khi hoàn thành Mystic Woods.'], subs: 'Khu Glitch' },
-        { grid: 'B5', foes: ['L 07 — 3 PUMPKUS / 3 ANGRY CHAIR / 3 BOSH / 3 ROBO / 3 GLOB / 3 SNEK / 3 PHOENIX / 2 TOTOM / 2 TREAGURE / 2 GUOYE / 1 CORALIA / 1 THE MAW'], notes: ['G 04: Máy chơi game công nghệ cao', 'Arcade Boss Rush mở sau khi đánh bại đủ 12 boss Arcade; hoàn thành chuỗi này sẽ xuất hiện rương G07.'], subs: 'Nhà Matt' },
-        { grid: 'C2', foes: ['J 10 — 2 Master Wraith, 1 NoLegs Doll / 3 Bone Bat, 1 Matt Doll, 1 Natalie Doll', 'P 05 — 3 Bone Bat, 2 Haunted Mirror / 3 Master Wraith, 2 Haunted Mirror'], keys: ['E 06 — Earthenware', 'H 04 — Bottled Milk', 'P 04 — Chocolate', 'E 04 — Sapphire of Dreams', 'P 03 — Wooden Key'], subs: 'Bếp, Tầng hầm' },
+        { grid: 'A5', keys: ['P 05 — Earthenware'] },
+        { grid: 'B2', foes: ['E 04 — 2 Green Bush, 2 Stumpy Gloop', 'H 07 — Natalie', 'K 07 — 2 Putrid Worm, 2 Stumpy Gloop'], notes: ['Khu Glitch (Glitch Area) mở cửa sau khi hoàn thành Mystic Woods.'] },
+        { grid: 'C2', keys: ['E 06 — Earthenware'] },
         { grid: 'C5', foes: ['E 03 — 2 Stone Idol', 'G 09 — 1 Hermit Creep', 'N 09 — 2 Water Slime / 2 Water Slime', 'R 04 — NoLegs'] },
         { grid: 'D2', foes: ['C 02 — 3 Sand Slime, 1 Sandstone Boulder', 'H 09 — 3 Sandy Bush, 1 Rescue Dog'], keys: ['L 10 — Earthenware'] },
         { grid: 'D3', foes: ['P 01 — 2 Water Slime, 1 Sandstone Boulder / 1 Water Slime, 2 Sandstone Boulder', 'R 10 — 3 Wooden Idol / 3 Stumpy Gloop'], keys: ['P 04 — Gold Key'] },
-        { grid: 'D4', foes: ['F 04 — 2 Big Sand Slime', 'J 02 — 2 Sand Slime, 1 Slime Bunny / 2 Sand Slime, 1 Big Sand Slime', 'M 09 — 2 Sand Slime, 2 Sandstone Boulder / 2 Camel Mammoth', 'P 05 — 2 Stone Idol, 2 Dirt Boulder', 'J 09 — 2 Zircon Ore, 2 Hardy Gloop', 'N 03 — 2 Zircon Ore / 4 Snow Bat', 'N 09 — 2 Icicle Creep, 1 Zircon Ore'] },
+        { grid: 'D4', foes: ['F 04 — 2 Big Sand Slime', 'J 02 — 2 Sand Slime, 1 Slime Bunny / 2 Sand Slime, 1 Big Sand Slime', 'M 09 — 2 Sand Slime, 2 Sandstone Boulder / 2 Camel Mammoth', 'P 05 — 2 Stone Idol, 2 Dirt Boulder'] },
         { grid: 'D5', foes: ['C 06 — 2 Water Slime, 1 Coral Boulder / 2 Coral Boulder, 1 Dirt Boulder', 'L 06 — 2 Stone Idol, Jotun', 'N 03 — 2 Hermit Creep, 1 Sandstone Boulder'] },
-        { grid: 'E3', foes: ['F 06 — 2 Zircon Ore, 2 Ice Sprite, 1 Icicle Creep', 'P 03 — 2 Snow Bat, 1 Viking Monolith'] }
       ] },
     { id: 'wild-tropics', name: 'Wild Tropics', kind: 'Khu vực chính', image: 'img/areas/wild-tropics.png', grid: 'A3',
       desc: 'Rừng nhiệt đới hoang sơ, sầm uất côn trùng và thực vật hung dữ — khu vực khám phá đầu tiên của hành trình.',
@@ -2668,20 +2667,17 @@ window.EBF5DATA = {
     cells: [
         { grid: 'A3', foes: ['D 07 — 2 Stone Idol, 1 Chunky Gloop', 'O 07 — 1 Green Bush / 2 Green Bush, 2 Blood Bat'] },
         { grid: 'A4', foes: ['H 03 — 2 Water Slime, 2 Dirt Boulder'] },
-        { grid: 'B3', foes: ['B 09 — 2 Wooden Idol, 1 Thorny Creep', 'D 02 — 2 Wooden Idol, 1 Stumpy Gloop', 'L 10 — 2 Blood Bat', 'O 06 — 2 Wooden Idol, 1 Leafy Chomper', 'R 02 — 3 Putrid Worm, 1 Fuzzy Worm', 'G 03 — 3 PHOENIX', 'J 05 — 3 Flame Sprite, 2 Topaz Ore / 1 Topaz Golem / 3 Thunder Sprite, 2 Ruby Ore'], keys: ['L 07 — Earthenware'], subs: 'Phòng Arcade' },
+        { grid: 'B3', foes: ['B 09 — 2 Wooden Idol, 1 Thorny Creep', 'D 02 — 2 Wooden Idol, 1 Stumpy Gloop', 'L 10 — 2 Blood Bat', 'O 06 — 2 Wooden Idol, 1 Leafy Chomper', 'R 02 — 3 Putrid Worm, 1 Fuzzy Worm'], keys: ['L 07 — Earthenware'] },
         { grid: 'B4', foes: ['E 06 — 1 Stone Idol, 1 Dirt Boulder, 1 Green Bush', 'H 08 — 2 Thorny Creep', 'O 05 — 2 Green Bush, 1 Stone Idol', 'R 06 — 3 Putrid Worm'], keys: ['F 04 — Earthenware'] },
-        { grid: 'C3', foes: ['D 02 — 2 Putrid Worm, 1 Leafy Chomper', 'K 10 — 2 Electric Bat, 1 Thorny Creep', 'Q 09 — 4 Blood Bat', 'G 04 — 4 Gem Idol / 2 Gem Idol, 2 Rock Sprite / 2 Rock Sprite, 2 Angel Mirror', 'H 10 — 5 Skeleton Hand', 'E 07 — 2 Gem Idol,2 Angel Mirror / 1 Gem Idol / 2 Rock Sprite,1 Ancient Monolith', 'Q 05 — 2 Stone Idol,2 Marble Boulder / 2 Gem Idol,2 Sandstone Boulder / 2 Amethyst Ore,1 Amethyst Golem'], keys: ['R 05 — Copper Key', 'L 06 — Holy Water'], subs: 'Hang Indy, Hang Giáp Rồng' }
+        { grid: 'C3', foes: ['D 02 — 2 Putrid Worm, 1 Leafy Chomper', 'K 10 — 2 Electric Bat, 1 Thorny Creep', 'Q 09 — 4 Blood Bat'] },
       ] },
     { id: 'grand-gallery', name: 'Grand Gallery', kind: 'Khu vực chính', image: 'img/areas/grand-gallery.png', grid: 'A0',
       desc: 'Bảo tàng trưng bày đồ sưu tầm của EBF5, nằm cạnh thị trấn khởi đầu.',
       features: [ 'Cellar chia thành các phòng mở theo mốc huy hiệu (20/30/50/60/80/90/All)', 'Phần thưởng lớn dành cho người săn huy hiệu' ],
       tips: [ 'Quay lại đây mỗi khi đạt mốc huy hiệu mới để nhận phần thưởng.' ],
     cells: [
-        { grid: 'A0', foes: ['C 09 — 2 Cat Sniper, 2 Cat Ninja, 1 Cat Bomber', 'D 06 — 1 Matt Doll, 1 Natalie Doll, 1 Lance Doll, 1 Anna Doll, 1 NoLegs Doll', 'R 06 — 1 Zap Dog, 1 Rescue Dog, 1 Mage Dog, 1 Tanuki Dog, 1 Wolf Dog', 'S 09 — 2 Cat Wizard, 2 Cat Warrior, 1 Cat Bomber', 'G 09 — 1 Drowned Fallen, 1 Burned Fallen, 1 Beheaded Fallen, 1 Crucified Fallen, 1 Lost Fallen', 'M 09 — 1 Angel Mirror, 1 Haunted Mirror, 1 Wise Mirror, 1 Demon Mirror', 'Q 02 — 2 TREAGURE'], subs: 'Phòng 20 huy chương, Phòng 30 huy chương, Phòng 90 huy chương' },
         { grid: 'A1', foes: ['E 05 — 2 Slime Mouse, 2 Lava Slime, 1 Big Lava Slime', 'E 09 — 1 Mud Slime, 1 Big Mud Slime, 1 Water Slime, 1 Big Sand Slime, 1 Sand Slime', 'J 05 — 1 Icecream Slime, 1 Big Icecream Slime, 1 Slime Bunny, 1 Big Chocolate Slime, 1 Chocolate Slime', 'Q 07 — 1 Leafy Chomper, 1 Seaweed Chomper, 1 Mutant Chomper, 1 Magma Chomper'] },
-        { grid: 'B0', foes: ['B 04 — 1 Red Flybot', 'S 04 — 1 Blue Flybot, 1 Defender Mk III, 1 Bubbler MX-01, 1 Yellow Flybot', 'J 09 — 1 War Mammoth, 1 Wooly Mammoth, 1 Camel Mammoth', 'M 07 — 1 Steam Fish, 1 Jet Fish, 1 Gold Fish / 1 Nuclear Bomb, 1 Harpoon Turret, 1 Cannon Turret, 1 Laser Turret', 'S 05 — 1 Ancient Monolith, 1 Cosmic Monolith, 1 Viking Monolith'], notes: ['Quái ở đây cao hơn đội hình 8 cấp.', 'Tương tác với giá sách tại F7 mở thêm nội dung Cheat.'], subs: 'Phòng 60 huy chương, Phòng 70 huy chương, Phòng đủ huy chương' },
         { grid: 'B1', foes: ['D 05 — 1 Green Bush, 1 Sandy Bush, 1 Dark Bush, 1 Muddy Bush, 1 Red Bush / 1 Roasted Gloop, 1 Chunky Gloop, 1 Stumpy Gloop, 1 Hardy Gloop', 'S 06 — 1 Cutie Worm, 1 Fuzzy Worm, 1 Scaly Worm, 1 Putrid Worm'], keys: ['Q 08 — Golden Ticket'] },
-        { grid: 'C0', foes: ['B 08 — 1 Zircon Ore, 1 Sapphire Ore, 1 Quartz Ore, 1 Peridot Ore / 1 Coral Boulder, 1 Sandstone Boulder, 1 Obsidian Boulder, 1 Dirt Boulder, 1 Marble Boulder', 'I 05 — 1 Grolar Bear, 1 Brown Bear, 1 Panda Bear', 'R 08 — 1 Topaz Ore, 1 Amethyst Ore, 1 Ruby Ore / 1 Pearl Golem, 1 Topaz Golem, 1 Amethyst Golem', 'C 04 — 1 Zombie Hand, 1 Magma Hand, 1 Skeleton Hand', 'E 04 — 1 Blood Bat, 1 Snow Bat, 1 Bone Bat, 1 Electric Bat', 'O 04 — 1 Steel Wraith, 1 Frost Wraith, 1 Master Wraith, 1 Flame Wraith, 1 Leaf Wraith', 'Q 04 — 1 Earth Dragon, 1 Sea Dragon, 1 Sky Dragon', 'D 08 — 1 Origami Dragon, 1 Origami Wraith, 1 Book Worm'], subs: 'Phòng 40 huy chương, Phòng 50 huy chương, Phòng 80 huy chương' },
         { grid: 'C1', foes: ['B 08 — 1 Stone Idol, 1 Metal Idol, 1 Wooden Idol, 1 Gem Idol / 1 Fire Sprite, 1 Rock Sprite, 1 Thunder Sprite, 1 Wind Sprite, 1 Ice Sprite', 'G 09 — 1 Pink Squid, 1 Lime Squid, 1 Purple Squid', 'O 10 — 1 Green Creep, 1 Red Creep, 1 Blue Creep', 'R 09 — 1 Hermit Creep, 1 Icicle Creep, 1 Thorny Creep'] }
       ] },
     { id: 'no-mans-land', name: "No Man's Land", kind: 'Khu vực chính', image: 'img/areas/no-mans-land.png', grid: 'E3',
@@ -2693,8 +2689,8 @@ window.EBF5DATA = {
         { grid: 'E4', foes: ['I 10 — 2 Sapphire Ore, 3 Green Creep', 'O 07 — 2 Cat Sniper, 1 Red Flybot / 1 Cat Sniper, 2 Red Flybot', 'Q 03 — 4 Cat Sniper / 2 Cat Bomber'], keys: ['H 06 — Stick'] },
         { grid: 'E5', foes: ['D 08 — 2 Water Slime, 1 Slime Bunny / 2 Green Creep, 1 Blue Creep', 'O 03 — 2 Cat Bomber, 1 Red Creep / 3 Cat Sniper, 2 Red Creep'], keys: ['O 05 — Stick'] },
         { grid: 'F5', foes: ['F 06 — 2 Cat Bomber / 3 Cat Bomber', 'P 04 — 3 Metal Idol, 2 Red Flybot'] },
-        { grid: 'G5', foes: ['E 09 — 2 Wooden Idol, Anna', 'J 06 — 1 Cat Bomber / 2 Red Creep, 2 Red Flybot, 1 Cat Sniper', 'K 04 — 2 Metal Idol, 3 Blue Flybot / 2 Blue Creep, 1 Blue Flybot', 'E 08 — 3 Cat Sniper, 2 Gray Pixel / 2 Cat Sniper, 1 Gray Pixel', 'L 08 — 2 Gray Pixel / 2 Gray Pixel / 2 Gray Pixel', 'P 10 — 3 Gold Fish, Glitch'], keys: ['S 06 — Stick'], subs: 'Khu Glitch' },
-        { grid: 'H5', foes: ['F 07 — 3 Yellow Flybot, 2 Blue Flybot', 'O 09 — 2 Blue Flybot / 3 Metal Idol / 2 Blue Flybot, 1 Bubbler MX-01', 'F 02 — 3 ROBO', 'J 06 — 2 Hermit Creep, 1 Red Flybot / 1 Blue Flybot, 1 Pink Squid, 1 Yellow Flybot'], keys: ['I 03 — Left Sock'], notes: ['Cửa vào Phòng Arcade chỉ mở sau khi có Rìu (Axe).'], subs: 'Phòng Arcade' }
+        { grid: 'G5', foes: ['E 09 — 2 Wooden Idol, Anna', 'J 06 — 1 Cat Bomber / 2 Red Creep, 2 Red Flybot, 1 Cat Sniper', 'K 04 — 2 Metal Idol, 3 Blue Flybot / 2 Blue Creep, 1 Blue Flybot', 'P 10 — 3 Gold Fish, Glitch'], keys: ['S 06 — Stick'] },
+        { grid: 'H5', foes: ['F 07 — 3 Yellow Flybot, 2 Blue Flybot', 'O 09 — 2 Blue Flybot / 3 Metal Idol / 2 Blue Flybot, 1 Bubbler MX-01'], notes: ['Cửa vào Phòng Arcade chỉ mở sau khi có Rìu (Axe).'] },
       ] },
     { id: 'iron-fortress', name: 'Iron Fortress', kind: 'Khu vực chính', image: 'img/areas/iron-fortress.png', grid: 'E3',
       desc: 'Pháo đài thép của quân đội: robot và máy móc rảo khắp nơi, kèm một đại boss canh chốt lối ra.',
@@ -2716,16 +2712,10 @@ window.EBF5DATA = {
       features: [ 'Greenwood Library — kho lưu trữ tri thức của game', 'Cửa hàng Food của Ronja (K2) và nhiều nhiệm vụ' ],
       tips: [ 'Vào thư viện đọc hết sổ tay: mẹo trận đánh và dữ liệu quái mở miễn phí.' ],
     cells: [
-        { grid: 'I2', foes: ['D 09 — 3 Stumpy Gloop,2 Origami Wraith / 3 Origami Wraith,2 Wise Mirror', 'Q 03 — 1 Origami Dragon,2 Book Worm / 1 Origami Dragon,2 Origami Wraith', 'Q 09 — 2 Origami Wraith,1 Leaf Wraith / 2 Leaf Wraith,2 Origami Wraith,1 Master Wraith'], subs: 'Thư viện' },
-        { grid: 'J1', foes: ['F 05 — 1 Wooden Idol / 2 Wooden Idol,1 Stumpy Gloop / 1 Putrid Worm / 2 Wooden Idol,2 Wise Mirror,1 Stumpy Gloop'], keys: ['E 01 — Cookie', 'L 02 — Panties'], notes: ['K 03: Bảng điều khiển lạ không rõ mục đích'], subs: 'Nhà Anna' },
-        { grid: 'J2', foes: ['B 03 — 3 Cat Wizard, 2 Origami Wraith / 2 Origami Wraith, 2 Cat Wizard, 1 Master Wraith', 'E 03 — 1 Cat Wizard / 3 Origami Dragon', 'J 03 — 1 GunKat-800XL / 1 Papalotl / 1 Xolotl / 1 Glaurung', 'O 04 — 1 Book Worm'], subs: 'Thư viện' },
-        { grid: 'J3', keys: ['P 04 — Music CD'], subs: 'Thư viện' },
-        { grid: 'J4', keys: ['F 05 — Bottled Milk', 'H 05 — Wooden Key'], subs: 'Chuồng ngựa' },
-        { grid: 'K0', foes: ['B 09 — 2 Cat Ninja, 1 Cat Bomber / 2 Tanuki Dog, 2 Panda Bear', 'D 06 — 3 Panda Bear, 1 Rescue Dog', 'F 03 — 2 Tanuki Dog, 1 Rescue Dog / 2 Cat Ninja, 2 Tanuki Dog, 1 Anna Doll', 'F 02 — 2 TOTOM'], subs: 'Phòng Arcade' },
+        { grid: 'J1', foes: ['F 05 — 1 Wooden Idol / 2 Wooden Idol,1 Stumpy Gloop / 1 Putrid Worm / 2 Wooden Idol,2 Wise Mirror,1 Stumpy Gloop'], keys: ['E 01 — Cookie'] },
+        { grid: 'K0', foes: ['B 09 — 2 Cat Ninja, 1 Cat Bomber / 2 Tanuki Dog, 2 Panda Bear', 'D 06 — 3 Panda Bear, 1 Rescue Dog', 'F 03 — 2 Tanuki Dog, 1 Rescue Dog / 2 Cat Ninja, 2 Tanuki Dog, 1 Anna Doll'] },
         { grid: 'K1', foes: ['K 04 — 1 Pink Squid, 2 Scaly Worm', 'P 07 — 5 Cat Ninja / 3 Cat Ninja, 2 NoLegs Doll', 'Q 03 — 1 Matt Doll, 1 Natalie Doll, 1 Lance Doll'], keys: ['L 06 — Easter Egg'] },
-        { grid: 'K2', foes: ['J 05 — 3 BOSH', 'D 03 — 2 Book Worm,2 Origami Wraith,1 Master Wraith / 2 Origami Wraith,2 Book Worm,1 Origami Dragon', 'D 09 — 2 Book Worm,1 Cat Wizard / 3 Book Worm,2 Cat Wizard'], subs: 'Phòng Arcade, Thư viện' },
-        { grid: 'K3', foes: ['B 01 — 2 Green Bush', 'I 09 — 3 Green Bush, 2 Dark Bush', 'L 05 — 2 Green Bush, 1 Red Bush', 'N 10 — 2 Green Bush, 2 Dark Bush', 'S 09 — 1 Green Bush'], keys: ['E 04 — Bottled Milk', 'E 06 — Music CD', 'N 04 — Panties'], subs: 'Nhà Randy' },
-        { grid: 'K4', foes: ['H 09 — 3 Dark Bush, 2 Steel Wraith / 3 Steel Wraith, 2 Beheaded Fallen', 'L 10 — 3 Mage Dog / 2 Mage Dog, 3 Beheaded Fallen'], keys: ['B 05 — Right Sock', 'B 07 — Music CD', 'H 03 — Chocolate', 'P 03 — Bottled Milk', 'S 03 — Newspaper', 'K 02 — Ruby of Death', 'M 08 — Gold Key'], subs: 'Nhà Jamie, Tầng hầm' }
+        { grid: 'K3', foes: ['B 01 — 2 Green Bush', 'I 09 — 3 Green Bush, 2 Dark Bush', 'L 05 — 2 Green Bush, 1 Red Bush', 'N 10 — 2 Green Bush, 2 Dark Bush', 'S 09 — 1 Green Bush'] },
       ] },
     { id: 'mystic-woods', name: 'Mystic Woods', kind: 'Khu vực chính', image: 'img/areas/mystic-woods.png', grid: 'F0',
       desc: 'Rừng ma thuật mờ sương: cây cổ thụ rêu phủ, ánh sáng lấp lánh và những sinh vật huyền bí trú ngụ.',
@@ -2733,19 +2723,19 @@ window.EBF5DATA = {
       tips: [ 'Sương mù che mất nhiều lối đi — soi kỹ bản đồ để không đi vòng.' ],
     cells: [
         { grid: 'E2', foes: ['O 04 — 2 Cat Wizard, 1 Cat Warrior, Laurelin', 'Q 02 — 2 Cat Warrior, 2 Cat Wizard', 'S 03 — 2 Cat Bomber, 1 Cat Wizard'], keys: ['F 04 — The Raft'] },
-        { grid: 'F0', foes: ['G 05 — 2 Putrid Worm, 2 Thorny Creep, 1 Cutie Worm', 'K 04 — 2 Mud Slime, 2 Slime Mouse / 2 Mud Slime, 2 Roasted Gloop, 1 Thorny Creep', 'N 08 — 2 Putrid Worm, 2 Flame Wraith, 1 Big Mud Slime'], keys: ['Q 09 — Ocarina', 'S 09 — Wooden Key', 'D 06 — The Stepladder'], subs: 'Trong Gốc Cây' },
-        { grid: 'F1', foes: ['D 05 — 2 Leaf Wraith, 2 Flame Wraith, 1 Master Wraith / 1 Skeleton Hand / 3 Master Wraith, 2 Bone Bat', 'J 08 — 2 Bone Bat, 2 Rock Sprite, 1 Leaf Wraith / 2 Leaf Wraith, 2 Leafy Chomper, 1 Flame Wraith', 'K 10 — 1 Matt Doll, 1 Natalie Doll, 1 NoLegs Doll, 1 Lance Doll, 1 Anna Doll / 1 Putrid Worm', 'E 05 — 3 Rock Sprite,2 Master Wraith / 2 Bone Bat,2 Blood Bat / 2 Brown Bear,2 Master Wraith'], keys: ['I 02 — Evil Essence'], notes: ['Rương P10 xuất hiện khi xếp các cần gạt đúng theo hoa văn trên tường trong một hang ở Hope Harbor.'], subs: 'Trong Gốc Cây' },
+        { grid: 'F0', foes: ['K 04 — 2 Mud Slime, 2 Slime Mouse / 2 Mud Slime, 2 Roasted Gloop, 1 Thorny Creep', 'N 08 — 2 Putrid Worm, 2 Flame Wraith, 1 Big Mud Slime'], keys: ['D 06 — The Stepladder'] },
+        { grid: 'F1', foes: ['D 05 — 2 Leaf Wraith, 2 Flame Wraith, 1 Master Wraith / 1 Skeleton Hand / 3 Master Wraith, 2 Bone Bat', 'J 08 — 2 Bone Bat, 2 Rock Sprite, 1 Leaf Wraith / 2 Leaf Wraith, 2 Leafy Chomper, 1 Flame Wraith', 'K 10 — 1 Matt Doll, 1 Natalie Doll, 1 NoLegs Doll, 1 Lance Doll, 1 Anna Doll / 1 Putrid Worm'], keys: ['I 02 — Evil Essence'], notes: ['Rương P10 xuất hiện khi xếp các cần gạt đúng theo hoa văn trên tường trong một hang ở Hope Harbor.'] },
         { grid: 'F2', foes: ['C 08 — 3 Panda Bear, 1 Green Creep', 'E 09 — 2 Crucified Fallen, 2 Mage Dog', 'M 03 — 2 Chocolate Slime, 2 Mud Slime / 1 Cat Wizard, 1 Big Chocolate Slime, 1 Big Mud Slime', 'Q 07 — 3 Muddy Bush / 1 Cat Wizard, 2 Purple Squid', 'S 02 — 3 Wise Mirror, 2 Angel Mirror'] },
         { grid: 'G0', foes: ['E 05 — 2 Master Wraith, 2 Bone Bat, 1 Beheaded Fallen', 'I 08 — 2 Slime Bunny, 2 Rock Sprite, 1 Big Chocolate Slime', 'N 09 — 2 Blood Bat'], keys: ['L 04 — Meow Magazine', 'M 01 — Golden Ticket'] },
         { grid: 'G1', foes: ['I 09 — 2 Zombie Hand, 2 Leaf Wraith, 1 Steel Wraith', 'M 07 — 2 Skeleton Hand, 2 Haunted Mirror, 1 Master Wraith', 'N 04 — 2 Leaf Wraith, 2 Thorny Creep, 1 Big Chocolate Slime'], keys: ['P 09 — Evil Essence'] },
         { grid: 'G2', foes: ['C 09 — 1 Mud Slime, 2 Big Mud Slime', 'K 10 — 2 Steel Wraith, 2 Red Flybot, 1 NoLegs Doll', 'P 02 — 1 Haunted Mirror, 2 Beheaded Fallen, 1 Master Wraith'], keys: ['B 09 — Gold Key', 'D 03 — Evil Essence'] },
         { grid: 'H0', foes: ['D 09 — 3 Blood Bat, 2 Cat Wizard / 3 Flame Wraith', 'L 06 — 2 Bone Bat, 2 Cat Wizard / 2 Bone Bat, 2 Haunted Mirror', 'R 04 — 3 Haunted Mirror, 2 Demon Mirror'] },
-        { grid: 'H1', foes: ['I 06 — 3 Leaf Wraith, 2 Wise Mirror / 3 Flame Wraith, 2 Demon Mirror', 'L 09 — 4 Chocolate Slime / 2 Big Chocolate Slime'], subs: 'Trong Gốc Cây' },
-        { grid: 'H2', foes: ['D 06 — 2 Blue Creep, 1 Purple Squid', 'I 10 — 2 Red Bush, 3 Red Creep / 3 Beheaded Fallen, 2 Red Bush', 'N 10 — 2 Blue Creep, 1 Natalie Doll / 3 Green Creep, 1 Matt Doll, 1 Lance Doll', 'C 06 — 3 Green Pixel, 2 Muddy Bush / 3 Green Pixel', 'I 07 — 3 Green Pixel, 2 Big Mud Slime', 'N 06 — 5 Green Pixel / 3 Green Pixel'], keys: ['R 04 — Evil Essence'], subs: 'Khu Glitch' },
+        { grid: 'H1', foes: ['I 06 — 3 Leaf Wraith, 2 Wise Mirror / 3 Flame Wraith, 2 Demon Mirror', 'L 09 — 4 Chocolate Slime / 2 Big Chocolate Slime'] },
+        { grid: 'H2', foes: ['D 06 — 2 Blue Creep, 1 Purple Squid', 'I 10 — 2 Red Bush, 3 Red Creep / 3 Beheaded Fallen, 2 Red Bush', 'N 10 — 2 Blue Creep, 1 Natalie Doll / 3 Green Creep, 1 Matt Doll, 1 Lance Doll'], keys: ['R 04 — Evil Essence'] },
         { grid: 'I0', foes: ['D 09 — 3 Muddy Bush, 2 Thorny Creep / 2 Mud Slime, 1 Big Mud Slime', 'F 05 — 3 Mud Slime, 2 Dirt Boulder / 1 Brown Bear, Chibi Knight', 'G 02 — 3 Wooden Idol / 2 Stumpy Gloop, 2 Thorny Creep, 1 Leafy Chomper', 'P 03 — 3 Roasted Gloop, 2 Burned Fallen / 3 Fire Sprite, 2 Burned Fallen'], keys: ['E 06 — Fairy Dust'] },
-        { grid: 'I1', foes: ['B 09 — 2 Stumpy Gloop, 2 Anna Doll, 1 Brown Bear', 'M 09 — 2 Chocolate Slime, 1 Big Chocolate Slime / 3 Slime Bunny', 'P 10 — 2 Wise Mirror, 2 Brown Bear, 1 Dirt Boulder', 'S 04 — 3 Green Bush / 2 Stumpy Gloop, 2 Leafy Chomper, 1 Wise Mirror'], keys: ['Q 03 — Fairy Dust'], subs: 'Trong Gốc Cây' },
+        { grid: 'I1', foes: ['B 09 — 2 Stumpy Gloop, 2 Anna Doll, 1 Brown Bear', 'M 09 — 2 Chocolate Slime, 1 Big Chocolate Slime / 3 Slime Bunny', 'P 10 — 2 Wise Mirror, 2 Brown Bear, 1 Dirt Boulder', 'S 04 — 3 Green Bush / 2 Stumpy Gloop, 2 Leafy Chomper, 1 Wise Mirror'], keys: ['Q 03 — Fairy Dust'] },
         { grid: 'I2', foes: ['B 03 — 2 Angel Mirror, 1 Mud Slime / 2 Mud Slime, 2 Big Mud Slime, 1 Angel Mirror', 'P 03 — 2 Leafy Chomper, 1 Green Bush', 'R 09 — 2 Tanuki Dog, 1 Brown Bear / 2 Tanuki Dog, 2 Brown Bear'], keys: ['J 10 — Fairy Dust'] },
-        { grid: 'J0', foes: ['F 07 — 2 Cat Warrior, 2 Cutie Worm, 1 Cat Wizard', 'G 03 — 2 Putrid Worm, 2 Wise Mirror, 1 Cat Wizard', 'Q 08 — 2 Cat Wizard, 1 Panda Bear / 2 Wise Mirror, 2 Panda Bear'], keys: ['N 04 — The Axe', 'C 10 — Diamond Key', 'R 05 — Leafy Boots', 'S 08 — Fairy Dust'], subs: 'Nhà Anna' }
+        { grid: 'J0', foes: ['F 07 — 2 Cat Warrior, 2 Cutie Worm, 1 Cat Wizard', 'G 03 — 2 Putrid Worm, 2 Wise Mirror, 1 Cat Wizard', 'Q 08 — 2 Cat Wizard, 1 Panda Bear / 2 Wise Mirror, 2 Panda Bear'], keys: ['C 10 — Diamond Key', 'R 05 — Leafy Boots', 'S 08 — Fairy Dust'] },
       ] },
     { id: 'forgotten-ruins', name: 'Forgotten Ruins', kind: 'Khu vực chính', image: 'img/areas/forgotten-ruins.png', grid: 'D0',
       desc: 'Phế tích cổ bị lãng quên lâu năm: cột đá sập, tượng phủ bụi và cơ chế ẩn chờ ai đó kích hoạt.',
@@ -2772,7 +2762,7 @@ window.EBF5DATA = {
         { grid: 'I6', foes: ['B 10 — 1 Blue Flybot, 2 Drowned Fallen, 1 Bubbler MX-01', 'J 05 — 2 Drowned Fallen, 3 Steam Fish / 2 Steam Fish, 2 Brown Bear, 1 Rescue Dog', 'S 08 — 2 Water Slime, 2 Slime Bunny / 2 Sea Dragon, 1 Omega Dragon'], keys: ['C 11 — Diamond Key', 'F 04 — Wooden Key', 'J 04 — Stone Head'], notes: ['Đầu Đá phải nằm trên bệ đá để lấy được kho báu tại ô C11.'] },
         { grid: 'J5', foes: ['D 05 — 2 Metal Idol / 2 Jet Fish', 'H 06 — 2 Metal Idol, 2 Jet Fish', 'J 01 — 3 Metal Idol, 2 Wooden Idol', 'L 07 — 3 Scaly Worm, 2 Cutie Worm / 2 Fuzzy Worm, 2 Scaly Worm, 1 Cutie Worm', 'Q 05 — 3 Metal Idol, 2 Steam Fish'] },
         { grid: 'J6', foes: ['B 07 — 2 Sea Dragon', 'E 09 — 2 Master Wraith', 'L 04 — 1 Water Slime / 1 Lime Squid, 3 Water Slime'] },
-        { grid: 'K5', foes: ['E 06 — 2 Sapphire Ore,1 Peridot Ore / 1 Sapphire Ore,2 Lime Squid', 'P 02 — 3 Scaly Worm,2 Slime Bunny', 'R 10 — 2 Obsidian Boulder,1 Topaz Golem / 2 Coral Boulder,1 Pearl Golem / 2 Marble Boulder,1 Amethyst Golem', 'L 03 — 3 PUMPKUS'], subs: 'Phòng Arcade' },
+        { grid: 'K5', foes: ['E 06 — 2 Sapphire Ore,1 Peridot Ore / 1 Sapphire Ore,2 Lime Squid', 'P 02 — 3 Scaly Worm,2 Slime Bunny', 'R 10 — 2 Obsidian Boulder,1 Topaz Golem / 2 Coral Boulder,1 Pearl Golem / 2 Marble Boulder,1 Amethyst Golem'] },
         { grid: 'K6', foes: ['H 03 — 2 Angel Mirror, 2 Hermit Creep, 1 Ancient Monolith', 'P 02 — 1 Cutie Worm / 2 Pink Squid, 1 Lime Squid'], keys: ['C 03 — Cookie', 'E 03 — Stone Head', 'M 07 — Golden Ticket'], notes: ['Đầu Đá phải nằm trên bệ đá để lấy được kho báu tại ô M07.'] }
       ] },
     { id: 'frozen-valley', name: 'Frozen Valley', kind: 'Khu vực chính', image: 'img/areas/frozen-valley.png', grid: 'A6',
@@ -2782,11 +2772,11 @@ window.EBF5DATA = {
     cells: [
         { grid: 'A6', foes: ['C 07 — 2 Ice Sprite, 2 Wolf Dog, 1 Rescue Dog / 2 Wolf Dog, 2 Mage Dog, 1 Tanuki Dog', 'F 03 — 1 Blue Creep / 2 Cat Wizard, 2 Brown Bear, 1 Pink Squid', 'Q 05 — 2 Lost Fallen, 2 Skeleton Hand, 1 Drowned Fallen'], keys: ['O 03 — Popcorn', 'Q 04 — Gold Key'] },
         { grid: 'A7', foes: ['B 03 — 1 Wooly Mammoth,2 Tanuki Dog,1 Wolf Dog', 'D 07 — 1 Pearl Golem,Super Chibi Knight,1 Quartz Ore', 'J 02 — 2 Wooly Mammoth', 'J 05 — 3 Cat Wizard,1 Viking Monolith,1 Coral Boulder / 1 Mage Dog / 3 Lost Fallen,2 Viking Monolith', 'P 05 — 5 Cat Warrior / 2 Cat Warrior,3 Lost Fallen / 3 Cat Warrior,2 Grolar Bear', 'R 03 — 2 Snow Bat,3 Wolf Dog / 3 Zap Dog,2 Wolf Dog'], keys: ['S 02 — Popcorn', 'S 09 — Candy Cane'] },
-        { grid: 'A8', foes: ['G 06 — 2 Icicle Creep,2 Skeleton Hand,1 Ice Sprite / 3 Skeleton Hand', 'L 08 — 2 Snow Bat,3 Frost Wraith / 2 Bone Bat,3 Master Wraith / 2 Blood Bat,3 Steel Wraith', 'N 09 — 1 Wooly Mammoth,1 Brown Bear,1 Grolar Bear,1 Wolf Dog', 'R 05 — 2 Zircon Ore,2 Angel Mirror,1 Quartz Ore / 2 Quartz Ore,2 Crucified Fallen,1 Angel Mirror', 'L 03 — 2 GUOYE'], keys: ['H 05 — Popcorn'], subs: 'Phòng Arcade' },
+        { grid: 'A8', foes: ['G 06 — 2 Icicle Creep,2 Skeleton Hand,1 Ice Sprite / 3 Skeleton Hand', 'L 08 — 2 Snow Bat,3 Frost Wraith / 2 Bone Bat,3 Master Wraith / 2 Blood Bat,3 Steel Wraith', 'N 09 — 1 Wooly Mammoth,1 Brown Bear,1 Grolar Bear,1 Wolf Dog', 'R 05 — 2 Zircon Ore,2 Angel Mirror,1 Quartz Ore / 2 Quartz Ore,2 Crucified Fallen,1 Angel Mirror'], keys: ['H 05 — Popcorn'] },
         { grid: 'A9', foes: ['B 03 — 3 Hardy Gloop / 2 War Mammoth,1 Rescue Dog', 'D 08 — 2 Wolf Dog,1 Viking Monolith,1 Big Icecream Slime,1 Icecream Slime', 'F 09 — 3 Icecream Slime,2 Chocolate Slime / 1 Icecream Slime,1 Wooly Mammoth,1 Big Icecream Slime,1 Brown Bear', 'I 09 — 5 Fire Sprite / 2 Omega Dragon', 'K 04 — 2 Cat Ninja,2 Panda Bear,1 Mage Dog / 2 Cat Ninja,1 Cat Bomber / 2 Mage Dog,2 Grolar Bear,1 Panda Bear'], keys: ['H 09 — Popcorn'] },
         { grid: 'B7', foes: ['C 03 — 2 Drowned Fallen,2 Grolar Bear,1 NoLegs Doll', 'G 04 — 3 Frost Wraith,2 Steel Wraith / 2 Flame Wraith,2 Frost Wraith,1 Master Wraith', 'P 01 — 3 Grolar Bear,2 Rescue Dog', 'S 07 — 2 Electric Bat,2 Gold Fish,1 Defender Mk III / 3 Fuzzy Worm'], keys: ['G 03 — Popcorn'] },
         { grid: 'B8', foes: ['C 09 — 3 Icecream Slime,2 Slime Bunny / 2 Icecream Slime,1 Lost Fallen / 2 Big Icecream Slime,1 Viking Monolith', 'K 09 — 5 Icecream Slime / 2 Wolf Dog,2 Icecream Slime,1 Big Icecream Slime'], keys: ['S 09 — Popcorn'] },
-        { grid: 'B9', foes: ['D 10 — 2 Crucified Fallen,2 Lost Fallen,1 Ancient Monolith / 2 Mage Dog,2 Ancient Monolith,1 Lost Fallen', 'G 05 — 3 Gem Idol,2 Blue Flybot / 3 Ice Sprite / 2 Blue Flybot,2 Mage Dog,1 Marble Boulder', 'J 04 — 1 Wolf Dog / 3 Snow Bat / 2 Wolf Dog,2 Viking Monolith,1 Grolar Bear', 'O 05 — 1 Blue Flybot / 3 Blue Flybot,2 Viking Monolith / 2 Bubbler MX-01 / 1 Icecream Slime'], keys: ['L 02 — Popcorn', 'O 03 — Spiked Boots', 'N 04 — Gold Key'], subs: 'Khu Glitch' },
+        { grid: 'B9', foes: ['D 10 — 2 Crucified Fallen,2 Lost Fallen,1 Ancient Monolith / 2 Mage Dog,2 Ancient Monolith,1 Lost Fallen', 'G 05 — 3 Gem Idol,2 Blue Flybot / 3 Ice Sprite / 2 Blue Flybot,2 Mage Dog,1 Marble Boulder', 'J 04 — 1 Wolf Dog / 3 Snow Bat / 2 Wolf Dog,2 Viking Monolith,1 Grolar Bear', 'O 05 — 1 Blue Flybot / 3 Blue Flybot,2 Viking Monolith / 2 Bubbler MX-01 / 1 Icecream Slime'], keys: ['L 02 — Popcorn', 'O 03 — Spiked Boots'] },
         { grid: 'C7', foes: ['F 10 — 3 Peridot Ore / 3 Sapphire Ore / 3 Zircon Ore / 1 Slime Bunny', 'H 03 — 2 Scaly Worm,2 Icicle Creep,1 Blue Creep', 'L 05 — 2 Zircon Ore,3 Coral Boulder / 3 Coral Boulder,2 Hardy Gloop', 'Q 08 — 3 Frost Wraith,2 Blue Flybot'], keys: ['J 07 — Popcorn'] },
         { grid: 'C8', foes: ['H 06 — 3 Ice Sprite,2 Sapphire Ore / 3 Viking Monolith', 'M 04 — 5 Icicle Creep / 3 Icicle Creep,2 Blue Creep', 'O 10 — 2 Scaly Worm / 1 Scaly Worm,1 Putrid Worm / 2 Scaly Worm / 2 Scaly Worm,1 Cutie Worm / 2 Brown Bear,1 Grolar Bear', 'Q 05 — 3 Wolf Dog,2 Brown Bear / 1 Hardy Gloop / 3 Lost Fallen,2 Brown Bear'], keys: ['R 07 — Cookie, Meow Magazine'] },
         { grid: 'C9', foes: ['C 03 — 2 Zircon Ore,2 Sapphire Ore,1 Peridot Ore', 'F 05 — 2 Peridot Ore,2 Zircon Ore,1 Quartz Ore', 'J 02 — 2 Quartz Ore,2 Sapphire Ore,1 Zircon Ore', 'L 04 — 2 Quartz Ore,2 Zircon Ore,1 Coral Boulder / 2 Coral Boulder,1 Pearl Golem / 2 Peridot Ore,2 Sapphire Ore,1 Coral Boulder', 'O 04 — 1 Sapphire Ore,Poseidon,1 Quartz Ore,1 Zircon Ore'], keys: ['F 01 — Popcorn', 'K 10 — Golden Ticket', 'L 08 — Coral Key'] }
@@ -2796,15 +2786,15 @@ window.EBF5DATA = {
       features: [ 'Cửa hàng Food của Barman (D7)', 'Trạm nghỉ cuối trước The Rapture' ],
       tips: [ 'Nạp đầy kho Food ở đây — về sau cửa hàng thưa dần.' ],
     cells: [
-        { grid: 'D7', foes: ['D 09 — 3 Chocolate Slime, 2 Red Bush / 2 Tanuki Dog, 2 Chocolate Slime, 1 Big Chocolate Slime', 'M 07 — 5 Red Bush / 3 Red Bush, 2 Tanuki Dog', 'K 08 — Glitch, Glitch (boss)'], subs: 'The Void' },
-        { grid: 'D8', foes: ['I 07 — 3 Demon Mirror, 1 Matt Doll, 1 NoLegs Doll'], subs: 'The Void' },
+        { grid: 'D7', foes: ['D 09 — 3 Chocolate Slime, 2 Red Bush / 2 Tanuki Dog, 2 Chocolate Slime, 1 Big Chocolate Slime', 'M 07 — 5 Red Bush / 3 Red Bush, 2 Tanuki Dog', 'K 08 — Glitch, Glitch (boss)'] },
+        { grid: 'D8', foes: ['I 07 — 3 Demon Mirror, 1 Matt Doll, 1 NoLegs Doll'] },
         { grid: 'D9', keys: ['K 05 — Water Orb'] },
-        { grid: 'E7', foes: ['D 07 — 3 Fire Sprite, 2 Bone Bat / 2 Fire Sprite, 1 Lance Doll, 1 Dirt Boulder, 1 Anna Doll', 'H 05 — 2 Zombie Hand, 3 Thorny Creep / 3 Thorny Creep, 1 Rescue Dog, 1 Tanuki Dog', 'D 06 — 1 Lime Squid', 'E 06 — 2 Drowned Fallen, 2 Mutant Chomper', 'P 06 — 3 Drowned Fallen, 2 Beheaded Fallen / 3 Beheaded Fallen, 2 Demon Mirror', 'L 08 — 1 Sky Dragon,2 Drowned Fallen / 1 Drowned Fallen,1 Beheaded Fallen / 1 Earth Dragon,2 Beheaded Fallen', 'N 03 — 2 Blood Bat,3 Leaf Wraith / 3 Blood Bat / 2 Drowned Fallen,3 Leaf Wraith'], keys: ['F 09 — Holy Water', 'H 08 — Emerald of Life'], subs: 'Lăng mộ, Tầng hầm' },
+        { grid: 'E7', foes: ['D 07 — 3 Fire Sprite, 2 Bone Bat / 2 Fire Sprite, 1 Lance Doll, 1 Dirt Boulder, 1 Anna Doll', 'H 05 — 2 Zombie Hand, 3 Thorny Creep / 3 Thorny Creep, 1 Rescue Dog, 1 Tanuki Dog'] },
         { grid: 'E8', foes: ['F 04 — 3 Obsidian Boulder, 2 Dirt Boulder', 'F 09 — 3 Zombie Hand, 2 Haunted Mirror / 3 Zombie Hand, 2 Mage Dog', 'H 02 — 2 Obsidian Boulder, 2 Roasted Gloop', 'O 05 — 2 Obsidian Boulder, 1 Topaz Golem', 'O 07 — 2 Skeleton Hand, 2 Rock Sprite, 1 Stumpy Gloop / 2 Stumpy Gloop, 2 Skeleton Hand, 1 Dirt Boulder'], keys: ['Q 01 — Topaz Key'] },
         { grid: 'E9', foes: ['C 03 — 3 Chocolate Slime, 2 Slime Mouse / 3 Cat Bomber / 3 Thorny Creep, 2 Chocolate Slime', 'H 09 — 3 Chocolate Slime, 2 Steam Fish / 3 Cat Sniper / 2 Brown Bear, 2 Steam Fish, 1 Big Chocolate Slime'], keys: ['P 09 — Golden Ticket'], notes: ['\'\'Note: Albrecht\'s quest must be completed to make Roku\'s quest available.\'\''] },
-        { grid: 'F7', foes: ['E 08 — 2 Dark Bush, 1 Topaz Golem', 'K 05 — 3 Dark Bush, 2 Red Bush / 2 Dark Bush, 3 Skeleton Hand'], keys: ['P 03 — Wooden Key', 'D 05 — Bottled Milk', 'E 09 — Heart Chocolate'], subs: 'Chuồng ngựa' },
+        { grid: 'F7', foes: ['E 08 — 2 Dark Bush, 1 Topaz Golem', 'K 05 — 3 Dark Bush, 2 Red Bush / 2 Dark Bush, 3 Skeleton Hand'], keys: ['P 03 — Wooden Key'] },
         { grid: 'F8', foes: ['L 06 — 3 Cannon Turret, 2 Zombie Hand / 1 Metal Idol / 2 Laser Turret, 2 Zombie Hand, 1 Harpoon Turret', 'Q 08 — 3 Metal Idol, 2 Brown Bear / 3 Jet Fish, 2 Steam Fish'] },
-        { grid: 'F9', foes: ['E 07 — 3 Rock Sprite, 2 Dirt Boulder / 3 Dirt Boulder, 2 Obsidian Boulder', 'S 05 — 3 Blue Flybot, 2 Seaweed Chomper', 'J 03 — 3 SNEK'], subs: 'Phòng Arcade' }
+        { grid: 'F9', foes: ['E 07 — 3 Rock Sprite, 2 Dirt Boulder / 3 Dirt Boulder, 2 Obsidian Boulder', 'S 05 — 3 Blue Flybot, 2 Seaweed Chomper'] },
       ] },
     { id: 'the-rapture', name: 'The Rapture', kind: 'Khu vực chính', image: 'img/areas/the-rapture.png', grid: 'G7',
       desc: 'Vùng đất trên cao của Godcat — đích đến của hành trình: hồ dung nham rực đỏ và lối lên The Beyond.',
@@ -2818,14 +2808,8 @@ window.EBF5DATA = {
         { grid: 'H8', foes: ['E 10 — 3 Ruby Ore, 2 Topaz Ore / 1 Ruby Ore, 2 Obsidian Boulder, 1 Topaz Golem, 1 Topaz Ore', 'K 10 — 2 Obsidian Boulder, 2 Topaz Golem', 'P 03 — 5 Red Flybot / 3 Red Flybot, 2 Obsidian Boulder'], keys: ['I 02 — Halloween Candy'] },
         { grid: 'H9', foes: ['H 03 — 2 Slime Bunny, 1 Pink Squid, 1 Purple Squid', 'L 01 — 2 Hermit Creep, 2 Red Creep, 1 Pink Squid', 'Q 02 — 1 Cat Wizard / 2 Viking Monolith, 2 Cat Wizard, 1 Lime Squid'], keys: ['N 09 — Golden Ticket'] },
         { grid: 'I7', foes: ['C 07 — 3 Putrid Worm,2 Master Wraith / 2 Putrid Worm,2 Haunted Mirror,1 Master Wraith', 'K 03 — 3 Rock Sprite,1 Natalie Doll,1 Anna Doll / 1 Matt Doll,2 Rock Sprite,1 NoLegs Doll,1 Lance Doll', 'O 09 — 5 Zombie Hand / 3 Rock Sprite,2 Zombie Hand', 'R 07 — 2 Zombie Hand,1 NoLegs Doll / 2 Leaf Wraith,1 Anna Doll / 2 Cutie Worm,1 Natalie Doll / 2 Skeleton Hand,1 Matt Doll / 2 Jet Fish,1 Lance Doll'], keys: ['D 01 — Golden Ticket'] },
-        { grid: 'I8', foes: ['C 10 — 3 Dark Bush, 2 Cat Sniper / 2 Dark Bush, 2 Cat Sniper, 1 War Mammoth', 'F 02 — 3 Blood Bat, 2 Haunted Mirror / 3 Red Flybot, 2 Haunted Mirror', 'R 02 — 2 Cosmic Monolith', 'F 06 — 3 Cosmic Monolith', 'H 08 — 4 Mutant Chomper', 'S 05 — 1 War Mammoth / Ultra Chibi Knight'] },
+        { grid: 'I8', foes: ['C 10 — 3 Dark Bush, 2 Cat Sniper / 2 Dark Bush, 2 Cat Sniper, 1 War Mammoth', 'F 02 — 3 Blood Bat, 2 Haunted Mirror / 3 Red Flybot, 2 Haunted Mirror', 'R 02 — 2 Cosmic Monolith'] },
         { grid: 'I9', foes: ['C 02 — 2 Cannon Turret,2 Blue Creep,1 Harpoon Turret / 2 Laser Turret,2 Blue Creep,1 Harpoon Turret', 'H 01 — 3 Wooden Idol,2 Leafy Chomper / 3 Stumpy Gloop / 3 Leafy Chomper', 'Q 09 — 2 Nuclear Bomb,1 Lime Squid / 2 Nuclear Bomb,2 Laser Turret,1 Harpoon Turret'] },
-        { grid: 'J7', foes: ['H 03 — 3 Zombie Hand, 2 Crucified Fallen / 2 Gold Fish, 2 Crucified Fallen, 1 Angel Mirror', 'H 07 — 3 Tanuki Dog, 2 Magma Hand / 2 Tanuki Dog, 2 Magma Hand, 1 Demon Mirror', 'N 02 — 2 Laser Turret, 1 War Mammoth, 1 Harpoon Turret', 'P 09 — 3 Skeleton Hand'], keys: ['Q 02 — The Candle'] },
-        { grid: 'J8', foes: ['B 04 — 2 Ruby Ore, 2 Flame Wraith, 1 Topaz Ore / 2 Bone Bat, 2 Flame Wraith, 1 Topaz Golem', 'F 09 — 2 Big Sand Slime, 1 Ancient Monolith / 2 Ancient Monolith, 1 Camel Mammoth', 'N 01 — 3 Magma Chomper', 'O 10 — 5 Lava Slime / 3 Fire Sprite, 2 Lava Slime / 3 Fire Sprite, 2 Obsidian Boulder', 'I 07 — 2 Harpoon Turret, 2 Cosmic Monolith, 1 Laser Turret', 'P 03 — 2 Beheaded Fallen, 2 Cosmic Monolith, 1 Mage Dog', 'Q 07 — 3 Zombie Hydra'], keys: ['I 04 — Golden Ticket', 'S 03 — Lava Sample'] },
-        { grid: 'J9', foes: ['B 04 — 5 Magma Hand / 3 Magma Hand, 2 Magma Chomper', 'O 07 — 3 Demon Mirror, 2 Magma Hand / 2 Demon Mirror, 2 Magma Chomper, 1 Burned Fallen', 'R 05 — 3 Burned Fallen, 2 Demon Mirror / 3 Burned Fallen, 2 Beheaded Fallen'], keys: ['O 11 — Lava Sample'] },
-        { grid: 'K7', foes: ['D 04 — 3 Roasted Gloop, 2 Fire Sprite / 3 Blaze Hydra', 'F 05 — 2 Beheaded Fallen, 2 Magma Chomper, 1 Red Flybot', 'I 09 — 3 Roasted Gloop, 2 Magma Chomper / 2 Magma Chomper, 2 Mutant Chomper'], keys: ['D 02 — Fire Orb', 'I 01 — Topaz Key', 'S 05 — Thermal Boots', 'T 08 — Lava Sample'] },
-        { grid: 'K8', foes: ['K 08 — 2 Lava Slime, 2 Topaz Ore, 1 Obsidian Boulder / 1 Obsidian Boulder, 1 Topaz Golem, 1 Big Lava Slime, 1 Lava Slime', 'L 03 — 2 Lava Slime, 2 Chocolate Slime, 1 Roasted Gloop / 2 Big Lava Slime, 1 Big Chocolate Slime', 'N 07 — 3 Lava Slime, 2 Big Lava Slime', 'S 06 — 3 Roasted Gloop, 2 Magma Hand / 2 Demon Mirror, 2 Roasted Gloop, 1 Magma Chomper', 'K 05 — Cosmic Gigalith / 1 Slimy Tentacle, 2 Eyeball, The Devourer, 1 Spikey Tentacle'], keys: ['H 09 — Lava Sample'] },
-        { grid: 'K9', foes: ['L 06 — 2 Blaze Hydra / Q 09 / R 09 / 5 Burned Fallen / 5 Crucified Fallen / 5 Beheaded Fallen'] }
       ] },
     { id: 'freezeflame-dungeon', name: 'Freezeflame Dungeon', kind: 'Khu vực trả phí', image: 'img/areas/freezeflame-dungeon.png', grid: 'E0',
       desc: 'Dungeon trả phí hai nửa băng–lửa đan xen: phòng nóng kế phòng lạnh, kiểm tra độ phủ nguyên tố của cả đội.',
@@ -2833,10 +2817,9 @@ window.EBF5DATA = {
       tips: [ 'Chuẩn bị kháng cả Lửa lẫn Bang — không bên nào cho bạn nghỉ ngơi.' ],
     cells: [
         { grid: 'D1', foes: ['C 04 — 3 Wolf Dog / 2 Lost Fallen,2 Wolf Dog,1 Viking Monolith', 'S 07 — 2 Lost Fallen,1 Viking Monolith / 3 Cat Warrior,2 Cat Wizard / 2 Cat Warrior,2 Hardy Gloop,1 Cat Wizard / 2 Cat Warrior,2 Hardy Gloop,1 Viking Monolith'] },
-        { grid: 'E0', foes: ['R 03 — G 04,M 04 / Sól, Skadi', 'L 02 — Snowflake'], subs: 'Đền Bỏ Quên, Thế giới Bí mật' },
-        { grid: 'E1', subs: 'Thế giới Bí mật' },
+        { grid: 'E0', foes: ['R 03 — G 04,M 04 / Sól, Skadi'] },
         { grid: 'E2', foes: ['D 06 — 2 Zircon Ore,2 Frost Wraith,1 Ice Sprite', 'F 03 — 2 Zircon Ore,2 Icicle Creep / 2 Snow Bat,2 Frost Wraith / 2 Ice Sprite,2 Icicle Creep / 2 Slime Bunny,2 Big Icecream Slime', 'O 08 — 2 Ruby Ore,2 Obsidian Boulder / 2 Fire Sprite,2 Dirt Boulder / 2 Rock Sprite,2 Flame Wraith / 1 Rock Sprite,2 Magma Chomper', 'R 05 — 2 Ruby Ore,2 Flame Wraith,1 Fire Sprite'] },
-        { grid: 'F1', foes: ['H 05 — 2 Fire Sprite,2 Lava Slime,1 Big Lava Slime / 3 Magma Hand / 3 Blood Bat,2 Flame Wraith / 2 Fire Sprite,2 Big Lava Slime,1 Lava Slime', 'N 07 — 2 Lava Slime,1 Slime Bunny / 2 Magma Chomper,1 Big Lava Slime', 'J 04 — 3 GLOB'], subs: 'Lối đi bí mật, Phòng Arcade' },
+        { grid: 'F1', foes: ['H 05 — 2 Fire Sprite,2 Lava Slime,1 Big Lava Slime / 3 Magma Hand / 3 Blood Bat,2 Flame Wraith / 2 Fire Sprite,2 Big Lava Slime,1 Lava Slime', 'N 07 — 2 Lava Slime,1 Slime Bunny / 2 Magma Chomper,1 Big Lava Slime'] },
         { grid: 'F2', foes: ['G 09 — 2 Sandstone Boulder, 1 Camel Mammoth'] }
       ] },
     { id: 'mineshaft-maze', name: 'Mineshaft Maze', kind: 'Khu vực trả phí', image: 'img/areas/mineshaft-maze.png', grid: 'H6',
@@ -2847,7 +2830,6 @@ window.EBF5DATA = {
         { grid: 'G3', foes: ['L 07 — 3 Bone Bat, 2 Electric Bat / 3 Dirt Boulder, 2 Earthquake Bomb'] },
         { grid: 'G8', foes: ['J 08 — 2 Rock Sprite, 2 Thunder Sprite, 1 Seaweed Chomper / 2 Acid Bomb, 2 Seaweed Chomper'] },
         { grid: 'H1', foes: ['I 07 — 3 Beheaded Fallen, 2 Burned Fallen / 3 Burned Fallen, 2 Giga Harpoon'] },
-        { grid: 'I7', foes: ['C 05 — 1 THE MAW', 'L 05 — 2 Blood Bat, 1 Mutant Chomper'], keys: ['D 05 — Earth Orb', 'I 04 — Topaz Key'], subs: 'Hang Zombie Hydra, Phòng Arcade' },
         { grid: 'I9', foes: ['D 05 — 1 Fuzzy Worm', 'K 05 — 2 Seaweed Chomper,1 Defender Mk III / 3 Electric Bat,2 Blood Bat / 3 Yellow Flybot,2 Seaweed Chomper / 3 Blood Bat,2 Electric Bat / 2 Seaweed Chomper,1 Ancient Monolith / G 05,H 07,N 08,O 06 / Neon Valhalla,2 Shockwave Bomb,1 Giga Harpoon'] },
         { grid: 'K3', foes: ['I 05 — 3 Zombie Hand,2 Rock Sprite / 2 Burned Fallen,2 Zombie Hand,1 Rock Sprite / 1 Earth Dragon,2 Zombie Hand'] },
         { grid: 'K4', foes: ['K 08 — 5 Steam Fish / 3 Steam Fish, 2 Shockwave Bomb'] }
@@ -2870,13 +2852,9 @@ window.EBF5DATA = {
       features: [ 'Battle Arena — đấu trường chuỗi boss', 'Data Bunker — khu vực chốt hạ của v2' ],
       tips: [ 'Chỉ vào được nếu có bản v2 — nhớ điều này khi cân nhắc mua DLC.' ],
     cells: [
-        { grid: 'C13', foes: ['F 03 — 3 Furry Slime / 1 King Slime / 2 Haunted Tree,1 Eyeball / 1 Beholder / 1 Glacier Eater,1 Rock Eater / 1 Giga Golem / 2 Red Bee,1 Spikey Moth / 1 Sandworm,1 Sandworm\'s Tail', 'N 03 — 3 Gunslinger,2 Swordslinger / 1 Swordslinger,1 Jack,1 Gunslinger / 1 Red Clay,1 Blue Clay,1 Light Clay,1 Dark Clay / 1 Blue Clay,1 Red Clay,1 Protector,1 Dark Clay / 1 Florn,1 Frose,1 Stunflower,1 Heasy / 1 Florn,1 Frose,1 Rafflesia,1 Stunflower,1 Heasy / 2 Blue Crystal / 2 Red Crystal,1 Praetorian'], keys: ['R 04 — Tomato'] },
-        { grid: 'C14', foes: ['C 07 — 2 Glacier Eater / 2 Rock Eater / 1 Glacier Eater, 1 Rock Eater / 1 Giga Golem', 'D 04 — 3 Furry Slime / 3 Furry Slime / 1 King Slime', 'F 04 — 2 Haunted Tree / 2 Eyeball / 3 Eyeball / 1 Beholder', 'G 07 — 2 Red Bee, 1 Spikey Moth / 2 Spikey Moth, 1 Red Bee / 1 Sandworm, 1 Sandworm\'s Tail', 'O 04 — 2 Swordslinger, 1 Gunslinger / 3 Gunslinger, 2 Swordslinger / 1 Swordslinger, 1 Jack, 1 Gunslinger', 'O 07 — 1 Florn, 1 Frose, 1 Stunflower, 1 Heasy / 1 Florn, 1 Frose, 1 Rafflesia, 1 Stunflower, 1 Heasy', 'R 07 — 1 Blue Crystal, 1 Red Crystal / 1 Red Crystal, 1 Praetorian, 1 Blue Crystal', 'S 04 — 2 Red Clay, 2 Blue Clay / 2 Dark Clay, 2 Light Clay / 1 Blue Clay, 1 Red Clay, 1 Protector, 1 Dark Clay'] },
-        { grid: 'C15', foes: ['B 05 — 3 Dirt Boulder,2 Seaweed Chomper / 2 Seaweed Chomper,2 Leafy Chomper', 'S 02 — 2 Dirt Boulder,2 Lost Fallen,1 Viking Monolith / 2 Hermit Creep,2 Ancient Monolith,1 Lost Fallen'], keys: ['I 03 — World Map'], notes: ['Rương C 01 mở bằng công tắc tại K 10; rương H 08 mở bằng công tắc tại N 07.'] },
-        { grid: 'D14', foes: ['E 05 — CORALIA'], subs: 'Phòng Arcade' },
+        { grid: 'C15', foes: ['B 05 — 3 Dirt Boulder,2 Seaweed Chomper / 2 Seaweed Chomper,2 Leafy Chomper', 'S 02 — 2 Dirt Boulder,2 Lost Fallen,1 Viking Monolith / 2 Hermit Creep,2 Ancient Monolith,1 Lost Fallen'], notes: ['Rương C 01 mở bằng công tắc tại K 10; rương H 08 mở bằng công tắc tại N 07.'] },
         { grid: 'D15', foes: ['O 06 — 2 Hermit Creep, 2 Amethyst Golem / 2 Pink Squid, 1 Amethyst Golem'] },
         { grid: 'E11', notes: ['Rương I04: đứng yên trên đảo 2 phút rồi rời đi — rương xuất hiện ngay lúc nhân vật rời cầu cảng.'] },
-        { grid: 'E14', foes: ['E 06 — 2 Blood Bat, 1 Earth Dragon', 'F 08 — 1 Red Creep, 1 Green Creep, 1 Blue Creep', 'G 07 — 1 Sandstone Boulder, 1 Coral Boulder, 1 Dirt Boulder', 'I 08 — 3 Zombie Hand, 2 Skeleton Hand', 'J 07 — 2 Gem Idol, 1 Bone Golem', 'K 06 — 1 Pink Squid', 'L 08 — 1 Drowned Fallen, 1 Lost Fallen, 1 Burned Fallen', 'N 07 — 2 Tanuki Dog, 1 Grolar Bear', 'O 06 — 2 Mud Slime, 1 Big Mud Slime', 'P 08 — 2 Master Wraith, 1 Magma Chomper', 'E 06 — 2 Stumpy Gloop, 2 Roasted Gloop, 1 Beheaded Fallen', 'E 08 — 5 Gem Idol', 'H 08 — 2 Leaf Wraith, 2 Steel Wraith', 'I 07 — 2 Fire Sprite, 2 Rock Sprite, 1 Topaz Ore', 'K 07 — 3 Fabulous Gloop', 'L 07 — 2 Haunted Mirror, 2 Angel Mirror, 1 Wise Mirror', 'M 06 — 3 Cat Wizard, 2 Cat Warrior', 'M 08 — 2 Icecream Slime, 1 Big Icecream Slime', 'P 06 — 2 Putrid Worm, 1 Mutant Chomper', 'P 08 — 2 Wolf Dog, 2 Bone Bat, 1 Zap Dog', 'E 08 — 2 Seaweed Chomper, 1 Leafy Chomper', 'G 07 — 1 Tanuki Dog, 1 Fire Sprite, 1 Rescue Dog, 1 Thunder Sprite, 1 Zap Dog', 'H 08 — 1 Blaze Hydra', 'I 07 — 1 Red Flybot, 1 Prototype 9X', 'K 06 — 1 Yellow Flybot, 1 Red Flybot, 1 Blue Flybot', 'M 06 — 2 Cat Sniper, 2 Thorny Creep, 1 Cat Bomber', 'M 08 — 1 War Mammoth, 1 Slime Bunny', 'N 07 — 1 Cannon Turret, 1 Harpoon Turret, 1 Laser Turret, 1 Fuzzy Worm', 'O 08 — 1 Steam Fish, 1 Jet Fish,1 Gold Fish', 'P 06 — 1 Earthquake Bomb, 1 Acid Bomb, 1 Shockwave Bomb, 1 Nuclear Bomb', 'E 06 — 1 Big Chocolate Slime, 1 Big Sand Slime', 'E 08 — 2 Slime Mouse, 2 Icicle Creep, 1 Coral Boulder', 'G 07 — 2 Origami Wraith, 2 Master Wraith', 'I 08 — 2 Snow Bat, 1 Sea Dragon', 'J 07 — 2 Blood Bat, 2 Black Bear', 'K 08 — 2 Red Bush, 2 Sandy Bush, 1 Ancient Monolith', 'M 06 — 2 Steel Wraith, 1 Viking Monolith', 'N 07 — 2 Cat Ninja, 2 Wise Mirror, 1 Demon Mirror', 'O 06 — 2 Burned Fallen, 2 Drowned Fallen, 1 Beheaded Fallen', 'P 08 — 1 Green Bush, 1 Anna Doll, 1 Dark Bush, 1 Natalie Doll, 1 Red Bush', 'E 08 — 2 Lava Slime, 1 Big Lava Slime', 'F 06 — 3 Cat Wizard, 2 Cutie Worm', 'H 08 — 1 Matt Doll, 1 NoLegs Doll, 1 Lance Doll', 'I 07 — 2 Snow Bat, 2 Bone Bat, 1 Electric Bat', 'K 07 — 5 Skeleton Cat', 'L 06 — 2 Dark Bush, 2 Lost Fallen, 1 Crucified Fallen', 'M 08 — 1 Rock Sprite, 1 Dirt Boulder, 1 Dark Bush, 1 Marble Boulder, 1 Wind Sprite', 'O 06 — 1 Origami Hydra, 2 Book Worm', 'O 08 — 2 Wise Mirror, 2 Red Bush, 1 Angel Mirror', 'P 07 — 2 Wooden Idol, 2 Metal Idol, 1 Gem Idol'] }
       ] },
     { id: 'temple-of-trials', name: 'Temple of Trials', kind: 'Khu vực trả phí', image: 'img/areas/temple-of-trials.png', grid: 'K5',
       desc: 'Đền thử thách tối thượng phần trả phí: các boss bóng ma quay lại với phiên bản cực mạnh.',
@@ -2895,7 +2873,428 @@ window.EBF5DATA = {
         { grid: 'D0', foes: ['D 05 - 3 Thunder Sprite, 2 Rock Sprite / 3 Earth Dragon', 'J 06 - 2 Thunder Sprite, 2 Big Sand Slime, 1 Chunky Gloop / 2 Thunder Sprite, 1 Camel Mammoth, 1 Chunky Gloop', 'P 05 - 2 Sandstone Boulder, 2 Chunky Gloop, 1 Ancient Monolith / 2 Thorny Creep, 2 Ancient Monolith, 1 Chunky Gloop'] },
         { grid: 'D1', foes: ['H 05 - 2 Roasted Gloop, 2 Obsidian Boulder, 1 Ancient Monolith / 3 Thunder Sprite, 2 Demon Mirror / 2 Ancient Monolith, 1 Topaz Golem', 'N 05 - 1 Ruby Ore, Vulcan, 1 Topaz Ore, 1 Peridot Ore'] },
         { grid: 'I9', foes: ['F 07 - 2 Sapphire Ore, 2 Zap Dog, 1 Viking Monolith / 2 Zap Dog, 2 Icicle Creep, 1 Sapphire Ore / 3 Blue Flybot, 2 Zircon Ore / 2 Blue Flybot, 2 Sapphire Ore, 1 Bubbler MX-01', 'I 07 - 2 Ice Sprite, 2 Coral Boulder, 1 Viking Monolith / 2 Icicle Creep, 2 Angel Mirror, 1 Crucified Fallen / 2 Hardy Gloop, 2 Crucified Fallen, 1 Zap Dog / 2 Viking Monolith, 1 Pearl Golem', 'K 07 - 3 Crystal Hydra'] }
-      ] }
+      ] },
+    /* --- Khu con: tach tu cell khu chinh (luot 28) --- */
+    { id: 'arcade-room-hope-harbor', name: 'Arcade Room (Hope Harbor)', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/arcade-room-hope-harbor-c2.png', grid: 'C2',
+      desc: 'Phòng arcade trong Hope Harbor tại ô C2; nơi chơi minigame arcade và nhận thưởng.',
+      features: ['Nối với: C2 Hope Harbor', '1 nhóm quái', '1 Key Item', 'Minigame arcade'],
+      tips: ['Mỗi phòng arcade có minigame riêng; kiểm tra bảng điều khiển/máy game để nhận thưởng.'],
+    cells: [
+        { grid: 'C2', image: 'img/areas/arcade-room-hope-harbor-c2.png', foes: ['N 05 — 3 ANGRY CHAIR'], keys: ['G 08 — Right Sock'] },
+      ] },
+    { id: 'basement-hope-harbor', name: 'Basement (Hope Harbor)', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/basement-hope-harbor-c2.png', grid: 'C2',
+      desc: 'Tầng hầm của Hope Harbor tại ô C2; có thêm rương, Key Item và lối đi phụ.',
+      features: ['Nối với: C2 Equipment Shop', '2 nhóm quái', '2 Key Item'],
+    cells: [
+        { grid: 'C2', image: 'img/areas/basement-hope-harbor-c2.png', foes: ['J 10 — 2 Master Wraith, 1 NoLegs Doll / 3 Bone Bat, 1 Matt Doll, 1 Natalie Doll', 'P 05 — 3 Bone Bat, 2 Haunted Mirror / 3 Master Wraith, 2 Haunted Mirror'], keys: ['E 04 — Sapphire of Dreams', 'P 03 — Wooden Key'] },
+      ] },
+    { id: 'equipment-shop-hope-harbor', name: 'Equipment Shop (Hope Harbor)', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/equipment-shop-hope-harbor-c2.png', grid: 'C2',
+      desc: 'Cửa hàng trang bị trong Hope Harbor tại ô C2; mua vũ khí, giáp và phụ kiện.',
+      features: ['Nối với: C2 Basement, C2 Kitchen, C2 Hope Harbor', '1 Key Item', 'Mua bán trong Hope Harbor'],
+    cells: [
+        { grid: 'C2', image: 'img/areas/equipment-shop-hope-harbor-c2.png', keys: ['E 04 — Cool Headband'] },
+      ] },
+    { id: 'food-shop-hope-harbor', name: 'Food Shop (Hope Harbor)', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/food-shop-hope-harbor-c4.png', grid: 'C4',
+      desc: 'Cửa hàng Food trong Hope Harbor tại ô C4; mua đồ hồi máu và buff.',
+      features: ['Nối với: C4 Food Shop 1st Floor, C4 Hope Harbor', '1 Key Item', 'Mua bán trong Hope Harbor'],
+    cells: [
+        { grid: 'C4', image: 'img/areas/food-shop-hope-harbor-c4.png', keys: ['F 08 — Cool Headband'] },
+      ] },
+    { id: 'food-shop-1st-floor', name: 'Food Shop 1st Floor', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/food-shop-1st-floor-c4.png', grid: 'C4',
+      desc: 'Tầng trên của Food Shop Hope Harbor tại ô C4; bán thêm Food và vật phẩm.',
+      features: ['Nối với: C4 Food Shop', '1 Key Item', 'Mua bán trong Hope Harbor'],
+    cells: [
+        { grid: 'C4', image: 'img/areas/food-shop-1st-floor-c4.png', keys: ['J 09 — Coral Key'] },
+      ] },
+    { id: 'glitch-area-hope-harbor', name: 'Glitch Area (Hope Harbor)', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/glitch-area-hope-harbor-b2.png', grid: 'B2',
+      desc: 'Khu glitch ẩn trong Hope Harbor tại ô B2; chứa quái lỗi và Key Item hiếm.',
+      features: ['Nối với: D4 Hope Harbor, B2 Hope Harbor', '3 nhóm quái', '1 Key Item', 'Quái glitch và vật phẩm hiếm'],
+    cells: [
+        { grid: 'B2', image: 'img/areas/glitch-area-hope-harbor-b2.png', foes: ['G 07 — 2 ?0x00??FF45', 'J 08 — 2 Dead Pixel, 2 Coral Boulder, 1 Viking Monolith', 'L 04 — 5 Dead Pixel / 3 Dead Pixel / 1 Dead Pixel'], keys: ['I 08 — Coral Key'] },
+      ] },
+    { id: 'ice-cave', name: 'Ice Cave', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/ice-cave-d4.png', grid: 'D4, D5, E3',
+      desc: 'Hang băng nối Hope Harbor với vùng tuyết, gồm ba ô D4/D5/E3; có quái băng và lối sang Freezeflame Dungeon/No Man\'s Land.',
+      features: ['Ba tầng hang băng D4, D5, E3', 'Quái băng và lối sang vùng tuyết'],
+      tips: ['Mang Food/trang bị kháng Ice; để ý Snow Bat và Viking Monolith ở E3.'],
+    cells: [
+        { grid: 'D4', image: 'img/areas/ice-cave-d4.png', foes: ['J 09 — 2 Zircon Ore, 2 Hardy Gloop', 'N 03 — 2 Zircon Ore / 4 Snow Bat', 'N 09 — 2 Icicle Creep, 1 Zircon Ore'] },
+        { grid: 'D5', image: 'img/areas/ice-cave-d5.png', notes: ['Điểm kết nối trong Hope Harbor.'] },
+        { grid: 'E3', image: 'img/areas/ice-cave-e3.png', foes: ['F 06 — 2 Zircon Ore, 2 Ice Sprite, 1 Icicle Creep', 'P 03 — 2 Snow Bat, 1 Viking Monolith'] },
+      ] },
+    { id: 'jerrys-cellar', name: 'Jerry\'s Cellar', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/jerrys-cellar-a5.png', grid: 'A5',
+      desc: 'Hầm nhà Jerry dưới Hope Harbor (A5); có Key Item và lối đi phụ.',
+      features: ['Nối với: A5 Jerry\'s House', '2 Key Item'],
+    cells: [
+        { grid: 'A5', image: 'img/areas/jerrys-cellar-a5.png', keys: ['E 09 — Sunglasses', 'Q 08 — The Fishing Rod'] },
+      ] },
+    { id: 'jerrys-house', name: 'Jerry\'s House', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/jerrys-house-a5.png', grid: 'A5',
+      desc: 'Nhà trong Hope Harbor tại ô A5; có rương, Key Item và lối vào tầng hầm.',
+      features: ['Nối với: A5 Jerry\'s Cellar, A5 Hope Harbor', '2 Key Item', 'Rương và Key Item trong nhà'],
+    cells: [
+        { grid: 'A5', image: 'img/areas/jerrys-house-a5.png', keys: ['G 04 — Chocolate', 'M 04 — Golden Ticket'] },
+      ] },
+    { id: 'kitchen', name: 'Kitchen', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/kitchen-c2.png', grid: 'C2',
+      desc: 'Bếp trong Hope Harbor (C2); khu phụ có rương và Key Item.',
+      features: ['Nối với: C2 Equipment Shop, C2 Hope Harbor', '2 Key Item'],
+    cells: [
+        { grid: 'C2', image: 'img/areas/kitchen-c2.png', keys: ['H 04 — Bottled Milk', 'P 04 — Chocolate'] },
+      ] },
+    { id: 'material-shop-hope-harbor', name: 'Material Shop (Hope Harbor)', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/material-shop-hope-harbor-c4.png', grid: 'C4',
+      desc: 'Cửa hàng nguyên liệu trong Hope Harbor tại ô C4; mua nguyên liệu forge và vật phẩm.',
+      features: ['Nối với: C4 Hope Harbor', '1 Key Item', 'Mua bán trong Hope Harbor'],
+    cells: [
+        { grid: 'C4', image: 'img/areas/material-shop-hope-harbor-c4.png', keys: ['N 05 — Chocolate'] },
+      ] },
+    { id: 'matts-house', name: 'Matt\'s House', kind: 'Khu con', parent: 'hope-harbor', image: 'img/areas/matts-house-b5.png', grid: 'B5',
+      desc: 'Nhà của Matt ở Hope Harbor (B5); có bàn arcade và chuỗi Arcade Boss Rush.',
+      features: ['Nhà của Matt', 'Bàn arcade', 'Arcade Boss Rush'],
+      tips: ['Đánh bại đủ 12 Arcade Boss để mở Boss Rush; hoàn thành chuỗi này sẽ nhận rương G07.'],
+    cells: [
+        { grid: 'B5', image: 'img/areas/matts-house-b5.png', foes: ['L 07 — 3 PUMPKUS / 3 ANGRY CHAIR / 3 BOSH / 3 ROBO / 3 GLOB / 3 SNEK / 3 PHOENIX / 2 TOTOM / 2 TREAGURE / 2 GUOYE / 1 CORALIA / 1 THE MAW'], keys: ['D 03 — Left Sock', 'E 06 — Newspaper', 'F 03 — Right Sock'], notes: ['G 04: Máy chơi game công nghệ cao', 'Arcade Boss Rush mở sau khi đánh bại đủ 12 boss Arcade; hoàn thành chuỗi này sẽ xuất hiện rương G07.'] },
+      ] },
+    { id: 'arcade-room-wild-tropics', name: 'Arcade Room (Wild Tropics)', kind: 'Khu con', parent: 'wild-tropics', image: 'img/areas/arcade-room-wild-tropics-b3.png', grid: 'B3',
+      desc: 'Phòng arcade trong Wild Tropics tại ô B3; nơi chơi minigame arcade và nhận thưởng.',
+      features: ['Nối với: C3 Dragon Armor Cave', '2 nhóm quái', 'Minigame arcade'],
+      tips: ['Mỗi phòng arcade có minigame riêng; kiểm tra bảng điều khiển/máy game để nhận thưởng.'],
+    cells: [
+        { grid: 'B3', image: 'img/areas/arcade-room-wild-tropics-b3.png', foes: ['G 03 — 3 PHOENIX', 'J 05 — 3 Flame Sprite, 2 Topaz Ore / 1 Topaz Golem / 3 Thunder Sprite, 2 Ruby Ore'] },
+      ] },
+    { id: 'dragon-armor-cave', name: 'Dragon Armor Cave', kind: 'Khu con', parent: 'wild-tropics', image: 'img/areas/dragon-armor-cave-c3.png', grid: 'C3',
+      desc: 'Hang Giáp Rồng ở Wild Tropics (C3); hang phụ có quái và Key Item.',
+      features: ['Nối với: B3 Arcade Room, C3 Wild Tropics', '2 nhóm quái', '1 Key Item'],
+    cells: [
+        { grid: 'C3', image: 'img/areas/dragon-armor-cave-c3.png', foes: ['E 07 — 2 Gem Idol / 2 Angel Mirror / 1 Gem Idol / 2 Rock Sprite / 1 Ancient Monolith', 'Q 05 — 2 Stone Idol / 2 Marble Boulder / 2 Gem Idol / 2 Sandstone Boulder / 2 Amethyst Ore / 1 Amethyst Golem'], keys: ['L 06 — Holy Water'] },
+      ] },
+    { id: 'indys-cave', name: 'Indy\'s Cave', kind: 'Khu con', parent: 'wild-tropics', image: 'img/areas/indys-cave-c3.png', grid: 'C3',
+      desc: 'Hang Indy ở Wild Tropics (C3); hang phụ có quái và Key Item.',
+      features: ['Nối với: Mystic Woods, C3 Wild Tropics', '2 nhóm quái', '1 Key Item'],
+    cells: [
+        { grid: 'C3', image: 'img/areas/indys-cave-c3.png', foes: ['G 04 — 4 Gem Idol / 2 Gem Idol, 2 Rock Sprite / 2 Rock Sprite, 2 Angel Mirror', 'H 10 — 5 Skeleton Hand'], keys: ['R 05 — Copper Key'] },
+      ] },
+    { id: '20-medals-room', name: '20 Medals Room', kind: 'Khu con', parent: 'grand-gallery', image: 'img/areas/20-medals-room-a0.png', grid: 'A0',
+      desc: 'Phòng huy chương trong Grand Gallery, mở khi đạt 20 huy chương; bên trong có quái mạnh và rương thưởng.',
+      features: ['Nối với: A0 Grand Gallery', '4 nhóm quái', 'Mở theo mốc huy chương'],
+    cells: [
+        { grid: 'A0', image: 'img/areas/20-medals-room-a0.png', foes: ['C 09 — 2 Cat Sniper, 2 Cat Ninja, 1 Cat Bomber', 'D 06 — 1 Matt Doll, 1 Natalie Doll, 1 Lance Doll, 1 Anna Doll, 1 NoLegs Doll', 'R 06 — 1 Zap Dog, 1 Rescue Dog, 1 Mage Dog, 1 Tanuki Dog, 1 Wolf Dog', 'S 09 — 2 Cat Wizard, 2 Cat Warrior, 1 Cat Bomber'] },
+      ] },
+    { id: '30-medals-room', name: '30 Medals Room', kind: 'Khu con', parent: 'grand-gallery', image: 'img/areas/30-medals-room-a0.png', grid: 'A0',
+      desc: 'Phòng huy chương trong Grand Gallery, mở khi đạt 30 huy chương; bên trong có quái mạnh và rương thưởng.',
+      features: ['Nối với: A0 Grand Gallery', '2 nhóm quái', 'Mở theo mốc huy chương'],
+    cells: [
+        { grid: 'A0', image: 'img/areas/30-medals-room-a0.png', foes: ['G 09 — 1 Drowned Fallen, 1 Burned Fallen, 1 Beheaded Fallen, 1 Crucified Fallen, 1 Lost Fallen', 'M 09 — 1 Angel Mirror, 1 Haunted Mirror, 1 Wise Mirror, 1 Demon Mirror'] },
+      ] },
+    { id: '40-medals-room', name: '40 Medals Room', kind: 'Khu con', parent: 'grand-gallery', image: 'img/areas/40-medals-room-c0.png', grid: 'C0',
+      desc: 'Phòng huy chương trong Grand Gallery, mở khi đạt 40 huy chương; bên trong có quái mạnh và rương thưởng.',
+      features: ['Nối với: C0 Grand Gallery', '3 nhóm quái', 'Mở theo mốc huy chương'],
+    cells: [
+        { grid: 'C0', image: 'img/areas/40-medals-room-c0.png', foes: ['B 08 — 1 Zircon Ore, 1 Sapphire Ore, 1 Quartz Ore, 1 Peridot Ore / 1 Coral Boulder, 1 Sandstone Boulder, 1 Obsidian Boulder, 1 Dirt Boulder, 1 Marble Boulder', 'I 05 — 1 Grolar Bear, 1 Brown Bear, 1 Panda Bear', 'R 08 — 1 Topaz Ore, 1 Amethyst Ore, 1 Ruby Ore / 1 Pearl Golem, 1 Topaz Golem, 1 Amethyst Golem'] },
+      ] },
+    { id: '50-medals-room', name: '50 Medals Room', kind: 'Khu con', parent: 'grand-gallery', image: 'img/areas/50-medals-room-c0.png', grid: 'C0',
+      desc: 'Phòng huy chương trong Grand Gallery, mở khi đạt 50 huy chương; bên trong có quái mạnh và rương thưởng.',
+      features: ['Nối với: C0 Grand Gallery', '4 nhóm quái', 'Mở theo mốc huy chương'],
+    cells: [
+        { grid: 'C0', image: 'img/areas/50-medals-room-c0.png', foes: ['C 04 — 1 Zombie Hand, 1 Magma Hand, 1 Skeleton Hand', 'E 04 — 1 Blood Bat, 1 Snow Bat, 1 Bone Bat, 1 Electric Bat', 'O 04 — 1 Steel Wraith, 1 Frost Wraith, 1 Master Wraith, 1 Flame Wraith, 1 Leaf Wraith', 'Q 04 — 1 Earth Dragon, 1 Sea Dragon, 1 Sky Dragon'] },
+      ] },
+    { id: '60-medals-room', name: '60 Medals Room', kind: 'Khu con', parent: 'grand-gallery', image: 'img/areas/60-medals-room-b0.png', grid: 'B0',
+      desc: 'Phòng huy chương trong Grand Gallery, mở khi đạt 60 huy chương; bên trong có quái mạnh và rương thưởng.',
+      features: ['Nối với: B0 Grand Gallery', '2 nhóm quái', 'Mở theo mốc huy chương'],
+    cells: [
+        { grid: 'B0', image: 'img/areas/60-medals-room-b0.png', foes: ['B 04 — 1 Red Flybot', 'S 04 — 1 Blue Flybot, 1 Defender Mk III, 1 Bubbler MX-01, 1 Yellow Flybot'] },
+      ] },
+    { id: '70-medals-room', name: '70 Medals Room', kind: 'Khu con', parent: 'grand-gallery', image: 'img/areas/70-medals-room-b0.png', grid: 'B0',
+      desc: 'Phòng huy chương trong Grand Gallery, mở khi đạt 70 huy chương; bên trong có quái mạnh và rương thưởng.',
+      features: ['Nối với: B0 Grand Gallery', '3 nhóm quái', 'Mở theo mốc huy chương'],
+    cells: [
+        { grid: 'B0', image: 'img/areas/70-medals-room-b0.png', foes: ['J 09 — 1 War Mammoth, 1 Wooly Mammoth, 1 Camel Mammoth', 'M 07 — 1 Steam Fish, 1 Jet Fish, 1 Gold Fish / 1 Nuclear Bomb, 1 Harpoon Turret, 1 Cannon Turret, 1 Laser Turret', 'S 05 — 1 Ancient Monolith, 1 Cosmic Monolith, 1 Viking Monolith'] },
+      ] },
+    { id: '80-medals-room', name: '80 Medals Room', kind: 'Khu con', parent: 'grand-gallery', image: 'img/areas/80-medals-room-c0.png', grid: 'C0',
+      desc: 'Phòng huy chương trong Grand Gallery, mở khi đạt 80 huy chương; bên trong có quái mạnh và rương thưởng.',
+      features: ['Nối với: C0 Grand Gallery', '1 nhóm quái', 'Mở theo mốc huy chương'],
+    cells: [
+        { grid: 'C0', image: 'img/areas/80-medals-room-c0.png', foes: ['D 08 — 1 Origami Dragon, 1 Origami Wraith, 1 Book Worm'] },
+      ] },
+    { id: '90-medals-room', name: '90 Medals Room', kind: 'Khu con', parent: 'grand-gallery', image: 'img/areas/90-medals-room-a0.png', grid: 'A0',
+      desc: 'Phòng huy chương trong Grand Gallery, mở khi đạt 90 huy chương; bên trong có quái mạnh và rương thưởng.',
+      features: ['Nối với: A0 Grand Gallery', '1 nhóm quái', 'Mở theo mốc huy chương'],
+    cells: [
+        { grid: 'A0', image: 'img/areas/90-medals-room-a0.png', foes: ['Q 02 — 2 TREAGURE'] },
+      ] },
+    { id: 'all-medals-room', name: 'All Medals Room', kind: 'Khu con', parent: 'grand-gallery', image: 'img/areas/all-medals-room-b0.png', grid: 'B0',
+      desc: 'Phòng huy chương cuối của Grand Gallery (B0); mở khi sưu tầm đủ huy chương, quái cao hơn đội hình 8 cấp.',
+      features: ['Phòng huy chương cuối', 'Quái cao hơn đội hình 8 cấp'],
+      tips: ['Chuẩn bị đội hình cấp cao; tương tác với giá sách tại F7 để mở thêm nội dung Cheat.'],
+    cells: [
+        { grid: 'B0', image: 'img/areas/all-medals-room-b0.png', foes: ['H 07 — 1 Gray Pixel, 1 Dead Pixel / 1 Red Pixel, 1 Green Pixel', 'M 07 — 1 Omega Dragon'], notes: ['Quái ở đây cao hơn đội hình 8 cấp.', 'Tương tác với giá sách tại F7 mở thêm nội dung Cheat.'] },
+      ] },
+    { id: 'arcade-room-no-mans-land', name: 'Arcade Room (No Man\'s Land)', kind: 'Khu con', parent: 'no-mans-land', image: 'img/areas/arcade-room-no-mans-land-h5.png', grid: 'H5',
+      desc: 'Phòng arcade trong No Man\'s Land tại ô H5; nơi chơi minigame arcade và nhận thưởng.',
+      features: ['Nối với: H5 No Man\'s Land', '2 nhóm quái', '1 Key Item', 'Minigame arcade'],
+      tips: ['Mỗi phòng arcade có minigame riêng; kiểm tra bảng điều khiển/máy game để nhận thưởng.'],
+    cells: [
+        { grid: 'H5', image: 'img/areas/arcade-room-no-mans-land-h5.png', foes: ['F 02 — 3 ROBO', 'J 06 — 2 Hermit Creep, 1 Red Flybot / 1 Blue Flybot, 1 Pink Squid, 1 Yellow Flybot'], keys: ['I 03 — Left Sock'] },
+      ] },
+    { id: 'glitch-area-no-mans-land', name: 'Glitch Area (No Man\'s Land)', kind: 'Khu con', parent: 'no-mans-land', image: 'img/areas/glitch-area-no-mans-land-g5.png', grid: 'G5',
+      desc: 'Khu glitch ẩn trong No Man\'s Land tại ô G5; chứa quái lỗi và lối kết nối.',
+      features: ['Nối với: J2 Greenwood Village, G5 No Man\'s Land', '3 nhóm quái', 'Quái glitch'],
+    cells: [
+        { grid: 'G5', image: 'img/areas/glitch-area-no-mans-land-g5.png', foes: ['E 08 — 3 Cat Sniper, 2 Gray Pixel / 2 Cat Sniper, 1 Gray Pixel', 'L 08 — 2 Gray Pixel / 2 Gray Pixel / 2 Gray Pixel', 'P 10 — 3 Gold Fish, 1 ?0x00??FF45'] },
+      ] },
+    { id: 'annas-house-greenwood-village', name: 'Anna\'s House (Greenwood Village)', kind: 'Khu con', parent: 'greenwood-village', image: 'img/areas/annas-house-greenwood-village-j1.png', grid: 'J1',
+      desc: 'Nhà trong Greenwood Village tại ô J1; có rương, Key Item và lối vào tầng hầm.',
+      features: ['Nối với: J0 Anna\'s House, J1 Greenwood Village', '1 Key Item', 'Rương và Key Item trong nhà'],
+    cells: [
+        { grid: 'J1', image: 'img/areas/annas-house-greenwood-village-j1.png', keys: ['L 02 — Panties'], notes: ['K 03: Bảng điều khiển lạ'] },
+      ] },
+    { id: 'arcade-room-greenwood-village', name: 'Arcade Room (Greenwood Village)', kind: 'Khu con', parent: 'greenwood-village', image: 'img/areas/arcade-room-greenwood-village-k0.png', grid: 'K0, K2',
+      desc: 'Phòng arcade trong Greenwood Village tại ô K0, K2; nơi chơi minigame arcade và nhận thưởng.',
+      features: ['Nối với: K0 Greenwood Village, K2 Greenwood Village', '2 nhóm quái', 'Minigame arcade'],
+      tips: ['Mỗi phòng arcade có minigame riêng; kiểm tra bảng điều khiển/máy game để nhận thưởng.'],
+    cells: [
+        { grid: 'K0', image: 'img/areas/arcade-room-greenwood-village-k0.png', foes: ['F 02 — 2 TOTOM'] },
+        { grid: 'K2', image: 'img/areas/arcade-room-greenwood-village-k2.png', foes: ['J 05 — 3 BOSH'] },
+      ] },
+    { id: 'basement-greenwood-village', name: 'Basement (Greenwood Village)', kind: 'Khu con', parent: 'greenwood-village', image: 'img/areas/basement-greenwood-village-k4.png', grid: 'K4',
+      desc: 'Tầng hầm của Greenwood Village tại ô K4; có thêm rương, Key Item và lối đi phụ.',
+      features: ['Nối với: K4 Jamie\'s House', '2 nhóm quái', '2 Key Item'],
+    cells: [
+        { grid: 'K4', image: 'img/areas/basement-greenwood-village-k4.png', foes: ['H 09 — 3 Dark Bush, 2 Steel Wraith / 3 Steel Wraith, 2 Beheaded Fallen', 'L 10 — 3 Mage Dog / 2 Mage Dog, 3 Beheaded Fallen'], keys: ['K 02 — Ruby of Death', 'M 08 — Gold Key'] },
+      ] },
+    { id: 'equipment-shop-greenwood-village', name: 'Equipment Shop (Greenwood Village)', kind: 'Khu con', parent: 'greenwood-village', image: 'img/areas/equipment-shop-greenwood-village-k3.png', grid: 'K3',
+      desc: 'Cửa hàng trang bị trong Greenwood Village tại ô K3; mua vũ khí, giáp và phụ kiện.',
+      features: ['Nối với: K3 Greenwood Village', '3 Key Item', 'Mua bán trong Greenwood Village'],
+    cells: [
+        { grid: 'K3', image: 'img/areas/equipment-shop-greenwood-village-k3.png', keys: ['G 05 — Cool Headband', 'H 05 — Panties', 'R 04 — Coral Key'] },
+      ] },
+    { id: 'jamies-house', name: 'Jamie\'s House', kind: 'Khu con', parent: 'greenwood-village', image: 'img/areas/jamies-house-k4.png', grid: 'K4',
+      desc: 'Nhà trong Greenwood Village tại ô K4; có rương, Key Item và lối vào tầng hầm.',
+      features: ['Nối với: K4 Basement, K4 Greenwood Village', '5 Key Item', 'Rương và Key Item trong nhà'],
+    cells: [
+        { grid: 'K4', image: 'img/areas/jamies-house-k4.png', keys: ['B 05 — Right Sock', 'B 07 — Music CD', 'H 03 — Chocolate', 'P 03 — Bottled Milk', 'S 03 — Newspaper'] },
+      ] },
+    { id: 'library', name: 'Library', kind: 'Khu con', parent: 'greenwood-village', image: 'img/areas/library-i2.png', grid: 'I2, J2, J3, K2',
+      desc: 'Thư viện của Greenwood Village trải bốn ô I2/J2/J3/K2; nơi có sách, NPC và nhiều quái giấy/origami.',
+      features: ['Bốn ô I2, J2, J3, K2', 'Sách, NPC và nhiệm vụ'],
+      tips: ['Kiểm tra kệ sách và nói chuyện với NPC để không bỏ lỡ nhiệm vụ.'],
+    cells: [
+        { grid: 'I2', image: 'img/areas/library-i2.png', foes: ['D 09 — 3 Stumpy Gloop, / 2 Origami Wraith / 3 Origami Wraith, / 2 Wise Mirror', 'Q 03 — 1 Origami Dragon, / 2 Book Worm / 1 Origami Dragon, / 2 Origami Wraith', 'Q 09 — 2 Origami Wraith, / 1 Leaf Wraith / 2 Leaf Wraith, / 2 Origami Wraith, / 1 Master Wraith'] },
+        { grid: 'J2', image: 'img/areas/library-j2.png', foes: ['B 03 — 3 Cat Wizard, / 2 Origami Wraith / 2 Origami Wraith, / 2 Cat Wizard, / 1 Master Wraith', 'E 03 — 1 Cat Wizard / 3 Origami Dragon', 'J 03 — 1 GunKat-800XL / 1 Papalotl / 1 Xolotl / 1 Glaurung', 'O 04 — 1 Book Worm'] },
+        { grid: 'J3', image: 'img/areas/library-j3.png', keys: ['P 04 — Music CD'] },
+        { grid: 'K2', image: 'img/areas/library-k2.png', foes: ['D 03 — 2 Book Worm, / 2 Origami Wraith, / 1 Master Wraith / 2 Origami Wraith, / 2 Book Worm, / 1 Origami Dragon', 'D 09 — 2 Book Worm, / 1 Cat Wizard / 3 Book Worm, / 2 Cat Wizard'] },
+      ] },
+    { id: 'material-food-shops', name: 'Material Food Shops', kind: 'Khu con', parent: 'greenwood-village', image: 'img/areas/material-food-shops-k2.png', grid: 'K2',
+      desc: 'Cụm cửa hàng Material và Food trong Greenwood Village tại ô K2.',
+      features: ['Nối với: K2 Greenwood Village', '2 Key Item', 'Mua bán trong Greenwood Village'],
+    cells: [
+        { grid: 'K2', image: 'img/areas/material-food-shops-k2.png', keys: ['L 05 — Holy Water, Left Sock'] },
+      ] },
+    { id: 'randys-house', name: 'Randy\'s House', kind: 'Khu con', parent: 'greenwood-village', image: 'img/areas/randys-house-k3.png', grid: 'K3',
+      desc: 'Nhà trong Greenwood Village tại ô K3; có rương, Key Item và lối vào tầng hầm.',
+      features: ['Nối với: K3 Greenwood Village', '3 Key Item', 'Rương và Key Item trong nhà'],
+    cells: [
+        { grid: 'K3', image: 'img/areas/randys-house-k3.png', keys: ['E 04 — Bottled Milk', 'E 06 — Music CD', 'N 04 — Panties'] },
+      ] },
+    { id: 'stable-greenwood-village', name: 'Stable (Greenwood Village)', kind: 'Khu con', parent: 'greenwood-village', image: 'img/areas/stable-greenwood-village-j4.png', grid: 'J4',
+      desc: 'Chuồng ngựa trong Greenwood Village tại ô J4; nơi nhận nhiệm vụ và mua vật phẩm liên quan.',
+      features: ['Nối với: J4 Greenwood Village', '2 Key Item'],
+    cells: [
+        { grid: 'J4', image: 'img/areas/stable-greenwood-village-j4.png', keys: ['F 05 — Bottled Milk', 'H 05 — Wooden Key'] },
+      ] },
+    { id: 'annas-house-mystic-woods', name: 'Anna\'s House (Mystic Woods)', kind: 'Khu con', parent: 'mystic-woods', image: 'img/areas/annas-house-mystic-woods-j0.png', grid: 'J0',
+      desc: 'Nhà trong Mystic Woods tại ô J0; có rương, Key Item và lối vào tầng hầm.',
+      features: ['Nối với: J1 Anna\'s House, J0 Mystic Woods', '1 Key Item', 'Rương và Key Item trong nhà'],
+    cells: [
+        { grid: 'J0', image: 'img/areas/annas-house-mystic-woods-j0.png', keys: ['N 04 — The Axe'] },
+      ] },
+    { id: 'glitch-area-mystic-woods', name: 'Glitch Area (Mystic Woods)', kind: 'Khu con', parent: 'mystic-woods', image: 'img/areas/glitch-area-mystic-woods-h2.png', grid: 'H2',
+      desc: 'Khu glitch ẩn trong Mystic Woods tại ô H2; chứa quái lỗi và lối kết nối.',
+      features: ['Nối với: K0 Greenwood Village, H2 Mystic Woods', '3 nhóm quái', 'Quái glitch'],
+    cells: [
+        { grid: 'H2', image: 'img/areas/glitch-area-mystic-woods-h2.png', foes: ['C 06 — 3 Green Pixel, 2 Muddy Bush / 3 Green Pixel', 'I 07 — 3 Green Pixel, 2 Big Mud Slime', 'N 06 — 5 Green Pixel / 3 Green Pixel'] },
+      ] },
+    { id: 'hidden-passage-mystic-woods', name: 'Hidden Passage (Mystic Woods)', kind: 'Khu con', parent: 'mystic-woods', image: 'img/areas/hidden-passage-mystic-woods-f1.png', grid: 'F1',
+      desc: 'Lối đi bí mật trong Mystic Woods tại ô F1; nối với Arcade Room và khu vực xung quanh.',
+      features: ['Nối với: F1 Mystic Woods, F1 Arcade Room', 'Lối đi/điểm kết nối'],
+    cells: [
+        { grid: 'F1', image: 'img/areas/hidden-passage-mystic-woods-f1.png', notes: ['Lối đi bí mật trong Mystic Woods.'] },
+      ] },
+    { id: 'inside-the-tree', name: 'Inside The Tree', kind: 'Khu con', parent: 'mystic-woods', image: 'img/areas/inside-the-tree-f0.png', grid: 'F0, F1, H1, I1',
+      desc: 'Bên trong gốc cây ở Mystic Woods (F0/F1/H1/I1); lối đi ẩn với rương và Key Item.',
+      features: ['Nối với: F1 Inside The Tree, F0 Mystic Woods, F0 Inside The Tree, F1 Mystic Woods', '2 nhóm quái', '2 Key Item'],
+    cells: [
+        { grid: 'F0', image: 'img/areas/inside-the-tree-f0.png', foes: ['G 05 — 2 Putrid Worm, 2 Thorny Creep, 1 Cutie Worm'], keys: ['Q 09 — Ocarina', 'S 09 — Wooden Key'] },
+        { grid: 'F1', image: 'img/areas/inside-the-tree-f1.png', foes: ['E 05 — 3 Rock Sprite / 2 Master Wraith / 2 Bone Bat / 2 Blood Bat / 2 Brown Bear / 2 Master Wraith'] },
+        { grid: 'H1', image: 'img/areas/inside-the-tree-h1.png', notes: ['Lối vào bên trong gốc cây.'] },
+        { grid: 'I1', image: 'img/areas/inside-the-tree-i1.png', notes: ['Lối vào bên trong gốc cây.'] },
+      ] },
+    { id: 'material-shop-mystic-woods', name: 'Material Shop (Mystic Woods)', kind: 'Khu con', parent: 'mystic-woods', image: 'img/areas/material-shop-mystic-woods-h0.png', grid: 'H0',
+      desc: 'Cửa hàng nguyên liệu trong Mystic Woods tại ô H0; mua nguyên liệu forge và vật phẩm.',
+      features: ['Nối với: H1 Inside The Tree, H0 Mystic Woods', '2 Key Item', 'Mua bán trong Mystic Woods'],
+    cells: [
+        { grid: 'H0', image: 'img/areas/material-shop-mystic-woods-h0.png', keys: ['E 08 — Panties', 'K 02 — Cookie'] },
+      ] },
+    { id: 'forgotten-temple', name: 'Forgotten Temple', kind: 'Khu con', parent: 'forgotten-ruins', image: 'img/areas/forgotten-temple-e0.png', grid: 'E0',
+      desc: 'Đền bỏ quên ở Forgotten Ruins (E0); trên bản đồ hiện tại là điểm kết nối sang Secret World, chưa ghi nhận quái/Key Item.',
+      features: ['Một ô E0', 'Điểm kết nối sang Secret World', 'Chưa ghi nhận quái/Key Item trên bản đồ'],
+      tips: ['Đi qua E0 để sang Secret World; kiểm tra tương tác quanh khu vực nếu cần.'],
+    cells: [
+        { grid: 'E0', image: 'img/areas/forgotten-temple-e0.png', notes: ['Điểm kết nối trong Forgotten Ruins.'] },
+      ] },
+    { id: 'arcade-room-rainbow-river', name: 'Arcade Room (Rainbow River)', kind: 'Khu con', parent: 'rainbow-river', image: 'img/areas/arcade-room-rainbow-river-k5.png', grid: 'K5',
+      desc: 'Phòng arcade trong Rainbow River tại ô K5; nơi chơi minigame arcade và nhận thưởng.',
+      features: ['Nối với: K5 Rainbow River', '1 nhóm quái', 'Minigame arcade'],
+      tips: ['Mỗi phòng arcade có minigame riêng; kiểm tra bảng điều khiển/máy game để nhận thưởng.'],
+    cells: [
+        { grid: 'K5', image: 'img/areas/arcade-room-rainbow-river-k5.png', foes: ['L 03 — 3 PUMPKUS'] },
+      ] },
+    { id: 'arcade-room-frozen-valley', name: 'Arcade Room (Frozen Valley)', kind: 'Khu con', parent: 'frozen-valley', image: 'img/areas/arcade-room-frozen-valley-a8.png', grid: 'A8',
+      desc: 'Phòng arcade trong Frozen Valley tại ô A8; nơi chơi minigame arcade và nhận thưởng.',
+      features: ['Nối với: A8 Hidden Passage', '1 nhóm quái', 'Minigame arcade'],
+      tips: ['Mỗi phòng arcade có minigame riêng; kiểm tra bảng điều khiển/máy game để nhận thưởng.'],
+    cells: [
+        { grid: 'A8', image: 'img/areas/arcade-room-frozen-valley-a8.png', foes: ['L 03 — 2 GUOYE'] },
+      ] },
+    { id: 'glitch-area-frozen-valley', name: 'Glitch Area (Frozen Valley)', kind: 'Khu con', parent: 'frozen-valley', image: 'img/areas/glitch-area-frozen-valley-b9.png', grid: 'B9',
+      desc: 'Khu glitch ẩn trong Frozen Valley tại ô B9; chứa quái lỗi và Key Item hiếm.',
+      features: ['Nối với: B9 Frozen Valley, E9 Redpine Town', '3 nhóm quái', '1 Key Item', 'Quái glitch và vật phẩm hiếm'],
+    cells: [
+        { grid: 'B9', image: 'img/areas/glitch-area-frozen-valley-b9.png', foes: ['E 06 — 2 Cat Warrior, 1 ?0x00??FF45, 1 Cat Wizard', 'J 07 — 1 Earth Dragon, 2 Red Pixel', 'P 08 — 5 Red Pixel / 5 Red Pixel / 5 Red Pixel'], keys: ['N 04 — Gold Key'] },
+      ] },
+    { id: 'hidden-passage-frozen-valley', name: 'Hidden Passage (Frozen Valley)', kind: 'Khu con', parent: 'frozen-valley', image: 'img/areas/hidden-passage-frozen-valley-a8.png', grid: 'A8',
+      desc: 'Lối đi bí mật trong Frozen Valley tại ô A8; nối với Arcade Room và có nhóm Viking Monolith.',
+      features: ['Nối với: A8 Frozen Valley, A8 Arcade Room', '1 nhóm quái'],
+    cells: [
+        { grid: 'A8', image: 'img/areas/hidden-passage-frozen-valley-a8.png', foes: ['P 09 — 3 Viking Monolith'] },
+      ] },
+    { id: 'arcade-room-redpine-town', name: 'Arcade Room (Redpine Town)', kind: 'Khu con', parent: 'redpine-town', image: 'img/areas/arcade-room-redpine-town-f9.png', grid: 'F9',
+      desc: 'Phòng arcade trong Redpine Town tại ô F9; nơi chơi minigame arcade và nhận thưởng.',
+      features: ['Nối với: F9 Redpine Town', '1 nhóm quái', 'Minigame arcade'],
+      tips: ['Mỗi phòng arcade có minigame riêng; kiểm tra bảng điều khiển/máy game để nhận thưởng.'],
+    cells: [
+        { grid: 'F9', image: 'img/areas/arcade-room-redpine-town-f9.png', foes: ['J 03 — 3 SNEK'] },
+      ] },
+    { id: 'basement-redpine-town', name: 'Basement (Redpine Town)', kind: 'Khu con', parent: 'redpine-town', image: 'img/areas/basement-redpine-town-e7.png', grid: 'E7',
+      desc: 'Tầng hầm của Redpine Town tại ô E7; có thêm rương, Key Item và lối đi phụ.',
+      features: ['Nối với: E7 Mausoleum', '2 nhóm quái', '1 Key Item'],
+    cells: [
+        { grid: 'E7', image: 'img/areas/basement-redpine-town-e7.png', foes: ['L 08 — 1 Sky Dragon / 2 Drowned Fallen / 1 Drowned Fallen / 1 Beheaded Fallen / 1 Earth Dragon / 2 Beheaded Fallen', 'N 03 — 2 Blood Bat / 3 Leaf Wraith / 3 Blood Bat / 2 Drowned Fallen / 3 Leaf Wraith'], keys: ['H 08 — Emerald of Life'] },
+      ] },
+    { id: 'equipment-shop-redpine-town', name: 'Equipment Shop (Redpine Town)', kind: 'Khu con', parent: 'redpine-town', image: 'img/areas/equipment-shop-redpine-town-d8.png', grid: 'D8',
+      desc: 'Cửa hàng trang bị trong Redpine Town tại ô D8; mua vũ khí, giáp và phụ kiện.',
+      features: ['Nối với: D8 Redpine Town', '1 Key Item', 'Mua bán trong Redpine Town'],
+    cells: [
+        { grid: 'D8', image: 'img/areas/equipment-shop-redpine-town-d8.png', keys: ['Q 05 — Cool Headband'] },
+      ] },
+    { id: 'food-shop-redpine-town', name: 'Food Shop (Redpine Town)', kind: 'Khu con', parent: 'redpine-town', image: 'img/areas/food-shop-redpine-town-d7.png', grid: 'D7',
+      desc: 'Cửa hàng Food trong Redpine Town tại ô D7; mua đồ hồi máu và buff.',
+      features: ['Nối với: D7 Redpine Town', '1 Key Item', 'Mua bán trong Redpine Town'],
+    cells: [
+        { grid: 'D7', image: 'img/areas/food-shop-redpine-town-d7.png', keys: ['N 06 — Cookie'] },
+      ] },
+    { id: 'material-shop-redpine-town', name: 'Material Shop (Redpine Town)', kind: 'Khu con', parent: 'redpine-town', image: 'img/areas/material-shop-redpine-town-f7.png', grid: 'F7',
+      desc: 'Cửa hàng nguyên liệu trong Redpine Town tại ô F7; mua nguyên liệu forge và vật phẩm.',
+      features: ['Nối với: F7 Redpine Town', '1 Key Item', 'Mua bán trong Redpine Town'],
+    cells: [
+        { grid: 'F7', image: 'img/areas/material-shop-redpine-town-f7.png', keys: ['G 05 — Cookie'] },
+      ] },
+    { id: 'mausoleum', name: 'Mausoleum', kind: 'Khu con', parent: 'redpine-town', image: 'img/areas/mausoleum-e7.png', grid: 'E7',
+      desc: 'Lăng mộ ở Redpine Town (E7); khu phụ có quái và Key Item.',
+      features: ['Nối với: E7 Basement, E7 Redpine Town', '3 nhóm quái', '1 Key Item'],
+    cells: [
+        { grid: 'E7', image: 'img/areas/mausoleum-e7.png', foes: ['D 06 — 1 Lime Squid', 'E 06 — 2 Drowned Fallen, 2 Mutant Chomper', 'P 06 — 3 Drowned Fallen, 2 Beheaded Fallen / 3 Beheaded Fallen, 2 Demon Mirror'], keys: ['F 09 — Holy Water'] },
+      ] },
+    { id: 'stable-redpine-town', name: 'Stable (Redpine Town)', kind: 'Khu con', parent: 'redpine-town', image: 'img/areas/stable-redpine-town-f7.png', grid: 'F7',
+      desc: 'Chuồng ngựa trong Redpine Town tại ô F7; nơi nhận nhiệm vụ và mua vật phẩm liên quan.',
+      features: ['Nối với: F7 Redpine Town', '2 Key Item'],
+    cells: [
+        { grid: 'F7', image: 'img/areas/stable-redpine-town-f7.png', keys: ['D 05 — Bottled Milk', 'E 09 — Heart Chocolate'] },
+      ] },
+    { id: 'steroid-shop', name: 'Steroid Shop', kind: 'Khu con', parent: 'redpine-town', image: 'img/areas/steroid-shop-d7.png', grid: 'D7',
+      desc: 'Cửa hàng steroid trong Redpine Town tại ô D7; bán steroid tăng chỉ số.',
+      features: ['Nối với: D7 Redpine Town', 'Mua bán trong Redpine Town'],
+    cells: [
+        { grid: 'D7', image: 'img/areas/steroid-shop-d7.png', notes: ['Cửa hàng trong Redpine Town.'] },
+      ] },
+    { id: 'the-void', name: 'The Void', kind: 'Khu con', parent: 'redpine-town', image: 'img/areas/the-void-d7.png', grid: 'D7, D8',
+      desc: 'The Void ở Redpine Town (D7/D8); vùng trống với quái glitch và Glitch Boss.',
+      features: ['Hai ô D7, D8', 'Quái glitch', 'Glitch Boss'],
+      tips: ['Cẩn thận Glitch Boss; mang theo sát thương đa hệ và vật phẩm hồi phục.'],
+    cells: [
+        { grid: 'D7', image: 'img/areas/the-void-d7.png', foes: ['K 08 — Glitch Boss'] },
+        { grid: 'D8', image: 'img/areas/the-void-d8.png', notes: ['Điểm kết nối trong Redpine Town.'] },
+      ] },
+    { id: 'lava-lake', name: 'Lava Lake', kind: 'Khu con', parent: 'the-rapture', image: 'img/areas/lava-lake-j7.png', grid: 'J7, J8, J9, K7, K8, K9',
+      desc: 'Hồ dung nham sáu ô J7–J9/K7–K9 ở The Rapture; chuỗi quái lửa và Key Item Lava Sample.',
+      features: ['Sáu ô J7–J9, K7–K9', 'Địa hình dung nham', 'Quái lửa và Key Item Lava Sample'],
+      tips: ['Trang bị Thermal Boots hoặc kháng Fire; chuẩn bị hồi máu trước các wave Magma Hand/Zombie Hydra.'],
+    cells: [
+        { grid: 'J7', image: 'img/areas/lava-lake-j7.png', foes: ['H 03 — 3 Zombie Hand, 2 Crucified Fallen / 2 Gold Fish, 2 Crucified Fallen, 1 Angel Mirror', 'H 07 — 3 Tanuki Dog, 2 Magma Hand / 2 Tanuki Dog, 2 Magma Hand, 1 Demon Mirror', 'N 02 — 2 Laser Turret, 1 War Mammoth, 1 Harpoon Turret', 'P 09 — 3 Skeleton Hand'], keys: ['Q 02 — The Candle'] },
+        { grid: 'J8', image: 'img/areas/lava-lake-j8.png', foes: ['B 04 — 2 Ruby Ore, 2 Flame Wraith, 1 Topaz Ore / 2 Bone Bat, 2 Flame Wraith, 1 Topaz Golem', 'F 09 — 2 Big Sand Slime, 1 Ancient Monolith / 2 Ancient Monolith, 1 Camel Mammoth', 'N 01 — 3 Magma Chomper', 'O 10 — 5 Lava Slime / 3 Fire Sprite, 2 Lava Slime / 3 Fire Sprite, 2 Obsidian Boulder'], keys: ['I 04 — Golden Ticket', 'S 03 — Lava Sample'] },
+        { grid: 'J9', image: 'img/areas/lava-lake-j9.png', foes: ['B 04 — 5 Magma Hand / 3 Magma Hand, 2 Magma Chomper', 'O 07 — 3 Demon Mirror, 2 Magma Hand / 2 Demon Mirror, 2 Magma Chomper, 1 Burned Fallen', 'R 05 — 3 Burned Fallen, 2 Demon Mirror / 3 Burned Fallen, 2 Beheaded Fallen'], keys: ['O 11 — Lava Sample'] },
+        { grid: 'K7', image: 'img/areas/lava-lake-k7.png', foes: ['D 04 — 3 Roasted Gloop, 2 Fire Sprite / 3 Blaze Hydra', 'F 05 — 2 Beheaded Fallen, 2 Magma Chomper, 1 Red Flybot', 'I 09 — 3 Roasted Gloop, 2 Magma Chomper / 2 Magma Chomper, 2 Mutant Chomper'], keys: ['D 02 — Fire Orb', 'I 01 — Topaz Key', 'S 05 — Thermal Boots', 'T 08 — Lava Sample'] },
+        { grid: 'K8', image: 'img/areas/lava-lake-k8.png', foes: ['K 08 — 2 Lava Slime, 2 Topaz Ore, 1 Obsidian Boulder / 1 Obsidian Boulder, 1 Topaz Golem, 1 Big Lava Slime, 1 Lava Slime', 'L 03 — 2 Lava Slime, 2 Chocolate Slime, 1 Roasted Gloop / 2 Big Lava Slime, 1 Big Chocolate Slime', 'N 07 — 3 Lava Slime, 2 Big Lava Slime', 'S 06 — 3 Roasted Gloop, 2 Magma Hand / 2 Demon Mirror, 2 Roasted Gloop, 1 Magma Chomper'], keys: ['H 09 — Lava Sample'] },
+        { grid: 'K9', image: 'img/areas/lava-lake-k9.png', foes: ['L 06 — 2 Blaze Hydra / Q 09 / R 09 / 5 Burned Fallen / 5 Crucified Fallen / 5 Beheaded Fallen'], keys: ['C 11 — Lava Sample'] },
+      ] },
+    { id: 'the-beyond', name: 'The Beyond', kind: 'Khu con', parent: 'the-rapture', image: 'img/areas/the-beyond-i8.png', grid: 'I8, J8, K8',
+      desc: 'The Beyond gồm I8/J8/K8 ở The Rapture; khu vực cuối với quái hỗn hợp và boss.',
+      features: ['Ba ô I8, J8, K8', 'Khu cuối của The Rapture', 'Quái hỗn hợp và boss'],
+      tips: ['Đây là khu cuối của Rapture; hồi phục và lưu game trước khi vào.'],
+    cells: [
+        { grid: 'I8', image: 'img/areas/the-beyond-i8.png', foes: ['F 06 — 3 Cosmic Monolith', 'H 08 — 4 Mutant Chomper', 'S 05 — 1 War Mammoth / Ultra Chibi Knight'] },
+        { grid: 'J8', image: 'img/areas/the-beyond-j8.png', foes: ['I 07 — 2 Harpoon Turret, 2 Cosmic Monolith, 1 Laser Turret', 'P 03 — 2 Beheaded Fallen, 2 Cosmic Monolith, 1 Mage Dog', 'Q 07 — 3 Zombie Hydra'] },
+        { grid: 'K8', image: 'img/areas/the-beyond-k8.png', foes: ['K 05 — Cosmic Gigalith / 1 Slimy Tentacle, 2 Eyeball, The Devourer, 1 Spikey Tentacle'] },
+      ] },
+    { id: 'arcade-room-freezeflame-dungeon', name: 'Arcade Room (Freezeflame Dungeon)', kind: 'Khu con', parent: 'freezeflame-dungeon', image: 'img/areas/arcade-room-freezeflame-dungeon-f1.png', grid: 'F1',
+      desc: 'Phòng arcade trong Freezeflame Dungeon tại ô F1; nơi chơi minigame arcade và nhận thưởng.',
+      features: ['Nối với: F1 Hidden Passage', '1 nhóm quái', 'Minigame arcade'],
+      tips: ['Mỗi phòng arcade có minigame riêng; kiểm tra bảng điều khiển/máy game để nhận thưởng.'],
+    cells: [
+        { grid: 'F1', image: 'img/areas/arcade-room-freezeflame-dungeon-f1.png', foes: ['J 04 — 3 GLOB'] },
+      ] },
+    { id: 'secret-world', name: 'Secret World', kind: 'Khu con', parent: 'freezeflame-dungeon', image: 'img/areas/secret-world-e0.png', grid: 'E0, E1',
+      desc: 'Thế giới bí mật sau Freezeflame Dungeon, gồm E0/E1; khu ẩn có Snowflake và lối kết nối.',
+      features: ['Hai ô E0, E1', 'Khu vực ẩn', 'Quái Snowflake và lối kết nối'],
+      tips: ['Hoàn thành Freezeflame Dungeon trước; chuẩn bị đội hình và kiểm tra lối vào E0/E1.'],
+    cells: [
+        { grid: 'E0', image: 'img/areas/secret-world-e0.png', foes: ['L 02 — Snowflake'] },
+        { grid: 'E1', image: 'img/areas/secret-world-e1.png', notes: ['Điểm kết nối trong Freezeflame Dungeon.'] },
+      ] },
+    { id: 'arcade-room-mineshaft-maze', name: 'Arcade Room (Mineshaft Maze)', kind: 'Khu con', parent: 'mineshaft-maze', image: 'img/areas/arcade-room-mineshaft-maze-i7.png', grid: 'I7',
+      desc: 'Phòng arcade trong Mineshaft Maze tại ô I7; nơi chơi minigame arcade và nhận thưởng.',
+      features: ['Nối với: I7 Zombie Hydra\'s Cave', '2 nhóm quái', 'Minigame arcade'],
+      tips: ['Mỗi phòng arcade có minigame riêng; kiểm tra bảng điều khiển/máy game để nhận thưởng.'],
+    cells: [
+        { grid: 'I7', image: 'img/areas/arcade-room-mineshaft-maze-i7.png', foes: ['C 05 — 1 THE MAW', 'L 05 — 2 Blood Bat, 1 Mutant Chomper'] },
+      ] },
+    { id: 'zombie-hydras-cave', name: 'Zombie Hydra\'s Cave', kind: 'Khu con', parent: 'mineshaft-maze', image: 'img/areas/zombie-hydras-cave-i7.png', grid: 'I7',
+      desc: 'Hang Zombie Hydra ở Mineshaft Maze (I7); hang phụ có quái mạnh và Key Item.',
+      features: ['Nối với: I7 Arcade Room, I7 The Rapture', '4 nhóm quái', '2 Key Item'],
+    cells: [
+        { grid: 'I7', image: 'img/areas/zombie-hydras-cave-i7.png', foes: ['G 05 — 2 Zombie Hydra', 'J 06 — 3 Putrid Worm, 2 Skeleton Hand', 'M 04 — 3 Blood Bat / 3 Mutant Chomper', 'R 07 — 3 Skeleton Hand, 2 Blood Bat / 3 Blood Bat, 2 Mage Dog'], keys: ['D 05 — Earth Orb', 'I 04 — Topaz Key'] },
+      ] },
+    { id: 'arcade-room-the-great-sea', name: 'Arcade Room (The Great Sea)', kind: 'Khu con', parent: 'the-great-sea', image: 'img/areas/arcade-room-the-great-sea-d14.png', grid: 'D14',
+      desc: 'Phòng arcade trong The Great Sea tại ô D14; nơi chơi minigame arcade và nhận thưởng.',
+      features: ['Nối với: D14 The Great Sea', '1 nhóm quái', 'Minigame arcade'],
+      tips: ['Mỗi phòng arcade có minigame riêng; kiểm tra bảng điều khiển/máy game để nhận thưởng.'],
+    cells: [
+        { grid: 'D14', image: 'img/areas/arcade-room-the-great-sea-d14.png', foes: ['E 05 — CORALIA'] },
+      ] },
+    { id: 'battle-arena', name: 'Battle Arena', kind: 'Khu con', parent: 'the-great-sea', image: 'img/areas/battle-arena-e14.png', grid: 'E14, E15',
+      desc: 'Đấu trường E14/E15 ở The Great Sea; nơi diễn ra chuỗi trận đấu boss và thử thách đội hình.',
+      features: ['Hai ô E14, E15', 'Chuỗi trận đấu boss', 'Thử thách đội hình'],
+      tips: ['Dùng đội hình cân bằng; mỗi wave có thể khắc hệ khác nhau, đừng để MP cạn.'],
+    cells: [
+        { grid: 'E14', image: 'img/areas/battle-arena-e14.png', foes: ['E 06 — 2 Blood Bat, 1 Earth Dragon', 'F 08 — 1 Red Creep, 1 Green Creep, 1 Blue Creep', 'G 07 — 1 Sandstone Boulder, 1 Coral Boulder, 1 Dirt Boulder', 'I 08 — 3 Zombie Hand, 2 Skeleton Hand', 'J 07 — 2 Gem Idol, 1 Bone Golem', 'K 06 — 1 Pink Squid', 'L 08 — 1 Drowned Fallen, 1 Lost Fallen, 1 Burned Fallen', 'N 07 — 2 Tanuki Dog, 1 Grolar Bear', 'O 06 — 2 Mud Slime, 1 Big Mud Slime', 'P 08 — 2 Master Wraith, 1 Magma Chomper', 'E 06 — 2 Stumpy Gloop, 2 Roasted Gloop, 1 Beheaded Fallen', 'E 08 — 5 Gem Idol', 'H 08 — 2 Leaf Wraith, 2 Steel Wraith', 'I 07 — 2 Fire Sprite, 2 Rock Sprite, 1 Topaz Ore', 'K 07 — 3 Fabulous Gloop', 'L 07 — 2 Haunted Mirror, 2 Angel Mirror, 1 Wise Mirror', 'M 06 — 3 Cat Wizard, 2 Cat Warrior', 'M 08 — 2 Icecream Slime, 1 Big Icecream Slime', 'P 06 — 2 Putrid Worm, 1 Mutant Chomper', 'P 08 — 2 Wolf Dog, 2 Bone Bat, 1 Zap Dog', 'E 08 — 2 Seaweed Chomper, 1 Leafy Chomper', 'G 07 — 1 Tanuki Dog, 1 Fire Sprite, 1 Rescue Dog, 1 Thunder Sprite, 1 Zap Dog', 'H 08 — 1 Blaze Hydra', 'I 07 — 1 Red Flybot, 1 Prototype 9X', 'K 06 — 1 Yellow Flybot, 1 Red Flybot, 1 Blue Flybot', 'M 06 — 2 Cat Sniper, 2 Thorny Creep, 1 Cat Bomber', 'M 08 — 1 War Mammoth, 1 Slime Bunny', 'N 07 — 1 Cannon Turret, 1 Harpoon Turret, 1 Laser Turret, 1 Fuzzy Worm', 'O 08 — 1 Steam Fish, 1 Jet Fish,1 Gold Fish', 'P 06 — 1 Earthquake Bomb, 1 Acid Bomb, 1 Shockwave Bomb, 1 Nuclear Bomb', 'E 06 — 1 Big Chocolate Slime, 1 Big Sand Slime', 'E 08 — 2 Slime Mouse, 2 Icicle Creep, 1 Coral Boulder', 'G 07 — 2 Origami Wraith, 2 Master Wraith', 'I 08 — 2 Snow Bat, 1 Sea Dragon', 'J 07 — 2 Blood Bat, 2 Black Bear', 'K 08 — 2 Red Bush, 2 Sandy Bush, 1 Ancient Monolith', 'M 06 — 2 Steel Wraith, 1 Viking Monolith', 'N 07 — 2 Cat Ninja, 2 Wise Mirror, 1 Demon Mirror', 'O 06 — 2 Burned Fallen, 2 Drowned Fallen, 1 Beheaded Fallen', 'P 08 — 1 Green Bush, 1 Anna Doll, 1 Dark Bush, 1 Natalie Doll, 1 Red Bush', 'E 08 — 2 Lava Slime, 1 Big Lava Slime', 'F 06 — 3 Cat Wizard, 2 Cutie Worm', 'H 08 — 1 Matt Doll, 1 NoLegs Doll, 1 Lance Doll', 'I 07 — 2 Snow Bat, 2 Bone Bat, 1 Electric Bat', 'K 07 — 5 Skeleton Cat', 'L 06 — 2 Dark Bush, 2 Lost Fallen, 1 Crucified Fallen', 'M 08 — 1 Rock Sprite, 1 Dirt Boulder, 1 Dark Bush, 1 Marble Boulder, 1 Wind Sprite', 'O 06 — 1 Origami Hydra, 2 Book Worm', 'O 08 — 2 Wise Mirror, 2 Red Bush, 1 Angel Mirror', 'P 07 — 2 Wooden Idol, 2 Metal Idol, 1 Gem Idol'] },
+        { grid: 'E15', image: 'img/areas/battle-arena-e15.png', notes: ['Khu đấu trường trong The Great Sea.'] },
+      ] },
+    { id: 'data-bunker', name: 'Data Bunker', kind: 'Khu con', parent: 'the-great-sea', image: 'img/areas/data-bunker-c13.png', grid: 'C13, C14, C15',
+      desc: 'Boong-ke dữ liệu ba ô C13/C14/C15 ở The Great Sea; chuỗi trận nhiều wave và là khu vực cuối của bản v2.',
+      features: ['Ba ô C13, C14, C15', 'Chuỗi trận nhiều wave', 'Khu vực cuối của bản v2'],
+      tips: ['Đây là chuỗi trận dài; hồi đầy HP/MP và mang Food buff trước khi vào C13.'],
+    cells: [
+        { grid: 'C13', image: 'img/areas/data-bunker-c13.png', foes: ['F 03 — 3 Furry Slime / 1 King Slime / 2 Haunted Tree, / 1 Eyeball / 1 Beholder / 1 Glacier Eater, / 1 Rock Eater / 1 Giga Golem / 2 Red Bee, / 1 Spikey Moth / |1 Sandworm, / 1 Sandworm\'s Tail', 'N 03 — 3 Gunslinger, / 2 Swordslinger / 1 Swordslinger, / 1 Jack, / 1 Gunslinger / 1 Red Clay, / 1 Blue Clay, / 1 Light Clay, / 1 Dark Clay / 1 Blue Clay, / 1 Red Clay, / 1 Protector, / 1 Dark Clay / 1 Florn, / 1 Frose, / 1 Stunflower, / 1 Heasy / 1 Florn, / 1 Frose, / 1 Rafflesia, / 1 Stunflower, / 1 Heasy / 2 Blue Crystal / 2 Red Crystal, / 1 Praetorian'], keys: ['R 04 — Tomato'] },
+        { grid: 'C14', image: 'img/areas/data-bunker-c14.png', foes: ['C 07 — 2 Glacier Eater / 2 Rock Eater / 1 Glacier Eater, 1 Rock Eater / 1 Giga Golem', 'D 04 — 3 Furry Slime / 3 Furry Slime / 1 King Slime', 'F 04 — 2 Haunted Tree / 2 Eyeball / 3 Eyeball / 1 Beholder', 'G 07 — 2 Red Bee, 1 Spikey Moth / 2 Spikey Moth, 1 Red Bee / 1 Sandworm, 1 Sandworm\'s Tail', 'O 04 — 2 Swordslinger, 1 Gunslinger / 3 Gunslinger, 2 Swordslinger / 1 Swordslinger, 1 Jack, 1 Gunslinger', 'O 07 — 1 Florn, 1 Frose, 1 Stunflower, 1 Heasy / 1 Florn, 1 Frose, 1 Rafflesia, 1 Stunflower, 1 Heasy', 'R 07 — 1 Blue Crystal, 1 Red Crystal / 1 Red Crystal, 1 Praetorian, 1 Blue Crystal', 'S 04 — 2 Red Clay, 2 Blue Clay / 2 Dark Clay, 2 Light Clay / 1 Blue Clay, 1 Red Clay, 1 Protector, 1 Dark Clay'] },
+        { grid: 'C15', image: 'img/areas/data-bunker-c15.png', keys: ['I 03 — World Map'] },
+      ] },
   ],
 
   /* ------------------------------------ Triệu hồi ----------------------------
@@ -4144,7 +4543,70 @@ window.EBF5DATA = {
       'surrender': 'Surrender (status)'
     },
     areas: {
-      '_default': 'Epic Battle Fantasy 5 Map'
+      '_default': 'Epic Battle Fantasy 5 Map',
+      'arcade-room-hope-harbor': 'Epic Battle Fantasy 5 Map/C2 Arcade Room',
+      'basement-hope-harbor': 'Epic Battle Fantasy 5 Map/C2 Basement',
+      'equipment-shop-hope-harbor': 'Epic Battle Fantasy 5 Map/C2 Equipment Shop',
+      'food-shop-hope-harbor': 'Epic Battle Fantasy 5 Map/C4 Food Shop',
+      'food-shop-1st-floor': 'Epic Battle Fantasy 5 Map/C4 Food Shop 1st Floor',
+      'glitch-area-hope-harbor': 'Epic Battle Fantasy 5 Map/B2 Glitch Area',
+      'ice-cave': 'Epic Battle Fantasy 5 Map/D4 Ice Cave',
+      'jerrys-cellar': 'Epic Battle Fantasy 5 Map/A5 Jerry\'s Cellar',
+      'jerrys-house': 'Epic Battle Fantasy 5 Map/A5 Jerry\'s House',
+      'kitchen': 'Epic Battle Fantasy 5 Map/C2 Kitchen',
+      'material-shop-hope-harbor': 'Epic Battle Fantasy 5 Map/C4 Material Shop',
+      'matts-house': 'Epic Battle Fantasy 5 Map/B5 Matt\'s House',
+      'arcade-room-wild-tropics': 'Epic Battle Fantasy 5 Map/B3 Arcade Room',
+      'dragon-armor-cave': 'Epic Battle Fantasy 5 Map/C3 Dragon Armor Cave',
+      'indys-cave': 'Epic Battle Fantasy 5 Map/C3 Indy\'s Cave',
+      '20-medals-room': 'Epic Battle Fantasy 5 Map/A0 20 Medals Room',
+      '30-medals-room': 'Epic Battle Fantasy 5 Map/A0 30 Medals Room',
+      '40-medals-room': 'Epic Battle Fantasy 5 Map/C0 40 Medals Room',
+      '50-medals-room': 'Epic Battle Fantasy 5 Map/C0 50 Medals Room',
+      '60-medals-room': 'Epic Battle Fantasy 5 Map/B0 60 Medals Room (v2)',
+      '70-medals-room': 'Epic Battle Fantasy 5 Map/B0 70 Medals Room',
+      '80-medals-room': 'Epic Battle Fantasy 5 Map/C0 80 Medals Room',
+      '90-medals-room': 'Epic Battle Fantasy 5 Map/A0 90 Medals Room',
+      'all-medals-room': 'Epic Battle Fantasy 5 Map/B0 All Medals Room',
+      'arcade-room-no-mans-land': 'Epic Battle Fantasy 5 Map/H5 Arcade Room',
+      'glitch-area-no-mans-land': 'Epic Battle Fantasy 5 Map/G5 Glitch Area',
+      'annas-house-greenwood-village': 'Epic Battle Fantasy 5 Map/J1 Anna\'s House',
+      'arcade-room-greenwood-village': 'Epic Battle Fantasy 5 Map/K0 Arcade Room',
+      'basement-greenwood-village': 'Epic Battle Fantasy 5 Map/K4 Basement',
+      'equipment-shop-greenwood-village': 'Epic Battle Fantasy 5 Map/K3 Equipment Shop',
+      'jamies-house': 'Epic Battle Fantasy 5 Map/K4 Jamie\'s House',
+      'library': 'Epic Battle Fantasy 5 Map/I2 Library',
+      'material-food-shops': 'Epic Battle Fantasy 5 Map/K2 Material Food Shops',
+      'randys-house': 'Epic Battle Fantasy 5 Map/K3 Randy\'s House',
+      'stable-greenwood-village': 'Epic Battle Fantasy 5 Map/J4 Stable',
+      'annas-house-mystic-woods': 'Epic Battle Fantasy 5 Map/J0 Anna\'s House',
+      'glitch-area-mystic-woods': 'Epic Battle Fantasy 5 Map/H2 Glitch Area',
+      'hidden-passage-mystic-woods': 'Epic Battle Fantasy 5 Map/F1 Hidden Passage',
+      'inside-the-tree': 'Epic Battle Fantasy 5 Map/F0 Inside The Tree',
+      'material-shop-mystic-woods': 'Epic Battle Fantasy 5 Map/H0 Material Shop',
+      'forgotten-temple': 'Epic Battle Fantasy 5 Map/E0 Forgotten Temple',
+      'arcade-room-rainbow-river': 'Epic Battle Fantasy 5 Map/K5 Arcade Room',
+      'arcade-room-frozen-valley': 'Epic Battle Fantasy 5 Map/A8 Arcade Room',
+      'glitch-area-frozen-valley': 'Epic Battle Fantasy 5 Map/B9 Glitch Area',
+      'hidden-passage-frozen-valley': 'Epic Battle Fantasy 5 Map/A8 Hidden Passage',
+      'arcade-room-redpine-town': 'Epic Battle Fantasy 5 Map/F9 Arcade Room',
+      'basement-redpine-town': 'Epic Battle Fantasy 5 Map/E7 Basement',
+      'equipment-shop-redpine-town': 'Epic Battle Fantasy 5 Map/D8 Equipment Shop',
+      'food-shop-redpine-town': 'Epic Battle Fantasy 5 Map/D7 Food Shop',
+      'material-shop-redpine-town': 'Epic Battle Fantasy 5 Map/F7 Material Shop',
+      'mausoleum': 'Epic Battle Fantasy 5 Map/E7 Mausoleum',
+      'stable-redpine-town': 'Epic Battle Fantasy 5 Map/F7 Stable',
+      'steroid-shop': 'Epic Battle Fantasy 5 Map/D7 Steroid Shop',
+      'the-void': 'Epic Battle Fantasy 5 Map/D7 The Void',
+      'lava-lake': 'Epic Battle Fantasy 5 Map/J7 Lava Lake',
+      'the-beyond': 'Epic Battle Fantasy 5 Map/I8 The Beyond',
+      'arcade-room-freezeflame-dungeon': 'Epic Battle Fantasy 5 Map/F1 Arcade Room',
+      'secret-world': 'Epic Battle Fantasy 5 Map/E0 Secret World',
+      'arcade-room-mineshaft-maze': 'Epic Battle Fantasy 5 Map/I7 Arcade Room',
+      'zombie-hydras-cave': 'Epic Battle Fantasy 5 Map/I7 Zombie Hydra\'s Cave',
+      'arcade-room-the-great-sea': 'Epic Battle Fantasy 5 Map/D14 Arcade Room',
+      'battle-arena': 'Epic Battle Fantasy 5 Map/E14 Battle Arena',
+      'data-bunker': 'Epic Battle Fantasy 5 Map/C13 Data Bunker'
     },
     summons: {
       '_default': 'Summons/Epic Battle Fantasy 5'
@@ -4172,26 +4634,36 @@ window.EBF5DATA = {
       'ragnarok': 'Ragnarok'
     },
     areaCells: {
-      'frozen-valley': {
-        'A6': 'Epic Battle Fantasy 5 Map/A6 Frozen Valley',
-        'A7': 'Epic Battle Fantasy 5 Map/A7 Frozen Valley',
-        'A8': 'Epic Battle Fantasy 5 Map/A8 Frozen Valley',
-        'A9': 'Epic Battle Fantasy 5 Map/A9 Frozen Valley',
-        'B7': 'Epic Battle Fantasy 5 Map/B7 Frozen Valley',
-        'B8': 'Epic Battle Fantasy 5 Map/B8 Frozen Valley',
-        'B9': 'Epic Battle Fantasy 5 Map/B9 Frozen Valley',
-        'C7': 'Epic Battle Fantasy 5 Map/C7 Frozen Valley',
-        'C8': 'Epic Battle Fantasy 5 Map/C8 Frozen Valley',
-        'C9': 'Epic Battle Fantasy 5 Map/C9 Frozen Valley'
+      'hope-harbor': {
+        'A2': 'Epic Battle Fantasy 5 Map/A2 Hope Harbor',
+        'A5': 'Epic Battle Fantasy 5 Map/A5 Hope Harbor',
+        'B2': 'Epic Battle Fantasy 5 Map/B2 Hope Harbor',
+        'C2': 'Epic Battle Fantasy 5 Map/C2 Hope Harbor',
+        'C5': 'Epic Battle Fantasy 5 Map/C5 Hope Harbor',
+        'D2': 'Epic Battle Fantasy 5 Map/D2 Hope Harbor',
+        'D3': 'Epic Battle Fantasy 5 Map/D3 Hope Harbor',
+        'D4': 'Epic Battle Fantasy 5 Map/D4 Hope Harbor',
+        'D5': 'Epic Battle Fantasy 5 Map/D5 Hope Harbor'
       },
-      'the-great-sea': {
-        'C13': 'Epic Battle Fantasy 5 Map/C13 Data Bunker',
-        'C14': 'Epic Battle Fantasy 5 Map/C14 Data Bunker',
-        'C15': 'Epic Battle Fantasy 5 Map/C15 The Great Sea',
-        'D14': 'Epic Battle Fantasy 5 Map/D14 The Great Sea',
-        'D15': 'Epic Battle Fantasy 5 Map/D15 The Great Sea',
-        'E11': 'Epic Battle Fantasy 5 Map/E11 The Great Sea',
-        'E14': 'Epic Battle Fantasy 5 Map/E14 Battle Arena'
+      'wild-tropics': {
+        'A3': 'Epic Battle Fantasy 5 Map/A3 Wild Tropics',
+        'A4': 'Epic Battle Fantasy 5 Map/A4 Wild Tropics',
+        'B3': 'Epic Battle Fantasy 5 Map/B3 Wild Tropics',
+        'B4': 'Epic Battle Fantasy 5 Map/B4 Wild Tropics',
+        'C3': 'Epic Battle Fantasy 5 Map/C3 Wild Tropics'
+      },
+      'grand-gallery': {
+        'A1': 'Epic Battle Fantasy 5 Map/A1 Grand Gallery',
+        'B1': 'Epic Battle Fantasy 5 Map/B1 Grand Gallery',
+        'C1': 'Epic Battle Fantasy 5 Map/C1 Grand Gallery'
+      },
+      'no-mans-land': {
+        'E3': 'Epic Battle Fantasy 5 Map/E3 No Man\'s Land',
+        'E4': 'Epic Battle Fantasy 5 Map/E4 No Man\'s Land',
+        'E5': 'Epic Battle Fantasy 5 Map/E5 No Man\'s Land',
+        'F5': 'Epic Battle Fantasy 5 Map/F5 No Man\'s Land',
+        'G5': 'Epic Battle Fantasy 5 Map/G5 No Man\'s Land',
+        'H5': 'Epic Battle Fantasy 5 Map/H5 No Man\'s Land'
       },
       'iron-fortress': {
         'E3': 'Epic Battle Fantasy 5 Map/E3 Iron Fortress',
@@ -4204,63 +4676,11 @@ window.EBF5DATA = {
         'I3': 'Epic Battle Fantasy 5 Map/I3 Iron Fortress',
         'I4': 'Epic Battle Fantasy 5 Map/I4 Iron Fortress'
       },
-      'deathly-hollows': {
-        'B3': 'Epic Battle Fantasy 5 Map/B3 Deathly Hollows',
-        'B4': 'Epic Battle Fantasy 5 Map/B4 Deathly Hollows',
-        'C2': 'Epic Battle Fantasy 5 Map/C2 Deathly Hollows',
-        'C3': 'Epic Battle Fantasy 5 Map/C3 Deathly Hollows',
-        'C4': 'Epic Battle Fantasy 5 Map/C4 Deathly Hollows',
-        'D2': 'Epic Battle Fantasy 5 Map/D2 Deathly Hollows',
-        'D3': 'Epic Battle Fantasy 5 Map/D3 Deathly Hollows'
-      },
-      'redpine-town': {
-        'D7': 'Epic Battle Fantasy 5 Map/D7 Redpine Town',
-        'D8': 'Epic Battle Fantasy 5 Map/D8 Redpine Town',
-        'D9': 'Epic Battle Fantasy 5 Map/D9 Redpine Town',
-        'E7': 'Epic Battle Fantasy 5 Map/E7 Redpine Town',
-        'E8': 'Epic Battle Fantasy 5 Map/E8 Redpine Town',
-        'E9': 'Epic Battle Fantasy 5 Map/E9 Redpine Town',
-        'F7': 'Epic Battle Fantasy 5 Map/F7 Redpine Town',
-        'F8': 'Epic Battle Fantasy 5 Map/F8 Redpine Town',
-        'F9': 'Epic Battle Fantasy 5 Map/F9 Redpine Town'
-      },
       'greenwood-village': {
         'J1': 'Epic Battle Fantasy 5 Map/J1 Greenwood Village',
-        'J2': 'Epic Battle Fantasy 5 Map/J2 Greenwood Village',
-        'J3': 'Epic Battle Fantasy 5 Map/J3 Greenwood Village',
-        'J4': 'Epic Battle Fantasy 5 Map/J4 Greenwood Village',
         'K0': 'Epic Battle Fantasy 5 Map/K0 Greenwood Village',
         'K1': 'Epic Battle Fantasy 5 Map/K1 Greenwood Village',
-        'K2': 'Epic Battle Fantasy 5 Map/K2 Greenwood Village',
-        'K3': 'Epic Battle Fantasy 5 Map/K3 Greenwood Village',
-        'K4': 'Epic Battle Fantasy 5 Map/K4 Greenwood Village',
-        'I2': 'Epic Battle Fantasy 5 Map/I2 Library'
-      },
-      'hope-harbor': {
-        'A2': 'Epic Battle Fantasy 5 Map/A2 Hope Harbor',
-        'A5': 'Epic Battle Fantasy 5 Map/A5 Hope Harbor',
-        'B2': 'Epic Battle Fantasy 5 Map/B2 Hope Harbor',
-        'B5': 'Epic Battle Fantasy 5 Map/B5 Hope Harbor',
-        'C2': 'Epic Battle Fantasy 5 Map/C2 Hope Harbor',
-        'C5': 'Epic Battle Fantasy 5 Map/C5 Hope Harbor',
-        'D2': 'Epic Battle Fantasy 5 Map/D2 Hope Harbor',
-        'D3': 'Epic Battle Fantasy 5 Map/D3 Hope Harbor',
-        'D4': 'Epic Battle Fantasy 5 Map/D4 Hope Harbor',
-        'D5': 'Epic Battle Fantasy 5 Map/D5 Hope Harbor',
-        'E3': 'Epic Battle Fantasy 5 Map/E3 Ice Cave'
-      },
-      'wild-tropics': {
-        'A3': 'Epic Battle Fantasy 5 Map/A3 Wild Tropics',
-        'A4': 'Epic Battle Fantasy 5 Map/A4 Wild Tropics',
-        'B3': 'Epic Battle Fantasy 5 Map/B3 Wild Tropics',
-        'B4': 'Epic Battle Fantasy 5 Map/B4 Wild Tropics',
-        'C3': 'Epic Battle Fantasy 5 Map/C3 Wild Tropics'
-      },
-      'forgotten-ruins': {
-        'D0': 'Epic Battle Fantasy 5 Map/D0 Forgotten Ruins',
-        'D1': 'Epic Battle Fantasy 5 Map/D1 Forgotten Ruins',
-        'E0': 'Epic Battle Fantasy 5 Map/E0 Forgotten Ruins',
-        'E1': 'Epic Battle Fantasy 5 Map/E1 Forgotten Ruins'
+        'K3': 'Epic Battle Fantasy 5 Map/K3 Greenwood Village'
       },
       'mystic-woods': {
         'E2': 'Epic Battle Fantasy 5 Map/E2 Mystic Woods',
@@ -4278,38 +4698,11 @@ window.EBF5DATA = {
         'I2': 'Epic Battle Fantasy 5 Map/I2 Mystic Woods',
         'J0': 'Epic Battle Fantasy 5 Map/J0 Mystic Woods'
       },
-      'the-rapture': {
-        'G7': 'Epic Battle Fantasy 5 Map/G7 The Rapture',
-        'G8': 'Epic Battle Fantasy 5 Map/G8 The Rapture',
-        'G9': 'Epic Battle Fantasy 5 Map/G9 The Rapture',
-        'H7': 'Epic Battle Fantasy 5 Map/H7 The Rapture',
-        'H8': 'Epic Battle Fantasy 5 Map/H8 The Rapture',
-        'H9': 'Epic Battle Fantasy 5 Map/H9 The Rapture',
-        'I7': 'Epic Battle Fantasy 5 Map/I7 The Rapture',
-        'I8': 'Epic Battle Fantasy 5 Map/I8 The Rapture',
-        'I9': 'Epic Battle Fantasy 5 Map/I9 The Rapture',
-        'K9': 'Epic Battle Fantasy 5 Map/K9 Lava Lake',
-        'J7': 'Epic Battle Fantasy 5 Map/J7 Lava Lake',
-        'J8': 'Epic Battle Fantasy 5 Map/J8 Lava Lake',
-        'J9': 'Epic Battle Fantasy 5 Map/J9 Lava Lake',
-        'K7': 'Epic Battle Fantasy 5 Map/K7 Lava Lake',
-        'K8': 'Epic Battle Fantasy 5 Map/K8 Lava Lake'
-      },
-      'freezeflame-dungeon': {
-        'D1': 'Epic Battle Fantasy 5 Map/D1 Freezeflame Dungeon',
-        'E0': 'Epic Battle Fantasy 5 Map/E0 Freezeflame Dungeon',
-        'E1': 'Epic Battle Fantasy 5 Map/E1 Freezeflame Dungeon',
-        'E2': 'Epic Battle Fantasy 5 Map/E2 Freezeflame Dungeon',
-        'F1': 'Epic Battle Fantasy 5 Map/F1 Freezeflame Dungeon',
-        'F2': 'Epic Battle Fantasy 5 Map/F2 Freezeflame Dungeon'
-      },
-      'no-mans-land': {
-        'E3': 'Epic Battle Fantasy 5 Map/E3 No Man\'s Land',
-        'E4': 'Epic Battle Fantasy 5 Map/E4 No Man\'s Land',
-        'E5': 'Epic Battle Fantasy 5 Map/E5 No Man\'s Land',
-        'F5': 'Epic Battle Fantasy 5 Map/F5 No Man\'s Land',
-        'G5': 'Epic Battle Fantasy 5 Map/G5 No Man\'s Land',
-        'H5': 'Epic Battle Fantasy 5 Map/H5 No Man\'s Land'
+      'forgotten-ruins': {
+        'D0': 'Epic Battle Fantasy 5 Map/D0 Forgotten Ruins',
+        'D1': 'Epic Battle Fantasy 5 Map/D1 Forgotten Ruins',
+        'E0': 'Epic Battle Fantasy 5 Map/E0 Forgotten Ruins',
+        'E1': 'Epic Battle Fantasy 5 Map/E1 Forgotten Ruins'
       },
       'rainbow-river': {
         'B6': 'Epic Battle Fantasy 5 Map/B6 Rainbow River',
@@ -4325,22 +4718,68 @@ window.EBF5DATA = {
         'K5': 'Epic Battle Fantasy 5 Map/K5 Rainbow River',
         'K6': 'Epic Battle Fantasy 5 Map/K6 Rainbow River'
       },
-      'grand-gallery': {
-        'A0': 'Epic Battle Fantasy 5 Map/A0 Grand Gallery',
-        'A1': 'Epic Battle Fantasy 5 Map/A1 Grand Gallery',
-        'B0': 'Epic Battle Fantasy 5 Map/B0 Grand Gallery',
-        'B1': 'Epic Battle Fantasy 5 Map/B1 Grand Gallery',
-        'C0': 'Epic Battle Fantasy 5 Map/C0 Grand Gallery',
-        'C1': 'Epic Battle Fantasy 5 Map/C1 Grand Gallery'
+      'frozen-valley': {
+        'A6': 'Epic Battle Fantasy 5 Map/A6 Frozen Valley',
+        'A7': 'Epic Battle Fantasy 5 Map/A7 Frozen Valley',
+        'A8': 'Epic Battle Fantasy 5 Map/A8 Frozen Valley',
+        'A9': 'Epic Battle Fantasy 5 Map/A9 Frozen Valley',
+        'B7': 'Epic Battle Fantasy 5 Map/B7 Frozen Valley',
+        'B8': 'Epic Battle Fantasy 5 Map/B8 Frozen Valley',
+        'B9': 'Epic Battle Fantasy 5 Map/B9 Frozen Valley',
+        'C7': 'Epic Battle Fantasy 5 Map/C7 Frozen Valley',
+        'C8': 'Epic Battle Fantasy 5 Map/C8 Frozen Valley',
+        'C9': 'Epic Battle Fantasy 5 Map/C9 Frozen Valley'
+      },
+      'redpine-town': {
+        'D7': 'Epic Battle Fantasy 5 Map/D7 Redpine Town',
+        'D8': 'Epic Battle Fantasy 5 Map/D8 Redpine Town',
+        'D9': 'Epic Battle Fantasy 5 Map/D9 Redpine Town',
+        'E7': 'Epic Battle Fantasy 5 Map/E7 Redpine Town',
+        'E8': 'Epic Battle Fantasy 5 Map/E8 Redpine Town',
+        'E9': 'Epic Battle Fantasy 5 Map/E9 Redpine Town',
+        'F7': 'Epic Battle Fantasy 5 Map/F7 Redpine Town',
+        'F8': 'Epic Battle Fantasy 5 Map/F8 Redpine Town',
+        'F9': 'Epic Battle Fantasy 5 Map/F9 Redpine Town'
+      },
+      'the-rapture': {
+        'G7': 'Epic Battle Fantasy 5 Map/G7 The Rapture',
+        'G8': 'Epic Battle Fantasy 5 Map/G8 The Rapture',
+        'G9': 'Epic Battle Fantasy 5 Map/G9 The Rapture',
+        'H7': 'Epic Battle Fantasy 5 Map/H7 The Rapture',
+        'H8': 'Epic Battle Fantasy 5 Map/H8 The Rapture',
+        'H9': 'Epic Battle Fantasy 5 Map/H9 The Rapture',
+        'I7': 'Epic Battle Fantasy 5 Map/I7 The Rapture',
+        'I8': 'Epic Battle Fantasy 5 Map/I8 The Rapture',
+        'I9': 'Epic Battle Fantasy 5 Map/I9 The Rapture'
+      },
+      'freezeflame-dungeon': {
+        'D1': 'Epic Battle Fantasy 5 Map/D1 Freezeflame Dungeon',
+        'E0': 'Epic Battle Fantasy 5 Map/E0 Freezeflame Dungeon',
+        'E2': 'Epic Battle Fantasy 5 Map/E2 Freezeflame Dungeon',
+        'F1': 'Epic Battle Fantasy 5 Map/F1 Freezeflame Dungeon',
+        'F2': 'Epic Battle Fantasy 5 Map/F2 Freezeflame Dungeon'
       },
       'mineshaft-maze': {
         'G3': 'Epic Battle Fantasy 5 Map/G3 Mineshaft Maze',
         'G8': 'Epic Battle Fantasy 5 Map/G8 Mineshaft Maze',
         'H1': 'Epic Battle Fantasy 5 Map/H1 Mineshaft Maze',
-        'I7': 'Epic Battle Fantasy 5 Map/I7 Mineshaft Maze',
         'I9': 'Epic Battle Fantasy 5 Map/I9 Mineshaft Maze',
         'K3': 'Epic Battle Fantasy 5 Map/K3 Mineshaft Maze',
         'K4': 'Epic Battle Fantasy 5 Map/K4 Mineshaft Maze'
+      },
+      'deathly-hollows': {
+        'B3': 'Epic Battle Fantasy 5 Map/B3 Deathly Hollows',
+        'B4': 'Epic Battle Fantasy 5 Map/B4 Deathly Hollows',
+        'C2': 'Epic Battle Fantasy 5 Map/C2 Deathly Hollows',
+        'C3': 'Epic Battle Fantasy 5 Map/C3 Deathly Hollows',
+        'C4': 'Epic Battle Fantasy 5 Map/C4 Deathly Hollows',
+        'D2': 'Epic Battle Fantasy 5 Map/D2 Deathly Hollows',
+        'D3': 'Epic Battle Fantasy 5 Map/D3 Deathly Hollows'
+      },
+      'the-great-sea': {
+        'C15': 'Epic Battle Fantasy 5 Map/C15 The Great Sea',
+        'D15': 'Epic Battle Fantasy 5 Map/D15 The Great Sea',
+        'E11': 'Epic Battle Fantasy 5 Map/E11 The Great Sea'
       },
       'temple-of-trials': {
         'K5': 'Epic Battle Fantasy 5 Map/K5 Temple of Trials',
@@ -4351,6 +4790,216 @@ window.EBF5DATA = {
         'D0': 'Epic Battle Fantasy 5 Map/D0 Crystal Caverns',
         'D1': 'Epic Battle Fantasy 5 Map/D1 Crystal Caverns',
         'I9': 'Epic Battle Fantasy 5 Map/I9 Crystal Caverns'
+      },
+      'arcade-room-hope-harbor': {
+        'C2': 'Epic Battle Fantasy 5 Map/C2 Arcade Room'
+      },
+      'basement-hope-harbor': {
+        'C2': 'Epic Battle Fantasy 5 Map/C2 Basement'
+      },
+      'equipment-shop-hope-harbor': {
+        'C2': 'Epic Battle Fantasy 5 Map/C2 Equipment Shop'
+      },
+      'food-shop-hope-harbor': {
+        'C4': 'Epic Battle Fantasy 5 Map/C4 Food Shop'
+      },
+      'food-shop-1st-floor': {
+        'C4': 'Epic Battle Fantasy 5 Map/C4 Food Shop 1st Floor'
+      },
+      'glitch-area-hope-harbor': {
+        'B2': 'Epic Battle Fantasy 5 Map/B2 Glitch Area'
+      },
+      'ice-cave': {
+        'D4': 'Epic Battle Fantasy 5 Map/D4 Ice Cave',
+        'D5': 'Epic Battle Fantasy 5 Map/D5 Ice Cave',
+        'E3': 'Epic Battle Fantasy 5 Map/E3 Ice Cave'
+      },
+      'jerrys-cellar': {
+        'A5': 'Epic Battle Fantasy 5 Map/A5 Jerry\'s Cellar'
+      },
+      'jerrys-house': {
+        'A5': 'Epic Battle Fantasy 5 Map/A5 Jerry\'s House'
+      },
+      'kitchen': {
+        'C2': 'Epic Battle Fantasy 5 Map/C2 Kitchen'
+      },
+      'material-shop-hope-harbor': {
+        'C4': 'Epic Battle Fantasy 5 Map/C4 Material Shop'
+      },
+      'matts-house': {
+        'B5': 'Epic Battle Fantasy 5 Map/B5 Matt\'s House'
+      },
+      'arcade-room-wild-tropics': {
+        'B3': 'Epic Battle Fantasy 5 Map/B3 Arcade Room'
+      },
+      'dragon-armor-cave': {
+        'C3': 'Epic Battle Fantasy 5 Map/C3 Dragon Armor Cave'
+      },
+      'indys-cave': {
+        'C3': 'Epic Battle Fantasy 5 Map/C3 Indy\'s Cave'
+      },
+      '20-medals-room': {
+        'A0': 'Epic Battle Fantasy 5 Map/A0 20 Medals Room'
+      },
+      '30-medals-room': {
+        'A0': 'Epic Battle Fantasy 5 Map/A0 30 Medals Room'
+      },
+      '40-medals-room': {
+        'C0': 'Epic Battle Fantasy 5 Map/C0 40 Medals Room'
+      },
+      '50-medals-room': {
+        'C0': 'Epic Battle Fantasy 5 Map/C0 50 Medals Room'
+      },
+      '60-medals-room': {
+        'B0': 'Epic Battle Fantasy 5 Map/B0 60 Medals Room (v2)'
+      },
+      '70-medals-room': {
+        'B0': 'Epic Battle Fantasy 5 Map/B0 70 Medals Room'
+      },
+      '80-medals-room': {
+        'C0': 'Epic Battle Fantasy 5 Map/C0 80 Medals Room'
+      },
+      '90-medals-room': {
+        'A0': 'Epic Battle Fantasy 5 Map/A0 90 Medals Room'
+      },
+      'all-medals-room': {
+        'B0': 'Epic Battle Fantasy 5 Map/B0 All Medals Room'
+      },
+      'arcade-room-no-mans-land': {
+        'H5': 'Epic Battle Fantasy 5 Map/H5 Arcade Room'
+      },
+      'glitch-area-no-mans-land': {
+        'G5': 'Epic Battle Fantasy 5 Map/G5 Glitch Area'
+      },
+      'annas-house-greenwood-village': {
+        'J1': 'Epic Battle Fantasy 5 Map/J1 Anna\'s House'
+      },
+      'arcade-room-greenwood-village': {
+        'K0': 'Epic Battle Fantasy 5 Map/K0 Arcade Room',
+        'K2': 'Epic Battle Fantasy 5 Map/K2 Arcade Room'
+      },
+      'basement-greenwood-village': {
+        'K4': 'Epic Battle Fantasy 5 Map/K4 Basement'
+      },
+      'equipment-shop-greenwood-village': {
+        'K3': 'Epic Battle Fantasy 5 Map/K3 Equipment Shop'
+      },
+      'jamies-house': {
+        'K4': 'Epic Battle Fantasy 5 Map/K4 Jamie\'s House'
+      },
+      'library': {
+        'I2': 'Epic Battle Fantasy 5 Map/I2 Library',
+        'J2': 'Epic Battle Fantasy 5 Map/J2 Library',
+        'J3': 'Epic Battle Fantasy 5 Map/J3 Library',
+        'K2': 'Epic Battle Fantasy 5 Map/K2 Library'
+      },
+      'material-food-shops': {
+        'K2': 'Epic Battle Fantasy 5 Map/K2 Material Food Shops'
+      },
+      'randys-house': {
+        'K3': 'Epic Battle Fantasy 5 Map/K3 Randy\'s House'
+      },
+      'stable-greenwood-village': {
+        'J4': 'Epic Battle Fantasy 5 Map/J4 Stable'
+      },
+      'annas-house-mystic-woods': {
+        'J0': 'Epic Battle Fantasy 5 Map/J0 Anna\'s House'
+      },
+      'glitch-area-mystic-woods': {
+        'H2': 'Epic Battle Fantasy 5 Map/H2 Glitch Area'
+      },
+      'hidden-passage-mystic-woods': {
+        'F1': 'Epic Battle Fantasy 5 Map/F1 Hidden Passage'
+      },
+      'inside-the-tree': {
+        'F0': 'Epic Battle Fantasy 5 Map/F0 Inside The Tree',
+        'F1': 'Epic Battle Fantasy 5 Map/F1 Inside The Tree',
+        'H1': 'Epic Battle Fantasy 5 Map/H1 Inside The Tree',
+        'I1': 'Epic Battle Fantasy 5 Map/I1 Inside The Tree'
+      },
+      'material-shop-mystic-woods': {
+        'H0': 'Epic Battle Fantasy 5 Map/H0 Material Shop'
+      },
+      'forgotten-temple': {
+        'E0': 'Epic Battle Fantasy 5 Map/E0 Forgotten Temple'
+      },
+      'arcade-room-rainbow-river': {
+        'K5': 'Epic Battle Fantasy 5 Map/K5 Arcade Room'
+      },
+      'arcade-room-frozen-valley': {
+        'A8': 'Epic Battle Fantasy 5 Map/A8 Arcade Room'
+      },
+      'glitch-area-frozen-valley': {
+        'B9': 'Epic Battle Fantasy 5 Map/B9 Glitch Area'
+      },
+      'hidden-passage-frozen-valley': {
+        'A8': 'Epic Battle Fantasy 5 Map/A8 Hidden Passage'
+      },
+      'arcade-room-redpine-town': {
+        'F9': 'Epic Battle Fantasy 5 Map/F9 Arcade Room'
+      },
+      'basement-redpine-town': {
+        'E7': 'Epic Battle Fantasy 5 Map/E7 Basement'
+      },
+      'equipment-shop-redpine-town': {
+        'D8': 'Epic Battle Fantasy 5 Map/D8 Equipment Shop'
+      },
+      'food-shop-redpine-town': {
+        'D7': 'Epic Battle Fantasy 5 Map/D7 Food Shop'
+      },
+      'material-shop-redpine-town': {
+        'F7': 'Epic Battle Fantasy 5 Map/F7 Material Shop'
+      },
+      'mausoleum': {
+        'E7': 'Epic Battle Fantasy 5 Map/E7 Mausoleum'
+      },
+      'stable-redpine-town': {
+        'F7': 'Epic Battle Fantasy 5 Map/F7 Stable'
+      },
+      'steroid-shop': {
+        'D7': 'Epic Battle Fantasy 5 Map/D7 Steroid Shop'
+      },
+      'the-void': {
+        'D7': 'Epic Battle Fantasy 5 Map/D7 The Void',
+        'D8': 'Epic Battle Fantasy 5 Map/D8 The Void'
+      },
+      'lava-lake': {
+        'J7': 'Epic Battle Fantasy 5 Map/J7 Lava Lake',
+        'J8': 'Epic Battle Fantasy 5 Map/J8 Lava Lake',
+        'J9': 'Epic Battle Fantasy 5 Map/J9 Lava Lake',
+        'K7': 'Epic Battle Fantasy 5 Map/K7 Lava Lake',
+        'K8': 'Epic Battle Fantasy 5 Map/K8 Lava Lake',
+        'K9': 'Epic Battle Fantasy 5 Map/K9 Lava Lake'
+      },
+      'the-beyond': {
+        'I8': 'Epic Battle Fantasy 5 Map/I8 The Beyond',
+        'J8': 'Epic Battle Fantasy 5 Map/J8 The Beyond',
+        'K8': 'Epic Battle Fantasy 5 Map/K8 The Beyond'
+      },
+      'arcade-room-freezeflame-dungeon': {
+        'F1': 'Epic Battle Fantasy 5 Map/F1 Arcade Room'
+      },
+      'secret-world': {
+        'E0': 'Epic Battle Fantasy 5 Map/E0 Secret World',
+        'E1': 'Epic Battle Fantasy 5 Map/E1 Secret World'
+      },
+      'arcade-room-mineshaft-maze': {
+        'I7': 'Epic Battle Fantasy 5 Map/I7 Arcade Room'
+      },
+      'zombie-hydras-cave': {
+        'I7': 'Epic Battle Fantasy 5 Map/I7 Zombie Hydra\'s Cave'
+      },
+      'arcade-room-the-great-sea': {
+        'D14': 'Epic Battle Fantasy 5 Map/D14 Arcade Room'
+      },
+      'battle-arena': {
+        'E14': 'Epic Battle Fantasy 5 Map/E14 Battle Arena',
+        'E15': 'Epic Battle Fantasy 5 Map/E15 Battle Arena'
+      },
+      'data-bunker': {
+        'C13': 'Epic Battle Fantasy 5 Map/C13 Data Bunker',
+        'C14': 'Epic Battle Fantasy 5 Map/C14 Data Bunker',
+        'C15': 'Epic Battle Fantasy 5 Map/C15 Data Bunker'
       }
     }
   },

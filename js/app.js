@@ -147,7 +147,12 @@
                                                    : kindChip(item.kind) + slotChip(item.slot);
     if (key === 'statuses')   return kindChip(item.kind) + elementChips(item.elements);
     if (key === 'keyitems')   return kindChip(item.kind);
-    if (key === 'areas')      return kindChip(item.kind) + (item.grid ? '<span class="chip">Ô ' + esc(item.grid) + '</span>' : '');
+    if (key === 'areas') {
+      var parentArea = item.parent ? list('areas').find(function (a) { return a.id === item.parent; }) : null;
+      return kindChip(item.kind) +
+        (parentArea ? '<span class="chip">↳ ' + esc(parentArea.name) + '</span>' : '') +
+        (item.grid ? '<span class="chip">Ô ' + esc(item.grid) + '</span>' : '');
+    }
     if (key === 'summons')    return kindChip(item.kind) + (item.sp ? '<span class="chip">SP ' + esc(item.sp) + '</span>' : '') + elementChips(item.elements);
     if (key === 'limits')     return kindChip(item.kind) + (item.chars || []).map(charChip).join('') + elementChips(item.elements);
     return '';
@@ -158,6 +163,7 @@
     var str = String(s);
     var sep = ' — ';
     var i = str.indexOf(sep);
+    if (i === -1) { sep = ' - '; i = str.indexOf(sep); }
     if (i === -1) return txt(str);
     var left = str.slice(0, i);
     var names = str.slice(i + sep.length).split(', ');
@@ -176,6 +182,7 @@
         (c.keys || []).forEach(function (s) {
           var str = String(s);
           var i = str.indexOf(' — ');
+          if (i === -1) i = str.indexOf(' - ');
           if (i === -1) return;
           var names = str.slice(i + 3).split(', ').map(function (x) { return x.trim(); });
           if (names.indexOf(name) !== -1) out.push({ areaId: a.id, area: a.name, grid: c.grid });
@@ -649,21 +656,34 @@
 
     /* ----- Khu vực ----- */
     if (key === 'areas') {
+      var parentArea = item.parent ? list('areas').find(function (a) { return a.id === item.parent; }) : null;
+      var kids = list('areas').filter(function (a) { return a.parent === item.id; });
+      var feats = item.features || [];
+      var tips = item.tips || [];
       html +=
         '<div class="panel"><h3>Thông tin</h3>' +
           '<table class="data-table"><tbody>' +
             '<tr><td>Loại</td><td>' + esc(item.kind || '') + '</td></tr>' +
+            (parentArea ? '<tr><td>Khu mẹ</td><td><a href="' + hrefTo('areas', parentArea.id) + '">' + esc(parentArea.name) + '</a></td></tr>' : '') +
             '<tr><td>Lưới bản đồ</td><td>Ô ' + esc(item.grid || '?') + '</td></tr>' +
           '</tbody></table>' +
         '</div>' +
-        '<div class="two-col">' +
-          '<div class="panel"><h3>Điểm nhấn</h3><ul class="clean good">' +
-            (item.features || []).map(function (s) { return '<li>' + txt(s) + '</li>'; }).join('') +
-          '</ul></div>' +
-          '<div class="panel"><h3>Lưu ý khi qua khu</h3><ul class="clean tips">' +
-            (item.tips || []).map(function (s) { return '<li>' + txt(s) + '</li>'; }).join('') +
-          '</ul></div>' +
-        '</div>' +
+        ((feats.length || tips.length) ?
+          '<div class="two-col">' +
+            (feats.length ? '<div class="panel"><h3>Điểm nhấn</h3><ul class="clean good">' +
+              feats.map(function (s) { return '<li>' + txt(s) + '</li>'; }).join('') +
+            '</ul></div>' : '') +
+            (tips.length ? '<div class="panel"><h3>Lưu ý khi qua khu</h3><ul class="clean tips">' +
+              tips.map(function (s) { return '<li>' + txt(s) + '</li>'; }).join('') +
+            '</ul></div>' : '') +
+          '</div>' : '') +
+        (kids.length ?
+          '<div class="panel"><h3>Khu con</h3><ul class="clean">' +
+            kids.map(function (k) {
+              return '<li><a href="' + hrefTo('areas', k.id) + '">' + esc(k.name) + '</a>' +
+                (k.grid ? ' <span class="muted">— Ô ' + esc(k.grid) + '</span>' : '') + '</li>';
+            }).join('') +
+          '</ul><p class="muted small">Các khu con được tách khỏi ô lưới của khu mẹ để tra cứu riêng.</p></div>' : '') +
         ((item.cells || []).length ?
           '<div class="panel"><h3>Ô lưới — Quái và Key Items</h3><table class="data-table"><tbody>' +
             item.cells.map(function (c) {
@@ -673,9 +693,9 @@
               var rowsK = '';
               (c.keys || []).forEach(function (s) { rowsK += '<li>' + keyCellHtml(s) + '</li>'; });
               var keysHtml = rowsK ? '<ul class="clean">' + rowsK + '</ul>' : '<span class="muted">—</span>';
-              var notesHtml = (c.notes || []).map(function (s) { return '<p class="muted" style="margin:4px 0">' + txt(s) + '</p>'; }).join('') +
-                (c.subs ? '<p class="muted" style="margin:4px 0">Vị trí con: ' + esc(c.subs) + '</p>' : '');
-              return '<tr><td style="white-space:nowrap"><strong>Ô ' + esc(c.grid) + '</strong></td>' +
+              var notesHtml = (c.notes || []).map(function (s) { return '<p class="muted" style="margin:4px 0">' + txt(s) + '</p>'; }).join('');
+              var img = c.image ? '<img src="' + esc(c.image) + '" alt="Bản đồ ô ' + esc(c.grid) + '" loading="lazy" style="width:140px;max-width:100%;border-radius:6px;margin-top:6px;display:block">' : '';
+              return '<tr><td style="white-space:nowrap;vertical-align:top"><strong>Ô ' + esc(c.grid) + '</strong>' + img + '</td>' +
                 '<td>' + foesHtml + '<hr style="border:none;border-top:1px solid #eee;margin:6px 0">' +
                 '<div>' + keysHtml + '</div>' + notesHtml + '</td></tr>';
             }).join('') +
@@ -745,10 +765,10 @@
       '<div class="panel' + (key === 'statuses' ? '"><h3>Về trạng thái này</h3>' : '"><h3>Nguồn dữ liệu</h3>') +
         '<p class="muted" style="margin:0">Nội dung đối chiếu theo Epic Battle Fantasy Wiki chính thức tại' +
         ' <a href="' + esc(D.externalWiki) + '" target="_blank" rel="noopener">epicbattlefantasy.fandom.com</a>' +
-        (key === 'areas' ? ' — xem trang <em>Epic Battle Fantasy 5 Map</em> để tra từng ô lưới chi tiết (quái, Key Items, rương).' : '') +
-        (key === 'keyitems' ? ' — xem trang <em>Key Items</em> để đối chiếu bảng đầy đủ 66 món Key Items của EBF5 (mục {{EBF|5}}).' : '') +
-        (key === 'summons' ? ' — xem trang <em>Summons/Epic Battle Fantasy 5</em> để xem toàn bộ hơn 190 summon, giá SP và điều kiện mở khoá.' : '') +
-        (key === 'limits' ? ' — xem trang <em>Limit Break</em> để đối chiếu nhiệm vụ mở khoá từng skill (một số chỉ có ở v2).' : '') +
+        (key === 'areas' ? ' — xem trang <em>Epic Battle Fantasy 5 Map</em> để tra từng ô lưới chi tiết (quái, Key Items, rương)' : '') +
+        (key === 'keyitems' ? ' — xem trang <em>Key Items</em> để đối chiếu bảng đầy đủ 66 món Key Items của EBF5 (mục {{EBF|5}})' : '') +
+        (key === 'summons' ? ' — xem trang <em>Summons/Epic Battle Fantasy 5</em> để xem toàn bộ hơn 190 summon, giá SP và điều kiện mở khoá' : '') +
+        (key === 'limits' ? ' — xem trang <em>Limit Break</em> để đối chiếu nhiệm vụ mở khoá từng skill (một số chỉ có ở v2)' : '') +
         '. Muốn bổ sung, sửa trực tiếp trong <code>js/data.js</code>.</p>' +
         (srcTitle ?
           '<p class="muted" style="margin:8px 0 0">Trang wiki gốc: <a href="' + esc(wikiUrl(srcTitle)) +

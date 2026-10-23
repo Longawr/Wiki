@@ -22,9 +22,10 @@
 #                       stale (bo duoi "(foe)"... va lay trang chinh thuc).
 #   -Update areas     : quet 303 trang "Epic Battle Fantasy 5 Map/<GR> <Khu>"
 #                       (allpages), doi chieu o co noi dung (foes / Key Items)
-#                       voi areas.cells trong data.js; o chi co Exits + o cua
-#                       khu con bo qua co chu dich. -Fix tu them cell thieu
-#                       va block sources.areaCells tuong ung (idempotent).
+#                       voi areas.cells trong data.js; o chi co Exits + o da
+#                       tach thanh entry kind 'Khu con' bo qua co chu dich.
+#                       -Fix tu them cell thieu va block sources.areaCells
+#                       tuong ung (idempotent).
 #
 # Vi du:
 #   powershell -ExecutionPolicy Bypass -File update-data.ps1 -Update enemies
@@ -691,7 +692,8 @@ function Parse-ArrText($inner) {
 }
 
 function Get-AreasInfo($raw) {
-  # doc block "  areas: [" trong data.js. Moi khu: @{ id; name; open; cells }
+  # doc block "  areas: [" trong data.js. Moi khu: @{ id; name; kind; parent; open; cells }
+  # - kind/parent = 'Khu con' + khu me (entry chinh de trong)
   # - open  = khu co dong '    cells: [' hay khong
   # - cells = hashtable grid -> @{ lineIdx; hasFoes; hasKeys; keysText }
   #           (lineIdx tinh theo dong cua rieng block areas)
@@ -716,10 +718,12 @@ function Get-AreasInfo($raw) {
         $nm = $nm.Substring(1, $nm.Length - 2)
       }
       $cur = [pscustomobject]@{
-        id    = $mA.Groups[1].Value
-        name  = $nm
-        open  = $false
-        cells = @{}
+        id     = $mA.Groups[1].Value
+        name   = $nm
+        kind   = [regex]::Match($l, "kind: '([^']+)'").Groups[1].Value
+        parent = [regex]::Match($l, "parent: '([^']+)'").Groups[1].Value
+        open   = $false
+        cells  = @{}
       }
       continue
     }
@@ -1141,6 +1145,14 @@ function Invoke-CheckAreas {
     if (-not $byName.ContainsKey($kn)) { $byName[$kn] = $a }
   }
 
+  # O da tach thanh khu con (kind = 'Khu con') khong con nam trong cells
+  # cua khu me; mode areas khong duoc bao thieu / tu them lai cac o nay.
+  $subOwned = @{}
+  foreach ($sa in @($areas | Where-Object { $_.kind -eq 'Khu con' })) {
+    if (-not $sa.parent) { continue }
+    foreach ($sg in @(($sa.cells).Keys)) { $subOwned[$sa.parent + '/' + $sg] = $true }
+  }
+
   # 1) danh sach trang map tren wiki
   try { $pages = Get-AllMapTitles } catch {
     Write-Err ("  loi API allpages: {0}" -f $_.Exception.Message)
@@ -1198,8 +1210,10 @@ function Invoke-CheckAreas {
     $nContent += $contentGrids.Count
     $nEmpty += (@($g.Keys).Count - $contentGrids.Count)
 
-    # cells thieu
-    $miss = @($contentGrids | Where-Object { -not ($a.cells).ContainsKey($_) })
+    # cells thieu (bo qua o da tach thanh khu con)
+    $miss = @($contentGrids | Where-Object {
+      -not ($a.cells).ContainsKey($_) -and -not $subOwned.ContainsKey($a.id + '/' + $_)
+    })
     foreach ($grid in $miss) {
       $foes = @($g[$grid].foe)
       $keys = @($g[$grid].key)
@@ -1213,6 +1227,8 @@ function Invoke-CheckAreas {
     # key thieu trong cell co san
     foreach ($grid in $contentGrids) {
       if (-not ($a.cells).ContainsKey($grid)) { continue }
+      # cell gop khu con: key cua khu con da chuyen sang entry rieng
+      if ($subOwned.ContainsKey($a.id + '/' + $grid)) { continue }
       $kt = ($a.cells[$grid]).keysText
       foreach ($row in $g[$grid].key) {
         $pos = $row.IndexOf(' - ')

@@ -125,10 +125,12 @@
       assert(typeof EBF5App.renderDetail === 'function', 'renderDetail không phải hàm');
     });
 
-    // 8. Ô lưới khu vực (luot 27): 18 khu, Crystal Caverns 3 ô D0/D1/I9, tổng 142 ô nội dung
-    add('areas: 18 khu, Crystal Caverns đủ D0/D1/I9, tổng 142 ô nội dung', function () {
+    // 8. Ô lưới khu vực (luot 28): 18 khu chính/trả phí + 63 khu con, 205 ô
+    add('areas: 18 khu chính + 63 khu con, Crystal Caverns đủ D0/D1/I9, 205 ô', function () {
       var areas = window.EBF5DATA.areas;
-      assert(areas.length === 18, 'areas != 18 (là ' + areas.length + ')');
+      assert(areas.length === 81, 'areas != 81 (là ' + areas.length + ')');
+      var main = areas.filter(function (a) { return a.kind !== 'Khu con'; });
+      assert(main.length === 18, 'khu chính/trả phí != 18 (là ' + main.length + ')');
       var cry = areas.find(function (a) { return a.id === 'crystal-caverns'; });
       assert(!!cry, 'thiếu khu crystal-caverns');
       var grids = (cry.cells || []).map(function (c) { return c.grid; }).join(',');
@@ -140,18 +142,67 @@
         assert(/^Epic Battle Fantasy 5 Map\/[A-Z]\d{1,2} /.test(src['crystal-caverns'][g]), 'title mapping lạ: ' + g);
       });
       var content = 0;
+      var totalCells = 0;
       areas.forEach(function (a) {
         (a.cells || []).forEach(function (c) {
+          totalCells++;
           if ((c.foes && c.foes.length) || (c.keys && c.keys.length)) content++;
         });
       });
-      assert(content === 142, 'ô có nội dung != 142 (là ' + content + ')');
-      // ô mới phải có nội dung đọc được: mỗi foes entry bắt đầu bằng "<cột> - "
+      assert(totalCells === 205, 'tổng ô lưới != 205 (là ' + totalCells + ')');
+      assert(content === 195, 'ô có nội dung != 195 (là ' + content + ')');
+      // ô mới phải có nội dung đọc được: mỗi foes entry bắt đầu bằng "<cột> - " hoặc em dash
       cry.cells.forEach(function (c) {
         c.foes.forEach(function (f) {
-          assert(/^[A-Z] \d{1,2} - /.test(f), 'foes của ' + c.grid + ' thiếu "<cột> - ": ' + f.slice(0, 30));
+          assert(/^[A-Z] \d{1,2} [-\u2014] /.test(f), 'foes của ' + c.grid + ' thiếu "<cột> - ": ' + f.slice(0, 30));
         });
       });
+    });
+
+    // 9. Khu con (luot 28): 63 entry / 84 cell, parent + ảnh map + areaCells
+    add('khu con: 63 entry / 84 cell, parent hợp lệ, ảnh map và areaCells đủ', function () {
+      var areas = window.EBF5DATA.areas;
+      var subs = areas.filter(function (a) { return a.kind === 'Khu con'; });
+      assert(subs.length === 63, 'khu con != 63 (là ' + subs.length + ')');
+      assert(areas.filter(function (a) { return a.parent; }).length === 63, 'entry có parent != 63');
+      var subCells = 0;
+      subs.forEach(function (a) {
+        assert(!!areas.find(function (p) { return p.id === a.parent; }), 'parent không tồn tại: ' + a.id + ' -> ' + a.parent);
+        (a.cells || []).forEach(function (c) {
+          subCells++;
+          assert(!!c.image && /^img\/areas\//.test(c.image), 'cell thiếu ảnh map: ' + a.id + '/' + c.grid);
+        });
+        assert((a.cells || []).length > 0, 'khu con không có cell: ' + a.id);
+      });
+      assert(subCells === 84, 'cell khu con != 84 (là ' + subCells + ')');
+      var ice = areas.find(function (a) { return a.id === 'ice-cave'; });
+      assert(ice && ice.cells.length === 3, 'ice-cave không đủ 3 ô');
+      assert(ice.cells.map(function (c) { return c.grid; }).join(',') === 'D4,D5,E3', 'ice-cave sai ô');
+      assert(areas.find(function (a) { return a.id === 'library'; }).cells.length === 4, 'library != 4 ô');
+      assert(areas.find(function (a) { return a.id === 'lava-lake'; }).cells.length === 6, 'lava-lake != 6 ô');
+      assert(areas.find(function (a) { return a.id === 'data-bunker'; }).cells.length === 3, 'data-bunker != 3 ô');
+      assert(areas.find(function (a) { return a.id === 'battle-arena'; }).cells.length === 2, 'battle-arena != 2 ô');
+      assert(areas.find(function (a) { return a.id === 'the-beyond'; }).cells.length === 3, 'the-beyond != 3 ô');
+      assert(subs.filter(function (a) { return /^Arcade Room/.test(a.name); }).length === 10, 'Arcade Room != 10 entry');
+      assert(!!areas.find(function (a) { return a.id === 'food-shop-1st-floor'; }), 'thiếu food-shop-1st-floor');
+      assert(!areas.find(function (a) { return a.name === '60 Medals Room (v2)'; }), 'còn entry 60 Medals Room (v2)');
+      var src = window.EBF5DATA.sources && window.EBF5DATA.sources.areaCells;
+      assert(!!src, 'thiếu sources.areaCells');
+      assert(Object.keys(src).length === 81, 'areaCells block != 81');
+      var pairCount = 0;
+      Object.keys(src).forEach(function (id) { pairCount += Object.keys(src[id]).length; });
+      assert(pairCount === 205, 'areaCells pair != 205 (là ' + pairCount + ')');
+      subs.forEach(function (a) {
+        assert(!!src[a.id], 'thiếu areaCells cho ' + a.id);
+        a.cells.forEach(function (c) {
+          assert(!!src[a.id][c.grid], 'thiếu areaCells ' + a.id + '/' + c.grid);
+        });
+      });
+      assert(!areas.find(function (a) { return a.id === 'hope-harbor'; }).cells.some(function (c) { return c.grid === 'E3'; }), 'Hope Harbor còn ô E3');
+      assert(!areas.find(function (a) { return a.id === 'grand-gallery'; }).cells.some(function (c) { return c.grid === 'A0'; }), 'Grand Gallery còn ô A0');
+      assert(!areas.find(function (a) { return a.id === 'the-rapture'; }).cells.some(function (c) { return c.grid === 'J7'; }), 'The Rapture còn ô J7');
+      var subsText = areas.some(function (a) { return (a.cells || []).some(function (c) { return !!c.subs; }); });
+      assert(!subsText, 'còn cell dùng trường subs');
     });
 
     // in kết quả
