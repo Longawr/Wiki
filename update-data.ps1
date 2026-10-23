@@ -1590,6 +1590,9 @@ function Invoke-ExpandSources {
   foreach ($tk in @('skills','summons','keyitems','materials')) {
     $defTitle = $src[$tk]['_default']
     foreach ($e in @($entriesOf[$tk])) {
+      # skip-pair: entry da co pair rieng trong block sources -> khong hoi API
+      # lan nua, khong tao pair trung id khi chay -Fix nhieu luot
+      if ($src[$tk].ContainsKey($e.id)) { continue }
       $nname = ($e.name -replace "\\'", "'")
       $cands = @()
       # skills 'The Creator'/'The Destroyer' la Limit Break NoLegs — trang EBF4
@@ -1652,10 +1655,10 @@ function Invoke-ExpandSources {
   foreach ($tk in @('skills','summons','keyitems','materials')) {
     $n = 0
     foreach ($k in @($chosen.Keys)) { if ($k.StartsWith($tk + '|')) { $n++ } }
-    Write-Host ("  {0}: {1}/{2} co trang rieng tren wiki" -f $tk, $n, @($entriesOf[$tk]).Count)
+    Write-Host ("  {0}: {1}/{2} can them pair moi" -f $tk, $n, @($entriesOf[$tk]).Count)
   }
 
-  $r = [pscustomobject]@{ new = @(); total = @($chosen.Keys).Count }
+  $r = [pscustomobject]@{ new = @(@($chosen.Keys)); total = @($chosen.Keys).Count }
   if (@($chosen.Keys).Count -gt 0 -and -not $Fix) {
     Write-Host '  (chua ghi - chay lai voi -Fix de cap nhat data.js)'
   }
@@ -1668,10 +1671,11 @@ function Invoke-ExpandSources {
     $pairs = @()
     foreach ($e in @($entriesOf[$tk])) {
       $k2 = $tk + '|' + $e.id
-      if ($chosen.ContainsKey($k2)) {
-        $ttl = $chosen[$k2] -replace "'", "\'"
-        $pairs += ("      '{0}': '{1}'," -f $e.id, $ttl)
-      }
+      # skip-pair phong ho: bo id da ton tai trong block sources (du phong
+      # truong hop data.js thay doi giua luc doc dau va luc ghi)
+      if ((-not $chosen.ContainsKey($k2)) -or $src[$tk].ContainsKey($e.id)) { continue }
+      $ttl = $chosen[$k2] -replace "'", "\'"
+      $pairs += ("      '{0}': '{1}'," -f $e.id, $ttl)
     }
     if (@($pairs).Count -eq 0) { continue }
     # JScript khong cho phuy truoi truoc '}' trong object literal: bo phuy o
@@ -1703,7 +1707,7 @@ switch ($Update.ToLower()) {
   'statuses'  { $r = Invoke-CheckStatuses;  $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
   'items'     { $r = Invoke-CheckItems;     $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
   'sources'   { $code = Invoke-CheckSources }
-  'sources-add' { $r = Invoke-ExpandSources; $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.total) -gt 0) { $code = 1 } }
+  'sources-add' { $r = Invoke-ExpandSources; $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
   'areas'     { $r = Invoke-CheckAreas;     $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
   'skills'    { $r = Invoke-CheckSkills;    $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
   'equipment' { $r = Invoke-CheckEquipment; $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
