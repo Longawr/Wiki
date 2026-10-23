@@ -92,9 +92,12 @@ function Get-Entries($key) {
     if ($inArr -and $l -match '^  \],?$') { $inArr = $false; continue }
     if ($inArr) {
       # dung ca 2 dang entry: co dong rieng (enemies) va mot dong (statuses/items)
-      $mi = [regex]::Match($l, "^[{}\s]+id: '([^']+)',\s+name: '(.+?)',")
+      # name co the bam chuoi don hoac bam kep (ten co dau ' nhu Phyrnna's Blessing)
+      $mi = [regex]::Match($l, '^[{}\s]+id: ''([^'']+)'',\s+name: (?:''((?:[^'']|\\'')*)''|"([^"]*)"),')
       if ($mi.Success) {
-        $res.Add([pscustomobject]@{ id = $mi.Groups[1].Value; name = $mi.Groups[2].Value })
+        $nm = $mi.Groups[2].Value
+        if (-not $nm) { $nm = $mi.Groups[3].Value }
+        $res.Add([pscustomobject]@{ id = $mi.Groups[1].Value; name = $nm })
       }
     }
   }
@@ -237,8 +240,10 @@ function Strip-ParensSuffix($x) {
 function Norm-WikiName($s) {
   if (-not $s) { return '' }
   $x = Strip-ParensSuffix $s.Trim()
+  $x = ($x -replace "\\'", "'")     # entry trong data lai co escape \' -> goc ' thuan
+  $x = ($x -replace "'", '')        # bo apostrophe: Captain's Coat == Captains Coat
   while ($true) {
-    $y = $x -replace '\s*\((?:EBF5 ?boss|EBF5|foe|item|status)\)$', ''
+    $y = $x -replace '\s*\((?:EBF5 ?boss|EBF5|foe|item|status|boss|male|female|hat|flair|coat)\)$', ''
     $y = $y -replace '\s*\(boss\)$', ''
     if ($y -eq $x) { break }
     $x = $y
@@ -1349,18 +1354,229 @@ function Invoke-CheckAreas {
   return $r
 }
 
+# ---------------------------------------------------------------------------
+# Generic: anchors <span id="5XXXX"> cua 1 trang (bảng {{EBF|5}}) — Name = phan sau '5'
+# ---------------------------------------------------------------------------
+function Get-Anchors5FromPage($page) {
+  $txt = Get-WikiText $page
+  if (-not $txt) { return $null }
+  $names = @()
+  foreach ($m in ([regex]::Matches($txt, '<span id="(5[A-Za-z0-9 ''?\.\-]+)"></span>'))) {
+    $n = $m.Groups[1].Value.Trim()
+    if ($n.Length -gt 1) { $names += $n.Substring(1) }
+  }
+  return , @($names | Sort-Object -Unique)
+}
+
+# doi mot cell wikitext thanh ten thuan:
+# - moi [[A|B]] -> hien thi B (neu B co ki tu ASCII va khong co '?'), nguoc lai A — thay tai vi tri
+#   nen cac phan text ngoai link (vd duoi ' (Glitch 2)') giu nguyen;
+# - bo the HTML (<small>...), bo {{...}} va &nbsp;
+function Clean-WikiCellName($s) {
+  $x = [regex]::Replace($s, '<[^>]+>', '')
+  $ev = [System.Text.RegularExpressions.MatchEvaluator] {
+    param($m)
+    $canon = $m.Groups[1].Value.Trim()
+    $disp  = $m.Groups[2].Value.Trim()
+    if (($disp.Length -gt 0) -and ($disp -match '[A-Za-z]') -and ($disp -notmatch '\?')) { $disp } else { $canon }
+  }
+  $x = [regex]::Replace($x, '\[\[([^|\]]+?)(?:\|([^\]]*))?\]\]', $ev)
+  $x = ($x -replace '\{\{.*?\}\}', '')
+  $x = $x -replace '&nbsp;', ' '
+  $x = ($x -replace '\s+', ' ').Trim()
+  return $x
+}
+# MODE skills - trang List of Skills in EBF5: anchor <span id="X"> gan [[File:EBF5 Skill X...]]
+# ---------------------------------------------------------------------------
+function Invoke-CheckSkills {
+  Write-Section 'SKILLS - trang List of Skills in EBF5 vs data.js'
+  $src = Get-SourcesAll
+  if (-not ($src.ContainsKey('skills'))) { Write-Err '  sources.skills khong co'; return $null }
+  $entries = Get-Entries 'skills'
+  Write-Host ("  entries trong data.js: {0}" -f @($entries).Count)
+
+  $txt = Get-WikiText 'List of Skills in Epic Battle Fantasy 5'
+  if (-not $txt) { Write-Err '  khong tai duoc trang List of Skills in Epic Battle Fantasy 5'; return $null }
+  $names = @()
+  foreach ($m in ([regex]::Matches($txt, '<span id="([A-Za-z0-9 ''?\.\-]+)"></span>\r?\n?\[\[File:EBF5 Skill [^\]]+\]\]'))) {
+    $n = (Clean-WikiCellName $m.Groups[1].Value)
+    if ($n.Length -gt 0) { $names += $n }
+  }
+  $names = @($names | Sort-Object -Unique)
+  # dua ky tu dac biet ve ASCII thuan cho regex (file ASCII-only)
+  $names = @($names | Where-Object { $_ -notmatch '[^\x20-\x7E]' })
+  Write-Host ("  skill tren wiki (span + EBF5 Skill icon): {0}" -f $names.Count)
+
+  $wikiSet = @{}
+  foreach ($n in $names) {
+    $k = Norm-WikiName $n
+    if (-not $wikiSet.ContainsKey($k)) { $wikiSet[$k] = $n }
+  }
+  $ourSet = @{}
+  foreach ($o in @($entries)) {
+    foreach ($k in @((Norm-WikiName $o.name), ($o.id -replace '-', ' '))) {
+      if (-not $ourSet.ContainsKey($k)) { $ourSet[$k] = $o.id }
+    }
+  }
+  # skill tren trang List of Skills ma thuoc chu de limits (Limit Break, so 8 entry
+  # 'Limit dung chung'): wiki hon hop hai the, data tach rieng bo limits - coi nhu da phu
+  $nLimitCover = 0
+  foreach ($o in @((Get-Entries 'limits'))) {
+    $k = Norm-WikiName $o.name
+    if ($wikiSet.ContainsKey($k) -and -not $ourSet.ContainsKey($k)) {
+      $ourSet[$k] = 'limits/' + $o.id
+      $nLimitCover++
+    }
+  }
+  foreach ($id in @($src['skills'].Keys)) {
+    if ($id -eq '_default') { continue }
+    $k = Norm-WikiName $src['skills'][$id]
+    if (-not $ourSet.ContainsKey($k)) { $ourSet[$k] = $id }
+  }
+  $newOnes = @()
+  foreach ($k in $wikiSet.Keys) {
+    if (-not $ourSet.ContainsKey($k)) {
+      $newOnes += $wikiSet[$k]
+      Write-Bad ("  [NEW] skill chua co entry: {0}" -f $wikiSet[$k])
+    }
+  }
+  if (@($newOnes).Count -eq 0) { Write-Ok '  [OK] skills da phu trang List of Skills in EBF5' }
+  Write-Host ("  KQ: skill moi {0} (bo qua {1} skill thuoc bo limits)" -f $newOnes.Count, $nLimitCover)
+  return [pscustomobject]@{ new = $newOnes; total = $names.Count }
+}
+
+# ---------------------------------------------------------------------------
+# MODE materials - trang Materials (anchor 5<Ten>, bang {{EBF|5}})
+# MODE keyitems - trang Key Items (anchor 5<Ten>)
+# ---------------------------------------------------------------------------
+function Invoke-CheckMaterials {
+  Write-Section 'MATERIALS - trang Materials (anchor 5<Ten>) vs data.js'
+  $src = Get-SourcesAll
+  if (-not ($src.ContainsKey('materials'))) { Write-Err '  sources.materials khong co'; return $null }
+  $entries = Get-Entries 'materials'
+  $names = Get-Anchors5FromPage 'Materials'
+  if ($null -eq $names) { Write-Err '  khong tai duoc trang Materials'; return $null }
+  Write-Host ("  material tren wiki (anchor 5X): {0}" -f $names.Count)
+  return Compare-WikiNamesVsEntries 'materials' $names $entries $src['materials'] 'materials da phu bo Materials EBF5' 'material'
+}
+
+function Invoke-CheckKeyItems {
+  Write-Section 'KEYITEMS - trang Key Items (anchor 5<Ten>) vs data.js'
+  $src = Get-SourcesAll
+  if (-not ($src.ContainsKey('keyitems'))) { Write-Err '  sources.keyitems khong co'; return $null }
+  $entries = Get-Entries 'keyitems'
+  $names = Get-Anchors5FromPage 'Key Items'
+  if ($null -eq $names) { Write-Err '  khong tai duoc trang Key Items'; return $null }
+  Write-Host ("  key item tren wiki (anchor 5X): {0}" -f $names.Count)
+  $names = @($names | Where-Object { Norm-WikiName $_ })
+  return Compare-WikiNamesVsEntries 'keyitems' $names $entries $src['keyitems'] 'keyitems da phu bo Key Items EBF5' 'key item'
+}
+
+# so sanh wiki names vs entries (name/id) + sources.<key>; khong tu sinh - ghi [NEW] va thoat 1
+function Compare-WikiNamesVsEntries($key, $names, $entries, $srcMap, $okMsg, $label, $alias = @{}) {
+  $wikiSet = @{}
+  foreach ($n in $names) {
+    $k = (Norm-WikiName $n) -replace '_', ' '
+    if ($alias.ContainsKey($k)) { $k = $alias[$k] }
+    if (-not $wikiSet.ContainsKey($k)) { $wikiSet[$k] = $n }
+  }
+  $ourSet = @{}
+  foreach ($o in @($entries)) {
+    foreach ($k in @(((Norm-WikiName $o.name) -replace '_', ' '), ($o.id -replace '-', ' '))) {
+      if (-not $ourSet.ContainsKey($k)) { $ourSet[$k] = $o.id }
+    }
+  }
+  foreach ($id in @($srcMap.Keys)) {
+    if ($id -eq '_default') { continue }
+    $k = Norm-WikiName $srcMap[$id]
+    if (-not $ourSet.ContainsKey($k)) { $ourSet[$k] = $id }
+  }
+  $newOnes = @()
+  foreach ($k in $wikiSet.Keys) {
+    if (-not $ourSet.ContainsKey($k)) {
+      $newOnes += $wikiSet[$k]
+      Write-Bad ("  [NEW] {0} chua co entry: {1}" -f $label, $wikiSet[$k])
+    }
+  }
+  if (@($newOnes).Count -eq 0) { Write-Ok ("  [OK] {0}" -f $okMsg) }
+  Write-Host ("  KQ: {0} moi {1}" -f $label, $newOnes.Count)
+  return [pscustomobject]@{ new = $newOnes; total = $names.Count }
+}
+
+# ---------------------------------------------------------------------------
+# MODE equipment - 4 trang vũ khí + 2 trang mu/giap + Flairs (anchor 5<Ten>)
+# ---------------------------------------------------------------------------
+function Invoke-CheckEquipment {
+  Write-Section 'EQUIPMENT - 7 trang (Swords/Bows/Guns/Staves + Male/Female Hats and Armor + Flairs)'
+  $src = Get-SourcesAll
+  if (-not ($src.ContainsKey('equipment'))) { Write-Err '  sources.equipment khong co'; return $null }
+  $entries = Get-Entries 'equipment'
+  Write-Host ("  entries trong data.js: {0}" -f @($entries).Count)
+  $all = @()
+  foreach ($pg in 'Swords','Bows','Guns','Staves','Male Hats and Armor','Female Hats and Armor','Flairs') {
+    $names = Get-Anchors5FromPage $pg
+    if ($null -eq $names) { Write-Err ("  khong tai duoc trang {0}" -f $pg); return $null }
+    Write-Dim ("  {0}: {1} anchor" -f $pg, $names.Count)
+    foreach ($n in $names) { $all += $n }
+    Start-Sleep -Milliseconds $script:DELAY_MS
+  }
+  Write-Host ("  trang bi tren wiki (anchor 5X, unique): {0}" -f @($all | Sort-Object -Unique).Count)
+  return Compare-WikiNamesVsEntries 'equipment' @($all | Sort-Object -Unique) $entries $src['equipment'] 'equipment da phu 7 trang anchor EBF5' 'trang bi'
+}
+
+# ---------------------------------------------------------------------------
+# MODE summons - trang Summons/EBF5, bang post-v2 (truoc 'Pre-v2'): icon-row | [[Name]]
+# ---------------------------------------------------------------------------
+function Invoke-CheckSummons {
+  Write-Section 'SUMMONS - trang Summons/EBF5 (bang post-v2) vs data.js'
+  $src = Get-SourcesAll
+  if (-not ($src.ContainsKey('summons'))) { Write-Err '  sources.summons khong co'; return $null }
+  $entries = Get-Entries 'summons'
+  Write-Host ("  entries trong data.js: {0}" -f @($entries).Count)
+  $txt = Get-WikiText 'Summons/Epic Battle Fantasy 5'
+  if (-not $txt) { Write-Err '  khong tai duoc trang Summons/EBF5'; return $null }
+  $txt = $txt.Replace("`r`n", "`n")
+  $cut = $txt.IndexOf('Pre-v2')
+  if ($cut -ge 0) { $txt = $txt.Substring(0, $cut) }   # chi bang hien hanh
+  $rx = "(?m)^\|\[\[File:EBF5 Foe Icon [^]]+\]\]\r?\n\|([^\n]+)\n"
+  $names = @()
+  foreach ($m in ([regex]::Matches($txt, $rx))) {
+    $n = Clean-WikiCellName $m.Groups[1].Value
+    if ($n.Length -gt 0) { $names += $n }
+  }
+  $names = @($names | Sort-Object -Unique)
+  Write-Host ("  summon tren wiki (hang icon post-v2): {0}" -f $names.Count)
+  # ten summon tren wiki co ra ngoai le:
+  # - hang [[The Glitch (EBF5)|..mo hoa..]] (Glitch) / (Glitch 2) -> ten that la 'Glitch' / 'Glitch 2'
+  # - [[Lava Turtle|Rock Eater]] -> display 'Rock Eater' da dung voi data (khong can alias)
+  $names = @($names | ForEach-Object {
+    $gm = [regex]::Match($_, '^(.*)\s*\((Glitch(?: 2)?)\)$')
+    if ($gm.Success) { $gm.Groups[2].Value } else { $_ }
+  })
+  $names = @($names | ForEach-Object { $_ }) | Sort-Object -Unique
+  $names = @($names)
+  Write-Host ("  summon tren wiki (sau chinh ten le): {0}" -f $names.Count)
+  return Compare-WikiNamesVsEntries 'summons' $names $entries $src['summons'] 'summons da phu bang Summons EBF5' 'summon'
+}
+
+
 function Show-Usage {
-  Write-Host 'Cach dung: update-data.ps1 -Update <enemies|statuses|items|sources|areas> [-Fix]'
+  Write-Host 'Cach dung: update-data.ps1 -Update <enemies|statuses|items|sources|areas|skills|equipment|summons|keyitems|materials> [-Fix]'
 }
 
 $code = 0
 if (-not (Test-Path $DataFile)) { Write-Err ("khong tim thay {0}" -f $DataFile); exit 2 }
 switch ($Update.ToLower()) {
-  'enemies'  { $r = Invoke-CheckEnemies;  $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
-  'statuses' { $r = Invoke-CheckStatuses; $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
-  'items'    { $r = Invoke-CheckItems;    $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
-  'sources'  { $code = Invoke-CheckSources }
-  'areas'    { $r = Invoke-CheckAreas;    $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
-  default    { Write-Err ("mode khong ho tro: {0}" -f $Update); Show-Usage; exit 2 }
+  'enemies'   { $r = Invoke-CheckEnemies;   $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
+  'statuses'  { $r = Invoke-CheckStatuses;  $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
+  'items'     { $r = Invoke-CheckItems;     $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
+  'sources'   { $code = Invoke-CheckSources }
+  'areas'     { $r = Invoke-CheckAreas;     $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
+  'skills'    { $r = Invoke-CheckSkills;    $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
+  'equipment' { $r = Invoke-CheckEquipment; $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
+  'summons'   { $r = Invoke-CheckSummons;   $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
+  'keyitems'  { $r = Invoke-CheckKeyItems;  $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
+  'materials' { $r = Invoke-CheckMaterials; $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
+  default     { Write-Err ("mode khong ho tro: {0}" -f $Update); Show-Usage; exit 2 }
 }
 exit $code

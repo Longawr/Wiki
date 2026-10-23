@@ -793,3 +793,8 @@ img/areas/battle-arena-e15.png	E15BattleArena
 img/areas/data-bunker-c13.png	C13DataBunker
 img/areas/data-bunker-c14.png	C14DataBunker
 img/areas/data-bunker-c15.png	C15DataBunker
+img/skills/flame-burst.png	EBF5 Skill Flame Burst
+img/skills/gravity-surge.png	EBF5 Skill Gravity Surge
+img/skills/plasma-wave.png	EBF5 Skill Plasma Wave
+img/summons/slime-bunny-summon.png	EBF5 Foe Icon Slime Bunny
+img/summons/glitch-2.png	EBF5 Foe Icon Glitch 2
