@@ -16,7 +16,7 @@
 - `css/style.css`: theme tối phong cách game, card grid, chip, `.detail-media`, fallback `.img-fail`.
 - Thêm chủ đề mới = **1 hàng trong `categories` + 1 mảng dữ liệu + (tuỳ) 1 nhánh chip/detail trong app.js**.
 
-### Dữ liệu — 11 chủ đề, 1081 mục, 1079 tham chiếu ảnh ↔ 1074 file (0 thiếu, 0 file lẻ)
+### Dữ liệu — 11 chủ đề, 1144 mục, 1226 tham chiếu ảnh ↔ 1158 file (0 thiếu, 0 file lẻ)
 
 | # | Chủ đề | key | Mục | Ảnh | Ghi chú |
 |---|--------|-----|-----|-----|---------|
@@ -27,7 +27,7 @@
 | 5 | Trang bị | `equipment` | 228 | 228/228 | **Lượt 16: 84 vũ khí** (78 sinh máy từ 4 trang `Swords`/`Bows`/`Guns`/`Staves` bảng 1 post-v2 + 8 entry tay: Heaven Gate, Ultra Pro 9000X, Fairy Bow, Dark Tooth, Shadow Blaster, Spine Snapper, Crystal Staff, Steel Buckler); **Lượt 17: +142 mũ giáp & Flair** — 84 mũ/giáp sinh máy (21+21 Mũ/Giáp nam theo `Male Hats and Armor`, 21+21 nữ theo `Female Hats and Armor`) + 58 Flair (55 sinh máy từ trang `Flairs` + 3 tay NoLegs); thay 8 entry tay mỏng bằng bản sinh máy; 24 món nhãn Độc quyền bản Steam qua `PaywallNote` từng trang item |
 | 5b | Vật liệu | `materials` | 60 | 60/60 | **Lượt 23 — chủ đề mới**: đủ 60 nguyên liệu forge EBF5 sinh máy từ bảng `{{EBF|5}}` trang *Materials* (tên, mô tả wiki dịch, giá mua/bán); "Can be thrown in battle" → kind `Ném được` (Snowball, Brick, Shuriken, Hand Bomb — Hand Bomb tái dùng icon của items); icon `EBF5 Item X` vào `img/materials/`; sources `_default = Materials` |
 | 6 | Trạng thái | `statuses` | 48 | 47/48 | **Lượt 25: phủ kín bộ status EBF5 26 → 48** theo trang *Status Effects* — thêm Tích lực (Charge), Phòng thủ (Defend), Epic (aura trận God), Tốc hành (Haste), Đáng yêu (Lovable), Tinh thần (Morale), Random (máy gieo 20 status ×9/×5/×4/×3 tầng, xác thực qua trang riêng), Diêm ngục (Brimstone), Delete, Vô hiệu (Disable), Đói bụng (Hungry), No căng (Stuffed), Che khuất (Shroud), Repulsion, Undead, Hoá đá (Stoned), Mục tiêu (Target), Khô (Dry), Enchanted, Nặng (Heavy), Vô hình (Invisible), Đầu hàng (Surrender); 6 status "không thể gỡ" chỉ có trong trận boss (Epic/Diêm ngục/Delete/Repulsion/Undead/Hoá đá) đúng ghi chú wiki; Blind (chỉ EBF2) và Slimed (chỉ EBF4) không vào bộ; "Trói chân" (không tồn tại) đã thay bằng Mỏi (Tired) từ lượt đầu; Radiation giữ emoji + Disable không có icon in-game (wiki ghi rõ) |
-| 7 | Khu vực | `areas` | 81 | 81/81 (18 tile + 84 ảnh map ô) | **Lượt 28: 18 khu chính/trả phí + 63 khu con** (Ice Cave, Library, Lava Lake, Data Bunker, Battle Arena, Arcade Room, shops, nhà, Medals Room…); 205 ô lưới (195 ô có foes/Key Items: 121 chính + 84 con), 205 cặp `cells ↔ areaCells`; khu con có `kind: 'Khu con'`, `parent`, `cells[].image`; đã bỏ trường `subs` và 23 ô khu chính (19 ô rỗng theo kế hoạch + B5/C13/K9 có toàn bộ nội dung chuyển sang khu con + E1 rỗng chỉ có `subs`); mode `-Update areas` bỏ qua ô đã thuộc khu con; lượt 24: tên Key Item trong ô lưới thành **link** sang `keyitems` |
+| 7 | Khu vực | `areas` | 81 | 81/81 (18 tile + 63 ảnh khu con + 84 ảnh map ô = 165) | **Lượt 28: 18 khu chính/trả phí + 63 khu con** (Ice Cave, Library, Lava Lake, Data Bunker, Battle Arena, Arcade Room, shops, nhà, Medals Room…); 205 ô lưới (195 ô có foes/Key Items: 121 chính + 84 con), 205 cặp `cells ↔ areaCells`; khu con có `kind: 'Khu con'`, `parent`, `cells[].image`; đã bỏ trường `subs` và 23 ô khu chính (19 ô rỗng theo kế hoạch + B5/C13/K9 có toàn bộ nội dung chuyển sang khu con + E1 rỗng chỉ có `subs`); mode `-Update areas` bỏ qua ô đã thuộc khu con; lượt 24: tên Key Item trong ô lưới thành **link** sang `keyitems` |
 | 7b | Vật phẩm nhiệm vụ | `keyitems` | 66 | 66/66 | **Lượt 24 — chủ đề mới**: đủ bộ Key Items EBF5 theo bảng `{{EBF|5}}` trang *Key Items* (wiki: "There are 66 key items in total" — ~71 trong roadmap là ước lượng trước khi trích nguồn); desc = dịch hàng Description, `note` cô đọng hàng Note (nơi tìm thấy, nhiệm vụ của ai, số lượng (1)…(N), Equip Remix); kinds = Qua vật cản(16) / Chìa khoá(6) / Nhiệm vụ(34) / Cổng The Beyond(7) / Công cụ hệ thống(3); icon `5<Tên>` theo PlacementGrid (`5GreenCard`, `EBF5 Item Tomato` là 2 tên đặc biệt); panel "Ô lưới có Key Item này" quét tự động từ `areas.cells` |
 | 8 | Triệu hồi | `summons` | 191 | 191/191 | **C4: 18 → 40** (lượt 8+11) rồi **14: 40 → 191 — gần như đủ bộ** theo bảng hiện hành post-v2 (192 hàng, trừ demo ẩn Glitch 2; The Devourer 250 → Furry Slime 1); 151 entry mới sinh máy từ cột target/type/power/element/status/debuff; 151 icon tải từ `EBF5 Foe Icon` qua fetch-images.map.txt |
 | 9 | Limit Break | `limits` | 20 | 20/20 (11 trong `img/limits/` + 9 dùng lại icon skills) | 10 riêng + 10 dùng chung; danh sách nhân vật học được trích từ Category tags wiki; 5 icon thiếu cũ (Supernova, Hidden Power, Absolute Zero, Seven Swords, Art Attack) đã tải về; 4 cái còn lại tái sử dụng icon từ mảng skills; Radiation status vẫn emoji (wiki không có file) |
@@ -40,10 +40,10 @@
 - **Bài học lớn**: soạn văn tiếng Việt dài trong shell/here-string dễ lẫn ký tự rác (CJK/Cyrillic) → soạn file tạm bằng công cụ `write`, rồi splice vào `data.js` bằng PowerShell; luôn quét kiểm `[CJK]=0, [Cyrillic]=0` và đếm ngoặc sau mỗi lần sửa.
 
 ### Kiểm thử pass (trạng thái hiện tại)
-- `data.js`: braces 1536/1536, brackets 1647/1647, quotes chẵn (23894), 0 ký tự rác, JScript parse OK.
-- `app.js`: braces 156/156, brackets 68/68 (file có ES6 sẵn nên JScript bỏ qua, trình duyệt chạy tốt).
-- `test.html`: trang smoke test chạy trong trình duyệt (11 chủ đề / 48 status, `renderDetail` sinh tooltip `.st-tip` + hàng `.prev-next`, lightbox, `#statusTip`, `#toTop`) — **mở bằng HTTP server thì đủ case xanh; qua `file://` Chromium chặn `history.replaceState` (origin null) nên các case phụ thuộc URL route tự chuyển SKIP (không FAIL)**; xoá đi khi không cần nữa.
-- 1079 tham chiếu `image:` ↔ 1074 file thật (limits dùng lại icon skills; Hand Bomb materials tái dùng icon items; Disable không có icon in-game như wiki ghi, Defend dùng icon chung) — **0 thiếu, 0 file lẻ**.
+- `data.js`: braces 1727/1727, brackets 1866/1866, quotes chẵn (26172), 0 ký tự rác, JScript parse OK.
+- `app.js`: braces 162/162, brackets 68/68 (file có ES6 sẵn nên JScript bỏ qua, trình duyệt chạy tốt).
+- `test.html`: trang smoke test chạy trong trình duyệt — **9 case** (11 chủ đề / 48 status / 66 key items, `renderDetail` sinh tooltip `.st-tip` + hàng `.prev-next`, lightbox, `#statusTip`, `#toTop`; lượt 27–28 thêm case 8–9 ô lưới khu vực + khu con) — **mở bằng HTTP server thì đủ case xanh; qua `file://` Chromium chặn `history.replaceState` (origin null) nên các case phụ thuộc URL route tự chuyển SKIP (không FAIL)**; xoá đi khi không cần nữa.
+- 1226 tham chiếu `image:` ↔ 1158 file thật (limits dùng lại icon skills; Hand Bomb materials tái dùng icon items; Disable không có icon in-game như wiki ghi, Defend dùng icon chung) — **0 thiếu, 0 file lẻ**.
 - README + hero trang chủ khớp số liệu thật.
 
 ---
@@ -100,7 +100,7 @@
 
 **Tiêu chí "hoàn thiện" theo 3 mức:**
 
-1. **Dùng được** (đã đạt): 11 chủ đề, 1081 mục (1074 file ảnh, mọi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
+1. **Dùng được** (đã đạt): 11 chủ đề, 1144 mục (1158 file ảnh, mọi tham chiếu đều có ảnh), chạy offline bằng double-click `index.html`.
 2. **Dễ dùng** (đã đạt): lightbox + tooltip + phím tắt + tìm kiếm sâu (tips/effect/quái theo ô lưới) + nút lên đầu trang; **deploy GitHub Pages ✅ https://longawr.github.io/Wiki/**.
 3. **Sống lâu** (mục tiêu xa): dữ liệu phủ ~100% kỹ năng/quái/hệ vật phẩm/trạng thái ✅ (kỹ năng 183, **kẻ địch 216/216 — khớp đúng con số 216 unique foe của wiki, "chênh 2" đã giải quyết ở lượt 26**; **lượt 23: materials 60/60 + items đủ bộ Food 24 + Steroid 20**; **lượt 25: statuses 48/48 — phủ kín trang Status Effects của EBF5**); **quy trình cập nhật từ fandom API đã là script có sẵn `update-data.ps1` (lượt 26)** — quét foes/statuses/items mới + kiểm title `sources` stale, có `-Fix` tự sửa data.js; mỗi mục truy vết được về trang wiki gốc để tự đối chiếu khi game ra bản vá mới (EBF5 vẫn nhận update v2+).
 
@@ -269,8 +269,8 @@
 - [x] **[Lượt 27 ✅] `check.ps1`/`update-data.ps1`: mode `-Update areas`** — báo ô/cặp thiếu và `-Fix` tự thêm cell mới + cặp `sources.areaCells` (guard `Test-Brackets` huỷ ghi nếu cấu trúc ngoặc lệ); từ lượt 28 mode bỏ qua ô đã thuộc khu con; `check.ps1` section 8 kiểm `cells ↔ areaCells` khớp 2 chiều (205/205)
 - [ ] `update-data.ps1`: mở rộng quét **skills / equipment / summons / keyitems / materials** (hiện chỉ có enemies/statuses/items/sources)
 - [ ] **`sources` per-entry cho `skills`** — 183 entry toàn dùng `_default` về *List of Skills* trong khi wiki có trang riêng từng kỹ năng (đã xác minh Fireball / Heal → Whirlwind redirect). Xem xét làm tiếp cho keyitems/materials/summons (khả thi từng trang có trang riêng)
-- [ ] `test.html`: assert 216 enemies / 60 materials / tổng 1081 (hiện assert 11 chủ đề, statuses 48, keyitems 66 + **[lượt 28] areas 81 entry / 205 ô / 195 nội dung / 205 cặp areaCells + 63 khu con / 84 cell**) — 9 case PASS
-- [ ] *(phụ, ngoài roadmap gốc)* `og:image` + `404.html` + `robots.txt`/`sitemap.xml` cho GitHub Pages; kiểm spell layout mobile cho bảng res & lưới area
+- [ ] `test.html`: assert 216 enemies / 60 materials / tổng 1144 (hiện assert 11 chủ đề, statuses 48, keyitems 66 + **[lượt 28] areas 81 entry / 205 ô / 195 nội dung / 205 cặp areaCells + 63 khu con / 84 cell**) — 9 case PASS
+- [ ] *(phụ, ngoài roadmap gốc)* `og:image` + `404.html` + `robots.txt`/`sitemap.xml` cho GitHub Pages; kiểm spell layout mobile cho bảng res & lưới area *(lượt 29: làm cả hai mục này)*
 
 ---
 
