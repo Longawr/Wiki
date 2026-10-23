@@ -1560,8 +1560,140 @@ function Invoke-CheckSummons {
 }
 
 
+# ---------------------------------------------------------------------------
+# MODE sources-add - them title per-entry cho 4 chu de dang chi co _default:
+#   skills / keyitems / materials (ung cu vien = ten entry, bo duoi ngoac neu co)
+#   summons (ung cu vien = trang foe thuc theo norm map tu FoeTableEBF5)
+# Chi nhan title khi API tra ve trang ton tai (redirects=1); khong thi giu
+# _default. -Fix moi ghi vao data.js (inser sau dong _default cua tung khoi).
+# ---------------------------------------------------------------------------
+function Invoke-ExpandSources {
+  Write-Section 'SOURCES-ADD - per-entry cho skills/summons/keyitems/materials (hien chi _default)'
+  $src = Get-SourcesAll
+  $entriesOf = @{}
+  foreach ($tk in @('skills','summons','keyitems','materials')) {
+    $entriesOf[$tk] = Get-Entries $tk
+    $n = (@($src[$tk].Keys) | Where-Object { $_ -ne '_default' }).Count
+    Write-Host ("  {0}: {1} entry, {2} pair hien co" -f $tk, @($entriesOf[$tk]).Count, $n)
+  }
+
+  # ban do norm -> trang foe thuc (nhung trang gan FoeTableEBF5) cho summons
+  $normToPage = @{}
+  foreach ($pg in (Get-EmbeddedPages 'Template:FoeTableEBF5')) {
+    $nk = Norm-WikiName $pg
+    if ($nk -and (-not $normToPage.ContainsKey($nk))) { $normToPage[$nk] = $pg }
+  }
+  # summon tren wiki co ten canh: boss The Glitch = entry 'glitch' / 'glitch-2'
+  $summonAlias = @{ 'glitch' = 'the glitch'; 'glitch 2' = 'the glitch' }
+
+  $plan = @()
+  foreach ($tk in @('skills','summons','keyitems','materials')) {
+    $defTitle = $src[$tk]['_default']
+    foreach ($e in @($entriesOf[$tk])) {
+      $nname = ($e.name -replace "\\'", "'")
+      $cands = @()
+      # skills 'The Creator'/'The Destroyer' la Limit Break NoLegs — trang EBF4
+      # boss trung ten phai bo: chi cho phep trang '(Limit Break)'
+      if ($tk -eq 'skills' -and ($nname -eq 'The Creator' -or $nname -eq 'The Destroyer')) {
+        $cands = @($nname + ' (Limit Break)')
+      } elseif ($tk -eq 'summons') {
+        $kn = Norm-WikiName $nname
+        if ($summonAlias.ContainsKey($kn)) { $kn = $summonAlias[$kn] }
+        if ($normToPage.ContainsKey($kn)) { $cands += $normToPage[$kn] }
+      } else {
+        $cands += $nname
+        $m = [regex]::Match($nname, '^(.+[^\s])\s*\([^)]*\)$')
+        if ($m.Success -and $m.Groups[1].Value.Trim().Length -gt 0) { $cands += $m.Groups[1].Value.Trim() }
+      }
+      $cands = @($cands | Where-Object { $_ -and ($_ -ne $defTitle) } | Select-Object -Unique)
+      if (@($cands).Count -gt 0) { $plan += [pscustomobject]@{ key = $tk; id = $e.id; cands = $cands } }
+    }
+  }
+  Write-Host ("  entry can thu title rieng: {0}" -f @($plan).Count)
+  $allCands = @($plan | ForEach-Object { @($_.cands) } | ForEach-Object { $_ } | Sort-Object -Unique)
+  Write-Host ("  unique title truyen API: {0}" -f @($allCands).Count)
+  $status = Get-TitlesStatus $allCands
+
+  $chosen = @{}
+  foreach ($p in $plan) {
+    foreach ($c in @($p.cands)) {
+      $st = $status[$c.ToLower()]
+      if ($st -and $st.exists) { $chosen[$p.key + '|' + $p.id] = $st.canonical; break }
+    }
+  }
+
+  # xac minh choi: trang ton tai khong co nghia la trang EBF5 (co the trung ten
+  # voi trang EBF1-4 / trang khac). Boc content (50 title/luot) va giu chi khi
+  # wikitext nhac 'Epic Battle Fantasy 5' hoac '{{EBF|5}}' hoac balise 'EBF5'.
+  $uniqueTitles = @(@($chosen.Values) | Sort-Object -Unique)
+  Write-Host ("  xac minh noi dung {0} trang unique (boc wikitext, nghi ngo -> bo)" -f @($uniqueTitles).Count)
+  $okTitle = @{}
+  for ($i = 0; $i -lt @($uniqueTitles).Count; $i += 25) {
+    $end = [Math]::Min($i + 24, @($uniqueTitles).Count - 1)
+    $batch = @(@($uniqueTitles)[$i..$end])
+    $tp = ($batch | ForEach-Object { [uri]::EscapeDataString($_) }) -join '|'
+    $j = Invoke-FandomApi ('action=query&format=json&redirects=1&titles=' + $tp + '&prop=revisions&rvprop=content&rvslots=main')
+    if ($i -gt 0) { Start-Sleep -Milliseconds $script:DELAY_MS }
+    foreach ($p2 in $j.query.pages.PSObject.Properties.Value) {
+      $c2 = ''
+      if ($p2.revisions) { $c2 = $p2.revisions[0].slots.main.'*' }
+      $isEbf5 = ($c2 -match 'Epic Battle Fantasy 5') -or ($c2 -match '\{\{EBF\|5\}\}') -or ($c2 -match '\{\{EBF\|s\}\}') -or ($c2 -match 'EBF5')
+      $okTitle[$p2.title.ToLower()] = $isEbf5
+    }
+  }
+  $dropped = @()
+  foreach ($k in @(@($chosen.Keys))) {
+    $ttl = $chosen[$k]
+    $isEbf5 = $okTitle[$ttl.ToLower()]
+    if (-not $isEbf5) { $dropped += [pscustomobject]@{ key = $k; title = $ttl }; $chosen.Remove($k) }
+  }
+  foreach ($d in $dropped) { Write-Dim ("  [BO] {0}: trang '{1}' khong nhac EBF5" -f $d.key, $d.title) }
+  Write-Host ("  bo {0} title nghi ngo khong phai EBF5" -f @($dropped).Count)
+  foreach ($tk in @('skills','summons','keyitems','materials')) {
+    $n = 0
+    foreach ($k in @($chosen.Keys)) { if ($k.StartsWith($tk + '|')) { $n++ } }
+    Write-Host ("  {0}: {1}/{2} co trang rieng tren wiki" -f $tk, $n, @($entriesOf[$tk]).Count)
+  }
+
+  $r = [pscustomobject]@{ new = @(); total = @($chosen.Keys).Count }
+  if (@($chosen.Keys).Count -gt 0 -and -not $Fix) {
+    Write-Host '  (chua ghi - chay lai voi -Fix de cap nhat data.js)'
+  }
+  if (@($chosen.Keys).Count -eq 0 -or -not $Fix) { return $r }
+  if (-not $Fix) { return $r }
+
+  Write-Section 'FIX - them pair vao 4 khoi trong block sources'
+  $raw = Read-DataRaw
+  foreach ($tk in @('skills','summons','keyitems','materials')) {
+    $pairs = @()
+    foreach ($e in @($entriesOf[$tk])) {
+      $k2 = $tk + '|' + $e.id
+      if ($chosen.ContainsKey($k2)) {
+        $ttl = $chosen[$k2] -replace "'", "\'"
+        $pairs += ("      '{0}': '{1}'," -f $e.id, $ttl)
+      }
+    }
+    if (@($pairs).Count -eq 0) { continue }
+    # JScript khong cho phuy truoi truoc '}' trong object literal: bo phuy o
+    # pair CUOI CUNG de dong khoi nhu cac khoi goc ('id': 'Title' khong phay)
+    $last = @($pairs).Count - 1
+    $pairs[$last] = ($pairs[$last] -replace ',\s*$', '')
+    $anchorPlain = ("'_default': '{0}'" -f $src[$tk]['_default'])
+    $cnt = [regex]::Matches($raw, [regex]::Escape($anchorPlain)).Count
+    if ($cnt -ne 1) { Write-Bad ("  [BO] {0}: anchor _default khong unique ({1} lan)" -f $tk, $cnt); continue }
+    $idx = $raw.IndexOf($anchorPlain)
+    $insertAt = $idx + $anchorPlain.Length
+    $addition = ",`r`n" + [string]::Join("`r`n", $pairs)
+    $raw = $raw.Substring(0, $insertAt) + $addition + $raw.Substring($insertAt)
+    Write-Host ("  {0}: +{1} pair (anchor _default giu nguyen)" -f $tk, @($pairs).Count)
+  }
+  Write-DataRaw $raw
+  Write-Host '  da ghi data.js (UTF-8 no BOM) - chay lai check.ps1 + -Update sources de xac minh'
+  return $r
+}
+
 function Show-Usage {
-  Write-Host 'Cach dung: update-data.ps1 -Update <enemies|statuses|items|sources|areas|skills|equipment|summons|keyitems|materials> [-Fix]'
+  Write-Host 'Cach dung: update-data.ps1 -Update <enemies|statuses|items|sources|sources-add|areas|skills|equipment|summons|keyitems|materials> [-Fix]'
 }
 
 $code = 0
@@ -1571,6 +1703,7 @@ switch ($Update.ToLower()) {
   'statuses'  { $r = Invoke-CheckStatuses;  $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
   'items'     { $r = Invoke-CheckItems;     $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
   'sources'   { $code = Invoke-CheckSources }
+  'sources-add' { $r = Invoke-ExpandSources; $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.total) -gt 0) { $code = 1 } }
   'areas'     { $r = Invoke-CheckAreas;     $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
   'skills'    { $r = Invoke-CheckSkills;    $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
   'equipment' { $r = Invoke-CheckEquipment; $code = 0; if ($null -eq $r) { $code = 2 } elseif (@($r.new).Count -gt 0) { $code = 1 } }
