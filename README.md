@@ -130,6 +130,7 @@ và 1 mảng dữ liệu cùng tên `key` vào `window.EBF5DATA` — trang web t
 - **Phím tắt trang chi tiết**: `←/→` mục trước/sau, `Esc` về danh sách
 - Nút **↑ Đầu trang** hiện khi cuộn dài
 - Trang `test.html` — smoke test chạy trực tiếp trong trình duyệt (không cần Node), xoá khi không cần
+- **SEO/mạng xã hội**: meta Open Graph + Twitter Card (ảnh `img/og-cover.png` 1200×630), `404.html`, `robots.txt`, `sitemap.xml` cho GitHub Pages; mobile: bảng rộng (khắc chế nguyên tố, ô lưới khu vực) cuộn ngang, không tràn màn hình 360–390px
 
 ## 📦 Deploy miễn phí
 

@@ -269,8 +269,8 @@
 - [x] **[Lượt 27 ✅] `check.ps1`/`update-data.ps1`: mode `-Update areas`** — báo ô/cặp thiếu và `-Fix` tự thêm cell mới + cặp `sources.areaCells` (guard `Test-Brackets` huỷ ghi nếu cấu trúc ngoặc lệ); từ lượt 28 mode bỏ qua ô đã thuộc khu con; `check.ps1` section 8 kiểm `cells ↔ areaCells` khớp 2 chiều (205/205)
 - [ ] `update-data.ps1`: mở rộng quét **skills / equipment / summons / keyitems / materials** (hiện chỉ có enemies/statuses/items/sources)
 - [ ] **`sources` per-entry cho `skills`** — 183 entry toàn dùng `_default` về *List of Skills* trong khi wiki có trang riêng từng kỹ năng (đã xác minh Fireball / Heal → Whirlwind redirect). Xem xét làm tiếp cho keyitems/materials/summons (khả thi từng trang có trang riêng)
-- [ ] `test.html`: assert 216 enemies / 60 materials / tổng 1144 (hiện assert 11 chủ đề, statuses 48, keyitems 66 + **[lượt 28] areas 81 entry / 205 ô / 195 nội dung / 205 cặp areaCells + 63 khu con / 84 cell**) — 9 case PASS
-- [ ] *(phụ, ngoài roadmap gốc)* `og:image` + `404.html` + `robots.txt`/`sitemap.xml` cho GitHub Pages; kiểm spell layout mobile cho bảng res & lưới area *(lượt 29: làm cả hai mục này)*
+- [x] **[Lượt 29 ✅] `test.html`: assert đủ 11 chủ đề (216 enemies / 60 materials / tổng 1144)** — case 1 nâng cấp; 9 case PASS (HTTP server, Edge headless)
+- [x] **[Lượt 29 ✅] `og:image` + `404.html` + `robots.txt` + `sitemap.xml` + mobile layout** — `img/og-cover.png` (PNG thật 1200×630, sinh GDI+ vì mọi ảnh repo là WebP đuôi .png — crawler og không giải mã được); meta OG/Twitter cho cả 3 trang; `404.html` tĩnh theo theme; `robots.txt` + `sitemap.xml` (index + 11 URL list); QA mobile 390px bằng iframe probe 390 (`scrollWidth` đo thật — headless cũ Edge ép min window width ~500px nên phải bọc iframe): phát hiện `DIV.panel` tràn 13px trên trang foe do grid implicit track theo min-content → fix `.detail-body { grid-template-columns: minmax(0, 1fr) }` + bọc `.res-table` và bảng ô lưới khu vực trong `.table-scroll` (cuộn ngang) — check.ps1 thêm whitelist `img/og-cover.png` vào quét file lẻ
 
 ---
 

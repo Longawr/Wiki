@@ -123,7 +123,7 @@
       resRow('Miễn', immune, res) +
       resRow('Hấp thụ', absorb, res);
     if (!rows) return '<p class="muted">Cân bằng với mọi nguyên tố — không có điểm yếu/kháng nổi bật theo wiki.</p>';
-    return '<table class="data-table res-table"><tbody>' + rows + '</tbody></table>' +
+    return '<div class="table-scroll"><table class="data-table res-table"><tbody>' + rows + '</tbody></table></div>' +
       '<p class="muted res-note">Số % lấy từ bảng FoeTableEBF5 của wiki: phần trăm kháng (dương) giảm sát thương, phần trăm âm tăng sát thương nhận vào, 200% là hấp thụ (chữa HP).</p>';
   }
 
@@ -685,7 +685,7 @@
             }).join('') +
           '</ul><p class="muted small">Các khu con được tách khỏi ô lưới của khu mẹ để tra cứu riêng.</p></div>' : '') +
         ((item.cells || []).length ?
-          '<div class="panel"><h3>Ô lưới — Quái và Key Items</h3><table class="data-table"><tbody>' +
+          '<div class="panel"><h3>Ô lưới — Quái và Key Items</h3><div class="table-scroll"><table class="data-table"><tbody>' +
             item.cells.map(function (c) {
               var rows = '';
               (c.foes || []).forEach(function (s) { rows += '<li>' + txt(s) + '</li>'; });
@@ -699,7 +699,7 @@
                 '<td>' + foesHtml + '<hr style="border:none;border-top:1px solid #eee;margin:6px 0">' +
                 '<div>' + keysHtml + '</div>' + notesHtml + '</td></tr>';
             }).join('') +
-          '</tbody></table></div>' : '');
+          '</tbody></table></div></div>' : '');
     }
 
     /* ----- Triệu hồi ----- */

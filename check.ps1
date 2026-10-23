@@ -171,7 +171,9 @@ if ($missing.Count -eq 0) {
 $root = (Get-Location).Path
 $diskFiles = @(Get-ChildItem $imgRoot -Recurse -File |
   ForEach-Object { ($_.FullName.Substring($root.Length + 1)) -replace '\\', '/' })
-$unused = @($diskFiles | Where-Object { $uniq -notcontains $_ })
+# File đặt ở gốc repo dùng ngoài data.js (og:image trong meta HTML) — không phải file lẻ
+$whitelist = @('img/og-cover.png')
+$unused = @($diskFiles | Where-Object { $uniq -notcontains $_ -and $whitelist -notcontains $_ })
 if ($unused.Count -eq 0) {
   Ok ("img/: " + $diskFiles.Count + " file, khong co file le trong")
 } else {

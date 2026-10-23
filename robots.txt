@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://longawr.github.io/Wiki/sitemap.xml

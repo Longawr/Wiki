@@ -290,7 +290,7 @@ code {
     radial-gradient(500px 200px at 90% 0%, rgba(124, 108, 255, 0.2), transparent 60%),
     linear-gradient(150deg, var(--panel), var(--bg-2));
 }
-.detail-body { display: grid; gap: 16px; margin-top: 18px; }
+.detail-body { display: grid; gap: 16px; margin-top: 18px; grid-template-columns: minmax(0, 1fr); }
 
 .detail-head-row { display: flex; align-items: flex-start; gap: 20px; }
 .detail-media { flex-shrink: 0; }
@@ -350,6 +350,9 @@ ul.bad li::marker { color: var(--danger); }
 .data-table tr:last-child td { border-bottom: none; }
 .data-table td:first-child { color: #fff; font-weight: 600; white-space: nowrap; }
 .data-table a { color: var(--accent-2); }
+
+/* Bảng rộng (khắc chế nguyên tố, ô lưới khu vực) — cuộn ngang trên màn nhỏ */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
 
 .tips li::marker { color: var(--accent-2); }
 

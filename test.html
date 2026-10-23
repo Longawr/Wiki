@@ -37,11 +37,24 @@
       return (window.EBF5DATA.statuses || []).some(function (s) { return s.id === id; });
     }
 
-    // 1. Dữ liệu sẵn sàng
-    add('EBF5DATA: 11 chủ đề, 48 trạng thái, 66 key items', function () {
-      assert(window.EBF5DATA.categories.length === 11, 'categories != 11');
-      assert(window.EBF5DATA.statuses.length === 48, 'statuses != 48');
-      assert(window.EBF5DATA.keyitems.length === 66, 'keyitems != 66');
+    // 1. Dữ liệu sẵn sàng — assert đủ 11 chủ đề (lượt 29: khớp check.ps1, tổng 1144)
+    add('EBF5DATA: 11 chủ đề đủ bộ (216 foe / 183 skill / 46 item / 60 material / 228 trang bị / 48 status / 81 khu / 66 key / 191 summon / 20 LB) — tổng 1144', function () {
+      var d = window.EBF5DATA;
+      assert(d.categories.length === 11, 'categories != 11');
+      assert(d.characters.length === 5, 'characters != 5 (là ' + d.characters.length + ')');
+      assert(d.enemies.length === 216, 'enemies != 216 (là ' + d.enemies.length + ')');
+      assert(d.skills.length === 183, 'skills != 183 (là ' + d.skills.length + ')');
+      assert(d.items.length === 46, 'items != 46 (là ' + d.items.length + ')');
+      assert(d.materials.length === 60, 'materials != 60 (là ' + d.materials.length + ')');
+      assert(d.equipment.length === 228, 'equipment != 228 (là ' + d.equipment.length + ')');
+      assert(d.statuses.length === 48, 'statuses != 48');
+      assert(d.areas.length === 81, 'areas != 81 (là ' + d.areas.length + ')');
+      assert(d.keyitems.length === 66, 'keyitems != 66');
+      assert(d.summons.length === 191, 'summons != 191 (là ' + d.summons.length + ')');
+      assert(d.limits.length === 20, 'limits != 20 (là ' + d.limits.length + ')');
+      var total = ['characters', 'enemies', 'skills', 'items', 'materials', 'equipment', 'statuses', 'areas', 'keyitems', 'summons', 'limits']
+        .reduce(function (s, k) { return s + d[k].length; }, 0);
+      assert(total === 1144, 'tổng mục != 1144 (là ' + total + ')');
     });
 
     // 2. esc (qua EBF5App nếu được xuất — nếu không dùng thử gián tiếp qua withStatusTips)
